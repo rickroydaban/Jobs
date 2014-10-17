@@ -7,12 +7,13 @@
 //
 
 #import "VCPage.h"
+#import "CellSelector.h"
 
-@interface VCCountrySelection : VCPage<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
-
+@interface VCCountrySelection : VCPage<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, CellSelector>
 
 @property (strong, nonatomic) IBOutlet UITableView *lv;
-
 @property (strong, nonatomic) IBOutlet UITextField *fieldSearch;
+
+@property (strong, nonatomic) NSMutableArray *selectedFields;
 
 @end

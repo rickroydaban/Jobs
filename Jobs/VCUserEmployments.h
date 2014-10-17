@@ -10,5 +10,6 @@
 
 @interface VCUserEmployments : VCUserPage
 
+@property (strong, nonatomic) IBOutlet UIView *bottomNavigator;
 
 @end

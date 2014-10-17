@@ -13,6 +13,7 @@
 
 @interface VCCountrySelection (){
     BOOL *_isSearching;
+    UITableViewCell *_selectedCell;
     
     NSArray *_countryArray;
     CountryList *_countryList;
@@ -28,6 +29,9 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    if(self.selectedFields != nil)
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(done)];
     
     _isSearching = NO;
     _countryArray = @[@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"J",@"K",@"L",@"M",@"N",@"O",@"P",@"Q",@"R",@"S",@"T",@"U",@"V",@"W",@"Y",@"Z"];
@@ -69,6 +73,11 @@
     self.lv.dataSource = self;
     self.lv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.fieldSearch.delegate = self;
+}
+
+- (void)done{
+    _selectedCell.detailTextLabel.text = [NSString stringWithFormat:@"%d",_selectedFields.count];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
@@ -122,12 +131,25 @@
     cell.textLabel.text = [[_resultsDictionary objectForKey:[_resultsArray objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     cell.textLabel.textColor = [VelosiColors blackFont];
     cell.textLabel.font = [UIFont systemFontOfSize:15];
+    
+    cell. accessoryType = (self.selectedFields!=nil && [self.selectedFields containsObject:cell.textLabel.text])?UITableViewCellAccessoryCheckmark:UITableViewCellAccessoryNone;
+    
+
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [[VCSearchJob getInstance].lv cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]].detailTextLabel.text = [[_resultsDictionary objectForKey:[_resultsArray objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
-    [self.navigationController popViewControllerAnimated:TRUE];
+    if(self.selectedFields == nil){
+        _selectedCell.detailTextLabel.text = [[_resultsDictionary objectForKey:[_resultsArray objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
+        [self.navigationController popViewControllerAnimated:TRUE];
+    }else{
+        if([self.selectedFields containsObject:[tableView cellForRowAtIndexPath:indexPath].textLabel.text])
+            [self.selectedFields removeObject:[tableView cellForRowAtIndexPath:indexPath].textLabel.text];
+        else
+            [self.selectedFields addObject:[tableView cellForRowAtIndexPath:indexPath].textLabel.text];
+
+        [tableView reloadData];
+    }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -149,4 +171,9 @@
 - (IBAction)cancel:(id)sender {
     [self.view endEditing:YES];
 }
+
+- (void)cellSelectorSelectedCell:(UITableViewCell *)cell{
+    _selectedCell = cell;
+}
+
 @end

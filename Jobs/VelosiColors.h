@@ -25,5 +25,6 @@
 + (UIColor *)navigationBarBackground;
 + (UIColor *)listSeparator;
 + (UIColor *)homePageSectionBackground;
++ (UIColor *)redHighlight;
 
 @end

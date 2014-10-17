@@ -10,7 +10,7 @@
 #import "VCUserPage.h"
 #import "VelosiPickerRowSelectionDelegate.h"
 
-@interface VCUserDetails : VCUserPage<UITextFieldDelegate, UITextViewDelegate, VelosiPickerRowSelectionDelegate>
+@interface VCUserDetails : VCUserPage<UITextFieldDelegate, UITextViewDelegate, VelosiPickerRowSelectionDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *lvContainer;
 @property (strong, nonatomic) IBOutlet UIView *bottomNavigator;

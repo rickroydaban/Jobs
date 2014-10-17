@@ -88,6 +88,7 @@ static OfflineGateway *sharedOfflineGateway = nil;
 }
 
 - (void)saveUserDataWithFname:(NSString *)fname lname:(NSString *)lname completion:(NSString *)completion email:(NSString *)email altEmail:(NSString *)altEmail gender:(NSString *)gender phone:(NSString *)phone altPhone:(NSString *)altPhone mobile:(NSString *)mobile birthday:(NSString *) bday address:(NSString *)address city:(NSString *)city countryState:(NSString *)countryState postCode:(NSString *)postCode country:(NSString *)country linkedIn:(NSString *)linkedIn twitter:(NSString *)twitter skype:(NSString *)skype isEUAuthorised:(BOOL)isEUAuthorized university:(NSString *)university subject:(NSString *)subject yearGraduated:(NSNumber *)yearGraduated hea:(NSString *)hea driverLicense:(NSString *)driverLicense nationality:(NSString *)nationality ethnicity:(NSString *)ethnicity referrer:(NSNumber *)referrer maritalStatus:(NSString *)maritalStatus isPermanent:(BOOL)isPermanent isContract:(BOOL)isContract isTemporary:(BOOL)isTemporary isPartTime:(BOOL)isPartTime jobTitlePrefs:(NSString *)jobTitlePrefs currency:(NSString *)currency salaryFrom:(NSNumber *)salaryFrom salaryTo:(NSNumber *)salaryTo salaryType:(NSString *)salaryTpe mainSkills:(NSString *)mainSkills locationPrefs:(NSMutableArray *)locationPrefs relocationWillingness:(NSString *)relocationWillingness noticePeriod:(NSString *)noticePeriod availableFrom: (NSString *)availableFrom languages:(NSMutableArray *)languages allowAlerts:(BOOL)allowAlerts{
+    
     [_prefs setObject:email forKey:SESSION];
     [_prefs setObject:completion forKey:USERCOMPLETENESS];
     [_prefs setObject:fname forKey:USERFIRSTNAME];
@@ -115,7 +116,7 @@ static OfflineGateway *sharedOfflineGateway = nil;
     [_prefs setObject:driverLicense forKey:USERLICENSE];
     [_prefs setObject:nationality forKey:USERNATIONALITY];
     [_prefs setObject:ethnicity forKey:USERETHNICITY];
-    [_prefs setObject:[[_appDelegate.referrerDictionary objectForKey:referrer] objectForKey:@"Description"] forKey:USERREFERER];
+    [_prefs setObject:[_appDelegate.referrerDictionary objectForKey:referrer] forKey:USERREFERER];
     [_prefs setObject:maritalStatus forKey:USERSTATUS];
     [_prefs setBool:isPermanent forKey:USERISPERMANENT];
     [_prefs setBool:isContract forKey:USERISCONTRACT];

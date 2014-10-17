@@ -12,6 +12,7 @@
 #import "CountryList.h"
 #import "VCJobSummary.h"
 #import "MBProgressHUD.h"
+#import "VCCountrySelection.h"
 
 @interface VCSearchJob (){
     UITapGestureRecognizer *_mainViewTapRecognizer;
@@ -300,6 +301,8 @@ static VCSearchJob *instance;
         vcJobSummary.jobs = _results;
     }
     
+    if([segue.identifier isEqualToString:@"segueToCountrySelection"])
+        [(VCCountrySelection *)segue.destinationViewController cellSelectorSelectedCell:sender];
 }
 
 - (IBAction)segueToProfile:(id)sender {

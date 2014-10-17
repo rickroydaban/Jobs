@@ -10,6 +10,8 @@
 
 @interface LVUserDetail : UITableViewController
 
+@property (strong, nonatomic) NSMutableArray *preferredLocations;
+
 @property (strong, nonatomic) IBOutlet UITextField *fieldFirstName;
 @property (strong, nonatomic) IBOutlet UITextField *fieldLastName;
 @property (strong, nonatomic) IBOutlet UITextField *fieldEmail;

@@ -8,7 +8,7 @@
 
 #import "VCUserPage.h"
 
-@interface VCUserPassword : VCUserPage
+@interface VCUserPassword : VCUserPage<UIActionSheetDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *lvContainer;
 @property (strong, nonatomic) IBOutlet UIView *bottomNavigator;

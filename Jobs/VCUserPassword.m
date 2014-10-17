@@ -39,22 +39,30 @@
 }
 
 - (IBAction)toggleActions:(id)sender {
-    [self toggleActionToolbar];
+    [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Submit", @"Logout", nil] showInView:self.view];
 }
 
 - (IBAction)showUserApplicationPage:(id)sender {
     [self switchToApplicationsPage];
 }
 
-- (IBAction)submit:(id)sender {
-    NSLog(@"change password");
-}
-
-- (IBAction)logout:(id)sender {
-    [self logoutAndShowLogin:sender];
-}
 
 - (IBAction)advanceSearch:(id)sender {
     [self switchToAdvanceSearchPage:sender];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 0:
+            NSLog(@"Submit");
+            break;
+            
+        case 1:
+            NSLog(@"Logout");
+            break;
+            
+        default:
+            break;
+    }
 }
 @end

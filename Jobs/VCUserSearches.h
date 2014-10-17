@@ -10,4 +10,5 @@
 
 @interface VCUserSearches : VCUserPage
 
+@property (strong, nonatomic) IBOutlet UIView *bottomNavigator;
 @end

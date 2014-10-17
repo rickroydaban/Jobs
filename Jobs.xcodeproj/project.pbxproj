@@ -71,6 +71,7 @@
 		8F3F7D8A19DBE50B001C9D78 /* OfflineGateway.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfflineGateway.m; sourceTree = "<group>"; };
 		8F3F7D8C19DBF719001C9D78 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		8F3F7D8D19DBF719001C9D78 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		8F5853C619F0C8B000F89DEC /* CellSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellSelector.h; sourceTree = "<group>"; };
 		8F5A74B219EB9DEB0006DFAE /* UserDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetails.h; sourceTree = "<group>"; };
 		8F5A74B319EB9DEC0006DFAE /* UserDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetails.m; sourceTree = "<group>"; };
 		8F6CDDA819DD4302002D7079 /* VCUserDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCUserDetails.h; sourceTree = "<group>"; };
@@ -333,6 +334,7 @@
 			isa = PBXGroup;
 			children = (
 				8FC0C93319D41AC8006F3652 /* VelosiPickerRowSelectionDelegate.h */,
+				8F5853C619F0C8B000F89DEC /* CellSelector.h */,
 			);
 			name = protocols;
 			sourceTree = "<group>";

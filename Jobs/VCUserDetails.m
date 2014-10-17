@@ -9,6 +9,7 @@
 #import "VCUserDetails.h"
 #import "LVUserDetail.h"
 #import "VelosiDesigner.h"
+#import "VelosiColors.h"
 #import "DAKeyboardControl.h"
 #import "VelosiCustomPicker.h"
 #import "User.h"
@@ -29,6 +30,7 @@
     _bottomNavigator.layer.shadowOpacity = 1;
     _bottomNavigator.layer.shadowOffset = CGSizeMake(0, 0);
 
+//    _vcChild.preferredLocations = [self.appDelegate.offlineGateway getPreferredLocations];
     _lvContainer.layer.shadowColor = [UIColor blackColor].CGColor;
     _lvContainer.layer.shadowOpacity = 1;
     _lvContainer.layer.shadowOffset = CGSizeMake(0, 0);
@@ -74,6 +76,8 @@
     [self manageTextField:_vcChild.fieldSalaryType withValue:[self.appDelegate.offlineGateway getSalaryType]];
 
     _vcChild.cellCountry.detailTextLabel.text = [self.appDelegate.offlineGateway getCountry];
+    _vcChild.cellPreferredLocation.detailTextLabel.text = [NSString stringWithFormat:@"%d",_vcChild.preferredLocations.count];
+    
     _vcChild.switchEUAuthorized.on = [self.appDelegate.offlineGateway isEUAuthorized];
     _vcChild.switchWillAllowAlerts.on = [self.appDelegate.offlineGateway isAlertsAllowed];
     _vcChild.switchIsPermanent.on = [self.appDelegate.offlineGateway isPermanent];
@@ -200,19 +204,7 @@
 }
 
 - (IBAction)toggleActions:(id)sender {
-    [self toggleActionToolbar];
-}
-
-- (IBAction)save:(id)sender {
-    NSLog(@"save");
-}
-
-- (IBAction)closeAccount:(id)sender {
-    NSLog(@"Close account");
-}
-
-- (IBAction)logout:(id)sender {
-    [self logoutAndShowLogin:sender];
+    [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Save", @"Close Account", @"Logout", nil] showInView:self.view];
 }
 
 - (IBAction)advanceSearch:(id)sender {
@@ -232,7 +224,7 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
     [VelosiDesigner makeVelosiFocusedTextField:textField];
-    
+    textField.rightView = nil;
     if(textField == _vcChild.fieldGender)
         textField.inputView = _pickerGender;
     else if(textField == _vcChild.fieldBirthdate)
@@ -305,10 +297,33 @@
 
 - (void)manageTextField:(UITextField *)textField withValue:(NSString *)val{
     if(!val || [val isEqualToString:@""]){
-        textField.layer.borderWidth = 1;
-        textField.layer.borderColor = [UIColor redColor].CGColor;
+        textField.rightViewMode = UITextFieldViewModeAlways;
+        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(5, 0, 16, 18)];
+        img.image = [UIImage imageNamed:@"icon_warning"];
+        textField.rightView = img;
+        
     }
     
     textField.text = val;
 }
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 0:
+            NSLog(@"Save");
+            break;
+            
+        case 1:
+            NSLog(@"Close Account");
+            break;
+            
+        case 2:
+            [self logoutAndShowLogin:actionSheet];
+            break;
+            
+        default:
+            break;
+    }
+}
+
 @end
