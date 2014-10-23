@@ -54,5 +54,8 @@
     [_selectionDelegate pickerSelection:pickerView didSelectRow:row inComponent:component];
 }
 
+- (NSArray *)elements{
+    return _elements;
+}
 
 @end

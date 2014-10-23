@@ -20,6 +20,7 @@
 @property (strong, nonatomic, readonly) NSArray *propListLicense;
 @property (strong, nonatomic, readonly) NSArray *propListRelocate;
 @property (strong, nonatomic, readonly) NSArray *propListEthnicity;
+@property (strong, nonatomic, readonly) NSArray *propListLanguages;
 
 @property (strong, nonatomic, readonly) NSDictionary *propDictSalaryType;
 @property (strong, nonatomic, readonly) NSDictionary *propDictAvailability;

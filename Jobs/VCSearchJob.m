@@ -5,7 +5,7 @@
 //  Created by Rick Royd Aban on 9/23/14.
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
-
+    
 #import "VCSearchJob.h"
 #import "VelosiDesigner.h"
 #import "VelosiCustomPicker.h"
@@ -13,6 +13,7 @@
 #import "VCJobSummary.h"
 #import "MBProgressHUD.h"
 #import "VCCountrySelection.h"
+#import "DAKeyboardControl.h"
 
 @interface VCSearchJob (){
     UITapGestureRecognizer *_mainViewTapRecognizer;
@@ -41,6 +42,8 @@ static VCSearchJob *instance;
         instance = nil;
     instance = self;
 
+    [self.view addKeyboardPanningWithActionHandler:nil];
+    
     _countryList = [[CountryList alloc] init];
     _searchIns = @[@"Job Title and Description", @"Job Title", @"Job Description"];
     _dSearchIns = [NSDictionary dictionaryWithObjects:@[@"0", @"1", @"2"] forKeys:_searchIns];

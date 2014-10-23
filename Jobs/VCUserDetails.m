@@ -25,12 +25,14 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
+
+    self.locationprefs = [NSMutableArray arrayWithArray:[self.appDelegate.offlineGateway getPreferredLocations]];
+    self.languages = [NSMutableArray arrayWithArray:[self.appDelegate.offlineGateway getLanguages]];
     
     _bottomNavigator.layer.shadowColor = [UIColor blackColor].CGColor;
     _bottomNavigator.layer.shadowOpacity = 1;
     _bottomNavigator.layer.shadowOffset = CGSizeMake(0, 0);
 
-//    _vcChild.preferredLocations = [self.appDelegate.offlineGateway getPreferredLocations];
     _lvContainer.layer.shadowColor = [UIColor blackColor].CGColor;
     _lvContainer.layer.shadowOpacity = 1;
     _lvContainer.layer.shadowOffset = CGSizeMake(0, 0);
@@ -76,15 +78,16 @@
     [self manageTextField:_vcChild.fieldSalaryType withValue:[self.appDelegate.offlineGateway getSalaryType]];
 
     _vcChild.cellCountry.detailTextLabel.text = [self.appDelegate.offlineGateway getCountry];
-    _vcChild.cellPreferredLocation.detailTextLabel.text = [NSString stringWithFormat:@"%d",_vcChild.preferredLocations.count];
-    
+    _vcChild.cellPreferredLocation.detailTextLabel.text = [NSString stringWithFormat:@"%d",self.locationprefs.count];
+    _vcChild.cellLanguages.detailTextLabel.text = [NSString stringWithFormat:@"%d",self.languages.count];
+
     _vcChild.switchEUAuthorized.on = [self.appDelegate.offlineGateway isEUAuthorized];
     _vcChild.switchWillAllowAlerts.on = [self.appDelegate.offlineGateway isAlertsAllowed];
     _vcChild.switchIsPermanent.on = [self.appDelegate.offlineGateway isPermanent];
     _vcChild.switchIsTemporary.on = [self.appDelegate.offlineGateway isTemporary];
     _vcChild.switchIsContract.on = [self.appDelegate.offlineGateway isContract];
     _vcChild.switchIsParttime.on = [self.appDelegate.offlineGateway isPartTime];
-        _vcChild.fieldMainSkills.text = [self.appDelegate.offlineGateway getMainSkills];
+    _vcChild.fieldMainSkills.text = [self.appDelegate.offlineGateway getMainSkills];
     
     _vcChild.fieldFirstName.delegate = self;
     _vcChild.fieldLastName.delegate = self;
@@ -172,7 +175,7 @@
 }
 
 - (void)selectPicker:(UIPickerView *)picker list:(NSArray *)list field:(UITextField *)tf{
-    if(tf.text && tf.text.length>0)
+    if(tf.text && tf.text.length>0 && [list containsObject:tf.text])
         [picker selectRow:[list indexOfObject:tf.text] inComponent:0 animated:NO];
 }
 
@@ -211,10 +214,12 @@
     [self switchToAdvanceSearchPage:sender];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{    
     //NOTE: this is triggered first before viewdidload
-    if([segue.identifier isEqualToString:@"segueEmbedDetail"])
+    if([segue.identifier isEqualToString:@"segueEmbedDetail"]){
         _vcChild = (LVUserDetail *)segue.destinationViewController;
+        _vcChild.vcUserDetails = self;
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{

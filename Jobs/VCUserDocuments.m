@@ -39,8 +39,8 @@
     [self switchToApplicationsPage];
 }
 
-- (IBAction)logout:(id)sender {
-    [self logoutAndShowLogin:sender];
+- (IBAction)toggleActions:(id)sender {
+    [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Save", @"Close Account", @"Logout", nil] showInView:self.view];
 }
 
 - (IBAction)advanceSearch:(id)sender {

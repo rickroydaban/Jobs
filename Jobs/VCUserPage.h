@@ -9,7 +9,7 @@
 #import "VCPage.h"
 #import "VCUserSwitchingPage.h"
 
-@interface VCUserPage : VCPage
+@interface VCUserPage : VCPage<UIActionSheetDelegate>
 
 - (void)switchToDetailPage;
 - (void)switchToSearchPage;

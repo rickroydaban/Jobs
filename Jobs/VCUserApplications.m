@@ -37,4 +37,9 @@
 - (IBAction)showUserPassword:(id)sender {
     [self switchToPasswordPage];
 }
+
+- (IBAction)toggleActions:(id)sender {
+    [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Save", @"Close Account", @"Logout", nil] showInView:self.view];
+}
+
 @end

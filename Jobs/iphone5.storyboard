@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vZD-LZ-ZrJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vZD-LZ-ZrJ">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
         <!--Job Search-->
@@ -104,7 +104,7 @@
                                 <action selector="segueToProfile:" destination="o70-XI-uKh" id="EBV-fK-dwh"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Eeo-1q-U4c">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="Eeo-1q-U4c">
                             <connections>
                                 <action selector="done:" destination="o70-XI-uKh" id="ueH-ss-6Ji"/>
                             </connections>
@@ -272,8 +272,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="Job Summary" id="Nxn-9x-ooj">
                         <barButtonItem key="backBarButtonItem" title="Back" id="lc0-gt-Cuy"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="k7b-r6-nz5">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="k7b-r6-nz5">
                             <color key="tintColor" red="0.93725496529999996" green="0.93725496529999996" blue="0.93725496529999996" alpha="1" colorSpace="deviceRGB"/>
+                            <connections>
+                                <action selector="showActions:" destination="ofl-ar-hqK" id="nyH-Kp-0NU"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -297,16 +300,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RPO-sd-1uB">
-                                <rect key="frame" x="0.0" y="457" width="320" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <state key="normal" title="Forgot Password">
-                                    <color key="titleColor" red="0.1647058824" green="0.1647058824" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VXY-1T-GU1">
-                                <rect key="frame" x="0.0" y="495" width="320" height="30"/>
+                                <rect key="frame" x="161" y="530" width="159" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <state key="normal" title="Advance Search">
                                     <color key="titleColor" red="0.1647058824" green="0.1647058824" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
@@ -317,17 +312,17 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xgn-Vr-KpM">
-                                <rect key="frame" x="30" y="231" width="260" height="30"/>
+                                <rect key="frame" x="30" y="274" width="260" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dpM-jG-q7y">
-                                <rect key="frame" x="30" y="269" width="260" height="30"/>
+                                <rect key="frame" x="30" y="312" width="260" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kgb-fm-yle">
-                                <rect key="frame" x="0.0" y="307" width="320" height="40"/>
+                                <rect key="frame" x="0.0" y="350" width="320" height="40"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <state key="normal" title="LOGIN">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -336,6 +331,17 @@
                                 <connections>
                                     <action selector="login" destination="6GN-yV-U5G" eventType="touchUpInside" id="Uhx-G2-1fX"/>
                                 </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo_applusvelosi" translatesAutoresizingMaskIntoConstraints="NO" id="Svm-BO-TX7">
+                                <rect key="frame" x="73" y="173" width="174" height="69"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RPO-sd-1uB">
+                                <rect key="frame" x="0.0" y="530" width="153" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="Forgot Password">
+                                    <color key="titleColor" red="0.1647058824" green="0.1647058824" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.35686274509999999" blue="0.062745098040000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -392,6 +398,62 @@
             </objects>
             <point key="canvasLocation" x="1405" y="450"/>
         </scene>
+        <!--Language Selection-->
+        <scene sceneID="N6r-p7-J53">
+            <objects>
+                <viewController id="Pqf-8F-x3s" customClass="VCLanguages" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="anx-7E-HyY"/>
+                        <viewControllerLayoutGuide type="bottom" id="AW5-99-iNS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Z2R-C6-aW8">
+                        <rect key="frame" x="0.0" y="44" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="zLe-sM-Ddn">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="a3m-gu-JSP" style="IBUITableViewCellStyleDefault" id="H90-Hh-kfL">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="H90-Hh-kfL" id="qEM-RP-jRT">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="a3m-gu-JSP">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Language Selection" id="DQo-gT-xds">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="XWg-Q4-tbC">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="done:" destination="Pqf-8F-x3s" id="jid-Mm-2mC"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="lv" destination="zLe-sM-Ddn" id="QSK-Vg-v5Y"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kAY-Q4-782" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1405" y="1137"/>
+        </scene>
         <!--Details-->
         <scene sceneID="fDa-4i-0ee">
             <objects>
@@ -421,7 +483,7 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ae2-YB-eF3">
                                                         <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_details">
+                                                        <state key="normal" image="icon_user_details_sel">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                     </button>
@@ -439,7 +501,7 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aWu-7F-WUc">
                                                         <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_documents">
+                                                        <state key="normal" image="icon_user_documents_sel">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
@@ -460,7 +522,7 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hF-fx-PNT">
                                                         <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_employment">
+                                                        <state key="normal" image="icon_user_employment_sel">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
@@ -481,7 +543,7 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ecg-9n-HNV">
                                                         <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_searches">
+                                                        <state key="normal" image="icon_user_searches_sel">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
@@ -502,7 +564,7 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FdT-Y3-xA8">
                                                         <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_password">
+                                                        <state key="normal" image="icon_user_password_sel">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
@@ -523,7 +585,7 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ssB-4X-CGQ">
                                                         <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_applications">
+                                                        <state key="normal" image="icon_user_applications_sel">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
@@ -1188,7 +1250,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2yq-qQ-EXc">
-                                                    <rect key="frame" x="152" y="9" width="160" height="30"/>
+                                                    <rect key="frame" x="167" y="10" width="145" height="30"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -1208,7 +1270,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rWm-XU-R8d">
-                                                    <rect key="frame" x="152" y="9" width="160" height="30"/>
+                                                    <rect key="frame" x="167" y="10" width="145" height="30"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -1228,7 +1290,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rkh-i9-rJK">
-                                                    <rect key="frame" x="152" y="8" width="160" height="30"/>
+                                                    <rect key="frame" x="167" y="9" width="145" height="30"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -1255,6 +1317,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="Pqf-8F-x3s" kind="show" id="eHb-BE-pzg"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1531,7 +1596,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZqK-hN-kvV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2073" y="479"/>
+            <point key="canvasLocation" x="2073" y="476"/>
         </scene>
         <!--User Switching Page-->
         <scene sceneID="jSR-Ae-LK4">
@@ -1807,10 +1872,10 @@
                                 <action selector="advanceSearch:" destination="zDl-L1-673" id="AHW-Lj-bBd"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Logout" id="H92-gN-EwD">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="H92-gN-EwD">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <action selector="logout:" destination="zDl-L1-673" id="wlr-kW-TLT"/>
+                                <action selector="toggleActions:" destination="zDl-L1-673" id="5Cm-la-CTP"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1979,10 +2044,10 @@
                                 <action selector="advanceSearch:" destination="FNq-eS-jrf" id="3H2-61-kYz"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Logout" id="FK2-fW-qj0">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="FK2-fW-qj0">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <action selector="logout:" destination="FNq-eS-jrf" id="Zmr-kq-0Mp"/>
+                                <action selector="toggleActions:" destination="FNq-eS-jrf" id="J3h-aI-SnM"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -2148,10 +2213,10 @@
                                 <action selector="advanceSearch:" destination="U5C-HV-E0s" id="6tR-wg-2yL"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Logout" id="798-es-Iws">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="798-es-Iws">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <action selector="logout:" destination="U5C-HV-E0s" id="7xH-tk-m0R"/>
+                                <action selector="toggleActions:" destination="U5C-HV-E0s" id="z6S-mE-Na4"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -2673,10 +2738,10 @@
                                 <action selector="advanceSearch:" destination="a3h-Qf-ROz" id="WA3-kF-gsr"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Logout" id="gJK-9F-xib">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="gJK-9F-xib">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <action selector="logout:" destination="a3h-Qf-ROz" id="tzB-89-c2A"/>
+                                <action selector="toggleActions:" destination="a3h-Qf-ROz" id="K1C-aD-hd1"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -2710,14 +2775,21 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon_user_applications" width="42" height="42"/>
-        <image name="icon_user_details" width="42" height="42"/>
-        <image name="icon_user_documents" width="42" height="42"/>
-        <image name="icon_user_employment" width="42" height="42"/>
-        <image name="icon_user_password" width="42" height="42"/>
-        <image name="icon_user_searches" width="42" height="42"/>
+        <image name="icon_user_applications" width="65" height="48"/>
+        <image name="icon_user_applications_sel" width="48" height="48"/>
+        <image name="icon_user_details" width="48" height="48"/>
+        <image name="icon_user_details_sel" width="48" height="48"/>
+        <image name="icon_user_documents" width="48" height="48"/>
+        <image name="icon_user_documents_sel" width="48" height="48"/>
+        <image name="icon_user_employment" width="48" height="48"/>
+        <image name="icon_user_employment_sel" width="48" height="48"/>
+        <image name="icon_user_password" width="65" height="48"/>
+        <image name="icon_user_password_sel" width="48" height="48"/>
+        <image name="icon_user_searches" width="48" height="48"/>
+        <image name="icon_user_searches_sel" width="48" height="48"/>
+        <image name="logo_applusvelosi" width="291" height="127"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dGl-6l-FFp"/>
+        <segue reference="Gni-y4-Rpb"/>
     </inferredMetricsTieBreakers>
 </document>

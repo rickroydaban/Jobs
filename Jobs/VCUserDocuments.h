@@ -8,7 +8,7 @@
 
 #import "VCUserPage.h"
 
-@interface VCUserDocuments : VCUserPage
+@interface VCUserDocuments : VCUserPage<UIActionSheetDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *lv;
 @property (strong, nonatomic) IBOutlet UIView *bottomNavigator;

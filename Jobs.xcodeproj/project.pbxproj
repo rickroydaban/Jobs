@@ -27,6 +27,7 @@
 		8F822C7A19DAAED900DB597E /* JobDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F822C7919DAAED900DB597E /* JobDetail.m */; };
 		8F877F9D19D5123C00B0F820 /* CountryList.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F877F9C19D5123C00B0F820 /* CountryList.m */; };
 		8F877FA219D5687B00B0F820 /* VCLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F877FA119D5687B00B0F820 /* VCLogin.m */; };
+		8FA1799D19F4B05F00F6AF24 /* VCLanguages.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA1799C19F4B05F00F6AF24 /* VCLanguages.m */; };
 		8FAB94A919D909A4008D23C8 /* Job.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAB94A819D909A4008D23C8 /* Job.m */; };
 		8FAB94AC19D93B46008D23C8 /* CellJobSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAB94AB19D93B46008D23C8 /* CellJobSummary.m */; };
 		8FAB94AF19D93D49008D23C8 /* VCJobSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAB94AE19D93D49008D23C8 /* VCJobSummary.m */; };
@@ -100,6 +101,8 @@
 		8F877F9C19D5123C00B0F820 /* CountryList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountryList.m; sourceTree = "<group>"; };
 		8F877FA019D5687B00B0F820 /* VCLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCLogin.h; sourceTree = "<group>"; };
 		8F877FA119D5687B00B0F820 /* VCLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCLogin.m; sourceTree = "<group>"; };
+		8FA1799B19F4B05F00F6AF24 /* VCLanguages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCLanguages.h; sourceTree = "<group>"; };
+		8FA1799C19F4B05F00F6AF24 /* VCLanguages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCLanguages.m; sourceTree = "<group>"; };
 		8FAB94A719D909A4008D23C8 /* Job.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Job.h; sourceTree = "<group>"; };
 		8FAB94A819D909A4008D23C8 /* Job.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Job.m; sourceTree = "<group>"; };
 		8FAB94AA19D93B46008D23C8 /* CellJobSummary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellJobSummary.h; sourceTree = "<group>"; };
@@ -172,6 +175,8 @@
 				8F7EDE4219E5318A00DCB230 /* LVUserDetail.h */,
 				8F7EDE4319E5318A00DCB230 /* LVUserDetail.m */,
 				8F6CDDAE19DD49A9002D7079 /* VCUserDocuments.h */,
+				8FA1799B19F4B05F00F6AF24 /* VCLanguages.h */,
+				8FA1799C19F4B05F00F6AF24 /* VCLanguages.m */,
 				8F6CDDAF19DD49A9002D7079 /* VCUserDocuments.m */,
 				8F6CDDB119DD49B5002D7079 /* VCUserEmployments.h */,
 				8F6CDDB219DD49B5002D7079 /* VCUserEmployments.m */,
@@ -439,6 +444,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FA1799D19F4B05F00F6AF24 /* VCLanguages.m in Sources */,
 				8F3F7D8B19DBE50B001C9D78 /* OfflineGateway.m in Sources */,
 				8FC0C92E19D41AAD006F3652 /* VelosiCustomPicker.m in Sources */,
 				8F6CDDAA19DD4302002D7079 /* VCUserDetails.m in Sources */,

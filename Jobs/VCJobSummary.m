@@ -110,4 +110,9 @@
     vcJobDetails.job = [self.jobs objectAtIndex:((CellJobSummary *)sender).tag];
 }
 
+- (IBAction)showActions:(id)sender {
+    [[[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Reload Search", @"Save Search", nil] showInView:self.view];
+}
+
+
 @end
