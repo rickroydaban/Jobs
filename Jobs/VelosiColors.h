@@ -26,5 +26,9 @@
 + (UIColor *)listSeparator;
 + (UIColor *)homePageSectionBackground;
 + (UIColor *)redHighlight;
++ (UIColor *)blackSidebarFont;
++ (UIColor *)blackSidebarBG;
++ (UIColor *)blackSidebarCellBG;
++ (UIColor *)blackSidebarSelectedCellBG;
 
 @end

@@ -70,4 +70,25 @@
     return [UIColor colorWithRed:187/255.0f green:51/255.0f blue:51/255.0f alpha:1.0f];
 }
 
++ (UIColor *)blackSidebarBG{
+    return [UIColor colorWithRed:58/255.0f green:58/255.0f blue:58/255.0f alpha:1.0f];
+}
+
++ (UIColor *)blackSidebarFont{
+    return [UIColor colorWithRed:208/255.0f green:208/255.0f blue:208/255.0f alpha:1.0f];
+}
+
+
++ (UIColor *)blackSidebarCellBG{
+    return [UIColor colorWithRed:74/255.0f green:74/255.0f blue:74/255.0f alpha:1.0f];
+}
+
++ (UIColor *)blackSidebarSelectedCellBG{
+    return [UIColor colorWithRed:33/255.0f green:33/255.0f blue:33/255.0f alpha:1.0f];
+}
+
++ (UIColor *)blackSidebarCellSeparator{
+    return [UIColor colorWithRed:18/255.0f green:18/255.0f blue:18/255.0f alpha:1.0f];
+}
+
 @end

@@ -14,6 +14,8 @@
 		8F3F7D8B19DBE50B001C9D78 /* OfflineGateway.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3F7D8A19DBE50B001C9D78 /* OfflineGateway.m */; };
 		8F3F7D8E19DBF719001C9D78 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3F7D8D19DBF719001C9D78 /* User.m */; };
 		8F5A74B419EB9DEC0006DFAE /* UserDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5A74B319EB9DEC0006DFAE /* UserDetails.m */; };
+		8F5D8B5819F8C97F00EEC020 /* VCSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5D8B5719F8C97F00EEC020 /* VCSlider.m */; };
+		8F5D8B5B19F8F71500EEC020 /* CellSidebar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5D8B5A19F8F71500EEC020 /* CellSidebar.m */; };
 		8F6CDDAA19DD4302002D7079 /* VCUserDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6CDDA919DD4302002D7079 /* VCUserDetails.m */; };
 		8F6CDDAD19DD499E002D7079 /* VCUserSearches.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6CDDAC19DD499E002D7079 /* VCUserSearches.m */; };
 		8F6CDDB019DD49A9002D7079 /* VCUserDocuments.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6CDDAF19DD49A9002D7079 /* VCUserDocuments.m */; };
@@ -75,6 +77,10 @@
 		8F5853C619F0C8B000F89DEC /* CellSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellSelector.h; sourceTree = "<group>"; };
 		8F5A74B219EB9DEB0006DFAE /* UserDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetails.h; sourceTree = "<group>"; };
 		8F5A74B319EB9DEC0006DFAE /* UserDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetails.m; sourceTree = "<group>"; };
+		8F5D8B5619F8C97F00EEC020 /* VCSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCSlider.h; sourceTree = "<group>"; };
+		8F5D8B5719F8C97F00EEC020 /* VCSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCSlider.m; sourceTree = "<group>"; };
+		8F5D8B5919F8F71500EEC020 /* CellSidebar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellSidebar.h; sourceTree = "<group>"; };
+		8F5D8B5A19F8F71500EEC020 /* CellSidebar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellSidebar.m; sourceTree = "<group>"; };
 		8F6CDDA819DD4302002D7079 /* VCUserDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCUserDetails.h; sourceTree = "<group>"; };
 		8F6CDDA919DD4302002D7079 /* VCUserDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCUserDetails.m; sourceTree = "<group>"; };
 		8F6CDDAB19DD499E002D7079 /* VCUserSearches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCUserSearches.h; sourceTree = "<group>"; };
@@ -234,6 +240,8 @@
 			children = (
 				8FC0C91019D41A11006F3652 /* AppDelegate.h */,
 				8FC0C91119D41A11006F3652 /* AppDelegate.m */,
+				8F5D8B5619F8C97F00EEC020 /* VCSlider.h */,
+				8F5D8B5719F8C97F00EEC020 /* VCSlider.m */,
 				8FC0C92219D41A69006F3652 /* VCPage.h */,
 				8FC0C92319D41A69006F3652 /* VCPage.m */,
 				8FC0C91B19D41A4B006F3652 /* pages */,
@@ -331,6 +339,8 @@
 				8FAB94AB19D93B46008D23C8 /* CellJobSummary.m */,
 				8F3F7D8519DBAA4B001C9D78 /* CellDetail.h */,
 				8F3F7D8619DBAA4B001C9D78 /* CellDetail.m */,
+				8F5D8B5919F8F71500EEC020 /* CellSidebar.h */,
+				8F5D8B5A19F8F71500EEC020 /* CellSidebar.m */,
 			);
 			name = customviews;
 			sourceTree = "<group>";
@@ -461,6 +471,7 @@
 				8FC0C93119D41AB8006F3652 /* VelosiDesigner.m in Sources */,
 				8FC0C91A19D41A43006F3652 /* OnlineGateway.m in Sources */,
 				8F25E12619DE47DD0043C6F0 /* VCUserPage.m in Sources */,
+				8F5D8B5819F8C97F00EEC020 /* VCSlider.m in Sources */,
 				8F25E12919DE4A410043C6F0 /* VCUserSwitchingPage.m in Sources */,
 				8F877FA219D5687B00B0F820 /* VCLogin.m in Sources */,
 				8FAB94AC19D93B46008D23C8 /* CellJobSummary.m in Sources */,
@@ -471,6 +482,7 @@
 				8F822C7A19DAAED900DB597E /* JobDetail.m in Sources */,
 				8F5A74B419EB9DEC0006DFAE /* UserDetails.m in Sources */,
 				8FAB94AF19D93D49008D23C8 /* VCJobSummary.m in Sources */,
+				8F5D8B5B19F8F71500EEC020 /* CellSidebar.m in Sources */,
 				8FC0C91619D41A25006F3652 /* MBProgressHUD.m in Sources */,
 				8FC0C92419D41A69006F3652 /* VCPage.m in Sources */,
 				8F6CDDB919DD5B4E002D7079 /* UserPageNavigators.m in Sources */,
