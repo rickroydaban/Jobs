@@ -30,5 +30,9 @@
 + (UIColor *)blackSidebarBG;
 + (UIColor *)blackSidebarCellBG;
 + (UIColor *)blackSidebarSelectedCellBG;
++ (UIColor *)whiteSidebarFont;
++ (UIColor *)whiteidebarBG;
++ (UIColor *)whiteSidebarCellBG;
++ (UIColor *)whiteSidebarSelectedCellBG;
 
 @end

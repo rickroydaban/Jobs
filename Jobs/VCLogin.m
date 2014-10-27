@@ -35,7 +35,7 @@
     
     self.fieldUsername.leftViewMode = UITextFieldViewModeAlways;
     self.fieldUsername.leftView = ivUsername;
-    self.fieldPassword.leftViewMode = UITextFieldViewModeAlways;
+        self.fieldPassword.leftViewMode = UITextFieldViewModeAlways;
     self.fieldPassword.leftView= ivPassword;
     self.fieldUsername.text = @"admin@blandyuk.co.uk";
     self.fieldPassword.text = @"redrose1982";
