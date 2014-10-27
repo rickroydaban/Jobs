@@ -308,7 +308,7 @@ static VCSearchJob *instance;
         [(VCCountrySelection *)segue.destinationViewController cellSelectorSelectedCell:sender];
 }
 
-- (IBAction)segueToProfile:(id)sender {
-    [self presentViewController:[self.appDelegate.userPageNavigators getSwitchingPage] animated:YES completion:nil];
+- (IBAction)showList:(id)sender {
+    [self.appDelegate.slider toggleSidebar];
 }
 @end

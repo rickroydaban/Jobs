@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import "VCUserPage.h"
+#import "VCPage.h"
 
-@interface VCUserPassword : VCUserPage<UIActionSheetDelegate>
+@interface VCUserPassword : VCPage<UIActionSheetDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *lvContainer;
 @property (strong, nonatomic) IBOutlet UIView *bottomNavigator;

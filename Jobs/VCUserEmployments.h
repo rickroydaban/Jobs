@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import "VCUserPage.h"
+#import "VCPage.h"
 
-@interface VCUserEmployments : VCUserPage
+@interface VCUserEmployments : VCPage
 
 @property (strong, nonatomic) IBOutlet UIView *bottomNavigator;
 

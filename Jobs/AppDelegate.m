@@ -22,7 +22,7 @@
     _offlineGateway = [OfflineGateway sharedOfflineGateway:self];
     self.velosiDateFormat = [[NSDateFormatter alloc] init];
     self.velosiDateFormat.dateFormat = @"dd/MMM/yyyy";
-    self.userPageNavigators = [UserPageNavigators sharedNavigators];
+    self.pageNavigator = [UserPageNavigators sharedNavigators];
     _referrerList = [self.onlineGateway getReferrerList];
     _currencyList = [[CurrencyList alloc] init];
     
@@ -30,6 +30,10 @@
         [[[UIAlertView alloc] initWithTitle:nil message:@"Cannot connect to server" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
     
     return YES;
+}
+
+- (void)updateSlider:(VCSlider *)slider{
+    _slider = slider;
 }
 
 - (void)updateReferrerDictionaryFromOnlineGateway:(OnlineGateway *)key dictionary:(NSDictionary *)dictionary{

@@ -45,10 +45,6 @@
     [self.view endEditing:YES];
 }
 
-- (IBAction)searchAdvance:(id)sender {
-    [self switchToAdvanceSearchPage:sender];
-}
-
 - (IBAction)login {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
@@ -57,7 +53,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             if([self.appDelegate.offlineGateway isLoggedIn]){
-                [self switchToDetailPage];
+                [self.appDelegate.pageNavigator getUserDetailNavigator];
             }
             else
                 [[[UIAlertView alloc] initWithTitle:nil message:@"Your details are invalid" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
@@ -76,4 +72,7 @@
 }
 
 
+- (IBAction)showList:(id)sender {
+    [self.appDelegate.slider toggleSidebar];
+}
 @end

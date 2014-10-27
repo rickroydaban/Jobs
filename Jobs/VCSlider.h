@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VCPage.h"
 
-@interface VCSlider : VCPage<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate>
+@interface VCSlider : UIViewController<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *sidebarLv;
 @property (strong, nonatomic) IBOutlet UIView *mainPage;
+
+- (void)toggleSidebar;
 
 @end

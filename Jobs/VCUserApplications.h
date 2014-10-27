@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "VCUserPage.h"
+#import "VCPage.h"
 
-@interface VCUserApplications :VCUserPage
+@interface VCUserApplications :VCPage
 
 @property (strong, nonatomic) IBOutlet UIView *bottomNavigator;
 

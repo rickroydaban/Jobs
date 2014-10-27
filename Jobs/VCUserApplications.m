@@ -18,26 +18,6 @@
     _bottomNavigator.layer.shadowOffset = CGSizeMake(0, 0);
 }
 
-- (IBAction)showUserDetailPage:(id)sender {
-    [self switchToDetailPage];
-}
-
-- (IBAction)showUserSearchesPage:(id)sender {
-    [self switchToSearchPage];
-}
-
-- (IBAction)showUserDocumentPage:(id)sender {
-    [self switchToDocumentPage];
-}
-
-- (IBAction)showUserEmploymentPage:(id)sender {
-    [self switchToEmploymentPage];
-}
-
-- (IBAction)showUserPassword:(id)sender {
-    [self switchToPasswordPage];
-}
-
 - (IBAction)toggleActions:(id)sender {
     [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Save", @"Close Account", @"Logout", nil] showInView:self.view];
 }

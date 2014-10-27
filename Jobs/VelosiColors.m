@@ -103,7 +103,7 @@
 }
 
 + (UIColor *)whiteSidebarSelectedCellBG{
-    return [UIColor colorWithRed:222/255.0f green:222/255.0f blue:222/255.0f alpha:1.0f];
+    return [UIColor colorWithRed:171/255.0f green:171/255.0f blue:171/255.0f alpha:1.0f];
 }
 
 + (UIColor *)whiteSidebarCellSeparator{

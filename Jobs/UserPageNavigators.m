@@ -7,14 +7,14 @@
 //
 
 #import "UserPageNavigators.h"
-#import "VCLogin.h"
-#import "VCUserSwitchingPage.h"
+#import "VCPage.h"
 
 @interface UserPageNavigators(){
     UIStoryboard *_storyBoard;
     UINavigationController *_navigatorUserDetail, *_navigatorUserSearches, *_navigatorUserDocuments, *_navigatorUserApplications, *_navigatorUserEmployment, *_navigatorUserPassword;
-    VCLogin *_vcLogin;
-    VCUserSwitchingPage *_switchingPage;
+    VCPage *_vcLogin;
+    VCPage *_vcHome;
+    VCPage *_vcSearchJob;
 }
 @end
 
@@ -39,16 +39,21 @@ static UserPageNavigators *sharedNavigators = nil;
     return self;
 }
 
-- (UIViewController *)getSwitchingPage{
-    if(_switchingPage == nil){
-        _switchingPage = [_storyBoard instantiateViewControllerWithIdentifier:@"switchingPage"];
-        _switchingPage.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+- (VCPage *)getVCHome{
+    if(_vcHome == nil)
+        _vcHome = [_storyBoard instantiateViewControllerWithIdentifier:@"homePage"];
     
-    }
-    return _switchingPage;
+    return _vcHome;
 }
 
-- (UIViewController *)getVCLogin{
+- (VCPage *)getVCSearchPage{
+    if(_vcSearchJob == nil)
+        _vcSearchJob = [_storyBoard instantiateViewControllerWithIdentifier:@"advanceSearchPage"];
+    
+    return _vcSearchJob;
+}
+
+- (VCPage *)getVCLogin{
     if(_vcLogin == nil)
         _vcLogin = [_storyBoard instantiateViewControllerWithIdentifier:@"loginPage"];
     

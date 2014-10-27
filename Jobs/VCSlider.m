@@ -13,13 +13,16 @@
 #import "VCSlider.h"
 #import "CellSidebar.h"
 #import "VelosiColors.h"
+#import "AppDelegate.h"
+#import "VCPage.h"
 
 @interface VCSlider(){
     UIPanGestureRecognizer *_panGestureRecognizer;
     CGFloat _mainPageX;
     VCPage *_currMainController;
     BOOL _isSidebarShowing;
-    int _prevSelectedCell, _selectedCell;
+    AppDelegate *_appDelegate;
+    NSIndexPath *_currIndexPath;
     
     NSArray *_profileItemTitles, *_profileItemImages, *_profileItemHiglightedImages, *_linkItemTitles, *_linkItemHighlightedImages, *_linkItemImages;
 }
@@ -30,8 +33,8 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
-    _prevSelectedCell = 0;
-    _selectedCell = 0;
+    _appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [_appDelegate updateSlider:self];
     _mainPageX = 0;
     _isSidebarShowing = NO;
     _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
@@ -49,8 +52,10 @@
     self.sidebarLv.delegate = self;
     self.sidebarLv.dataSource = self;
     
-    [self changePage:[self.appDelegate.userPageNavigators getVCLogin]];
+    [_sidebarLv.delegate tableView:_sidebarLv didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    [_sidebarLv selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionBottom];
 }
+
 
 - (void)changePage:(VCPage *)controller{
     if([controller isKindOfClass:[UINavigationController class]])
@@ -77,6 +82,8 @@
                                     [_currMainController removeFromParentViewController];
                                     [controller didMoveToParentViewController:self];
                                     _currMainController = controller;
+                                    
+                                    [self updateSidebarWillShow:NO];
                                 }
          ];
     }
@@ -89,7 +96,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     switch (section) {
         case 0: return 2;
-        case 1: return ![self.appDelegate.offlineGateway isLoggedIn]?8:1;
+        case 1: return [_appDelegate.offlineGateway isLoggedIn]?8:1;
         case 2: return 8;
         case 3: return 1;
             
@@ -100,7 +107,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CellSidebar *cell = [self.sidebarLv dequeueReusableCellWithIdentifier:@"cell"];
     UILabel *selBgView = [[UILabel alloc] initWithFrame:cell.backgroundView.frame];
-    selBgView.backgroundColor = [VelosiColors blackSidebarSelectedCellBG];
+    selBgView.backgroundColor = [VelosiColors orangeVelosi];
     cell.selectedBackgroundView = selBgView;
     
     switch (indexPath.section) {
@@ -123,9 +130,15 @@
             break;
 
         case 1:
-            cell.cellIImage.image = [UIImage imageNamed:[_profileItemImages objectAtIndex:indexPath.row]];
-            cell.cellIImage.highlightedImage = [UIImage imageNamed:[_profileItemHiglightedImages objectAtIndex:indexPath.row]];
-            cell.cellTitle.text = [_profileItemTitles objectAtIndex:indexPath.row];
+            if([_appDelegate.offlineGateway isLoggedIn]){
+                cell.cellIImage.image = [UIImage imageNamed:[_profileItemImages objectAtIndex:indexPath.row]];
+                cell.cellIImage.highlightedImage = [UIImage imageNamed:[_profileItemHiglightedImages objectAtIndex:indexPath.row]];
+                cell.cellTitle.text = [_profileItemTitles objectAtIndex:indexPath.row];
+            }else{
+                cell.cellIImage.image = [UIImage imageNamed:@"icon_login"];
+                cell.cellIImage.highlightedImage = [UIImage imageNamed:@"icon_login_sel"];
+                cell.cellTitle.text = @"Login";
+            }
             break;
             
         case 2:
@@ -144,10 +157,44 @@
             break;
     }
     
-    cell.tag = [[NSString stringWithFormat:@"%d%d",indexPath.section,indexPath.row] integerValue];
-    cell.cellTitle.textColor = (cell.tag == _selectedCell)?[VelosiColors orangeVelosi]:[VelosiColors blackSidebarFont];
-    
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(_currIndexPath!=nil && _currIndexPath.section == indexPath.section && _currIndexPath.row == indexPath.row)
+        [self updateSidebarWillShow:NO];
+    else{
+        switch (indexPath.section) {
+            case 0:
+                [self changePage:(indexPath.row == 0)?[_appDelegate.pageNavigator getVCHome]:[_appDelegate.pageNavigator getVCSearchPage]];
+                break;
+                
+            case 1:
+                if ([_appDelegate.offlineGateway isLoggedIn]) {
+                    switch (indexPath.row) {
+                        case 0:
+                            break;
+                            
+                        default:
+                            break;
+                    }
+                }else{
+                    [self changePage:[_appDelegate.pageNavigator getVCLogin]];
+                    break;
+                }
+                
+            case 2:
+                break;
+                
+            case 3:
+                break;
+                
+            default:
+                break;
+        }
+    }
+    
+    _currIndexPath = indexPath;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -156,20 +203,6 @@
         case 2: return @"Links";
         default: return @"";
     }
-}
-
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(_prevSelectedCell >= 0){
-        NSString *s = [NSString stringWithFormat:@"%d",_prevSelectedCell];
-        ((CellSidebar *)[_sidebarLv cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[s characterAtIndex:(_prevSelectedCell<10)?0:1]-48 inSection:(_prevSelectedCell<10)?0:[s characterAtIndex:0]-48]]).cellTitle.textColor = [VelosiColors blackSidebarFont];
-    }
-    
-    _selectedCell = [[NSString stringWithFormat:@"%d%d",indexPath.section,indexPath.row] integerValue];
-    ((CellSidebar *)[_sidebarLv cellForRowAtIndexPath:indexPath]).cellTitle.textColor = [VelosiColors orangeVelosi];
-    
-    _prevSelectedCell = _selectedCell;
-    
-    return indexPath;
 }
 
 - (void)pan:(UIPanGestureRecognizer *)recognizer{
@@ -202,5 +235,10 @@
                                                       _mainPageX = 0;
                                                   }];
 }
+
+- (void)toggleSidebar{
+    [self updateSidebarWillShow:!_isSidebarShowing];
+}
+
 
 @end

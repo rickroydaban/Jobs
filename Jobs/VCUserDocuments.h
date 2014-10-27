@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import "VCUserPage.h"
+#import "VCPage.h"
 
-@interface VCUserDocuments : VCUserPage<UIActionSheetDelegate>
+@interface VCUserDocuments : VCPage<UIActionSheetDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *lv;
 @property (strong, nonatomic) IBOutlet UIView *bottomNavigator;

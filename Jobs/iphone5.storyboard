@@ -99,9 +99,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="Job Search" id="gAH-fs-ksV">
                         <barButtonItem key="backBarButtonItem" title="Back" id="OLP-dL-edH"/>
-                        <barButtonItem key="leftBarButtonItem" title="Login" id="4du-kc-gzG">
+                        <barButtonItem key="leftBarButtonItem" image="icon_list" style="plain" id="4du-kc-gzG">
                             <connections>
-                                <action selector="segueToProfile:" destination="o70-XI-uKh" id="EBV-fK-dwh"/>
+                                <action selector="showList:" destination="o70-XI-uKh" id="Ryt-9M-dgf"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="Eeo-1q-U4c">
@@ -113,13 +113,12 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="lv" destination="30d-v8-C55" id="0aA-Vv-F5E"/>
-                        <outlet property="profileButton" destination="4du-kc-gzG" id="EeD-Qo-nOB"/>
                         <segue destination="ofl-ar-hqK" kind="show" identifier="segueToJobSummary" id="p5X-IK-iB8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tM6-D0-yjm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="841" y="115"/>
+            <point key="canvasLocation" x="809" y="-1042"/>
         </scene>
         <!--Job Details-->
         <scene sceneID="Ojr-ow-M0X">
@@ -191,7 +190,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="boO-Bc-d6y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1849" y="-1229"/>
+            <point key="canvasLocation" x="1009" y="-205"/>
         </scene>
         <!--Job Summary-->
         <scene sceneID="OaV-AU-j1j">
@@ -286,7 +285,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Poq-54-Rnn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1429" y="-1229"/>
+            <point key="canvasLocation" x="593" y="-205"/>
         </scene>
         <!--Login-->
         <scene sceneID="YLV-PY-lZe">
@@ -328,11 +327,14 @@
                                 <rect key="frame" x="84" y="95" width="152" height="65"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kg4-bc-h1I">
-                                <rect key="frame" x="16" y="28" width="24" height="24"/>
-                                <state key="normal" image="icon_more">
+                                <rect key="frame" x="16" y="28" width="44" height="35"/>
+                                <state key="normal" image="icon_list">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="showList:" destination="6GN-yV-U5G" eventType="touchUpInside" id="ARg-eb-mAL"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RPO-sd-1uB">
                                 <rect key="frame" x="84" y="357" width="152" height="17"/>
@@ -354,7 +356,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KWs-0t-iVH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="821" y="-540"/>
+            <point key="canvasLocation" x="128" y="616"/>
         </scene>
         <!--Country Selection-->
         <scene sceneID="BWh-TY-sPy">
@@ -395,7 +397,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mY8-Yk-lLI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1405" y="450"/>
+            <point key="canvasLocation" x="2501" y="-1042"/>
         </scene>
         <!--Language Selection-->
         <scene sceneID="N6r-p7-J53">
@@ -451,7 +453,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kAY-Q4-782" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1405" y="1137"/>
+            <point key="canvasLocation" x="2501" y="618"/>
         </scene>
         <!--Details-->
         <scene sceneID="fDa-4i-0ee">
@@ -466,140 +468,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Obp-dQ-TPe">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <connections>
                                     <segue destination="b7c-xW-3hF" kind="embed" identifier="segueEmbedDetail" id="5GB-cv-uox"/>
                                 </connections>
                             </containerView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rTk-Zy-fHl">
-                                <rect key="frame" x="0.0" y="518" width="325" height="50"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sUT-CC-j1m">
-                                        <rect key="frame" x="1" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hvP-Pk-aSg">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ae2-YB-eF3">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_details_sel">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dW0-eG-b3W">
-                                        <rect key="frame" x="54" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c6B-Z5-A0c">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aWu-7F-WUc">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_documents_sel">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserDocumentsPage:" destination="8S2-6a-JFd" eventType="touchUpInside" id="qUo-ab-PVB"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AUK-XV-o5A">
-                                        <rect key="frame" x="107" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JJC-23-wzd">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hF-fx-PNT">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_employment_sel">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserEmploymentPage:" destination="8S2-6a-JFd" eventType="touchUpInside" id="fl8-UX-vuM"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yVh-MO-vQh">
-                                        <rect key="frame" x="212" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BdU-4R-I0r">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ecg-9n-HNV">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_searches_sel">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserSearchPage:" destination="8S2-6a-JFd" eventType="touchUpInside" id="Y1U-6i-h7H"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6yI-0F-vdm">
-                                        <rect key="frame" x="265" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pyx-Bn-YBH">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FdT-Y3-xA8">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_password_sel">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserPasswordPage:" destination="8S2-6a-JFd" eventType="touchUpInside" id="Rh8-oF-OPg"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bf3-0Y-RJx">
-                                        <rect key="frame" x="160" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rv0-AY-L9o">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ssB-4X-CGQ">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_applications_sel">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserApplicationPage:" destination="8S2-6a-JFd" eventType="touchUpInside" id="UBZ-hd-y0r"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -620,13 +493,12 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="bottomNavigator" destination="rTk-Zy-fHl" id="mMT-VS-Zyv"/>
                         <outlet property="lvContainer" destination="Obp-dQ-TPe" id="rMB-Mx-bIV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wRE-PY-tn1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2917" y="-1192"/>
+            <point key="canvasLocation" x="1015" y="616"/>
         </scene>
         <!--User Detail-->
         <scene sceneID="8JY-If-FvY">
@@ -1595,7 +1467,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZqK-hN-kvV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2073" y="476"/>
+            <point key="canvasLocation" x="2057" y="618"/>
         </scene>
         <!--Slider-->
         <scene sceneID="08r-Nn-RMm">
@@ -1625,13 +1497,13 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHd-9g-hFE">
                                                     <rect key="frame" x="40" y="14" width="222" height="21"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                    <color key="textColor" red="0.18431372549019609" green="0.18431372549019609" blue="0.18431372549019609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <color key="highlightedColor" red="0.91764705882352937" green="0.33725490196078434" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" red="0.30980392156862746" green="0.30980392156862746" blue="0.30980392156862746" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="highlightedColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="cellIImage" destination="dxO-jR-PRY" id="gVS-3T-ycM"/>
                                             <outlet property="cellTitle" destination="fHd-9g-hFE" id="Geh-au-u8g"/>
@@ -1654,12 +1526,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8c8-kI-Vsy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-712" y="184"/>
+            <point key="canvasLocation" x="-532" y="-1884"/>
         </scene>
-        <!--View Controller-->
+        <!--Home-->
         <scene sceneID="bo5-IN-vNd">
             <objects>
-                <viewController id="qQL-Tx-PUf" sceneMemberID="viewController">
+                <viewController restorationIdentifier="homePage" storyboardIdentifier="homePage" id="qQL-Tx-PUf" customClass="VCHome" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4J3-cL-w0x"/>
                         <viewControllerLayoutGuide type="bottom" id="t70-Nd-qRi"/>
@@ -1674,6 +1546,16 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jo5-rF-9LD">
+                                <rect key="frame" x="16" y="20" width="44" height="35"/>
+                                <state key="normal" image="icon_list">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showList:" destination="qQL-Tx-PUf" eventType="touchUpInside" id="xw3-8Y-gvN"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -1681,26 +1563,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z2L-FV-EBM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-284" y="184"/>
-        </scene>
-        <!--User Switching Page-->
-        <scene sceneID="jSR-Ae-LK4">
-            <objects>
-                <viewController restorationIdentifier="switchingPage" storyboardIdentifier="switchingPage" id="K6a-4S-OjJ" customClass="VCUserSwitchingPage" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="xbQ-pD-mfZ"/>
-                        <viewControllerLayoutGuide type="bottom" id="iVj-Po-JWP"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="3qF-dl-KRp">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="n1r-HO-Geg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="319" y="-1046"/>
+            <point key="canvasLocation" x="128" y="-1884"/>
         </scene>
         <!--Location Selection-->
         <scene sceneID="LeY-au-kyc">
@@ -1778,12 +1641,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xYM-or-OME" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1405" y="-211"/>
+            <point key="canvasLocation" x="1441" y="-205"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="o0j-A7-D1R">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vZD-LZ-ZrJ" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="advanceSearchPage" storyboardIdentifier="advanceSearchPage" automaticallyAdjustsScrollViewInsets="NO" id="vZD-LZ-ZrJ" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fQt-9u-aRQ">
@@ -1797,7 +1660,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T5s-VJ-Z38" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="324" y="115"/>
+            <point key="canvasLocation" x="128" y="-1042"/>
         </scene>
         <!--Saved Searches-->
         <scene sceneID="Mry-wT-qAv">
@@ -1817,135 +1680,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZBx-0r-u9p">
-                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i0C-a9-2Pq">
-                                        <rect key="frame" x="1" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m5W-ap-Nqj">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lvg-9v-WTi">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_details">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserDetailPage:" destination="zDl-L1-673" eventType="touchUpInside" id="mgm-ZF-a4U"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gby-jY-UQn">
-                                        <rect key="frame" x="54" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xSe-k7-tzM">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27t-ci-CPD">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_documents">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserDocumentPage:" destination="zDl-L1-673" eventType="touchUpInside" id="ZT2-NA-Dk8"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Ur-lG-zWa">
-                                        <rect key="frame" x="107" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="73c-pP-qWv">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VzC-fh-Aal">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_employment">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserEmploymentPage:" destination="zDl-L1-673" eventType="touchUpInside" id="x3M-3x-lG8"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cib-t5-1fC">
-                                        <rect key="frame" x="212" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vpd-6Q-s61">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dbV-yZ-LVJ">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_searches">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M1k-om-YNJ">
-                                        <rect key="frame" x="265" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2PR-AN-Cbp">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ha-TG-gnn">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_password">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserPasswordPage:" destination="zDl-L1-673" eventType="touchUpInside" id="n3j-Rg-y0k"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OfC-vT-iS4">
-                                        <rect key="frame" x="160" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ooT-rO-Gs8">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C2s-XA-MJi">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_applications">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserApplicationPage:" destination="zDl-L1-673" eventType="touchUpInside" id="u5U-ht-owX"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -1965,13 +1699,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <connections>
-                        <outlet property="bottomNavigator" destination="ZBx-0r-u9p" id="LUj-vO-tgU"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jnW-L2-DUK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2917" y="1601"/>
+            <point key="canvasLocation" x="1015" y="3409"/>
         </scene>
         <!--Documents-->
         <scene sceneID="d3O-CC-KxB">
@@ -1986,138 +1717,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="4PK-nI-HBl">
-                                <rect key="frame" x="0.0" y="64" width="320" height="452"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UPw-An-gni">
-                                <rect key="frame" x="0.0" y="518" width="325" height="50"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oGp-bR-3qu">
-                                        <rect key="frame" x="1" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0WY-4h-DIg">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PDg-3g-6mU">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_details">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserDetailPage:" destination="FNq-eS-jrf" eventType="touchUpInside" id="qQt-eV-99e"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G7G-NG-0lT">
-                                        <rect key="frame" x="54" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7fN-23-aFK">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qmv-aT-HJh">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_documents">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BEc-a2-Sci">
-                                        <rect key="frame" x="107" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b16-B3-Dec">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jEd-9M-q3f">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_employment">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserEmploymentPage:" destination="FNq-eS-jrf" eventType="touchUpInside" id="bZ0-Bi-Mtt"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cA2-lw-A9R">
-                                        <rect key="frame" x="212" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="69K-hz-EMk">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JmU-Va-kKQ">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_searches">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserSearchesPage:" destination="FNq-eS-jrf" eventType="touchUpInside" id="fDf-pM-oWa"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pq1-fT-6bq">
-                                        <rect key="frame" x="265" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r5e-r1-QYN">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aii-9u-vXf">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_password">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserPasswordPage:" destination="FNq-eS-jrf" eventType="touchUpInside" id="m7g-Ds-vmg"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Vu-aN-4L2">
-                                        <rect key="frame" x="160" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8tC-RT-iow">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="34s-ev-pbN">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_applications">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserApplicationPage:" destination="FNq-eS-jrf" eventType="touchUpInside" id="rM6-7L-h5v"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -2138,13 +1740,12 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="bottomNavigator" destination="UPw-An-gni" id="Ajb-iJ-8p7"/>
                         <outlet property="lv" destination="4PK-nI-HBl" id="cYr-sf-aE4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8bB-it-WrQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2917" y="-487"/>
+            <point key="canvasLocation" x="1015" y="1321"/>
         </scene>
         <!--Employments-->
         <scene sceneID="etY-lP-EMu">
@@ -2157,137 +1758,6 @@
                     <view key="view" contentMode="scaleToFill" id="pW4-xx-tXn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CtF-7k-48J">
-                                <rect key="frame" x="0.0" y="518" width="325" height="50"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AiW-3s-IuM">
-                                        <rect key="frame" x="1" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PHf-pH-nFO">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6vq-rP-Iv3">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_details">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserDetailPage:" destination="U5C-HV-E0s" eventType="touchUpInside" id="So2-om-5cf"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sQQ-g3-Vda">
-                                        <rect key="frame" x="54" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6WV-fo-lbS">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQd-cZ-WuX">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_documents">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserDocumentPage:" destination="U5C-HV-E0s" eventType="touchUpInside" id="uQQ-jj-hYa"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MgO-YH-ODe">
-                                        <rect key="frame" x="107" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zdn-VW-Hpx">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nMY-dt-KHm">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_employment">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FCs-D8-PoR">
-                                        <rect key="frame" x="212" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cwc-wQ-9wM">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hg6-vo-RWo">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_searches">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserSearchesPage:" destination="U5C-HV-E0s" eventType="touchUpInside" id="waR-Fr-h5L"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yDe-h5-aPM">
-                                        <rect key="frame" x="265" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lgU-Gk-wN5">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fpA-Fa-aIK">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_password">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserPasswordPage:" destination="U5C-HV-E0s" eventType="touchUpInside" id="keg-e6-rZn"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hfq-ne-kML">
-                                        <rect key="frame" x="160" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KJZ-x6-Pum">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tmy-t6-XKg">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_applications">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserApplicationPage:" destination="U5C-HV-E0s" eventType="touchUpInside" id="hRK-xR-i4v"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Employments" id="FPY-kM-gmA">
@@ -2306,13 +1776,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <connections>
-                        <outlet property="bottomNavigator" destination="CtF-7k-48J" id="vR1-23-tPk"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lFo-uS-TEw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2917" y="237"/>
+            <point key="canvasLocation" x="1015" y="2045"/>
         </scene>
         <!--Change Password-->
         <scene sceneID="ZfK-xq-dVM">
@@ -2487,7 +1954,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FhC-IJ-DK4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2917" y="2207"/>
+            <point key="canvasLocation" x="1015" y="4015"/>
         </scene>
         <!--User Password-->
         <scene sceneID="GAe-Fm-cD3">
@@ -2574,7 +2041,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ndm-4E-anm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3375" y="2221"/>
+            <point key="canvasLocation" x="1473" y="4029"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JyH-Qf-xs8">
@@ -2593,7 +2060,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sxB-2k-ORM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2495" y="-1190"/>
+            <point key="canvasLocation" x="593" y="618"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rYk-75-Wuu">
@@ -2612,7 +2079,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o1S-6M-sbg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2495" y="1601"/>
+            <point key="canvasLocation" x="593" y="3409"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="TwY-A6-Jxl">
@@ -2631,7 +2098,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VjU-rf-lK5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2495" y="-487"/>
+            <point key="canvasLocation" x="593" y="1321"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="D0x-96-9ay">
@@ -2650,7 +2117,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wz4-kf-79F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2495" y="237"/>
+            <point key="canvasLocation" x="593" y="2045"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="96S-w0-THJ">
@@ -2669,7 +2136,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8ov-kw-rXH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2495" y="2207"/>
+            <point key="canvasLocation" x="593" y="4015"/>
         </scene>
         <!--Applications-->
         <scene sceneID="JiV-r4-Rzx">
@@ -2682,137 +2149,6 @@
                     <view key="view" contentMode="scaleToFill" id="gun-pl-A8w">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5zK-8E-jFZ">
-                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s0X-jT-XIU">
-                                        <rect key="frame" x="1" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ddS-ts-nM5">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yBt-nc-nQ6">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_details">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserDetailPage:" destination="a3h-Qf-ROz" eventType="touchUpInside" id="I96-Dl-n5a"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sBU-mg-uyt">
-                                        <rect key="frame" x="54" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XvM-8Q-wnk">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSr-pT-cnp">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_documents">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserDocumentPage:" destination="a3h-Qf-ROz" eventType="touchUpInside" id="8dY-QK-zbt"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jSZ-e2-b2M">
-                                        <rect key="frame" x="107" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bPe-6Q-gva">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gZI-pR-RDj">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_employment">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserEmploymentPage:" destination="a3h-Qf-ROz" eventType="touchUpInside" id="Qch-ZT-Hwf"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Gj-RK-1XN">
-                                        <rect key="frame" x="212" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n9N-hO-NxY">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y6t-eB-9OT">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_searches">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserSearchesPage:" destination="a3h-Qf-ROz" eventType="touchUpInside" id="e6C-MC-pFL"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zdI-hb-HcA">
-                                        <rect key="frame" x="265" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cUr-BB-SWY">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tXZ-k5-IWx">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_password">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="showUserPassword:" destination="a3h-Qf-ROz" eventType="touchUpInside" id="L0j-ZS-ugc"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VC0-uy-1Q8">
-                                        <rect key="frame" x="160" y="0.0" width="53" height="50"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qQI-t7-Q9h">
-                                                <rect key="frame" x="0.0" y="5" width="53" height="45"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jiO-XE-YD2">
-                                                        <rect key="frame" x="11" y="7" width="30" height="30"/>
-                                                        <state key="normal" image="icon_user_applications">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Applications" id="Cw3-va-m7M">
@@ -2831,13 +2167,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <connections>
-                        <outlet property="bottomNavigator" destination="5zK-8E-jFZ" id="2cq-1a-IV8"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UzC-pb-x4l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2917" y="899"/>
+            <point key="canvasLocation" x="1015" y="2707"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hbS-Fd-rr3">
@@ -2856,23 +2189,17 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sn6-fv-PA4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2495" y="899"/>
+            <point key="canvasLocation" x="593" y="2707"/>
         </scene>
     </scenes>
     <resources>
-        <image name="icon_more" width="48" height="48"/>
+        <image name="icon_list" width="24" height="24"/>
         <image name="icon_user_applications" width="48" height="48"/>
-        <image name="icon_user_applications_sel" width="48" height="48"/>
         <image name="icon_user_details" width="48" height="48"/>
-        <image name="icon_user_details_sel" width="48" height="48"/>
         <image name="icon_user_documents" width="48" height="48"/>
-        <image name="icon_user_documents_sel" width="48" height="48"/>
-        <image name="icon_user_employment" width="48" height="48"/>
-        <image name="icon_user_employment_sel" width="48" height="48"/>
+        <image name="icon_user_employment" width="36" height="36"/>
         <image name="icon_user_password" width="48" height="48"/>
-        <image name="icon_user_password_sel" width="48" height="48"/>
         <image name="icon_user_searches" width="48" height="48"/>
-        <image name="icon_user_searches_sel" width="48" height="48"/>
         <image name="logo_applusvelosi" width="287" height="124"/>
     </resources>
     <inferredMetricsTieBreakers>

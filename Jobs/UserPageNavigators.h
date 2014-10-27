@@ -9,12 +9,15 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+@class VCPage;
+
 @interface UserPageNavigators : NSObject
 
 + (UserPageNavigators *)sharedNavigators;
 
-- (UIViewController *)getSwitchingPage;
-- (UIViewController *)getVCLogin;
+- (VCPage *)getVCLogin;
+- (VCPage *)getVCHome;
+- (VCPage *)getVCSearchPage;
 - (UINavigationController *)getUserDetailNavigator;
 - (UINavigationController *)getUserSearchesNavigator;
 - (UINavigationController *)getUserDocumentsNavigator;

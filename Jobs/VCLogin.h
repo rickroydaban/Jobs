@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import "VCUserPage.h"
+#import "VCPage.h"
 
-@interface VCLogin : VCUserPage<UITextFieldDelegate>
+@interface VCLogin : VCPage<UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *fieldUsername;
 @property (strong, nonatomic) IBOutlet UITextField *fieldPassword;
