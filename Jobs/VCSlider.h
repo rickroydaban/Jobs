@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VCSlider : UIViewController<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate>
+@interface VCSlider : UIViewController<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *sidebarLv;
 @property (strong, nonatomic) IBOutlet UIView *mainPage;
 
+- (void)login;
 - (void)toggleSidebar;
+- (void)reloadSidebar;
 
 @end

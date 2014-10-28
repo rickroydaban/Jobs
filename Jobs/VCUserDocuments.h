@@ -11,5 +11,4 @@
 @interface VCUserDocuments : VCPage<UIActionSheetDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *lv;
-@property (strong, nonatomic) IBOutlet UIView *bottomNavigator;
 @end

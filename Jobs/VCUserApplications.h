@@ -11,6 +11,4 @@
 
 @interface VCUserApplications :VCPage
 
-@property (strong, nonatomic) IBOutlet UIView *bottomNavigator;
-
 @end

@@ -11,5 +11,4 @@
 @interface VCUserPassword : VCPage<UIActionSheetDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *lvContainer;
-@property (strong, nonatomic) IBOutlet UIView *bottomNavigator;
 @end

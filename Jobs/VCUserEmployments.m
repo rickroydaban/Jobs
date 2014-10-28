@@ -18,4 +18,8 @@
     _bottomNavigator.layer.shadowOffset = CGSizeMake(0, 0);
 }
 
+- (IBAction)showList:(id)sender {
+    [self.appDelegate.slider toggleSidebar];
+}
+
 @end

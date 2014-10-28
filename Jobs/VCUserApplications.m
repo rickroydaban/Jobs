@@ -22,4 +22,9 @@
     [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Save", @"Close Account", @"Logout", nil] showInView:self.view];
 }
 
+- (IBAction)showList:(id)sender {
+    [self.appDelegate.slider toggleSidebar];
+}
+
+
 @end

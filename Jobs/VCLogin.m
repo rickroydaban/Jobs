@@ -53,7 +53,8 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             if([self.appDelegate.offlineGateway isLoggedIn]){
-                [self.appDelegate.pageNavigator getUserDetailNavigator];
+                [self.appDelegate.slider reloadSidebar];
+                [self.appDelegate.slider login];
             }
             else
                 [[[UIAlertView alloc] initWithTitle:nil message:@"Your details are invalid" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];

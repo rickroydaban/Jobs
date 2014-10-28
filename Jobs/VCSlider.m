@@ -19,7 +19,7 @@
 @interface VCSlider(){
     UIPanGestureRecognizer *_panGestureRecognizer;
     CGFloat _mainPageX;
-    VCPage *_currMainController;
+    UIViewController *_currMainController;
     BOOL _isSidebarShowing;
     AppDelegate *_appDelegate;
     NSIndexPath *_currIndexPath;
@@ -57,7 +57,7 @@
 }
 
 
-- (void)changePage:(VCPage *)controller{
+- (void)changePage:(UIViewController *)controller{
     if([controller isKindOfClass:[UINavigationController class]])
         [(UINavigationController *)controller setDelegate:self];
     
@@ -172,7 +172,18 @@
             case 1:
                 if ([_appDelegate.offlineGateway isLoggedIn]) {
                     switch (indexPath.row) {
-                        case 0:
+                        case 0: [self changePage:[_appDelegate.pageNavigator getUserDetailNavigator]]; break;
+                        case 1: [self changePage:[_appDelegate.pageNavigator getUserDocumentsNavigator]]; break;
+                        case 2: [self changePage:[_appDelegate.pageNavigator getUserEmploymentsNavigator]]; break;
+                        case 3: [self changePage:[_appDelegate.pageNavigator getUSerApplicationsNavigator]]; break;
+                        case 4: [self changePage:[_appDelegate.pageNavigator getUserSearchesNavigator]]; break;
+                        case 5: [self changePage:[_appDelegate.pageNavigator getUSerPasswordNavigator]]; break;
+                            
+                        case 6: [[[UIAlertView alloc] initWithTitle:@"Delete Account" message:@"Are you sure you want to delete this account?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil] show];
+                            break;
+                        case 7: [_appDelegate.offlineGateway logout];
+                            [self changePage:[_appDelegate.pageNavigator getVCLogin]];
+                            [self reloadSidebar];
                             break;
                             
                         default:
@@ -205,6 +216,12 @@
     }
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 111) {
+        NSLog(@"deleted");
+    }
+}
+
 - (void)pan:(UIPanGestureRecognizer *)recognizer{
     if (recognizer.state == UIGestureRecognizerStateChanged){
         //update the foreview's horizontal  placement while panning
@@ -234,6 +251,15 @@
                                                       _isSidebarShowing = willShow;
                                                       _mainPageX = 0;
                                                   }];
+}
+
+- (void)login{
+    if([_appDelegate.offlineGateway isLoggedIn])
+        [self changePage:[_appDelegate.pageNavigator getUserDetailNavigator]];
+}
+
+- (void)reloadSidebar{
+    [_sidebarLv reloadData];
 }
 
 - (void)toggleSidebar{

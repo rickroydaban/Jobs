@@ -29,10 +29,6 @@
     self.locationprefs = [NSMutableArray arrayWithArray:[self.appDelegate.offlineGateway getPreferredLocations]];
     self.languages = [NSMutableArray arrayWithArray:[self.appDelegate.offlineGateway getLanguages]];
     
-    _bottomNavigator.layer.shadowColor = [UIColor blackColor].CGColor;
-    _bottomNavigator.layer.shadowOpacity = 1;
-    _bottomNavigator.layer.shadowOffset = CGSizeMake(0, 0);
-
     _lvContainer.layer.shadowColor = [UIColor blackColor].CGColor;
     _lvContainer.layer.shadowOpacity = 1;
     _lvContainer.layer.shadowOffset = CGSizeMake(0, 0);
@@ -191,7 +187,8 @@
     [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Save", @"Close Account", @"Logout", nil] showInView:self.view];
 }
 
-- (IBAction)advanceSearch:(id)sender {
+- (IBAction)showList:(id)sender {
+    [self.appDelegate.slider toggleSidebar];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{    
