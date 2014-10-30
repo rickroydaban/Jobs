@@ -8,7 +8,9 @@
 
 #import "VCPage.h"
 
-@interface VCUserDocuments : VCPage<UIActionSheetDelegate>
+@interface VCUserDocuments : VCPage<UIActionSheetDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *lv;
+@property (strong, nonatomic) NSArray *documents;
+
 @end

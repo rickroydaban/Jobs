@@ -11,7 +11,10 @@
 
 @interface UserPageNavigators(){
     UIStoryboard *_storyBoard;
-    UINavigationController *_navigatorUserDetail, *_navigatorUserSearches, *_navigatorUserDocuments, *_navigatorUserApplications, *_navigatorUserEmployment, *_navigatorUserPassword;
+    UINavigationController *_navigatorUserDetail, *_navigatorUserSearches, *_navigatorUserDocuments, *_navigatorUserApplications, *_navigatorUserEmployment, *_navigatorUserPassword,
+    
+        *_navigatorAboutus, *_navigatorCVHelp, *_navigatorNews, *_navigatorTerms, *_navigatorPrivacy, *_navigatorCopyright, *_navigatorDisclaimer, *_navigatorSecurityPolicy;
+    
     VCPage *_vcLogin;
     VCPage *_vcHome;
     VCPage *_vcSearchJob;
@@ -100,6 +103,62 @@ static UserPageNavigators *sharedNavigators = nil;
         _navigatorUserPassword = [_storyBoard instantiateViewControllerWithIdentifier:@"navigatorUserPassword"];
     
     return _navigatorUserPassword;
+}
+
+- (UINavigationController *)getVCAboutUs{
+    if(_navigatorAboutus == nil)
+        _navigatorAboutus = [_storyBoard instantiateViewControllerWithIdentifier:@"aboutusPage"];
+    
+    return _navigatorAboutus;
+}
+
+- (UINavigationController *)getVCCVHelp{
+    if(_navigatorCVHelp == nil)
+        _navigatorCVHelp = [_storyBoard instantiateViewControllerWithIdentifier:@"cvhelpPage"];
+    
+    return _navigatorCVHelp;
+}
+
+- (UINavigationController *)getVCNews{
+    if(_navigatorNews == nil)
+        _navigatorNews = [_storyBoard instantiateViewControllerWithIdentifier:@"newsPage"];
+    
+    return _navigatorNews;
+}
+
+- (UINavigationController *)getVCTerms{
+    if(_navigatorTerms == nil)
+        _navigatorTerms = [_storyBoard instantiateViewControllerWithIdentifier:@"termsPage"];
+    
+    return _navigatorTerms;
+}
+
+- (UINavigationController *)getVCPrivacy{
+    if(_navigatorPrivacy == nil)
+        _navigatorPrivacy = [_storyBoard instantiateViewControllerWithIdentifier:@"privacyPage"];
+    
+    return _navigatorPrivacy;
+}
+
+- (UINavigationController *)getVCCopyRight{
+    if(_navigatorCopyright == nil)
+        _navigatorCopyright = [_storyBoard instantiateViewControllerWithIdentifier:@"copyrightPage"];
+    
+    return _navigatorCopyright;
+}
+
+- (UINavigationController *)getVCDisclaimer{
+    if(_navigatorDisclaimer == nil)
+        _navigatorDisclaimer = [_storyBoard instantiateViewControllerWithIdentifier:@"disclaimerPage"];
+    
+    return _navigatorDisclaimer;
+}
+
+- (UINavigationController *)getVCSecurityPolicy{
+    if(_navigatorSecurityPolicy == nil)
+        _navigatorSecurityPolicy = [_storyBoard instantiateViewControllerWithIdentifier:@"securitypolicyPage"];
+    
+    return _navigatorSecurityPolicy;
 }
 
 

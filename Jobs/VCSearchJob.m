@@ -13,7 +13,6 @@
 #import "VCJobSummary.h"
 #import "MBProgressHUD.h"
 #import "VCCountrySelection.h"
-#import "DAKeyboardControl.h"
 
 @interface VCSearchJob (){
     UITapGestureRecognizer *_mainViewTapRecognizer;
@@ -41,8 +40,6 @@ static VCSearchJob *instance;
     if(instance)
         instance = nil;
     instance = self;
-
-    [self.view addKeyboardPanningWithActionHandler:nil];
     
     _countryList = [[CountryList alloc] init];
     _searchIns = @[@"Job Title and Description", @"Job Title", @"Job Description"];

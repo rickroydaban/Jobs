@@ -15,6 +15,7 @@
 #import "VelosiColors.h"
 #import "AppDelegate.h"
 #import "VCPage.h"
+#import "DAKeyboardControl.h"
 
 @interface VCSlider(){
     UIPanGestureRecognizer *_panGestureRecognizer;
@@ -33,6 +34,7 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
+    [_mainPage addKeyboardPanningWithActionHandler:nil];
     _appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [_appDelegate updateSlider:self];
     _mainPageX = 0;
@@ -161,6 +163,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSIndexPath *temp = indexPath;
     if(_currIndexPath!=nil && _currIndexPath.section == indexPath.section && _currIndexPath.row == indexPath.row)
         [self updateSidebarWillShow:NO];
     else{
@@ -180,6 +183,7 @@
                         case 5: [self changePage:[_appDelegate.pageNavigator getUSerPasswordNavigator]]; break;
                             
                         case 6: [[[UIAlertView alloc] initWithTitle:@"Delete Account" message:@"Are you sure you want to delete this account?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil] show];
+                            temp = _currIndexPath;
                             break;
                         case 7: [_appDelegate.offlineGateway logout];
                             [self changePage:[_appDelegate.pageNavigator getVCLogin]];
@@ -189,12 +193,24 @@
                         default:
                             break;
                     }
-                }else{
+                }else
                     [self changePage:[_appDelegate.pageNavigator getVCLogin]];
-                    break;
-                }
+                break;
                 
             case 2:
+                switch (indexPath.row) {
+                    case 0: [self changePage:[_appDelegate.pageNavigator getVCAboutUs]]; break;
+                    case 1: [self changePage:[_appDelegate.pageNavigator getVCCVHelp]]; break;
+                    case 2: [self changePage:[_appDelegate.pageNavigator getVCNews]]; break;
+                    case 3: [self changePage:[_appDelegate.pageNavigator getVCTerms]]; break;
+                    case 4: [self changePage:[_appDelegate.pageNavigator getVCPrivacy]]; break;
+                    case 5: [self changePage:[_appDelegate.pageNavigator getVCCopyRight]]; break;
+                    case 6: [self changePage:[_appDelegate.pageNavigator getVCDisclaimer]]; break;
+                    case 7: [self changePage:[_appDelegate.pageNavigator getVCSecurityPolicy]]; break;
+                        
+                    default: break;
+                }
+                
                 break;
                 
             case 3:
@@ -205,7 +221,7 @@
         }
     }
     
-    _currIndexPath = indexPath;
+    _currIndexPath = temp;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -217,9 +233,14 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 111) {
-        NSLog(@"deleted");
+    if (buttonIndex == 1) {
+        NSLog(@"deleted successfully");
+    }else{
+        NSLog(@"deletion cancelled");
+        [_sidebarLv.delegate tableView:_sidebarLv didSelectRowAtIndexPath:_currIndexPath];
+        [_sidebarLv selectRowAtIndexPath:_currIndexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
     }
+    
 }
 
 - (void)pan:(UIPanGestureRecognizer *)recognizer{
@@ -242,7 +263,7 @@
 - (void)updateSidebarWillShow:(BOOL)willShow{
     _mainPage.userInteractionEnabled = NO;
     _sidebarLv.userInteractionEnabled = NO;
-    
+
     [UIView animateWithDuration:ANIMATIONDURATION animations:^{
                                                       _mainPage.transform = CGAffineTransformMakeTranslation((willShow)?MAXPANNING:0, 0);
                                                   } completion:^(BOOL finished){

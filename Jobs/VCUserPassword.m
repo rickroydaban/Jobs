@@ -13,9 +13,6 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
-    _lvContainer.layer.shadowColor = [UIColor blackColor].CGColor;
-    _lvContainer.layer.shadowOpacity = 1;
-    _lvContainer.layer.shadowOffset = CGSizeMake(0, 0);
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -34,7 +31,12 @@
 }
 
 - (IBAction)showList:(id)sender {
+    [self.view endEditing:YES];
     [self.appDelegate.slider toggleSidebar];
+}
+
+- (IBAction)done:(id)sender {
+    NSLog(@"Done");
 }
 
 @end

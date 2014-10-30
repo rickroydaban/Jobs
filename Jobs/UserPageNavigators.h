@@ -25,4 +25,13 @@
 - (UINavigationController *)getUserEmploymentsNavigator;
 - (UINavigationController *)getUSerPasswordNavigator;
 
+- (UINavigationController *)getVCAboutUs;
+- (UINavigationController *)getVCCVHelp;
+- (UINavigationController *)getVCNews;
+- (UINavigationController *)getVCTerms;
+- (UINavigationController *)getVCPrivacy;
+- (UINavigationController *)getVCCopyRight;
+- (UINavigationController *)getVCDisclaimer;
+- (UINavigationController *)getVCSecurityPolicy;
+
 @end

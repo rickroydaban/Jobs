@@ -32,4 +32,8 @@
 @property (strong, nonatomic, readonly) NSDictionary *propDictRelocate;
 @property (strong, nonatomic, readonly) NSDictionary *propDictEtchnicity;
 
+//documents
+@property (strong, nonatomic, readonly) NSDictionary *propDictDocumentTypes;
+@property (strong, nonatomic, readonly) NSArray *propListDocumentTypes;
+
 @end

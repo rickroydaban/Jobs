@@ -11,10 +11,11 @@
 #import "Job.h"
 #import "JobDetail.h"
 #import "User.h"
+#import "Document.h"
 #import "AppDelegate.h"
 
 @interface OnlineGateway(){
-    const NSString *_jsonRoot, *_rootVacancy, *_rootCandidates, *_rootReferences;
+    const NSString *_jsonRoot, *_rootVacancy, *_rootCandidates, *_rootReferences, *_rootDocuments;
     const AppDelegate *_appDelegate;
 }
 
@@ -38,6 +39,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
         _rootVacancy = @"https://arctestapi.velosi.com/VacancySvc.svc/json/";
         _rootCandidates = @"https://arctestapi.velosi.com/CandidateSvc.svc/json/";
         _rootReferences = @"https://arctestapi.velosi.com/Reference.svc/json/";
+        _rootDocuments = @"https://arctestapi.velosi.com/DocumentSvc.svc/json/";
         _appDelegate = appDelegate;
 
 //        NSError *error = [[NSError alloc] init];
@@ -57,7 +59,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
     return self;
 }
 
-- (NSData *)httpsGetFrom: (NSString *)url{
+- (NSData *)httpsGetFrom:(NSString *)url{
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setHTTPMethod:@"GET"];
     [request setURL:[NSURL URLWithString:url]];
@@ -66,7 +68,37 @@ static OnlineGateway *sharedOnlineGateway = nil;
     NSHTTPURLResponse *responseCode = nil;
     
     NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
-    if([responseCode statusCode] != 200){
+    if(responseCode.statusCode != 200){
+        NSLog(@"Error getting %@, HTTP status code %li",url,(long)[responseCode statusCode]);
+        return nil;
+    }
+    
+    return responseData;
+}
+
+- (NSData *)httpPostFrom:(NSString *)url withValues:(NSDictionary *)dict{
+    NSMutableString *tempPairsString = [NSMutableString string];
+    NSArray *keys = [dict allKeys];
+    
+    for(NSString *key in keys){
+        [tempPairsString appendFormat:@"%@=%@&",key, [dict objectForKey:key]];
+    }
+    
+    NSString *pairsString = [tempPairsString substringWithRange:NSMakeRange(0, tempPairsString.length-1)];
+    NSData *postData = [pairsString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    NSString *postLength = [NSString stringWithFormat:@"%d",(int)postData.length];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    request.URL = [NSURL URLWithString:url];
+    request.HTTPMethod = @"POST";
+    request.HTTPBody = postData;
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    
+    NSError *error = [[NSError alloc] init];
+    NSHTTPURLResponse *responseCode = nil;
+    
+    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
+    if(responseCode.statusCode != 200){
         NSLog(@"Error getting %@, HTTP status code %li",url,(long)[responseCode statusCode]);
         return nil;
     }
@@ -198,7 +230,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
             NSArray *locationPrefs = ([[results objectForKey:@"PreferredLocation"] isEqualToString:@""])?[NSArray array]:[NSArray arrayWithArray:[results objectForKey:@"PreferredLocation"]];
             NSArray *languages = ([[results objectForKey:@"Languages"] isEqualToString:@""])?[NSArray array]:[NSArray arrayWithArray:[results objectForKey:@"Languages"]];
             
-            [_appDelegate.offlineGateway saveUserDataWithFname:[results objectForKey:@"FirstName"] lname:[results objectForKey:@"LastName"] completion:[[results objectForKey:@"PercentComplete"] stringValue] email:[results objectForKey:@"Email"] altEmail:[results objectForKey:@"Email2"] gender:[[results objectForKey:@"GenderSex"] objectForKey:@"GenderName"] phone:[results objectForKey:@"Phone"] altPhone:[results objectForKey:@"Phone2"] mobile:[results objectForKey:@"Mobile"] birthday:bday address:[results objectForKey:@"Address"] city:[results objectForKey:@"TownCity"] countryState:[results objectForKey:@"CountyState"] postCode:[results objectForKey:@"Postcode"] country:[[results objectForKey:@"Country"] objectForKey:@"CountryName"] linkedIn:[results objectForKey:@"LinkedIn"] twitter:[results objectForKey:@"Twitter"] skype:[results objectForKey:@"Skype"] isEUAuthorised:[[results objectForKey:@"EUAuthorised"] boolValue] university:[results objectForKey:@"UniversityAttended"] subject:[results objectForKey:@"AcademicSubject"] yearGraduated:[results objectForKey:@"GraduationYear"] hea:education driverLicense:[[results objectForKey:@"DrivingLicense"] objectForKey:@"StatusName"] nationality:nationality ethnicity:[[results objectForKey:@"Ethnicity"] objectForKey:@"EthnicityName"] referrer:[results objectForKey:@"ReferrerID"] maritalStatus:[[results objectForKey:@"MaritalStatus"] objectForKey:@"StatusName"] isPermanent:[[results objectForKey:@"Permanent"] boolValue]  isContract:[[results objectForKey:@"Contract"] boolValue] isTemporary:[[results objectForKey:@"Temporary"] boolValue] isPartTime:[[results objectForKey:@"PartTime"] boolValue] jobTitlePrefs:[results objectForKey:@"PreferredJobTitles"] currency:[salary objectForKey:@"SalaryCurrency"] salaryFrom:[salary objectForKey:@"SalaryFrom"] salaryTo:[salary objectForKey:@"SalaryTo"] salaryType:salaryType mainSkills:[results objectForKey:@"MainSkills"] locationPrefs:locationPrefs relocationWillingness:[[results objectForKey:@"Relocate"] objectForKey:@"StatusName"] noticePeriod:[[results objectForKey:@"Availability"] objectForKey:@"AvailabilityName"] availableFrom:startDate languages:languages allowAlerts:canSendEmails];
+            [_appDelegate.offlineGateway saveUserDataWithID:[results objectForKey:@"CandidateID"] fname:[results objectForKey:@"FirstName"] lname:[results objectForKey:@"LastName"] completion:[[results objectForKey:@"PercentComplete"] stringValue] email:[results objectForKey:@"Email"] altEmail:[results objectForKey:@"Email2"] gender:[[results objectForKey:@"GenderSex"] objectForKey:@"GenderName"] phone:[results objectForKey:@"Phone"] altPhone:[results objectForKey:@"Phone2"] mobile:[results objectForKey:@"Mobile"] birthday:bday address:[results objectForKey:@"Address"] city:[results objectForKey:@"TownCity"] countryState:[results objectForKey:@"CountyState"] postCode:[results objectForKey:@"Postcode"] country:[[results objectForKey:@"Country"] objectForKey:@"CountryName"] linkedIn:[results objectForKey:@"LinkedIn"] twitter:[results objectForKey:@"Twitter"] skype:[results objectForKey:@"Skype"] isEUAuthorised:[[results objectForKey:@"EUAuthorised"] boolValue] university:[results objectForKey:@"UniversityAttended"] subject:[results objectForKey:@"AcademicSubject"] yearGraduated:[results objectForKey:@"GraduationYear"] hea:education driverLicense:[[results objectForKey:@"DrivingLicense"] objectForKey:@"StatusName"] nationality:nationality ethnicity:[[results objectForKey:@"Ethnicity"] objectForKey:@"EthnicityName"] referrer:[results objectForKey:@"ReferrerID"] maritalStatus:[[results objectForKey:@"MaritalStatus"] objectForKey:@"StatusName"] isPermanent:[[results objectForKey:@"Permanent"] boolValue]  isContract:[[results objectForKey:@"Contract"] boolValue] isTemporary:[[results objectForKey:@"Temporary"] boolValue] isPartTime:[[results objectForKey:@"PartTime"] boolValue] jobTitlePrefs:[results objectForKey:@"PreferredJobTitles"] currency:[salary objectForKey:@"SalaryCurrency"] salaryFrom:[salary objectForKey:@"SalaryFrom"] salaryTo:[salary objectForKey:@"SalaryTo"] salaryType:salaryType mainSkills:[results objectForKey:@"MainSkills"] locationPrefs:locationPrefs relocationWillingness:[[results objectForKey:@"Relocate"] objectForKey:@"StatusName"] noticePeriod:[[results objectForKey:@"Availability"] objectForKey:@"AvailabilityName"] availableFrom:startDate languages:languages allowAlerts:canSendEmails];
         }
     }@catch (NSException *exception) {
         [[[UIAlertView alloc] initWithTitle:nil message:@"Cannot connect to internet" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
@@ -227,6 +259,80 @@ static OnlineGateway *sharedOnlineGateway = nil;
     }@catch(NSException *e){
         return nil;
     }
+}
+
+- (NSArray *)getDocuments{
+    NSMutableArray *documents = [NSMutableArray array];
+    NSError *error = [[NSError alloc] init];
+    NSString *query = [NSString stringWithFormat:@"GetByCandidateID?id=%@",[_appDelegate.offlineGateway getUserID]];
+    
+    @try{
+        NSArray *jsonDocuments = [[NSJSONSerialization JSONObjectWithData:[self httpsGetFrom:[NSString stringWithFormat:@"%@%@",_rootDocuments,query]] options:0 error:&error] objectForKey:@"GetByCandidateIDResult"];
+        
+        if(jsonDocuments){
+            for(id jsonDocument in jsonDocuments)
+                [documents addObject:[[Document alloc] initWithID:[jsonDocument objectForKey:@"DocID"] name:[jsonDocument objectForKey:@"DocName"] extension:[jsonDocument objectForKey:@"Ext"] fileSize:[jsonDocument objectForKey:@"FileSize"] dateExpire:[self deserializeJsonDateString:[jsonDocument objectForKey:@"DateExpiry"]] type:[[jsonDocument objectForKey:@"DocType"] intValue]]];
+        }
+    }@catch(NSException *e){
+        NSLog(@"%@",e);
+    }
+    
+    return (documents)?[NSArray arrayWithArray:documents]:[NSArray array];
+}
+
+#pragma mark POSTS
+
+- (NSString *)saveCandidateDetailsWithUser:(User *)user{
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: @"CandidateID", user.propID,
+                                                                     @"FirstName", user.propFname,
+                                                                     @"LastName", user.propLname,
+                                                                     @"Email", user.propEmail,
+                                                                     @"Phone", user.propPhone,
+                                                                     @"Mobile", user.propMobile,
+                                                                     @"GenderSexID", user.propGender,
+                                                                     @"DOB", user.propBday,
+                                                                     @"Address", user.propAddress,
+                                                                     @"TownCity", user.propCity,
+                                                                     @"CountyState", user.propCountryState,
+                                                                     @"Postcode", user.propPostCode,
+                                                                     @"CountryID", user.propCountry,
+                                                                     @"PreferredLocation", user.propLocationPrefs,
+                                                                     @"EUAuthorised", user.propIsEUAuthorised,
+                                                                     @"MainSkills", user.propMainSkills,
+                                                                     @"PreferredJobTitles", user.propJobTitlePrefs,
+                                                                     @"Permanent", user.propIsPermanent,
+                                                                     @"Contract", user.propIsContract,
+                                                                     @"Temporary", user.propIsTemporary,
+                                                                     @"PartTime", user.propIsPartTime,
+                                                                     @"DrivingLicenseID", user.propDiverLicense,
+                                                                     @"LinkedIn", user.propLinkedIn,
+                                                                     @"Twitter", user.propTwitter,
+                                                                     @"RelocateID", user.propRelocationWillingness,
+                                                                     @"UniversityAttended", user.propUniversity,
+                                                                     @"AcademicSubject", user.propSubject,
+                                                                     @"GraduationYear", user.propYearGraduated,
+                                                                     @"AvailabilityID", user.propNoticePeriod,
+                                                                     @"AvailableFrom", user.propAvailableFrom,
+                                                                     @"EthnicityID", user.propEthnicity,
+                                                                     @"NationalityID", user.propNationality,
+                                                                     @"Languages", user.propLanguages,
+                                                                     @"SalaryFrom", user.propSalaryFrom,
+                                                                     @"SalaryTo", user.propSalaryTo,
+                                                                     @"SalaryTypeID", user.propSalaryType,
+                                                                     @"SalaryCurrency", user.propCurrency,
+                                                                     @"EducationID", user.propHEA,
+                                                                     @"ReferrerID", user.propReferrer,
+                                                                     @"Skype", user.propSkype,
+                                                                     @"IsStaff", @"",
+                                                                     @"MaritalStatus", user.propMaritalStatus,
+                                                                     @"GradeID", @"",
+                                                                     @"Email2", user.propAltEmail,
+                                                                     @"Phone2", user.propAltPhone,
+                                                                     @"SendEmails", user.propAllowAlerts,
+                                                                     @"SendSMS", user.propAllowAlerts, nil];
+    
+    NSError *error = [[NSError alloc] init];
+    return [NSJSONSerialization JSONObjectWithData:[self httpPostFrom:[NSString stringWithFormat:@"%@Save",_rootCandidates] withValues:dict] options:0 error:&error];
 }
 
 

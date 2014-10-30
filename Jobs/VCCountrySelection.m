@@ -76,8 +76,7 @@
 }
 
 - (void)done{
-    NSLog(@"%@ %@",_selectedCell.detailTextLabel.text,[NSString stringWithFormat:@"%d",_selectedFields.count]);
-    _selectedCell.detailTextLabel.text = [NSString stringWithFormat:@"%d",_selectedFields.count];
+    _selectedCell.detailTextLabel.text = [NSString stringWithFormat:@"%d",(int)_selectedFields.count];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

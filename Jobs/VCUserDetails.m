@@ -7,17 +7,16 @@
 //
 
 #import "VCUserDetails.h"
-#import "LVUserDetail.h"
 #import "VelosiDesigner.h"
 #import "VelosiColors.h"
-#import "DAKeyboardControl.h"
 #import "VelosiCustomPicker.h"
 #import "User.h"
+#import "VCCountrySelection.h"
+#import "VCLanguages.h"
 
 @interface VCUserDetails(){
     UIPickerView *_pickerGender, *_pickerYearGraduated, *_pickerEducation, *_pickerLicense, *_pickerNationality, *_pickerEthnicity, *_pickerReferrers, *_pickerStatus, *_pickerWillRelocate, *_pickerAvailability, *_pickerSalaryType, *_pickerCurrency;
     UIDatePicker *_pickerBday, *_pickerAvailableFrom;
-    LVUserDetail *_vcChild;
 }
 @end
 
@@ -29,108 +28,104 @@
     self.locationprefs = [NSMutableArray arrayWithArray:[self.appDelegate.offlineGateway getPreferredLocations]];
     self.languages = [NSMutableArray arrayWithArray:[self.appDelegate.offlineGateway getLanguages]];
     
-    _lvContainer.layer.shadowColor = [UIColor blackColor].CGColor;
-    _lvContainer.layer.shadowOpacity = 1;
-    _lvContainer.layer.shadowOffset = CGSizeMake(0, 0);
+    [self manageTextField:self.fieldFirstName withValue:[self.appDelegate.offlineGateway getFirstName]];
+    [self manageTextField:self.fieldLastName withValue:[self.appDelegate.offlineGateway getLastName]];
+    [self manageTextField:self.fieldEmail withValue:[self.appDelegate.offlineGateway getEmail]];
+    [self manageTextField:self.fieldAltEmail withValue:[self.appDelegate.offlineGateway getAlternateEmail]];
+    [self manageTextField:self.fieldGender withValue:[self.appDelegate.offlineGateway getGender]];
+    [self manageTextField:self.fieldPhone withValue:[self.appDelegate.offlineGateway getPhone]];
+    [self manageTextField:self.fieldAltPhone withValue:[self.appDelegate.offlineGateway getAlternatePhone]];
+    [self manageTextField:self.fieldMobile withValue:[self.appDelegate.offlineGateway getMobile]];
+    [self manageTextField:self.fieldBirthdate withValue:[self.appDelegate.offlineGateway getBirthdate]];
+    
+    [self manageTextField:self.fieldAddress withValue:[self.appDelegate.offlineGateway getAddress]];
+    [self manageTextField:self.fieldCity withValue:[self.appDelegate.offlineGateway getCity]];
+    [self manageTextField:self.fieldCountryState withValue:[self.appDelegate.offlineGateway getCountryState]];
+    [self manageTextField:self.fieldPostcode withValue:[self.appDelegate.offlineGateway getPostcode]];
+    [self manageTextField:self.fieldLinkedin withValue:[self.appDelegate.offlineGateway getLinkedin]];
+    [self manageTextField:self.fieldTwitter withValue:[self.appDelegate.offlineGateway getTwitter]];
+    [self manageTextField:self.fieldSkype withValue:[self.appDelegate.offlineGateway getSkype]];
+    
+    [self manageTextField:self.fieldUniversity withValue:[self.appDelegate.offlineGateway getUniversity]];
+    [self manageTextField:self.fieldSubject withValue:[self.appDelegate.offlineGateway getSubject]];
+    [self manageTextField:self.fieldYearGraduated withValue:[self.appDelegate.offlineGateway getYearGraduated]];
+    [self manageTextField:self.fieldEducation withValue:[self.appDelegate.offlineGateway getEducation]];
 
-    [self manageTextField:_vcChild.fieldFirstName withValue:[self.appDelegate.offlineGateway getFirstName]];
-    [self manageTextField:_vcChild.fieldLastName withValue:[self.appDelegate.offlineGateway getLastName]];
-    [self manageTextField:_vcChild.fieldEmail withValue:[self.appDelegate.offlineGateway getEmail]];
-    [self manageTextField:_vcChild.fieldAltEmail withValue:[self.appDelegate.offlineGateway getAlternateEmail]];
-    [self manageTextField:_vcChild.fieldGender withValue:[self.appDelegate.offlineGateway getGender]];
-    [self manageTextField:_vcChild.fieldPhone withValue:[self.appDelegate.offlineGateway getPhone]];
-    [self manageTextField:_vcChild.fieldAltPhone withValue:[self.appDelegate.offlineGateway getAlternatePhone]];
-    [self manageTextField:_vcChild.fieldMobile withValue:[self.appDelegate.offlineGateway getMobile]];
-    [self manageTextField:_vcChild.fieldBirthdate withValue:[self.appDelegate.offlineGateway getBirthdate]];
-    
-    [self manageTextField:_vcChild.fieldAddress withValue:[self.appDelegate.offlineGateway getAddress]];
-    [self manageTextField:_vcChild.fieldCity withValue:[self.appDelegate.offlineGateway getCity]];
-    [self manageTextField:_vcChild.fieldCountryState withValue:[self.appDelegate.offlineGateway getCountryState]];
-    [self manageTextField:_vcChild.fieldPostcode withValue:[self.appDelegate.offlineGateway getPostcode]];
-    [self manageTextField:_vcChild.fieldLinkedin withValue:[self.appDelegate.offlineGateway getLinkedin]];
-    [self manageTextField:_vcChild.fieldTwitter withValue:[self.appDelegate.offlineGateway getTwitter]];
-    [self manageTextField:_vcChild.fieldSkype withValue:[self.appDelegate.offlineGateway getSkype]];
-    
-    [self manageTextField:_vcChild.fieldUniversity withValue:[self.appDelegate.offlineGateway getUniversity]];
-    [self manageTextField:_vcChild.fieldSubject withValue:[self.appDelegate.offlineGateway getSubject]];
-    [self manageTextField:_vcChild.fieldYearGraduated withValue:[self.appDelegate.offlineGateway getYearGraduated]];
-    [self manageTextField:_vcChild.fieldEducation withValue:[self.appDelegate.offlineGateway getEducation]];
+    [self manageTextField:self.fieldLicense withValue:[self.appDelegate.offlineGateway getDrivingLicense]];
+    [self manageTextField:self.fieldNationality withValue:[self.appDelegate.offlineGateway getNationality]];
+    [self manageTextField:self.fieldEthnicity withValue:[self.appDelegate.offlineGateway getEthnicity]];
+    [self manageTextField:self.fieldReferrer withValue:[self.appDelegate.offlineGateway getReferrer]];
+    [self manageTextField:self.fieldMaritalStatus withValue:[self.appDelegate.offlineGateway getMaritalStatus]];
 
-    [self manageTextField:_vcChild.fieldLicense withValue:[self.appDelegate.offlineGateway getDrivingLicense]];
-    [self manageTextField:_vcChild.fieldNationality withValue:[self.appDelegate.offlineGateway getNationality]];
-    [self manageTextField:_vcChild.fieldEthnicity withValue:[self.appDelegate.offlineGateway getEthnicity]];
-    [self manageTextField:_vcChild.fieldReferrer withValue:[self.appDelegate.offlineGateway getReferrer]];
-    [self manageTextField:_vcChild.fieldMaritalStatus withValue:[self.appDelegate.offlineGateway getMaritalStatus]];
+    [self manageTextField:self.fieldWillRelocate withValue:[self.appDelegate.offlineGateway getWillRelocate]];
+    [self manageTextField:self.fieldNoticePeriod withValue:[self.appDelegate.offlineGateway getNoticePeriod]];
+    [self manageTextField:self.fieldAvailableFrom withValue:[self.appDelegate.offlineGateway getAvailableFrom]];
 
-    [self manageTextField:_vcChild.fieldWillRelocate withValue:[self.appDelegate.offlineGateway getWillRelocate]];
-    [self manageTextField:_vcChild.fieldNoticePeriod withValue:[self.appDelegate.offlineGateway getNoticePeriod]];
-    [self manageTextField:_vcChild.fieldAvailableFrom withValue:[self.appDelegate.offlineGateway getAvailableFrom]];
+    [self manageTextField:self.fieldJobTitles withValue:[self.appDelegate.offlineGateway getPreferredJobTitles]];
+    [self manageTextField:self.fieldCurrency withValue:[self.appDelegate.offlineGateway getCurrency]];
 
-    [self manageTextField:_vcChild.fieldJobTitles withValue:[self.appDelegate.offlineGateway getPreferredJobTitles]];
-    [self manageTextField:_vcChild.fieldCurrency withValue:[self.appDelegate.offlineGateway getCurrency]];
+    [self manageTextField:self.fieldSalaryFrom withValue:[self.appDelegate.offlineGateway getSalaryFrom]];
+    [self manageTextField:self.fieldSalaryTo withValue:[self.appDelegate.offlineGateway getSalaryTo]];
+    [self manageTextField:self.fieldSalaryType withValue:[self.appDelegate.offlineGateway getSalaryType]];
 
-    [self manageTextField:_vcChild.fieldSalaryFrom withValue:[self.appDelegate.offlineGateway getSalaryFrom]];
-    [self manageTextField:_vcChild.fieldSalaryTo withValue:[self.appDelegate.offlineGateway getSalaryTo]];
-    [self manageTextField:_vcChild.fieldSalaryType withValue:[self.appDelegate.offlineGateway getSalaryType]];
+    self.cellCountry.detailTextLabel.text = [self.appDelegate.offlineGateway getCountry];
+    self.cellPreferredLocation.detailTextLabel.text = [NSString stringWithFormat:@"%d",(int)self.locationprefs.count];
+    self.cellLanguages.detailTextLabel.text = [NSString stringWithFormat:@"%d",(int)self.languages.count];
 
-    _vcChild.cellCountry.detailTextLabel.text = [self.appDelegate.offlineGateway getCountry];
-    _vcChild.cellPreferredLocation.detailTextLabel.text = [NSString stringWithFormat:@"%d",self.locationprefs.count];
-    _vcChild.cellLanguages.detailTextLabel.text = [NSString stringWithFormat:@"%d",self.languages.count];
-
-    _vcChild.switchEUAuthorized.on = [self.appDelegate.offlineGateway isEUAuthorized];
-    _vcChild.switchWillAllowAlerts.on = [self.appDelegate.offlineGateway isAlertsAllowed];
-    _vcChild.switchIsPermanent.on = [self.appDelegate.offlineGateway isPermanent];
-    _vcChild.switchIsTemporary.on = [self.appDelegate.offlineGateway isTemporary];
-    _vcChild.switchIsContract.on = [self.appDelegate.offlineGateway isContract];
-    _vcChild.switchIsParttime.on = [self.appDelegate.offlineGateway isPartTime];
-    _vcChild.fieldMainSkills.text = [self.appDelegate.offlineGateway getMainSkills];
+    self.switchEUAuthorized.on = [self.appDelegate.offlineGateway isEUAuthorized];
+    self.switchWillAllowAlerts.on = [self.appDelegate.offlineGateway isAlertsAllowed];
+    self.switchIsPermanent.on = [self.appDelegate.offlineGateway isPermanent];
+    self.switchIsTemporary.on = [self.appDelegate.offlineGateway isTemporary];
+    self.switchIsContract.on = [self.appDelegate.offlineGateway isContract];
+    self.switchIsParttime.on = [self.appDelegate.offlineGateway isPartTime];
+    self.fieldMainSkills.text = [self.appDelegate.offlineGateway getMainSkills];
     
-    _vcChild.fieldFirstName.delegate = self;
-    _vcChild.fieldLastName.delegate = self;
-    _vcChild.fieldEmail.delegate = self;
-    _vcChild.fieldAltEmail.delegate = self;
-    _vcChild.fieldGender.delegate = self;
-    _vcChild.fieldPhone.delegate = self;
-    _vcChild.fieldAltPhone.delegate = self;
-    _vcChild.fieldMobile.delegate = self;
-    _vcChild.fieldBirthdate.delegate = self;
+    self.fieldFirstName.delegate = self;
+    self.fieldLastName.delegate = self;
+    self.fieldEmail.delegate = self;
+    self.fieldAltEmail.delegate = self;
+    self.fieldGender.delegate = self;
+    self.fieldPhone.delegate = self;
+    self.fieldAltPhone.delegate = self;
+    self.fieldMobile.delegate = self;
+    self.fieldBirthdate.delegate = self;
     
-    _vcChild.fieldAddress.delegate = self;
-    _vcChild.fieldCity.delegate = self;
-    _vcChild.fieldCountryState.delegate = self;
-    _vcChild.fieldPostcode.delegate = self;
-    _vcChild.fieldLinkedin.delegate = self;
-    _vcChild.fieldTwitter.delegate = self;
-    _vcChild.fieldSkype.delegate = self;
+    self.fieldAddress.delegate = self;
+    self.fieldCity.delegate = self;
+    self.fieldCountryState.delegate = self;
+    self.fieldPostcode.delegate = self;
+    self.fieldLinkedin.delegate = self;
+    self.fieldTwitter.delegate = self;
+    self.fieldSkype.delegate = self;
     
-    _vcChild.fieldUniversity.delegate = self;
-    _vcChild.fieldSubject.delegate = self;
-    _vcChild.fieldYearGraduated.delegate = self;
-    _vcChild.fieldEducation.delegate = self;
+    self.fieldUniversity.delegate = self;
+    self.fieldSubject.delegate = self;
+    self.fieldYearGraduated.delegate = self;
+    self.fieldEducation.delegate = self;
     
-    _vcChild.fieldLicense.delegate = self;
-    _vcChild.fieldNationality.delegate = self;
-    _vcChild.fieldEthnicity.delegate = self;
-    _vcChild.fieldReferrer.delegate = self;
-    _vcChild.fieldMaritalStatus.delegate = self;
+    self.fieldLicense.delegate = self;
+    self.fieldNationality.delegate = self;
+    self.fieldEthnicity.delegate = self;
+    self.fieldReferrer.delegate = self;
+    self.fieldMaritalStatus.delegate = self;
     
-    _vcChild.fieldWillRelocate.delegate = self;
-    _vcChild.fieldNoticePeriod.delegate = self;
-    _vcChild.fieldAvailableFrom.delegate = self;
-    _vcChild.fieldJobTitles.delegate = self;
-    _vcChild.fieldCurrency.delegate = self;
+    self.fieldWillRelocate.delegate = self;
+    self.fieldNoticePeriod.delegate = self;
+    self.fieldAvailableFrom.delegate = self;
+    self.fieldJobTitles.delegate = self;
+    self.fieldCurrency.delegate = self;
     
-    _vcChild.fieldSalaryFrom.delegate = self;
-    _vcChild.fieldSalaryTo.delegate = self;
-    _vcChild.fieldSalaryType.delegate = self;
-    _vcChild.fieldMainSkills.delegate = self;
-    _vcChild.fieldMainSkills.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10);
+    self.fieldSalaryFrom.delegate = self;
+    self.fieldSalaryTo.delegate = self;
+    self.fieldSalaryType.delegate = self;
+    self.fieldMainSkills.delegate = self;
+    self.fieldMainSkills.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10);
     
     _pickerGender = [[VelosiCustomPicker alloc] initWithElements:self.appDelegate.userDetails.propListGender andRowSelectionDelegate:self hasAll:NO];
-    [self selectPicker:_pickerGender list:self.appDelegate.userDetails.propListGender field:_vcChild.fieldGender];
+    [self selectPicker:_pickerGender list:self.appDelegate.userDetails.propListGender field:self.fieldGender];
     _pickerBday = [[UIDatePicker alloc] init];
     _pickerBday.datePickerMode = UIDatePickerModeDate;
-    _pickerBday.date = [self.appDelegate.velosiDateFormat dateFromString:_vcChild.fieldBirthdate.text];
+    _pickerBday.date = [self.appDelegate.velosiDateFormat dateFromString:self.fieldBirthdate.text];
     _pickerBday.maximumDate = [NSDate date];
     _pickerBday.backgroundColor = [UIColor whiteColor];
     _pickerBday.layer.shadowColor = [UIColor darkGrayColor].CGColor;
@@ -138,36 +133,36 @@
     _pickerBday.layer.shadowOffset = CGSizeMake(0, 0);
     [_pickerBday addTarget:self action:@selector(updateBirthdayField) forControlEvents:UIControlEventValueChanged];
     _pickerYearGraduated = [[VelosiCustomPicker alloc] initWithElements:self.appDelegate.userDetails.propListYearGraduated andRowSelectionDelegate:self hasAll:NO];
-    [self selectPicker:_pickerYearGraduated list:self.appDelegate.userDetails.propListYearGraduated field:_vcChild.fieldYearGraduated];
+    [self selectPicker:_pickerYearGraduated list:self.appDelegate.userDetails.propListYearGraduated field:self.fieldYearGraduated];
     _pickerEducation = [[VelosiCustomPicker alloc] initWithElements:self.appDelegate.userDetails.propListEducation andRowSelectionDelegate:self hasAll:NO];
-    [self selectPicker:_pickerEducation list:self.appDelegate.userDetails.propListEducation field:_vcChild.fieldEducation];
+    [self selectPicker:_pickerEducation list:self.appDelegate.userDetails.propListEducation field:self.fieldEducation];
     _pickerLicense = [[VelosiCustomPicker alloc] initWithElements:self.appDelegate.userDetails.propListLicense andRowSelectionDelegate:self hasAll:NO];
-    [self selectPicker:_pickerLicense list:self.appDelegate.userDetails.propListLicense field:_vcChild.fieldLicense];
+    [self selectPicker:_pickerLicense list:self.appDelegate.userDetails.propListLicense field:self.fieldLicense];
     _pickerNationality = [[VelosiCustomPicker alloc] initWithElements:self.appDelegate.userDetails.propListNationality andRowSelectionDelegate:self hasAll:NO];
-    [self selectPicker:_pickerNationality list:self.appDelegate.userDetails.propListNationality field:_vcChild.fieldNationality];
+    [self selectPicker:_pickerNationality list:self.appDelegate.userDetails.propListNationality field:self.fieldNationality];
     _pickerEthnicity = [[VelosiCustomPicker alloc] initWithElements:self.appDelegate.userDetails.propListEthnicity andRowSelectionDelegate:self hasAll:NO];
-    [self selectPicker:_pickerEthnicity list:self.appDelegate.userDetails.propListEthnicity field:_vcChild.fieldEthnicity];
+    [self selectPicker:_pickerEthnicity list:self.appDelegate.userDetails.propListEthnicity field:self.fieldEthnicity];
     _pickerReferrers = [[VelosiCustomPicker alloc] initWithElements:self.appDelegate.referrerList andRowSelectionDelegate:self hasAll:NO];
-    [self selectPicker:_pickerReferrers list:self.appDelegate.referrerList field:_vcChild.fieldReferrer];
+    [self selectPicker:_pickerReferrers list:self.appDelegate.referrerList field:self.fieldReferrer];
     _pickerStatus = [[VelosiCustomPicker alloc] initWithElements:self.appDelegate.userDetails.propListMaritalStatus andRowSelectionDelegate:self hasAll:NO];
-    [self selectPicker:_pickerStatus list:self.appDelegate.userDetails.propListMaritalStatus field:_vcChild.fieldMaritalStatus];
+    [self selectPicker:_pickerStatus list:self.appDelegate.userDetails.propListMaritalStatus field:self.fieldMaritalStatus];
     _pickerWillRelocate = [[VelosiCustomPicker alloc] initWithElements:self.appDelegate.userDetails.propListRelocate andRowSelectionDelegate:self hasAll:NO];
-    [self selectPicker:_pickerWillRelocate list:self.appDelegate.userDetails.propListRelocate field:_vcChild.fieldWillRelocate];
+    [self selectPicker:_pickerWillRelocate list:self.appDelegate.userDetails.propListRelocate field:self.fieldWillRelocate];
     _pickerAvailability = [[VelosiCustomPicker alloc] initWithElements:self.appDelegate.userDetails.propListAvailability andRowSelectionDelegate:self hasAll:NO];
-    [self selectPicker:_pickerAvailability list:self.appDelegate.userDetails.propListAvailability field:_vcChild.fieldNoticePeriod];
+    [self selectPicker:_pickerAvailability list:self.appDelegate.userDetails.propListAvailability field:self.fieldNoticePeriod];
     _pickerAvailableFrom = [[UIDatePicker alloc] init];
     _pickerAvailableFrom.datePickerMode = UIDatePickerModeDate;
-    if([_vcChild.fieldAvailableFrom.text length] > 0)
-        _pickerAvailableFrom.date = [self.appDelegate.velosiDateFormat dateFromString:_vcChild.fieldAvailableFrom.text];
+    if([self.fieldAvailableFrom.text length] > 0)
+        _pickerAvailableFrom.date = [self.appDelegate.velosiDateFormat dateFromString:self.fieldAvailableFrom.text];
     _pickerAvailableFrom.backgroundColor = [UIColor whiteColor];
     _pickerAvailableFrom.layer.shadowColor = [UIColor darkGrayColor].CGColor;
     _pickerAvailableFrom.layer.shadowOpacity = 1;
     _pickerAvailableFrom.layer.shadowOffset = CGSizeMake(0, 0);
     [_pickerAvailableFrom addTarget:self action:@selector(updateAvailableFromField) forControlEvents:UIControlEventValueChanged];
     _pickerSalaryType = [[VelosiCustomPicker alloc] initWithElements:self.appDelegate.userDetails.propListSalaryType andRowSelectionDelegate:self hasAll:NO];
-    [self selectPicker:_pickerSalaryType list:self.appDelegate.userDetails.propListSalaryType field:_vcChild.fieldSalaryType];
+    [self selectPicker:_pickerSalaryType list:self.appDelegate.userDetails.propListSalaryType field:self.fieldSalaryType];
     _pickerCurrency = [[VelosiCustomPicker alloc] initWithElements:self.appDelegate.currencyList.currencyNameList andRowSelectionDelegate:self hasAll:NO];
-    [self selectPicker:_pickerCurrency list:self.appDelegate.currencyList.currencySymbolList field:_vcChild.fieldCurrency];
+    [self selectPicker:_pickerCurrency list:self.appDelegate.currencyList.currencySymbolList field:self.fieldCurrency];
 }
 
 - (void)selectPicker:(UIPickerView *)picker list:(NSArray *)list field:(UITextField *)tf{
@@ -176,27 +171,20 @@
 }
 
 - (void)updateBirthdayField{
-    _vcChild.fieldBirthdate.text = [self.appDelegate.velosiDateFormat stringFromDate:_pickerBday.date];
+    self.fieldBirthdate.text = [self.appDelegate.velosiDateFormat stringFromDate:_pickerBday.date];
 }
 
 - (void)updateAvailableFromField{
-    _vcChild.fieldAvailableFrom.text = [self.appDelegate.velosiDateFormat stringFromDate:_pickerAvailableFrom.date];
+    self.fieldAvailableFrom.text = [self.appDelegate.velosiDateFormat stringFromDate:_pickerAvailableFrom.date];
 }
 
-- (IBAction)toggleActions:(id)sender {
-    [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Save", @"Close Account", @"Logout", nil] showInView:self.view];
+- (IBAction)done:(id)sender {
+    NSLog(@"Done");
 }
 
 - (IBAction)showList:(id)sender {
+    [self.view endEditing:YES];
     [self.appDelegate.slider toggleSidebar];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{    
-    //NOTE: this is triggered first before viewdidload
-    if([segue.identifier isEqualToString:@"segueEmbedDetail"]){
-        _vcChild = (LVUserDetail *)segue.destinationViewController;
-        _vcChild.vcUserDetails = self;
-    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -207,33 +195,33 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
     [VelosiDesigner makeVelosiFocusedTextField:textField];
     textField.rightView = nil;
-    if(textField == _vcChild.fieldGender)
+    if(textField == self.fieldGender)
         textField.inputView = _pickerGender;
-    else if(textField == _vcChild.fieldBirthdate)
+    else if(textField == self.fieldBirthdate)
         textField.inputView = _pickerBday;
-    else if(textField == _vcChild.fieldYearGraduated)
+    else if(textField == self.fieldYearGraduated)
         textField.inputView = _pickerYearGraduated;
-    else if(textField == _vcChild.fieldEducation)
+    else if(textField == self.fieldEducation)
         textField.inputView = _pickerEducation;
-    else if(textField == _vcChild.fieldLicense)
+    else if(textField == self.fieldLicense)
         textField.inputView = _pickerLicense;
-    else if(textField == _vcChild.fieldNationality)
+    else if(textField == self.fieldNationality)
         textField.inputView = _pickerNationality;
-    else if(textField == _vcChild.fieldEthnicity)
+    else if(textField == self.fieldEthnicity)
         textField.inputView = _pickerEthnicity;
-    else if(textField == _vcChild.fieldReferrer)
+    else if(textField == self.fieldReferrer)
         textField.inputView = _pickerReferrers;
-    else if(textField == _vcChild.fieldMaritalStatus)
+    else if(textField == self.fieldMaritalStatus)
         textField.inputView = _pickerStatus;
-    else if(textField == _vcChild.fieldWillRelocate)
+    else if(textField == self.fieldWillRelocate)
         textField.inputView = _pickerWillRelocate;
-    else if(textField == _vcChild.fieldNoticePeriod)
+    else if(textField == self.fieldNoticePeriod)
         textField.inputView = _pickerAvailability;
-    else if(textField == _vcChild.fieldAvailableFrom)
+    else if(textField == self.fieldAvailableFrom)
         textField.inputView = _pickerAvailableFrom;
-    else if(textField == _vcChild.fieldSalaryType)
+    else if(textField == self.fieldSalaryType)
         textField.inputView = _pickerSalaryType;
-    else if(textField == _vcChild.fieldCurrency)
+    else if(textField == self.fieldCurrency)
         textField.inputView = _pickerCurrency;
 }
 
@@ -244,29 +232,29 @@
 
 - (void)pickerSelection:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     if(pickerView == _pickerGender)
-        _vcChild.fieldGender.text = [self.appDelegate.userDetails.propListGender objectAtIndex:row];
+        self.fieldGender.text = [self.appDelegate.userDetails.propListGender objectAtIndex:row];
     else if(pickerView == _pickerYearGraduated)
-        _vcChild.fieldYearGraduated.text = [self.appDelegate.userDetails.propListYearGraduated objectAtIndex:row];
+        self.fieldYearGraduated.text = [self.appDelegate.userDetails.propListYearGraduated objectAtIndex:row];
     else if(pickerView == _pickerEducation)
-        _vcChild.fieldEducation.text = [self.appDelegate.userDetails.propListEducation objectAtIndex:row];
+        self.fieldEducation.text = [self.appDelegate.userDetails.propListEducation objectAtIndex:row];
     else if(pickerView == _pickerLicense)
-        _vcChild.fieldEducation.text = [self.appDelegate.userDetails.propListLicense objectAtIndex:row];
+        self.fieldEducation.text = [self.appDelegate.userDetails.propListLicense objectAtIndex:row];
     else if(pickerView == _pickerNationality)
-        _vcChild.fieldNationality.text = [self.appDelegate.userDetails.propListNationality objectAtIndex:row];
+        self.fieldNationality.text = [self.appDelegate.userDetails.propListNationality objectAtIndex:row];
     else if(pickerView == _pickerEthnicity)
-        _vcChild.fieldEthnicity.text = [self.appDelegate.userDetails.propListEthnicity objectAtIndex:row];
+        self.fieldEthnicity.text = [self.appDelegate.userDetails.propListEthnicity objectAtIndex:row];
     else if(pickerView == _pickerReferrers)
-        _vcChild.fieldReferrer.text = [self.appDelegate.referrerList objectAtIndex:row];
+        self.fieldReferrer.text = [self.appDelegate.referrerList objectAtIndex:row];
     else if(pickerView == _pickerStatus)
-        _vcChild.fieldMaritalStatus.text = [self.appDelegate.userDetails.propListMaritalStatus objectAtIndex:row];
+        self.fieldMaritalStatus.text = [self.appDelegate.userDetails.propListMaritalStatus objectAtIndex:row];
     else if(pickerView == _pickerWillRelocate)
-        _vcChild.fieldWillRelocate.text = [self.appDelegate.userDetails.propListRelocate objectAtIndex:row];
+        self.fieldWillRelocate.text = [self.appDelegate.userDetails.propListRelocate objectAtIndex:row];
     else if(pickerView == _pickerAvailability)
-        _vcChild.fieldNoticePeriod.text = [self.appDelegate.userDetails.propListAvailability objectAtIndex:row];
+        self.fieldNoticePeriod.text = [self.appDelegate.userDetails.propListAvailability objectAtIndex:row];
     else if(pickerView == _pickerSalaryType)
-        _vcChild.fieldSalaryType.text = [self.appDelegate.userDetails.propListSalaryType objectAtIndex:row];
+        self.fieldSalaryType.text = [self.appDelegate.userDetails.propListSalaryType objectAtIndex:row];
     else if(pickerView == _pickerCurrency)
-        _vcChild.fieldCurrency.text = [self.appDelegate.currencyList.currencySymbolList objectAtIndex:row];
+        self.fieldCurrency.text = [self.appDelegate.currencyList.currencySymbolList objectAtIndex:row];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView{
@@ -288,6 +276,21 @@
     
     textField.text = val;
 }
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([segue.identifier isEqualToString:@"segueDetailToCountrySelection"]){
+        [(VCCountrySelection *)segue.destinationViewController cellSelectorSelectedCell:sender];
+    } else if([segue.identifier isEqualToString:@"segueLocationPreferences"]){
+        ((VCCountrySelection *)segue.destinationViewController).selectedFields = self.locationprefs;
+        [(VCCountrySelection *)segue.destinationViewController cellSelectorSelectedCell:sender];
+    }
+    
+    if([segue.destinationViewController isKindOfClass:[VCLanguages class]]){
+        ((VCLanguages *)segue.destinationViewController).languages = self.languages;
+        [(VCLanguages *)segue.destinationViewController cellSelectorSelectedCell:sender];
+    }
+}
+
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     switch (buttonIndex) {

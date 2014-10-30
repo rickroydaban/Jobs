@@ -13,13 +13,14 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
-    _bottomNavigator.layer.shadowColor = [UIColor blackColor].CGColor;
-    _bottomNavigator.layer.shadowOpacity = 1;
-    _bottomNavigator.layer.shadowOffset = CGSizeMake(0, 0);
 }
 
 - (IBAction)showList:(id)sender {
     [self.appDelegate.slider toggleSidebar];
+}
+
+- (IBAction)done:(id)sender {
+    NSLog(@"Done");
 }
 
 @end

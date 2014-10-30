@@ -7,8 +7,12 @@
 //
 
 #import "VCPage.h"
+#import "VCUserTables.h"
 
-@interface VCUserPassword : VCPage<UIActionSheetDelegate>
+@interface VCUserPassword : VCUserTables<UIActionSheetDelegate>
 
-@property (strong, nonatomic) IBOutlet UIView *lvContainer;
+@property (strong, nonatomic) IBOutlet UITextField *fieldOldPassword;
+@property (strong, nonatomic) IBOutlet UITextField *fieldNewPassword;
+@property (strong, nonatomic) IBOutlet UITextField *fieldConfirmPassword;
+
 @end
