@@ -21,5 +21,7 @@
 - (User *)authenticateUserName:(NSString *)username password:(NSString *)password;
 - (NSArray *)getReferrerList;
 - (NSArray *)getDocuments;
+- (NSString *)saveCandidateDetailsWithUser:(User *)user;
+
 
 @end

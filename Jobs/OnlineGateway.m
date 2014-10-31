@@ -98,11 +98,12 @@ static OnlineGateway *sharedOnlineGateway = nil;
     NSHTTPURLResponse *responseCode = nil;
     
     NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
-    if(responseCode.statusCode != 200){
-        NSLog(@"Error getting %@, HTTP status code %li",url,(long)[responseCode statusCode]);
-        return nil;
-    }
-    
+//    if(responseCode.statusCode != 200){
+//        NSLog(@"Error getting %@, HTTP status code %li",url,(long)[responseCode statusCode]);
+//        return nil;
+//    }
+//    
+//    NSLog(@"returned response data");
     return responseData;
 }
 
@@ -283,56 +284,59 @@ static OnlineGateway *sharedOnlineGateway = nil;
 #pragma mark POSTS
 
 - (NSString *)saveCandidateDetailsWithUser:(User *)user{
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: @"CandidateID", user.propID,
-                                                                     @"FirstName", user.propFname,
-                                                                     @"LastName", user.propLname,
-                                                                     @"Email", user.propEmail,
-                                                                     @"Phone", user.propPhone,
-                                                                     @"Mobile", user.propMobile,
-                                                                     @"GenderSexID", user.propGender,
-                                                                     @"DOB", user.propBday,
-                                                                     @"Address", user.propAddress,
-                                                                     @"TownCity", user.propCity,
-                                                                     @"CountyState", user.propCountryState,
-                                                                     @"Postcode", user.propPostCode,
-                                                                     @"CountryID", user.propCountry,
-                                                                     @"PreferredLocation", user.propLocationPrefs,
-                                                                     @"EUAuthorised", user.propIsEUAuthorised,
-                                                                     @"MainSkills", user.propMainSkills,
-                                                                     @"PreferredJobTitles", user.propJobTitlePrefs,
-                                                                     @"Permanent", user.propIsPermanent,
-                                                                     @"Contract", user.propIsContract,
-                                                                     @"Temporary", user.propIsTemporary,
-                                                                     @"PartTime", user.propIsPartTime,
-                                                                     @"DrivingLicenseID", user.propDiverLicense,
-                                                                     @"LinkedIn", user.propLinkedIn,
-                                                                     @"Twitter", user.propTwitter,
-                                                                     @"RelocateID", user.propRelocationWillingness,
-                                                                     @"UniversityAttended", user.propUniversity,
-                                                                     @"AcademicSubject", user.propSubject,
-                                                                     @"GraduationYear", user.propYearGraduated,
-                                                                     @"AvailabilityID", user.propNoticePeriod,
-                                                                     @"AvailableFrom", user.propAvailableFrom,
-                                                                     @"EthnicityID", user.propEthnicity,
-                                                                     @"NationalityID", user.propNationality,
-                                                                     @"Languages", user.propLanguages,
-                                                                     @"SalaryFrom", user.propSalaryFrom,
-                                                                     @"SalaryTo", user.propSalaryTo,
-                                                                     @"SalaryTypeID", user.propSalaryType,
-                                                                     @"SalaryCurrency", user.propCurrency,
-                                                                     @"EducationID", user.propHEA,
-                                                                     @"ReferrerID", user.propReferrer,
-                                                                     @"Skype", user.propSkype,
-                                                                     @"IsStaff", @"",
-                                                                     @"MaritalStatus", user.propMaritalStatus,
-                                                                     @"GradeID", @"",
-                                                                     @"Email2", user.propAltEmail,
-                                                                     @"Phone2", user.propAltPhone,
-                                                                     @"SendEmails", user.propAllowAlerts,
-                                                                     @"SendSMS", user.propAllowAlerts, nil];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+                           
+    [dict setObject: user.propID forKey:@"CandidateID"];
+    [dict setObject: user.propFname forKey:@"FirstName"];
+    [dict setObject: user.propLname forKey:@"LastName"];
+    [dict setObject: user.propEmail forKey:@"Email"];
+    [dict setObject: user.propPhone forKey:@"Phone"];
+    [dict setObject: user.propMobile forKey:@"Mobile"];
+    [dict setObject: user.propGender forKey:@"GenderSexID"];
+    [dict setObject: user.propBday forKey:@"DOB"];
+    [dict setObject: user.propAddress forKey:@"Address"];
+    [dict setObject: user.propCity forKey:@"TownCity"];
+    [dict setObject: user.propCountryState forKey:@"CountyState"];
+    [dict setObject: user.propPostCode forKey:@"Postcode"];
+    [dict setObject: user.propCountry forKey:@"CountryID"];
+    [dict setObject: user.propLocationPrefs forKey:@"PreferredLocation"];
+    [dict setObject: (user.propIsEUAuthorised)?@"true":@"false" forKey:@"EUAuthorised"];
+    [dict setObject: user.propMainSkills forKey:@"MainSkills"];
+    [dict setObject: user.propJobTitlePrefs forKey:@"PreferredJobTitles"];
+    [dict setObject: (user.propIsPermanent)?@"true":@"false" forKey:@"Permanent"];
+    [dict setObject: (user.propIsContract)?@"true":@"false" forKey:@"Contract"];
+    [dict setObject: (user.propIsTemporary)?@"true":@"false" forKey:@"Temporary"];
+    [dict setObject: (user.propIsPartTime)?@"true":@"false" forKey:@"PartTime"];
+    [dict setObject: user.propDiverLicense forKey:@"DrivingLicenseID"];
+    [dict setObject: user.propLinkedIn forKey:@"LinkedIn"];
+    [dict setObject: user.propTwitter forKey:@"Twitter"];
+    [dict setObject: user.propRelocationWillingness forKey:@"RelocateID"];
+    [dict setObject: user.propUniversity forKey:@"UniversityAttended"];
+    [dict setObject: user.propSubject forKey:@"AcademicSubject"];
+    [dict setObject: user.propYearGraduated forKey:@"GraduationYear"];
+    [dict setObject: user.propNoticePeriod forKey:@"AvailabilityID"];
+    [dict setObject: user.propAvailableFrom forKey:@"AvailableFrom"];
+    [dict setObject: user.propEthnicity forKey:@"EthnicityID"];
+    [dict setObject: user.propNationality forKey:@"NationalityID"];
+    [dict setObject: user.propLanguages forKey:@"Languages"];
+    [dict setObject: user.propSalaryFrom forKey:@"SalaryFrom"];
+    [dict setObject: user.propSalaryTo forKey:@"SalaryTo"];
+    [dict setObject: user.propSalaryType forKey:@"SalaryTypeID"];
+    [dict setObject: user.propCurrency forKey:@"SalaryCurrency"];
+    [dict setObject: user.propHEA forKey:@"EducationID"];
+    [dict setObject: user.propReferrer forKey:@"ReferrerID"];
+    [dict setObject: user.propSkype forKey:@"Skype"];
+    [dict setObject: user.propMaritalStatus forKey:@"MaritalStatus"];
+    [dict setObject: user.propAltEmail forKey:@"Email2"];
+    [dict setObject: user.propAltPhone forKey:@"Phone2"];
+    [dict setObject: (user.propAllowAlerts)?@"true":@"false" forKey:@"SendEmails"];
+    [dict setObject: (user.propAllowAlerts)?@"true":@"false" forKey:@"SendSMS"];
     
     NSError *error = [[NSError alloc] init];
-    return [NSJSONSerialization JSONObjectWithData:[self httpPostFrom:[NSString stringWithFormat:@"%@Save",_rootCandidates] withValues:dict] options:0 error:&error];
+    NSString *result = [NSJSONSerialization JSONObjectWithData:[self httpPostFrom:[NSString stringWithFormat:@"%@Save",_rootCandidates] withValues:dict] options:0 error:&error];
+    
+    NSLog(@"%@",result);
+    return result;
 }
 
 

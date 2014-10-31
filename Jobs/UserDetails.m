@@ -120,7 +120,6 @@
 #define USER_YES @"Yes"
 #define USER_UNKNOWN @"Unknown"
 #define USER_MAYBE @"Maybe"
-#import "UserDetails.h"
 
 #define USER_ETH_WHITEENGLISH @"White English"
 #define USER_ETH_WHITEIRISH @"White Irish"
@@ -191,6 +190,8 @@
 #define USER_LANG_URDU @"Urdu"
 #define USER_LANG_VIETNAMESE @"Vietnamese"
 #define USER_LANG_YORUBA @"Yoruba"
+
+#import "UserDetails.h"
 
 @implementation UserDetails
 

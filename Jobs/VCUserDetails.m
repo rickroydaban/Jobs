@@ -13,6 +13,7 @@
 #import "User.h"
 #import "VCCountrySelection.h"
 #import "VCLanguages.h"
+#import "MBProgressHUD.h"
 
 @interface VCUserDetails(){
     UIPickerView *_pickerGender, *_pickerYearGraduated, *_pickerEducation, *_pickerLicense, *_pickerNationality, *_pickerEthnicity, *_pickerReferrers, *_pickerStatus, *_pickerWillRelocate, *_pickerAvailability, *_pickerSalaryType, *_pickerCurrency;
@@ -178,8 +179,21 @@
     self.fieldAvailableFrom.text = [self.appDelegate.velosiDateFormat stringFromDate:_pickerAvailableFrom.date];
 }
 
+
+//fix country, referrers and currency
 - (IBAction)done:(id)sender {
-    NSLog(@"Done");
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        NSString *result = [self.appDelegate.onlineGateway saveCandidateDetailsWithUser:[[User alloc] initWithID:[self.appDelegate.offlineGateway getUserID] fname:_fieldFirstName.text lname:_fieldLastName.text email:_fieldEmail.text altEmail:_fieldAltEmail.text gender:[[self.appDelegate.userDetails.propDictGender allKeysForObject:_fieldGender.text] objectAtIndex:0] phone:_fieldPhone.text altPhone:_fieldAltPhone.text mobile:_fieldMobile.text birthday:_fieldBirthdate.text address:_fieldAddress.text city:_fieldCity.text countryState:_fieldCountryState.text postCode:_fieldPostcode.text country:_cellCountry.detailTextLabel.text linkedIn:_fieldLinkedin.text twitter:_fieldTwitter.text skype:_fieldSkype.text isEUAuthorised:_switchEUAuthorized.isOn university:_fieldUniversity.text subject:_fieldSubject.text yearGraduated:_fieldYearGraduated.text hea:[[self.appDelegate.userDetails.propDictEducation allKeysForObject:_fieldEducation.text] objectAtIndex:0] driverLicense:[[self.appDelegate.userDetails.propDictLicense allKeysForObject:_fieldLicense.text] objectAtIndex:0] nationality:[[self.appDelegate.userDetails.propDictNationality allKeysForObject:_fieldNationality.text] objectAtIndex:0] ethnicity:[[self.appDelegate.userDetails.propDictEtchnicity allKeysForObject:_fieldEthnicity.text] objectAtIndex:0] referrer:_fieldReferrer.text maritalStatus:[[self.appDelegate.userDetails.propDictMaritalStatus allKeysForObject:_fieldMaritalStatus.text] objectAtIndex:0] isPermanent:_switchIsPermanent.isOn isContract:_switchIsContract.isOn isTemporary:_switchIsTemporary.isOn isPartTime:_switchIsParttime.isOn jobTitlePrefs:_fieldJobTitles.text currency:_fieldCurrency.text salaryFrom:_fieldSalaryFrom.text salaryTo:_fieldSalaryTo.text salaryType:[[self.appDelegate.userDetails.propDictSalaryType allKeysForObject:_fieldSalaryType.text] objectAtIndex:0] mainSkills:_fieldMainSkills.text locationPrefs:_locationprefs relocationWillingness:_fieldWillRelocate.text noticePeriod:[[self.appDelegate.userDetails.propDictAvailability allKeysForObject:_fieldNoticePeriod.text] objectAtIndex:0] availableFrom:_fieldAvailableFrom.text languages:_languages allowAlerts:_switchWillAllowAlerts.isOn]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[[UIAlertView alloc] initWithTitle:nil message:(result!=nil)?result:@"Changed Succesfully!" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
+            
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
+    });
+
+    
 }
 
 - (IBAction)showList:(id)sender {
@@ -271,7 +285,6 @@
         UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(5, 0, 16, 18)];
         img.image = [UIImage imageNamed:@"icon_warning"];
         textField.rightView = img;
-        
     }
     
     textField.text = val;
@@ -288,25 +301,6 @@
     if([segue.destinationViewController isKindOfClass:[VCLanguages class]]){
         ((VCLanguages *)segue.destinationViewController).languages = self.languages;
         [(VCLanguages *)segue.destinationViewController cellSelectorSelectedCell:sender];
-    }
-}
-
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    switch (buttonIndex) {
-        case 0:
-            NSLog(@"Save");
-            break;
-            
-        case 1:
-            NSLog(@"Close Account");
-            break;
-            
-        case 2:
-            break;
-            
-        default:
-            break;
     }
 }
 
