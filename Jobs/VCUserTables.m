@@ -16,7 +16,7 @@
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     self.view.backgroundColor = [VelosiColors white];
     
-    _appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    _propAppDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
 
 }
 

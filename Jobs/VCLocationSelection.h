@@ -7,10 +7,12 @@
 //
 
 #import "VCPage.h"
+#import "VCSearchJob.h"
+#import "CellSelector.h"
 
-@interface VCLocationSelection : VCPage<UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface VCLocationSelection : VCPage<UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, CellSelector>
 
-@property (strong, nonatomic) IBOutlet UITableView *lv;
-@property (strong, nonatomic) IBOutlet UITextField *fieldSearch;
+@property (strong, nonatomic) IBOutlet UITableView *propLv;
+@property (strong, nonatomic) IBOutlet UITextField *propFieldSearch;
 
 @end

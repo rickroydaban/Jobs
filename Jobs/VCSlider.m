@@ -34,7 +34,7 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
-    [_mainPage addKeyboardPanningWithActionHandler:nil];
+    [_propMainPage addKeyboardPanningWithActionHandler:nil];
     _appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [_appDelegate updateSlider:self];
     _mainPageX = 0;
@@ -42,20 +42,20 @@
     _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
     [self.view addGestureRecognizer:_panGestureRecognizer];
     
-    _mainPage.layer.shadowColor = [UIColor blackColor].CGColor;
-    _mainPage.layer.shadowOpacity = 1;
-    _mainPage.layer.shadowOffset = CGSizeMake(0, 0);
+    _propMainPage.layer.shadowColor = [UIColor blackColor].CGColor;
+    _propMainPage.layer.shadowOpacity = 1;
+    _propMainPage.layer.shadowOffset = CGSizeMake(0, 0);
     
     _profileItemTitles = @[@"My Details", @"My Documents", @"My Employments", @"My Applications", @"My Saved Searches", @"Change Password", @"Delete this Account", @"Logout"];
     _profileItemImages = @[@"icon_user_details", @"icon_user_documents", @"icon_user_employment", @"icon_user_applications", @"icon_user_searches", @"icon_user_password", @"icon_user_deleteaccount", @"icon_user_logout"];
     _profileItemHiglightedImages = @[@"icon_user_details_sel", @"icon_user_documents_sel", @"icon_user_employment_sel", @"icon_user_applications_sel", @"icon_user_searches_sel", @"icon_user_password_sel", @"icon_user_deleteaccount_sel", @"icon_user_logout_sel"];
     _linkItemTitles = @[@"About Us", @"CV Help", @"News", @"Terms", @"Privacy", @"Copyright", @"Disclaimer", @"Security Policy"];
     
-    self.sidebarLv.delegate = self;
-    self.sidebarLv.dataSource = self;
+    self.propLvSidebar.delegate = self;
+    self.propLvSidebar.dataSource = self;
     
-    [_sidebarLv.delegate tableView:_sidebarLv didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    [_sidebarLv selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionBottom];
+    [_propLvSidebar.delegate tableView:_propLvSidebar didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    [_propLvSidebar selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionBottom];
 }
 
 
@@ -64,13 +64,13 @@
         [(UINavigationController *)controller setDelegate:self];
     
     if (_currMainController == nil) {
-        controller.view.frame = _mainPage.bounds;
+        controller.view.frame = _propMainPage.bounds;
         _currMainController = controller;
         [self addChildViewController:_currMainController];
-        [_mainPage addSubview:_currMainController.view];
+        [_propMainPage addSubview:_currMainController.view];
         [_currMainController didMoveToParentViewController:self];
     } else if (_currMainController != controller && controller !=nil) {
-        controller.view.frame = _mainPage.bounds;
+        controller.view.frame = _propMainPage.bounds;
         [_currMainController willMoveToParentViewController:nil];
         [self addChildViewController:controller];
         self.view.userInteractionEnabled = NO;
@@ -98,7 +98,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     switch (section) {
         case 0: return 2;
-        case 1: return [_appDelegate.offlineGateway isLoggedIn]?8:1;
+        case 1: return [_appDelegate.propGatewayOffline isLoggedIn]?8:1;
         case 2: return 8;
         case 3: return 1;
             
@@ -107,7 +107,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    CellSidebar *cell = [self.sidebarLv dequeueReusableCellWithIdentifier:@"cell"];
+    CellSidebar *cell = [self.propLvSidebar dequeueReusableCellWithIdentifier:@"cell"];
     UILabel *selBgView = [[UILabel alloc] initWithFrame:cell.backgroundView.frame];
     selBgView.backgroundColor = [VelosiColors orangeVelosi];
     cell.selectedBackgroundView = selBgView;
@@ -132,7 +132,7 @@
             break;
 
         case 1:
-            if([_appDelegate.offlineGateway isLoggedIn]){
+            if([_appDelegate.propGatewayOffline isLoggedIn]){
                 cell.cellIImage.image = [UIImage imageNamed:[_profileItemImages objectAtIndex:indexPath.row]];
                 cell.cellIImage.highlightedImage = [UIImage imageNamed:[_profileItemHiglightedImages objectAtIndex:indexPath.row]];
                 cell.cellTitle.text = [_profileItemTitles objectAtIndex:indexPath.row];
@@ -169,24 +169,24 @@
     else{
         switch (indexPath.section) {
             case 0:
-                [self changePage:(indexPath.row == 0)?[_appDelegate.pageNavigator getVCHome]:[_appDelegate.pageNavigator getVCSearchPage]];
+                [self changePage:(indexPath.row == 0)?[_appDelegate.propPageNavigator getVCHome]:[_appDelegate.propPageNavigator getVCSearchPage]];
                 break;
                 
             case 1:
-                if ([_appDelegate.offlineGateway isLoggedIn]) {
+                if ([_appDelegate.propGatewayOffline isLoggedIn]) {
                     switch (indexPath.row) {
-                        case 0: [self changePage:[_appDelegate.pageNavigator getUserDetailNavigator]]; break;
-                        case 1: [self changePage:[_appDelegate.pageNavigator getUserDocumentsNavigator]]; break;
-                        case 2: [self changePage:[_appDelegate.pageNavigator getUserEmploymentsNavigator]]; break;
-                        case 3: [self changePage:[_appDelegate.pageNavigator getUSerApplicationsNavigator]]; break;
-                        case 4: [self changePage:[_appDelegate.pageNavigator getUserSearchesNavigator]]; break;
-                        case 5: [self changePage:[_appDelegate.pageNavigator getUSerPasswordNavigator]]; break;
+                        case 0: [self changePage:[_appDelegate.propPageNavigator getUserDetailNavigator]]; break;
+                        case 1: [self changePage:[_appDelegate.propPageNavigator getUserDocumentsNavigator]]; break;
+                        case 2: [self changePage:[_appDelegate.propPageNavigator getUserEmploymentsNavigator]]; break;
+                        case 3: [self changePage:[_appDelegate.propPageNavigator getUSerApplicationsNavigator]]; break;
+                        case 4: [self changePage:[_appDelegate.propPageNavigator getUserSearchesNavigator]]; break;
+                        case 5: [self changePage:[_appDelegate.propPageNavigator getUSerPasswordNavigator]]; break;
                             
                         case 6: [[[UIAlertView alloc] initWithTitle:@"Delete Account" message:@"Are you sure you want to delete this account?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil] show];
                             temp = _currIndexPath;
                             break;
-                        case 7: [_appDelegate.offlineGateway logout];
-                            [self changePage:[_appDelegate.pageNavigator getVCLogin]];
+                        case 7: [_appDelegate.propGatewayOffline logout];
+                            [self changePage:[_appDelegate.propPageNavigator getVCLogin]];
                             [self reloadSidebar];
                             break;
                             
@@ -194,19 +194,19 @@
                             break;
                     }
                 }else
-                    [self changePage:[_appDelegate.pageNavigator getVCLogin]];
+                    [self changePage:[_appDelegate.propPageNavigator getVCLogin]];
                 break;
                 
             case 2:
                 switch (indexPath.row) {
-                    case 0: [self changePage:[_appDelegate.pageNavigator getVCAboutUs]]; break;
-                    case 1: [self changePage:[_appDelegate.pageNavigator getVCCVHelp]]; break;
-                    case 2: [self changePage:[_appDelegate.pageNavigator getVCNews]]; break;
-                    case 3: [self changePage:[_appDelegate.pageNavigator getVCTerms]]; break;
-                    case 4: [self changePage:[_appDelegate.pageNavigator getVCPrivacy]]; break;
-                    case 5: [self changePage:[_appDelegate.pageNavigator getVCCopyRight]]; break;
-                    case 6: [self changePage:[_appDelegate.pageNavigator getVCDisclaimer]]; break;
-                    case 7: [self changePage:[_appDelegate.pageNavigator getVCSecurityPolicy]]; break;
+                    case 0: [self changePage:[_appDelegate.propPageNavigator getVCAboutUs]]; break;
+                    case 1: [self changePage:[_appDelegate.propPageNavigator getVCCVHelp]]; break;
+                    case 2: [self changePage:[_appDelegate.propPageNavigator getVCNews]]; break;
+                    case 3: [self changePage:[_appDelegate.propPageNavigator getVCTerms]]; break;
+                    case 4: [self changePage:[_appDelegate.propPageNavigator getVCPrivacy]]; break;
+                    case 5: [self changePage:[_appDelegate.propPageNavigator getVCCopyRight]]; break;
+                    case 6: [self changePage:[_appDelegate.propPageNavigator getVCDisclaimer]]; break;
+                    case 7: [self changePage:[_appDelegate.propPageNavigator getVCSecurityPolicy]]; break;
                         
                     default: break;
                 }
@@ -237,8 +237,8 @@
         NSLog(@"deleted successfully");
     }else{
         NSLog(@"deletion cancelled");
-        [_sidebarLv.delegate tableView:_sidebarLv didSelectRowAtIndexPath:_currIndexPath];
-        [_sidebarLv selectRowAtIndexPath:_currIndexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
+        [_propLvSidebar.delegate tableView:_propLvSidebar didSelectRowAtIndexPath:_currIndexPath];
+        [_propLvSidebar selectRowAtIndexPath:_currIndexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
     }
     
 }
@@ -246,14 +246,14 @@
 - (void)pan:(UIPanGestureRecognizer *)recognizer{
     if (recognizer.state == UIGestureRecognizerStateChanged){
         //update the foreview's horizontal  placement while panning
-        CGFloat pannedDistance = [recognizer translationInView:_mainPage].x;
+        CGFloat pannedDistance = [recognizer translationInView:_propMainPage].x;
         
         if(_mainPageX+pannedDistance > 0)
-            _mainPage.transform = CGAffineTransformMakeTranslation(pannedDistance+_mainPageX, 0);
+            _propMainPage.transform = CGAffineTransformMakeTranslation(pannedDistance+_mainPageX, 0);
         
     } else if (recognizer.state == UIGestureRecognizerStateEnded){
         //decide wether which view will be shown after panning
-        _mainPageX = _mainPage.transform.tx;
+        _mainPageX = _propMainPage.transform.tx;
         
         if(_mainPageX > 0)
             [self updateSidebarWillShow:(_mainPageX>MINPANTOSHOWMAINPAGE && !_isSidebarShowing)?YES:NO];
@@ -261,26 +261,28 @@
 }
 
 - (void)updateSidebarWillShow:(BOOL)willShow{
-    _mainPage.userInteractionEnabled = NO;
-    _sidebarLv.userInteractionEnabled = NO;
+    _propMainPage.userInteractionEnabled = NO;
+    _propLvSidebar.userInteractionEnabled = NO;
 
     [UIView animateWithDuration:ANIMATIONDURATION animations:^{
-                                                      _mainPage.transform = CGAffineTransformMakeTranslation((willShow)?MAXPANNING:0, 0);
+                                                      _propMainPage.transform = CGAffineTransformMakeTranslation((willShow)?MAXPANNING:0, 0);
                                                   } completion:^(BOOL finished){
-                                                      _mainPage.userInteractionEnabled = YES;
-                                                      _sidebarLv.userInteractionEnabled = YES;
+                                                      _propMainPage.userInteractionEnabled = YES;
+                                                      _propLvSidebar.userInteractionEnabled = YES;
                                                       _isSidebarShowing = willShow;
                                                       _mainPageX = 0;
                                                   }];
 }
 
+#pragma mark Visible Instance Methods
+
 - (void)login{
-    if([_appDelegate.offlineGateway isLoggedIn])
-        [self changePage:[_appDelegate.pageNavigator getUserDetailNavigator]];
+    if([_appDelegate.propGatewayOffline isLoggedIn])
+        [self changePage:[_appDelegate.propPageNavigator getUserDetailNavigator]];
 }
 
 - (void)reloadSidebar{
-    [_sidebarLv reloadData];
+    [_propLvSidebar reloadData];
 }
 
 - (void)toggleSidebar{

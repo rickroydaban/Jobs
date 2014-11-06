@@ -18,24 +18,24 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
-    self.lv.delegate = self;
-    self.lv.dataSource = self;
-    self.lv.separatorInset = UIEdgeInsetsZero;
+    self.propLv.delegate = self;
+    self.propLv.dataSource = self;
+    self.propLv.separatorInset = UIEdgeInsetsZero;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    cell.textLabel.text = [self.appDelegate.userDetails.propListLanguages objectAtIndex:indexPath.row];
-    cell.accessoryType = (self.languages!=nil &&  [self.languages containsObject:cell.textLabel.text])?UITableViewCellAccessoryCheckmark:UITableViewCellAccessoryNone;
+    cell.textLabel.text = [self.propAppDelegate.propUserDetails.propListLanguages objectAtIndex:indexPath.row];
+    cell.accessoryType = (self.propListLanguages!=nil &&  [self.propListLanguages containsObject:cell.textLabel.text])?UITableViewCellAccessoryCheckmark:UITableViewCellAccessoryNone;
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if([self.languages containsObject:[tableView cellForRowAtIndexPath:indexPath].textLabel.text])
-        [self.languages removeObject:[tableView cellForRowAtIndexPath:indexPath].textLabel.text];
+    if([self.propListLanguages containsObject:[tableView cellForRowAtIndexPath:indexPath].textLabel.text])
+        [self.propListLanguages removeObject:[tableView cellForRowAtIndexPath:indexPath].textLabel.text];
     else
-        [self.languages addObject:[tableView cellForRowAtIndexPath:indexPath].textLabel.text];
+        [self.propListLanguages addObject:[tableView cellForRowAtIndexPath:indexPath].textLabel.text];
     
     [tableView reloadData];
 }
@@ -56,11 +56,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.appDelegate.userDetails.propListLanguages.count;
+    return self.propAppDelegate.propUserDetails.propListLanguages.count;
 }
 
 - (IBAction)done:(id)sender {
-    _selectedCell.detailTextLabel.text = [NSString stringWithFormat:@"%d",self.languages.count];
+    _selectedCell.detailTextLabel.text = [NSString stringWithFormat:@"%d",(int)self.propListLanguages.count];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

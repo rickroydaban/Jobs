@@ -17,27 +17,24 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    _userDetails = [[UserDetails alloc] init];
-    _onlineGateway = [OnlineGateway sharedOnlineGateway:self];
-    _offlineGateway = [OfflineGateway sharedOfflineGateway:self];
-    self.velosiDateFormat = [[NSDateFormatter alloc] init];
-    self.velosiDateFormat.dateFormat = @"dd/MMM/yyyy";
-    self.pageNavigator = [UserPageNavigators sharedNavigators];
-    _referrerList = [self.onlineGateway getReferrerList];
-    _currencyList = [[CurrencyList alloc] init];
-    
-    if(self.referrerList == nil)
-        [[[UIAlertView alloc] initWithTitle:nil message:@"Cannot connect to server" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
-    
+    _propUserDetails = [[UserDetails alloc] init];
+    _propGatewayOnline = [OnlineGateway sharedOnlineGateway:self];
+    _propGatewayOffline = [OfflineGateway sharedOfflineGateway:self];
+    self.propDateFormatVelosi = [[NSDateFormatter alloc] init];
+    self.propDateFormatVelosi.dateFormat = @"dd/MMM/yyyy";
+    self.propPageNavigator = [UserPageNavigators sharedNavigators];
+    _propListReferrers = [self.propGatewayOnline getReferrerList];
+    _propListCurrency = [[CurrencyList alloc] init];
+        
     return YES;
 }
 
 - (void)updateSlider:(VCSlider *)slider{
-    _slider = slider;
+    _propSlider = slider;
 }
 
-- (void)updateReferrerDictionaryFromOnlineGateway:(OnlineGateway *)key dictionary:(NSDictionary *)dictionary{
-    _referrerDictionary = dictionary;
+- (void)updateReferrerDictionary:(NSDictionary *)dictionary fromOnlineGateway:(OnlineGateway *)key{
+    _propDictReferrers = dictionary;
 }
 
 @end

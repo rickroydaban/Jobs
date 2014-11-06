@@ -10,13 +10,13 @@
 
 @interface JobDetail : NSObject
 
-@property (strong, nonatomic) NSString *jobType;
-@property (strong, nonatomic) NSString *duration;
-@property (strong, nonatomic) NSString *rotation;
-@property (strong, nonatomic) NSString *location;
-@property (strong, nonatomic) NSString *salary;
-@property (strong, nonatomic) NSString *contact;
-@property (strong, nonatomic) NSString *details;
+@property (strong, nonatomic) NSString *propJobType;
+@property (strong, nonatomic) NSString *propDuration;
+@property (strong, nonatomic) NSString *propRotation;
+@property (strong, nonatomic) NSString *propLocation;
+@property (strong, nonatomic) NSString *propSalary;
+@property (strong, nonatomic) NSString *propContact;
+@property (strong, nonatomic) NSString *propDetails;
 
 - (JobDetail *)initWithType: (NSString *)type duration:(NSString *)duration rotation:(NSString *)rotation location:(NSString *)location salary:(NSString *)salary contacts:(NSString *)contact details:(NSString *)details;
 - (NSArray *)getJobDetailList;

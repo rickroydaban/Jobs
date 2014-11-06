@@ -24,10 +24,10 @@
     [super viewDidLoad];
     
     _heights = [NSMutableArray array];
-    self.lv.dataSource = self;
-    self.lv.delegate = self;
-    self.lv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.lv.separatorColor = [VelosiColors listSeparator];
+    self.propLv.dataSource = self;
+    self.propLv.delegate = self;
+    self.propLv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.propLv.separatorColor = [VelosiColors listSeparator];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -35,12 +35,12 @@
     CGFloat newHeight = [[_heights objectAtIndex:indexPath.row] floatValue];
     
     CellJobSummary *cell = (CellJobSummary *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
-    Job *job = [self.jobs objectAtIndex:indexPath.row];
-    cell.fieldTitle.text = job.title;
+    Job *job = [self.propListJobs objectAtIndex:indexPath.row];
+    cell.fieldTitle.text = job.propTitle;
     cell.fieldTitle.textColor = [VelosiColors blackFont];
-    cell.fieldReference.text = [NSString stringWithFormat:@"Reference: %@",job.reference];
-    cell.fieldCountry.text = job.country;
-    cell.fieldAddDate.text = [NSString stringWithFormat:@"Added on %@",job.dateAdded];
+    cell.fieldReference.text = [NSString stringWithFormat:@"Reference: %@",job.propReference];
+    cell.fieldCountry.text = job.propCountry;
+    cell.fieldAddDate.text = [NSString stringWithFormat:@"Added on %@",job.propDateAdded];
     cell.fieldDescription.text = @"test";
     
     if([cell.fieldDescription isDescendantOfView:cell.fieldTitle.superview]){
@@ -65,7 +65,7 @@
     
     CGRect frame = newDescTV.frame;
     newDescTV.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, newHeight);
-    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[job.details dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[job.propDetails dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
     newDescTV.attributedText = attributedString;
     newDescTV.font = [UIFont systemFontOfSize:13];
     newDescTV.textColor = [VelosiColors blackFont];
@@ -77,9 +77,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    CellJobSummary *cell = (CellJobSummary *)[self.lv dequeueReusableCellWithIdentifier:@"cell"];
-    Job *job = (Job *)[self.jobs objectAtIndex:indexPath.row];
-    cell.fieldDescription.text = job.details;
+    CellJobSummary *cell = (CellJobSummary *)[self.propLv dequeueReusableCellWithIdentifier:@"cell"];
+    Job *job = (Job *)[self.propListJobs objectAtIndex:indexPath.row];
+    cell.fieldDescription.text = job.propDetails;
     CGSize estimatedSize = [cell.fieldDescription sizeThatFits:CGSizeMake(cell.fieldDescription.frame.size.width, 999)];
     CGFloat rowHeight = estimatedSize.height+100;
     [_heights addObject:[NSString stringWithFormat:@"%f",estimatedSize.height]];
@@ -87,7 +87,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.jobs.count;
+    return self.propListJobs.count;
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -107,7 +107,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     VCJobDetails *vcJobDetails = (VCJobDetails *)segue.destinationViewController;
-    vcJobDetails.job = [self.jobs objectAtIndex:((CellJobSummary *)sender).tag];
+    vcJobDetails.propJob = [self.propListJobs objectAtIndex:((CellJobSummary *)sender).tag];
 }
 
 - (IBAction)showActions:(id)sender {

@@ -19,13 +19,13 @@
     
     self = [super init];
     if(self){
-        self.jobType = type;
-        self.duration = duration;
-        self.rotation = rotation;
-        self.location = location;
-        self.salary = salary;
-        self.contact = contact;
-        self.details = details;
+        self.propJobType = type;
+        self.propDuration = duration;
+        self.propRotation = rotation;
+        self.propLocation = location;
+        self.propSalary = salary;
+        self.propContact = contact;
+        self.propDetails = details;
         
         _jobDetailList = @[@"Job Type", @"Duration", @"Start Date", @"Location", @"Salary", @"Contact"];
     }

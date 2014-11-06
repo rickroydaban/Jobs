@@ -11,7 +11,7 @@
 @implementation VelosiColors
 
 + (UIColor *)orange{
-    return [UIColor colorWithRed:255/255.0f green:165/255.0f blue:0/255.0f alpha:1.0f];
+    return [UIColor colorWithRed:255/255.0f green:128/255.0f blue:0/255.0f alpha:1.0f];
 }
 
 + (UIColor *)orangeVelosi{
@@ -23,7 +23,7 @@
 }
 
 + (UIColor *)orangeDark{
-    return [UIColor colorWithRed:221/255.0f green:123/255.0f blue:0/255.0f alpha:1.0f];
+    return [UIColor colorWithRed:224/255.0f green:91/255.0f blue:16/255.0f alpha:1.0f];
 }
 
 + (UIColor *)orangeDarker{

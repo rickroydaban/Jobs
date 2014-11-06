@@ -17,17 +17,17 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic, readonly) VCSlider *slider;
-@property (strong, nonatomic, readonly) OnlineGateway *onlineGateway;
-@property (strong, nonatomic) NSDateFormatter *velosiDateFormat;
-@property (strong, nonatomic, readonly) OfflineGateway *offlineGateway;
-@property (strong, nonatomic) UserPageNavigators *pageNavigator;
-@property (strong, nonatomic, readonly) NSArray *referrerList;
-@property (strong, nonatomic, readonly) NSDictionary *referrerDictionary;
-@property (strong, nonatomic, readonly) UserDetails *userDetails;
-@property (strong, nonatomic, readonly) CurrencyList *currencyList;
+@property (strong, nonatomic, readonly) VCSlider *propSlider;
+@property (strong, nonatomic, readonly) OnlineGateway *propGatewayOnline;
+@property (strong, nonatomic, readonly) OfflineGateway *propGatewayOffline;
+@property (strong, nonatomic, readonly) UserDetails *propUserDetails;
+@property (strong, nonatomic, readonly) NSArray *propListReferrers;
+@property (strong, nonatomic, readonly) NSDictionary *propDictReferrers;
+@property (strong, nonatomic, readonly) CurrencyList *propListCurrency;
+@property (strong, nonatomic) UserPageNavigators *propPageNavigator;
+@property (strong, nonatomic) NSDateFormatter *propDateFormatVelosi;
 
-- (void)updateReferrerDictionaryFromOnlineGateway:(OnlineGateway *)key dictionary:(NSDictionary *)dictionary;
+- (void)updateReferrerDictionary:(NSDictionary *)dictionary fromOnlineGateway:(OnlineGateway *)key;
 - (void)updateSlider:(VCSlider *)slider;
 @end
 

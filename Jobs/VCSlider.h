@@ -10,8 +10,8 @@
 
 @interface VCSlider : UIViewController<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIAlertViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UITableView *sidebarLv;
-@property (strong, nonatomic) IBOutlet UIView *mainPage;
+@property (strong, nonatomic) IBOutlet UITableView *propLvSidebar;
+@property (strong, nonatomic) IBOutlet UIView *propMainPage;
 
 - (void)login;
 - (void)toggleSidebar;

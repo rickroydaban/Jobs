@@ -10,7 +10,7 @@
 
 @interface CurrencyList : NSObject
 
-@property (strong, nonatomic, readonly) NSMutableDictionary *currencySymbolNamesDict;
-@property (strong, nonatomic, readonly) NSArray *currencySymbolList, *currencyNameList;
+@property (strong, nonatomic, readonly) NSMutableDictionary *propDictCurrencySymbolNames;
+@property (strong, nonatomic, readonly) NSArray *propListCurrencySymbols, *propListCurrencyNames;
 
 @end

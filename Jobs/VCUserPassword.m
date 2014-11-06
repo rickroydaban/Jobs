@@ -32,7 +32,7 @@
 
 - (IBAction)showList:(id)sender {
     [self.view endEditing:YES];
-    [self.appDelegate.slider toggleSidebar];
+    [self.propAppDelegate.propSlider toggleSidebar];
 }
 
 - (IBAction)done:(id)sender {

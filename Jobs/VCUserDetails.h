@@ -12,7 +12,7 @@
 
 @interface VCUserDetails : VCUserTables<VelosiPickerRowSelectionDelegate, UITextViewDelegate, UITextFieldDelegate>
 
-@property (strong, nonatomic) NSMutableArray *locationprefs, *languages;
+@property (strong, nonatomic) NSMutableArray *propListLocationPrefs, *propListLanguages;
 
 @property (strong, nonatomic) IBOutlet UITextField *fieldFirstName;
 @property (strong, nonatomic) IBOutlet UITextField *fieldLastName;

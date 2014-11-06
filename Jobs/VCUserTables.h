@@ -11,6 +11,6 @@
 
 @interface VCUserTables : UITableViewController
 
-@property (strong,nonatomic,readonly)AppDelegate *appDelegate;
+@property (strong,nonatomic,readonly)AppDelegate *propAppDelegate;
 
 @end

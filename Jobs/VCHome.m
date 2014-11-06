@@ -11,7 +11,7 @@
 @implementation VCHome
 
 - (IBAction)showList:(id)sender {
-    [self.appDelegate.slider toggleSidebar];
+    [self.propAppDelegate.propSlider toggleSidebar];
 }
 
 @end

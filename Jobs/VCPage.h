@@ -11,6 +11,6 @@
 
 @interface VCPage : UIViewController
 
-@property (strong, nonatomic) AppDelegate *appDelegate;
+@property (strong, nonatomic) AppDelegate *propAppDelegate;
 
 @end

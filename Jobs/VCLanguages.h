@@ -11,6 +11,6 @@
 
 @interface VCLanguages : VCPage<UITableViewDataSource, UITableViewDelegate, CellSelector>
 
-@property (strong, nonatomic) IBOutlet UITableView *lv;
-@property (strong, nonatomic) NSMutableArray *languages;
+@property (strong, nonatomic) IBOutlet UITableView *propLv;
+@property (strong, nonatomic) NSMutableArray *propListLanguages;
 @end

@@ -10,7 +10,7 @@
 
 @interface VCUserDocuments : VCPage<UIActionSheetDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UITableView *lv;
-@property (strong, nonatomic) NSArray *documents;
+@property (strong, nonatomic) IBOutlet UITableView *propLv;
+@property (strong, nonatomic) NSArray *propListDocuments;
 
 @end

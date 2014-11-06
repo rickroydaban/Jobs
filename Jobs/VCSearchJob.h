@@ -12,15 +12,12 @@
 
 @interface VCSearchJob : VCPage<UITextFieldDelegate, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, VelosiPickerRowSelectionDelegate>
 
-@property (strong, nonatomic) IBOutlet UITableView *lv;
+@property (strong, nonatomic) IBOutlet UITableView *propLv;
 @property (strong, nonatomic) UITextField *fieldSearchFor;
 @property (strong, nonatomic) UITextField *fieldSearchIn;
 @property (strong, nonatomic) UITextField *fieldCountry;
 @property (strong, nonatomic) UITextField *fieldDistance;
 @property (strong, nonatomic) UITextField *fieldJobType;
 @property (strong, nonatomic) UITextField *fieldPostedWithin;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *profileButton;
-
-+ (VCSearchJob *)getInstance;
 
 @end

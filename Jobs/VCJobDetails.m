@@ -32,11 +32,11 @@
     _detailWebView = 0;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        _jobDetail = [self.appDelegate.onlineGateway getJobDetailById:self.job.jobId];
+        _jobDetail = [self.propAppDelegate.propGatewayOnline getJobDetailById:self.propJob.propJobID];
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.lv.delegate = self;
-            self.lv.dataSource = self;
-            self.lv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+            self.propLv.delegate = self;
+            self.propLv.dataSource = self;
+            self.propLv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
     });
@@ -50,22 +50,22 @@
             
             switch (indexPath.row) {
                 case 0:
-                    cell.detailTextLabel.text = _jobDetail.jobType; break;
+                    cell.detailTextLabel.text = _jobDetail.propJobType; break;
                     
                 case 1:
-                    cell.detailTextLabel.text = _jobDetail.duration; break;
+                    cell.detailTextLabel.text = _jobDetail.propDuration; break;
                     
                 case 2:
-                    cell.detailTextLabel.text = _jobDetail.rotation; break;
+                    cell.detailTextLabel.text = _jobDetail.propRotation; break;
                     
                 case 3:
-                    cell.detailTextLabel.text = _jobDetail.location; break;
+                    cell.detailTextLabel.text = _jobDetail.propLocation; break;
                     
                 case 4:
-                    cell.detailTextLabel.text = _jobDetail.salary; break;
+                    cell.detailTextLabel.text = _jobDetail.propSalary; break;
                     
                 case 5:
-                    cell.detailTextLabel.text = _jobDetail.contact; break;
+                    cell.detailTextLabel.text = _jobDetail.propContact; break;
                     
                     
                 default:
@@ -82,7 +82,7 @@
             
             UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, _cellDetailHeight)];
             webView.userInteractionEnabled = NO;
-            [webView loadHTMLString:_jobDetail.details baseURL:nil];
+            [webView loadHTMLString:_jobDetail.propDetails baseURL:nil];
             [cellDetail.contentView addSubview:webView];
             return cellDetail;
         }
@@ -97,9 +97,9 @@
 
         default:;
             if(_cellDetailHeight < 1){
-                _detailWebView = ((CellDetail *)[self.lv dequeueReusableCellWithIdentifier:@"cellDetail"]).webView;
+                _detailWebView = ((CellDetail *)[self.propLv dequeueReusableCellWithIdentifier:@"cellDetail"]).webView;
                 _detailWebView.delegate = self;
-                [_detailWebView loadHTMLString:_jobDetail.details baseURL:nil];
+                [_detailWebView loadHTMLString:_jobDetail.propDetails baseURL:nil];
             }
             return _cellDetailHeight;
     }
@@ -118,7 +118,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     switch (section) {
         case 0:
-            return [NSString stringWithFormat:@"Ref: %@",self.job.reference];
+            return [NSString stringWithFormat:@"Ref: %@",self.propJob.propReference];
             
         case 1:
             return @"Description";
@@ -136,7 +136,7 @@
     BOOL shouldReload = (_cellDetailHeight<1)?YES:NO;
     _cellDetailHeight = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight;"] floatValue]+10;
     if(shouldReload)
-        [self.lv reloadData];
+        [self.propLv reloadData];
 }
 
 - (IBAction)apply:(id)sender {

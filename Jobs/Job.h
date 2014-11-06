@@ -10,12 +10,12 @@
 
 @interface Job : NSObject
 
-@property (assign, nonatomic) int jobId;
-@property (strong, nonatomic) NSString *title;
-@property (strong, nonatomic) NSString *reference;
-@property (strong, nonatomic) NSString *country;
-@property (strong, nonatomic) NSString *dateAdded;
-@property (strong, nonatomic) NSString *details;
+@property (assign, nonatomic) int propJobID;
+@property (strong, nonatomic) NSString *propTitle;
+@property (strong, nonatomic) NSString *propReference;
+@property (strong, nonatomic) NSString *propCountry;
+@property (strong, nonatomic) NSString *propDateAdded;
+@property (strong, nonatomic) NSString *propDetails;
 
 - (Job *)initWithId: (int)jobId title:(NSString *)title reference:(NSString *)reference country:(NSString *)country dateAdded:(NSString *)dateAdded details:(NSString *)details;
 

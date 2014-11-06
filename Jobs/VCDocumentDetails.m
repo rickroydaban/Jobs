@@ -20,22 +20,22 @@
 @implementation VCDocumentDetails
 
 - (void)viewDidLoad{
-    self.navigationItem.title = self.document.propName;
+    self.navigationItem.title = self.propDocument.propName;
     _appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    self.propName.text = self.document.propName;
-    self.propType.text = [_appDelegate.userDetails.propDictDocumentTypes objectForKey:[NSString stringWithFormat:@"%d",self.document.propType]];
-    self.propDateExpiry.text = self.document.propDateExpire;
+    self.propName.text = self.propDocument.propName;
+    self.propType.text = [_appDelegate.propUserDetails.propDictDocumentTypes objectForKey:[NSString stringWithFormat:@"%d",self.propDocument.propType]];
+    self.propDateExpiry.text = self.propDocument.propDateExpire;
     
     self.propName.delegate = self;
     self.propType.delegate = self;
     self.propDateExpiry.delegate = self;
     
-    _typesPicker = [[VelosiCustomPicker alloc] initWithElements:_appDelegate.userDetails.propListDocumentTypes andRowSelectionDelegate:self hasAll:NO];
-    [_typesPicker selectRow:[_appDelegate.userDetails.propListDocumentTypes indexOfObject:[_appDelegate.userDetails.propDictDocumentTypes objectForKey:[NSString stringWithFormat:@"%d",self.document.propType]]] inComponent:0 animated:NO];
+    _typesPicker = [[VelosiCustomPicker alloc] initWithElements:_appDelegate.propUserDetails.propListDocumentTypes andRowSelectionDelegate:self hasAll:NO];
+    [_typesPicker selectRow:[_appDelegate.propUserDetails.propListDocumentTypes indexOfObject:[_appDelegate.propUserDetails.propDictDocumentTypes objectForKey:[NSString stringWithFormat:@"%d",self.propDocument.propType]]] inComponent:0 animated:NO];
     _dateExpiryPicker = [[UIDatePicker alloc] init];
     _dateExpiryPicker.datePickerMode = UIDatePickerModeDate;
-    _dateExpiryPicker.date = [_appDelegate.velosiDateFormat dateFromString:self.document.propDateExpire];
+    _dateExpiryPicker.date = [_appDelegate.propDateFormatVelosi dateFromString:self.propDocument.propDateExpire];
     _dateExpiryPicker.minimumDate = [NSDate date];
     _dateExpiryPicker.backgroundColor = [UIColor whiteColor];
     _dateExpiryPicker.layer.shadowColor = [UIColor darkGrayColor].CGColor;
@@ -46,7 +46,7 @@
 }
 
 - (void)updateDateExpiryField{
-    self.propDateExpiry.text = [_appDelegate.velosiDateFormat stringFromDate:_dateExpiryPicker.date];
+    self.propDateExpiry.text = [_appDelegate.propDateFormatVelosi stringFromDate:_dateExpiryPicker.date];
 }
 
 
@@ -59,7 +59,7 @@
 
 - (void)pickerSelection:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     if(pickerView == _typesPicker)
-        self.propType.text = [_appDelegate.userDetails.propListDocumentTypes objectAtIndex:row];
+        self.propType.text = [_appDelegate.propUserDetails.propListDocumentTypes objectAtIndex:row];
 }
 
 @end

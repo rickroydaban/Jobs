@@ -9,10 +9,6 @@
 #import "VCPage.h"
 #import "VelosiColors.h"
 
-@interface VCPage ()
-
-@end
-
 @implementation VCPage
 
 - (void)viewDidLoad {
@@ -21,7 +17,7 @@
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     self.view.backgroundColor = [VelosiColors white];
     
-    self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    self.propAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
 @end

@@ -10,7 +10,7 @@
 
 @interface VCJobSummary : VCPage<UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UITableView *lv;
-@property (strong, nonatomic) NSMutableArray *jobs;
+@property (strong, nonatomic) IBOutlet UITableView *propLv;
+@property (strong, nonatomic) NSMutableArray *propListJobs;
 
 @end

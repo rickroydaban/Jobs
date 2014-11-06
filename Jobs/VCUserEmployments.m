@@ -16,7 +16,7 @@
 }
 
 - (IBAction)showList:(id)sender {
-    [self.appDelegate.slider toggleSidebar];
+    [self.propAppDelegate.propSlider toggleSidebar];
 }
 
 - (IBAction)done:(id)sender {

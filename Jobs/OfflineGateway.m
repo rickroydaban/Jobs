@@ -116,7 +116,7 @@ static OfflineGateway *sharedOfflineGateway = nil;
     [_prefs setObject:driverLicense forKey:USERLICENSE];
     [_prefs setObject:nationality forKey:USERNATIONALITY];
     [_prefs setObject:ethnicity forKey:USERETHNICITY];
-    [_prefs setObject:[_appDelegate.referrerDictionary objectForKey:referrer] forKey:USERREFERER];
+    [_prefs setObject:[_appDelegate.propDictReferrers objectForKey:referrer] forKey:USERREFERER];
     [_prefs setObject:maritalStatus forKey:USERSTATUS];
     [_prefs setBool:isPermanent forKey:USERISPERMANENT];
     [_prefs setBool:isContract forKey:USERISCONTRACT];

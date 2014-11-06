@@ -13,7 +13,7 @@
 
 @interface VCDocumentDetails : UITableViewController<UITextFieldDelegate, VelosiPickerRowSelectionDelegate>
 
-@property (strong, nonatomic) Document *document;
+@property (strong, nonatomic) Document *propDocument;
 
 @property (strong, nonatomic) IBOutlet UITextField *propName;
 @property (strong, nonatomic) IBOutlet UITextField *propType;

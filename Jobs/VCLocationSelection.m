@@ -14,6 +14,7 @@
 
 @interface VCLocationSelection (){
     NSMutableArray *_locations;
+    UITableViewCell *_selectedCell;
 }
 
 @end
@@ -25,11 +26,11 @@
     
     _locations = [NSMutableArray array];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.lv.delegate = self;
-    self.lv.dataSource = self;
-    self.lv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.propLv.delegate = self;
+    self.propLv.dataSource = self;
+    self.propLv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    self.fieldSearch.delegate = self;
+    self.propFieldSearch.delegate = self;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -46,13 +47,17 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     if([textField.text length]>2){
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [MBProgressHUD showHUDAddedTo:self.propLv animated:YES];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            NSString *searchString = [NSString stringWithFormat:@"%@%@",textField.text,string];
+            _locations = [self.propAppDelegate.propGatewayOnline getLocationSuggestions:searchString];
+
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSString *searchString = [NSString stringWithFormat:@"%@%@",textField.text,string];
-                _locations = [self.appDelegate.onlineGateway getLocationSuggestions:searchString];
-                [self.lv reloadData];
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                if(_locations == nil)
+                    [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Cannot connect to server" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
+                else
+                    [self.propLv reloadData];
+                [MBProgressHUD hideHUDForView:self.propLv animated:YES];
             });
         });
     }
@@ -61,12 +66,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [[VCSearchJob getInstance].lv cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]].detailTextLabel.text = [_locations objectAtIndex:indexPath.row];
+    _selectedCell.detailTextLabel.text = [_locations objectAtIndex:indexPath.row];
     [self.navigationController popViewControllerAnimated:TRUE];
 }
 
-- (IBAction)done:(id)sender {
-    [self.view endEditing:YES];
+- (void)cellSelectorSelectedCell:(UITableViewCell *)cell{
+    _selectedCell = cell;
 }
 
 

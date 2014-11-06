@@ -13,6 +13,7 @@
 #import "VCJobSummary.h"
 #import "MBProgressHUD.h"
 #import "VCCountrySelection.h"
+#import "VCLocationSelection.h"
 
 @interface VCSearchJob (){
     UITapGestureRecognizer *_mainViewTapRecognizer;
@@ -28,19 +29,10 @@
 
 @implementation VCSearchJob
 
-static VCSearchJob *instance;
-
-+ (VCSearchJob *)getInstance{
-    return instance;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    if(instance)
-        instance = nil;
-    instance = self;
-    
+        
     _countryList = [[CountryList alloc] init];
     _searchIns = @[@"Job Title and Description", @"Job Title", @"Job Description"];
     _dSearchIns = [NSDictionary dictionaryWithObjects:@[@"0", @"1", @"2"] forKeys:_searchIns];
@@ -56,11 +48,11 @@ static VCSearchJob *instance;
     _mainViewTapRecognizer.delegate = self;
     [self.view addGestureRecognizer:_mainViewTapRecognizer];
     
-    self.lv.delegate = self;
-    self.lv.dataSource = self;
-    self.lv.allowsSelection = YES;
-    self.lv.rowHeight = 48;
-    self.lv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.propLv.delegate = self;
+    self.propLv.dataSource = self;
+    self.propLv.allowsSelection = YES;
+    self.propLv.rowHeight = 48;
+    self.propLv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     self.fieldSearchFor = [[UITextField alloc] init];
     self.fieldSearchIn = [[UITextField alloc] init];
@@ -89,7 +81,7 @@ static VCSearchJob *instance;
 -  (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO];
-    self.navigationController.navigationBar.topItem.leftBarButtonItem.title = (self.appDelegate.offlineGateway.isLoggedIn)?@"Profile":@"Login";
+    self.navigationController.navigationBar.topItem.leftBarButtonItem.title = (self.propAppDelegate.propGatewayOffline.isLoggedIn)?@"Profile":@"Login";
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -154,7 +146,7 @@ static VCSearchJob *instance;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //Assuming at section 1
-    [self performSegueWithIdentifier:(indexPath.row==0)?@"segueToLocationSelection":@"segueToCountrySelection" sender:[self.lv cellForRowAtIndexPath:indexPath]];
+    [self performSegueWithIdentifier:(indexPath.row==0)?@"segueToLocationSelection":@"segueToCountrySelection" sender:[self.propLv cellForRowAtIndexPath:indexPath]];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -179,7 +171,7 @@ static VCSearchJob *instance;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
-    return (touch.view == [self.lv cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]].contentView || touch.view == [self.lv cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]].contentView)?NO:YES;
+    return (touch.view == [self.propLv cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]].contentView || touch.view == [self.propLv cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]].contentView)?NO:YES;
 }
 
 - (UITableViewCell *)makeInputableCell:(UITableViewCell *)cell title:(NSString *)title textField:(UITextField *)textField textFieldInset:(CGFloat)inset{
@@ -273,8 +265,8 @@ static VCSearchJob *instance;
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSString *searched = self.fieldSearchFor.text;
         NSString *searchIn = [_dSearchIns objectForKey:self.fieldSearchIn.text];
-        NSString *location = [self.lv cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]].detailTextLabel.text;
-        NSString *country = [self.lv cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]].detailTextLabel.text;
+        NSString *location = [self.propLv cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]].detailTextLabel.text;
+        NSString *country = [self.propLv cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]].detailTextLabel.text;
         NSString *countryId;
         NSString *distance = self.fieldDistance.text;
         NSString *jobType = [_dJobTypes objectForKey:self.fieldJobType.text];
@@ -283,9 +275,9 @@ static VCSearchJob *instance;
         if([location isEqualToString:@"Select"])
             location = @"";
         
-        countryId = ([country isEqualToString:@"Select"])?@"0":[_countryList.countryIds objectForKey:country];
+        countryId = ([country isEqualToString:@"Select"])?@"0":[_countryList.propDictCountryIds objectForKey:country];
         
-        _results = [self.appDelegate.onlineGateway getAdvanceSearchResults:searched in:searchIn location:location radius:distance jobType:jobType country:countryId postedWithin:posted];
+        _results = [self.propAppDelegate.propGatewayOnline getAdvanceSearchResults:searched in:searchIn location:location radius:distance jobType:jobType country:countryId postedWithin:posted];
 
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -298,14 +290,16 @@ static VCSearchJob *instance;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if(sender == self.navigationController.navigationBar.topItem.rightBarButtonItem){
         VCJobSummary *vcJobSummary = (VCJobSummary *)segue.destinationViewController;
-        vcJobSummary.jobs = _results;
+        vcJobSummary.propListJobs = _results;
     }
     
     if([segue.identifier isEqualToString:@"segueToCountrySelection"])
         [(VCCountrySelection *)segue.destinationViewController cellSelectorSelectedCell:sender];
+    else if([segue.identifier isEqualToString:@"segueToLocationSelection"])
+        [(VCLocationSelection *)segue.destinationViewController cellSelectorSelectedCell:sender];
 }
 
 - (IBAction)showList:(id)sender {
-    [self.appDelegate.slider toggleSidebar];
+    [self.propAppDelegate.propSlider toggleSidebar];
 }
 @end

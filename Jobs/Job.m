@@ -14,12 +14,12 @@
     
     self = [super init];
     if(self){
-        self.jobId = jobId;
-        self.title = title;
-        self.reference = reference;
-        self.country = country;
-        self.dateAdded = dateAdded;
-        self.details = details;
+        self.propJobID = jobId;
+        self.propTitle = title;
+        self.propReference = reference;
+        self.propCountry = country;
+        self.propDateAdded = dateAdded;
+        self.propDetails = details;
     }
     
     return self;

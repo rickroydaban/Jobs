@@ -19,7 +19,7 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     [self.navigationController setNavigationBarHidden:YES];
-    self.view.backgroundColor = [VelosiColors orangeVelosi];
+    self.view.backgroundColor = [VelosiColors orange];
     _viewTappedRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onViewTapped)];
     [self.view addGestureRecognizer:_viewTappedRecognizer];
     
@@ -33,12 +33,19 @@
     UIImageView *ivPassword = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 36, 36)];
     ivPassword.image = [UIImage imageNamed:@"icon_password"];
     
+    self.fieldUsername.borderStyle = UITextBorderStyleRoundedRect;
+    self.fieldPassword.borderStyle = UITextBorderStyleRoundedRect;
     self.fieldUsername.leftViewMode = UITextFieldViewModeAlways;
     self.fieldUsername.leftView = ivUsername;
         self.fieldPassword.leftViewMode = UITextFieldViewModeAlways;
     self.fieldPassword.leftView= ivPassword;
     self.fieldUsername.text = @"admin@blandyuk.co.uk";
     self.fieldPassword.text = @"redrose1982";
+
+    self.buttonLogin.layer.borderWidth = 2;
+    self.buttonLogin.layer.borderColor = [VelosiColors orangeDark].CGColor;
+    self.buttonLogin.layer.cornerRadius = 5;
+    self.buttonLogin.backgroundColor = [VelosiColors orangeVelosi];
 }
 
 - (void)onViewTapped{
@@ -48,16 +55,17 @@
 - (IBAction)login {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        [self.appDelegate.onlineGateway authenticateUserName:self.fieldUsername.text password:self.fieldPassword.text];
+        NSString *result = [self.propAppDelegate.propGatewayOnline authenticateUserName:self.fieldUsername.text password:self.fieldPassword.text];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
-            if([self.appDelegate.offlineGateway isLoggedIn]){
-                [self.appDelegate.slider reloadSidebar];
-                [self.appDelegate.slider login];
+            if([self.propAppDelegate.propGatewayOffline isLoggedIn]){
+                [self.propAppDelegate.propSlider reloadSidebar];
+                [self.propAppDelegate.propSlider login];
             }
-            else
-                [[[UIAlertView alloc] initWithTitle:nil message:@"Your details are invalid" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+            
+            if(result != nil)
+                [[[UIAlertView alloc] initWithTitle:@"Error" message:result delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
         });
     });
 }
@@ -74,6 +82,6 @@
 
 
 - (IBAction)showList:(id)sender {
-    [self.appDelegate.slider toggleSidebar];
+    [self.propAppDelegate.propSlider toggleSidebar];
 }
 @end
