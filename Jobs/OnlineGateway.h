@@ -11,7 +11,7 @@
 @class JobDetail;
 @class User;
 
-@interface OnlineGateway : NSObject
+@interface OnlineGateway : NSObject<NSURLConnectionDelegate>
 
 + (OnlineGateway *)sharedOnlineGateway:(AppDelegate *)appDelegate;
 
@@ -21,6 +21,7 @@
 - (id)authenticateUserName:(NSString *)username password:(NSString *)password;
 - (NSArray *)getReferrerList;
 - (NSArray *)getDocuments;
+- (NSString *)changePassword:(NSString *)oldPassword to:(NSString *)newPassword;
 - (NSString *)saveCandidateDetailsWithUser:(User *)user;
 
 

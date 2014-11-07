@@ -9,7 +9,7 @@
 
 @implementation User
 
-- (User *)initWithID:(NSString *)userId fname:(NSString *)fname lname:(NSString *)lname email:(NSString *)email altEmail:(NSString *)altEmail gender:(NSString *)gender phone:(NSString *)phone altPhone:(NSString *)altPhone mobile:(NSString *)mobile birthday:(NSString *) bday address:(NSString *)address city:(NSString *)city countryState:(NSString *)countryState postCode:(NSString *)postCode country:(NSString *)country linkedIn:(NSString *)linkedIn twitter:(NSString *)twitter skype:(NSString *)skype isEUAuthorised:(BOOL)isEUAuthorized university:(NSString *)university subject:(NSString *)subject yearGraduated:(NSString *)yearGraduated hea:(NSString *)hea driverLicense:(NSString *)driverLicense nationality:(NSString *)nationality ethnicity:(NSString *)ethnicity referrer:(NSString *)referrer maritalStatus:(NSString *)maritalStatus isPermanent:(BOOL)isPermanent isContract:(BOOL)isContract isTemporary:(BOOL)isTemporary isPartTime:(BOOL)isPartTime jobTitlePrefs:(NSString *)jobTitlePrefs currency:(NSString *)currency salaryFrom:(NSString *)salaryFrom salaryTo:(NSString *)salaryTo salaryType:(NSString *)salaryTpe mainSkills:(NSString *)mainSkills locationPrefs:(NSMutableArray *)locationPrefs relocationWillingness:(NSString *)relocationWillingness noticePeriod:(NSString *)noticePeriod availableFrom: (NSString *)availableFrom languages:(NSMutableArray *)languages allowAlerts:(BOOL)allowAlerts{
+- (User *)initWithID:(NSString *)userId fname:(NSString *)fname lname:(NSString *)lname email:(NSString *)email altEmail:(NSString *)altEmail gender:(NSString *)gender phone:(NSString *)phone altPhone:(NSString *)altPhone mobile:(NSString *)mobile birthday:(NSString *) bday address:(NSString *)address city:(NSString *)city countryState:(NSString *)countryState postCode:(NSString *)postCode country:(NSString *)country linkedIn:(NSString *)linkedIn twitter:(NSString *)twitter skype:(NSString *)skype isEUAuthorised:(BOOL)isEUAuthorized university:(NSString *)university subject:(NSString *)subject yearGraduated:(NSString *)yearGraduated hea:(NSString *)hea driverLicense:(NSString *)driverLicense nationality:(NSString *)nationality ethnicity:(NSString *)ethnicity referrer:(NSString *)referrer maritalStatus:(NSString *)maritalStatus isPermanent:(BOOL)isPermanent isContract:(BOOL)isContract isTemporary:(BOOL)isTemporary isPartTime:(BOOL)isPartTime jobTitlePrefs:(NSString *)jobTitlePrefs currency:(NSString *)currency salaryFrom:(NSString *)salaryFrom salaryTo:(NSString *)salaryTo salaryType:(NSString *)salaryType mainSkills:(NSString *)mainSkills locationPrefs:(NSMutableArray *)locationPrefs relocationWillingness:(NSString *)relocationWillingness noticePeriod:(NSString *)noticePeriod availableFrom: (NSString *)availableFrom languages:(NSMutableArray *)languages allowAlerts:(BOOL)allowAlerts{
     
     self = [super init];
     
@@ -54,7 +54,7 @@
         self.propCurrency = currency;
         self.propSalaryFrom = salaryFrom;
         self.propSalaryTo = salaryTo;
-        self.propSalaryType = salaryTpe;
+        self.propSalaryType = salaryType;
         self.propMainSkills = mainSkills;
         self.propLocationPrefs = locationPrefs;
         self.propRelocationWillingness = relocationWillingness;

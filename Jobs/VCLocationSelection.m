@@ -13,7 +13,7 @@
 #import "VCSearchJob.h"
 
 @interface VCLocationSelection (){
-    NSMutableArray *_locations;
+    id _locations;
     UITableViewCell *_selectedCell;
 }
 
@@ -24,7 +24,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _locations = [NSMutableArray array];
     self.view.backgroundColor = [UIColor whiteColor];
     self.propLv.delegate = self;
     self.propLv.dataSource = self;
@@ -42,19 +41,19 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return _locations.count;
+    return ((NSMutableArray *)_locations).count;
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    if([textField.text length]>2){
+    NSString *searchString = [NSString stringWithFormat:@"%@%@",textField.text,string];
+    if(searchString.length > 2){
         [MBProgressHUD showHUDAddedTo:self.propLv animated:YES];
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            NSString *searchString = [NSString stringWithFormat:@"%@%@",textField.text,string];
             _locations = [self.propAppDelegate.propGatewayOnline getLocationSuggestions:searchString];
 
             dispatch_async(dispatch_get_main_queue(), ^{
-                if(_locations == nil)
-                    [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Cannot connect to server" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
+                if([_locations isKindOfClass:[NSString class]])
+                    [[[UIAlertView alloc] initWithTitle:@"Error" message:_locations delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
                 else
                     [self.propLv reloadData];
                 [MBProgressHUD hideHUDForView:self.propLv animated:YES];

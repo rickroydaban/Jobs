@@ -68,9 +68,35 @@ static OnlineGateway *sharedOnlineGateway = nil;
     NSHTTPURLResponse *responseCode = nil;
     
     NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
-    if(responseCode.statusCode != 200)
-        return error.localizedFailureReason;
-    
+    if(responseCode.statusCode != 200){
+        switch (responseCode.statusCode) {
+            case 204: return @"No Response";
+            case 400: return @"Bad Request";
+            case 401: return @"Unauthorized";
+            case 402: return @"Payment Required";
+            case 403: return @"Forbidden";
+            case 404: return @"Not Found";
+            case 405: return @"Method Not Allowed";
+            case 406: return @"Not Acceptable";
+            case 407: return @"Proxy Authentication Required";
+            case 408: return @"Request Timeout";
+            case 409: return @"Conflict";
+            case 410: return @"Gone";
+            case 411: return @"Length Required";
+            case 412: return @"Precondition Failed";
+            case 413: return @"Request Entity Too Large";
+            case 414: return @"Request-URI Too Long";
+            case 415: return @"Unsupported Media Type";
+            case 416: return @"Request Range Not Satisfiable";
+            case 417: return @"Expectation Failed";
+            case 500: return @"Internal Server Error";
+            case 501: return @"Not Implemented";
+            case 502: return @"Service temporarily overloaded";
+            case 503: return @"Gateway Timeout";
+            default:  return [NSString stringWithFormat:@"%d",responseCode.statusCode];
+        }
+    }
+
     return responseData;
 }
 
@@ -83,22 +109,24 @@ static OnlineGateway *sharedOnlineGateway = nil;
     }
     
     NSString *pairsString = [tempPairsString substringWithRange:NSMakeRange(0, tempPairsString.length-1)];
-    NSData *postData = [pairsString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-    NSString *postLength = [NSString stringWithFormat:@"%d",(int)postData.length];
+//    NSData *postData = [pairsString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+//    NSString *postLength = [NSString stringWithFormat:@"%d",(int)postData.length];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     request.URL = [NSURL URLWithString:url];
     request.HTTPMethod = @"POST";
-    request.HTTPBody = postData;
-    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    request.HTTPBody = [pairsString dataUsingEncoding:NSUTF8StringEncoding];
+    [request setValue:[NSString stringWithFormat:@"%d",(int)pairsString.length] forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     
     NSError *error = [[NSError alloc] init];
     NSHTTPURLResponse *responseCode = nil;
     
     NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
-    if(responseCode.statusCode != 200)
-        return error.localizedFailureReason;
- 
+    if(responseCode.statusCode != 200){
+        NSLog(@"error: %@",responseCode);
+        return @"";
+    }
+    
     return responseData;
 }
 
@@ -144,6 +172,8 @@ static OnlineGateway *sharedOnlineGateway = nil;
                     NSString *details = [jsonResult objectForKey:@"Description"];
                     [results addObject:[[Job alloc] initWithId:id title:title reference:ref country:countryName dateAdded:dateAdded details:details]];
                 }
+                
+                return results;
             }else
                 errorMessage = error.localizedFailureReason;
         }@catch(NSException *exception){
@@ -190,9 +220,10 @@ static OnlineGateway *sharedOnlineGateway = nil;
     return nil;
 }
 
-- (NSMutableArray *)getLocationSuggestions: (NSString *)searched{
+- (id)getLocationSuggestions: (NSString *)searched{
     NSString *errorMessage;
-    NSObject *data = [self httpsGetFrom:[NSString stringWithFormat:@"%@%@",_jsonRoot,[NSString stringWithFormat:@"location-search.ashx?s=%@&n=%d",searched,50]]];
+    NSLog(@"%@",[NSString stringWithFormat:@"%@%@",_jsonRoot,[NSString stringWithFormat:@"location-search.ashx?s=%@&n=%d",searched,50]]);
+    id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@%@",_jsonRoot,[NSString stringWithFormat:@"location-search.ashx?s=%@&n=%d",searched,50]]];
     
     if([data isKindOfClass:[NSString class]])
         errorMessage = (NSString *)data;
@@ -203,7 +234,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
         
         @try{
             jsonLocationSuggestions = [NSJSONSerialization JSONObjectWithData:(NSData *)data options:0 error:&error];
-            
+            NSLog(@"%@",jsonLocationSuggestions);
             if(jsonLocationSuggestions){
                 for(id jsonLocationSuggestion in jsonLocationSuggestions)
                     [locationSuggestions addObject:jsonLocationSuggestion];
@@ -216,8 +247,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
         }
     }
     
-//    [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
-    return nil;
+    return errorMessage;
 }
 
 #pragma mark Profile
@@ -319,6 +349,17 @@ static OnlineGateway *sharedOnlineGateway = nil;
     return [NSArray array];
 }
 
+- (NSString *)changePassword:(NSString *)oldPassword to:(NSString *)newPassword{
+    NSError *error = [[NSError alloc] init];
+    @try{
+        return [[NSJSONSerialization JSONObjectWithData:[self httpsGetFrom:[NSString stringWithFormat:@"%@ChangePassword?id=%@&o=%@&p=%@",_rootCandidates ,[_appDelegate.propGatewayOffline getUserID],oldPassword,newPassword]] options:0 error:&error] objectForKey:@"ChangePasswordResult"];
+    }@catch(NSException *exception){
+        return exception.reason;
+    }
+    
+    return error.localizedFailureReason;
+}
+
 #pragma mark POSTS
 
 - (NSString *)saveCandidateDetailsWithUser:(User *)user{
@@ -326,54 +367,55 @@ static OnlineGateway *sharedOnlineGateway = nil;
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
                            
     [dict setObject: user.propID forKey:@"CandidateID"];
-    [dict setObject: user.propFname forKey:@"FirstName"];
-    [dict setObject: user.propLname forKey:@"LastName"];
-    [dict setObject: user.propEmail forKey:@"Email"];
-    [dict setObject: user.propPhone forKey:@"Phone"];
-    [dict setObject: user.propMobile forKey:@"Mobile"];
-    [dict setObject: user.propGender forKey:@"GenderSexID"];
-    [dict setObject: user.propBday forKey:@"DOB"];
-    [dict setObject: user.propAddress forKey:@"Address"];
-    [dict setObject: user.propCity forKey:@"TownCity"];
-    [dict setObject: user.propCountryState forKey:@"CountyState"];
-    [dict setObject: user.propPostCode forKey:@"Postcode"];
-    [dict setObject: user.propCountry forKey:@"CountryID"];
-    [dict setObject: user.propLocationPrefs forKey:@"PreferredLocation"];
-    [dict setObject: (user.propIsEUAuthorised)?@"true":@"false" forKey:@"EUAuthorised"];
-    [dict setObject: user.propMainSkills forKey:@"MainSkills"];
-    [dict setObject: user.propJobTitlePrefs forKey:@"PreferredJobTitles"];
-    [dict setObject: (user.propIsPermanent)?@"true":@"false" forKey:@"Permanent"];
-    [dict setObject: (user.propIsContract)?@"true":@"false" forKey:@"Contract"];
-    [dict setObject: (user.propIsTemporary)?@"true":@"false" forKey:@"Temporary"];
-    [dict setObject: (user.propIsPartTime)?@"true":@"false" forKey:@"PartTime"];
-    [dict setObject: user.propDiverLicense forKey:@"DrivingLicenseID"];
-    [dict setObject: user.propLinkedIn forKey:@"LinkedIn"];
-    [dict setObject: user.propTwitter forKey:@"Twitter"];
-    [dict setObject: user.propRelocationWillingness forKey:@"RelocateID"];
-    [dict setObject: user.propUniversity forKey:@"UniversityAttended"];
-    [dict setObject: user.propSubject forKey:@"AcademicSubject"];
-    [dict setObject: user.propYearGraduated forKey:@"GraduationYear"];
-    [dict setObject: user.propNoticePeriod forKey:@"AvailabilityID"];
-    [dict setObject: user.propAvailableFrom forKey:@"AvailableFrom"];
-    [dict setObject: user.propEthnicity forKey:@"EthnicityID"];
-    [dict setObject: user.propNationality forKey:@"NationalityID"];
-    [dict setObject: user.propLanguages forKey:@"Languages"];
-    [dict setObject: user.propSalaryFrom forKey:@"SalaryFrom"];
-    [dict setObject: user.propSalaryTo forKey:@"SalaryTo"];
-    [dict setObject: user.propSalaryType forKey:@"SalaryTypeID"];
-    [dict setObject: user.propCurrency forKey:@"SalaryCurrency"];
-    [dict setObject: user.propHEA forKey:@"EducationID"];
-    [dict setObject: user.propReferrer forKey:@"ReferrerID"];
-    [dict setObject: user.propSkype forKey:@"Skype"];
-    [dict setObject: user.propMaritalStatus forKey:@"MaritalStatus"];
-    [dict setObject: user.propAltEmail forKey:@"Email2"];
-    [dict setObject: user.propAltPhone forKey:@"Phone2"];
-    [dict setObject: (user.propAllowAlerts)?@"true":@"false" forKey:@"SendEmails"];
-    [dict setObject: (user.propAllowAlerts)?@"true":@"false" forKey:@"SendSMS"];
+    [dict setObject: [NSString stringWithFormat:@"%@",user.propFname] forKey:@"FirstName"];
+    [dict setObject: [NSString stringWithFormat:@"%@",user.propLname] forKey:@"LastName"];
+//    [dict setObject: [NSString stringWithFormat:@"%@",user.propEmail] forKey:@"Email"];
+//    [dict setObject: [NSString stringWithFormat:@"%@",user.propPhone] forKey:@"Phone"];
+//    [dict setObject: [NSString stringWithFormat:@"%@",user.propMobile] forKey:@"Mobile"];
+//    [dict setObject: user.propGender forKey:@"GenderSexID"];
+//    [dict setObject: [NSString stringWithFormat:@"%@",user.propBday] forKey:@"DOB"];
+//    [dict setObject: [NSString stringWithFormat:@"%@",user.propAddress] forKey:@"Address"];
+//    [dict setObject: [NSString stringWithFormat:@"%@",user.propCity] forKey:@"TownCity"];
+//    [dict setObject: [NSString stringWithFormat:@"%@",user.propCountryState] forKey:@"CountyState"];
+//    [dict setObject: [NSString stringWithFormat:@"%@",user.propPostCode] forKey:@"Postcode"];
+//    [dict setObject: user.propCountry forKey:@"CountryID"];
+//    [dict setObject: [NSString stringWithFormat:@"%@",user.propLocationPrefs] forKey:@"PreferredLocation"];
+//    [dict setObject: (user.propIsEUAuthorised)?@"true":@"false" forKey:@"EUAuthorised"];
+//    [dict setObject: [NSString stringWithFormat:@"%@",user.propMainSkills] forKey:@"MainSkills"];
+//    [dict setObject: [NSString stringWithFormat:@"%@",user.propJobTitlePrefs] forKey:@"PreferredJobTitles"];
+//    [dict setObject: (user.propIsPermanent)?@"true":@"false" forKey:@"Permanent"];
+//    [dict setObject: (user.propIsContract)?@"true":@"false" forKey:@"Contract"];
+//    [dict setObject: (user.propIsTemporary)?@"true":@"false" forKey:@"Temporary"];
+//    [dict setObject: (user.propIsPartTime)?@"true":@"false" forKey:@"PartTime"];
+//    [dict setObject: user.propDiverLicense forKey:@"DrivingLicenseID"];
+//    [dict setObject: [NSString stringWithFormat:@"%@",user.propLinkedIn] forKey:@"LinkedIn"];
+//    [dict setObject: [NSString stringWithFormat:@"%@",user.propTwitter] forKey:@"Twitter"];
+//    [dict setObject: user.propRelocationWillingness forKey:@"RelocateID"];
+//    [dict setObject: [NSString stringWithFormat:@"%@",user.propUniversity] forKey:@"UniversityAttended"];
+//    [dict setObject: [NSString stringWithFormat:@"%@",user.propSubject] forKey:@"AcademicSubject"];
+//    [dict setObject: user.propYearGraduated forKey:@"GraduationYear"];
+//    [dict setObject: user.propNoticePeriod forKey:@"AvailabilityID"];
+//    [dict setObject: [NSString stringWithFormat:@"%@",user.propAvailableFrom] forKey:@"AvailableFrom"];
+//    [dict setObject: user.propEthnicity forKey:@"EthnicityID"];
+//    [dict setObject: user.propNationality forKey:@"NationalityID"];
+//    [dict setObject: [NSString stringWithFormat:@"%@",user.propLanguages] forKey:@"Languages"];
+//    [dict setObject: user.propSalaryFrom forKey:@"SalaryFrom"];
+//    [dict setObject: user.propSalaryTo forKey:@"SalaryTo"];
+//    [dict setObject: user.propSalaryType forKey:@"SalaryTypeID"];
+//    [dict setObject: user.propCurrency forKey:@"SalaryCurrency"];
+//    [dict setObject: user.propHEA forKey:@"EducationID"];
+//    [dict setObject: user.propReferrer forKey:@"ReferrerID"];
+//    [dict setObject: [NSString stringWithFormat:@"%@",user.propSkype] forKey:@"Skype"];
+//    [dict setObject: user.propMaritalStatus forKey:@"MaritalStatus"];
+//    [dict setObject: [NSString stringWithFormat:@"%@",user.propAltEmail] forKey:@"Email2"];
+//    [dict setObject: [NSString stringWithFormat:@"%@",user.propAltPhone] forKey:@"Phone2"];
+//    [dict setObject: (user.propAllowAlerts)?@"true":@"false" forKey:@"SendEmails"];
+//    [dict setObject: (user.propAllowAlerts)?@"true":@"false" forKey:@"SendSMS"];
     id data = [self httpPostFrom:[NSString stringWithFormat:@"%@Save",_rootCandidates] withValues:dict];
 
-    NSString *result = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-    return result;
+//    NSString *result = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+//    return result;
+    return @"";
 }
 
 
