@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "VCPage.h"
 
-@interface VCUserApplications :VCPage
+@interface VCUserApplications :VCPage<UITableViewDataSource, UITableViewDelegate>
 
+@property (strong, nonatomic) IBOutlet UITableView *propLv;
+@property (strong, nonatomic) NSMutableArray *propListApplications;
 @end

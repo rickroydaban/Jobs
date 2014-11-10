@@ -8,6 +8,8 @@
 
 #import "VCPage.h"
 
-@interface VCUserSearches : VCPage
+@interface VCUserSearches : VCPage<UITableViewDataSource, UITableViewDelegate>
 
+@property (strong, nonatomic) IBOutlet UITableView *propLv;
+@property (strong, nonatomic) NSMutableArray *propListSavedSearches;
 @end

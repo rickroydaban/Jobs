@@ -9,7 +9,6 @@
 #import "VCSearchJob.h"
 #import "VelosiDesigner.h"
 #import "VelosiCustomPicker.h"
-#import "CountryList.h"
 #import "VCJobSummary.h"
 #import "MBProgressHUD.h"
 #import "VCCountrySelection.h"
@@ -17,11 +16,7 @@
 
 @interface VCSearchJob (){
     UITapGestureRecognizer *_mainViewTapRecognizer;
-    NSArray *_searchIns, *_jobTypes, *_postedWithins;
     UIPickerView *_pickerSearchIns, *_pickerJobTypes, *_pickerPostedWithins;
-    
-    NSDictionary *_dCountry, *_dSearchIns, *_dJobTypes, *_dPostedWithins;
-    CountryList *_countryList;
     NSMutableArray *_results;
 }
 
@@ -33,16 +28,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
         
-    _countryList = [[CountryList alloc] init];
-    _searchIns = @[@"Job Title and Description", @"Job Title", @"Job Description"];
-    _dSearchIns = [NSDictionary dictionaryWithObjects:@[@"0", @"1", @"2"] forKeys:_searchIns];
-    _jobTypes = @[@"Permanent", @"Contract", @"Temporary", @"Part time", @"Ad hoc", @"Any"];
-    _dJobTypes = [NSDictionary dictionaryWithObjects:@[@"1", @"2", @"3", @"4", @"5", @"9"] forKeys:_jobTypes];
-    _postedWithins = @[@"Any", @"42 Days", @"35 Days", @"28 Days", @"21 Days", @"14 Days", @"7 Days",@"1 Day"];
-    _dPostedWithins = [NSDictionary dictionaryWithObjects:@[@"0", @"42", @"35", @"28", @"21", @"14", @"7", @"1"] forKeys:_postedWithins];
-    _pickerSearchIns = [[VelosiCustomPicker alloc] initWithElements:_searchIns andRowSelectionDelegate:self hasAll:NO];
-    _pickerJobTypes = [[VelosiCustomPicker alloc] initWithElements:_jobTypes andRowSelectionDelegate:self hasAll:NO];
-    _pickerPostedWithins = [[VelosiCustomPicker alloc] initWithElements:_postedWithins andRowSelectionDelegate:self hasAll:NO];
+    _pickerSearchIns = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propListSearchIns andRowSelectionDelegate:self hasAll:NO];
+    _pickerJobTypes = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propListJobTypes andRowSelectionDelegate:self hasAll:NO];
+    _pickerPostedWithins = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propListPostedWithins andRowSelectionDelegate:self hasAll:NO];
     
     _mainViewTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onMainViewTapped)];
     _mainViewTapRecognizer.delegate = self;
@@ -72,9 +60,9 @@
     self.fieldJobType.delegate = self;
     self.fieldPostedWithin.delegate = self;
     
-    self.fieldSearchIn.text = [_searchIns objectAtIndex:0];
-    self.fieldJobType.text = [_jobTypes objectAtIndex:0];
-    self.fieldPostedWithin.text = [_postedWithins objectAtIndex:0];
+    self.fieldSearchIn.text = [self.propAppDelegate.propListSearchIns objectAtIndex:0];
+    self.fieldJobType.text = [self.propAppDelegate.propListJobTypes objectAtIndex:0];
+    self.fieldPostedWithin.text = [self.propAppDelegate.propListPostedWithins objectAtIndex:0];
     self.fieldDistance.text =@"100";
 }
 
@@ -163,11 +151,11 @@
 
 - (void)pickerSelection:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     if(pickerView == _pickerSearchIns)
-        self.fieldSearchIn.text = [_searchIns objectAtIndex:row];
+        self.fieldSearchIn.text = [self.propAppDelegate.propListSearchIns objectAtIndex:row];
     else if(pickerView == _pickerJobTypes)
-        self.fieldJobType.text = [_jobTypes objectAtIndex:row];
+        self.fieldJobType.text = [self.propAppDelegate.propListJobTypes objectAtIndex:row];
     else if(pickerView == _pickerPostedWithins)
-        self.fieldPostedWithin = [_postedWithins objectAtIndex:row];
+        self.fieldPostedWithin = [self.propAppDelegate.propListPostedWithins objectAtIndex:row];
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
@@ -264,18 +252,18 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSString *searched = self.fieldSearchFor.text;
-        NSString *searchIn = [_dSearchIns objectForKey:self.fieldSearchIn.text];
+        NSString *searchIn = [self.propAppDelegate.propDictSearchIns objectForKey:self.fieldSearchIn.text];
         NSString *location = [self.propLv cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]].detailTextLabel.text;
         NSString *country = [self.propLv cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]].detailTextLabel.text;
         NSString *countryId;
         NSString *distance = self.fieldDistance.text;
-        NSString *jobType = [_dJobTypes objectForKey:self.fieldJobType.text];
-        NSString *posted = [_dPostedWithins objectForKey:self.fieldPostedWithin.text];
+        NSString *jobType = [self.propAppDelegate.propDictJobTypes objectForKey:self.fieldJobType.text];
+        NSString *posted = [self.propAppDelegate.propDictPostedWithins objectForKey:self.fieldPostedWithin.text];
         
         if([location isEqualToString:@"Select"])
             location = @"";
         
-        countryId = ([country isEqualToString:@"Select"])?@"0":[_countryList.propDictCountryIds objectForKey:country];
+        countryId = ([country isEqualToString:@"Select"])?@"0":[self.propAppDelegate.propListCountries.propDictCountryIds objectForKey:country];
         
         _results = [self.propAppDelegate.propGatewayOnline getAdvanceSearchResults:searched in:searchIn location:location radius:distance jobType:jobType country:countryId postedWithin:posted];
 

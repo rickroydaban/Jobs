@@ -8,6 +8,9 @@
 
 #import "VCPage.h"
 
-@interface VCUserEmployments : VCPage
+@interface VCUserEmployments : VCPage<UITableViewDataSource, UITableViewDelegate>
+
+@property (strong, nonatomic) IBOutlet UITableView *propLV;
+@property (strong, nonatomic) NSMutableArray *propListEmployments;
 
 @end

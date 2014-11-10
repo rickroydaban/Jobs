@@ -12,10 +12,13 @@
 #import "JobDetail.h"
 #import "User.h"
 #import "Document.h"
+#import "Employment.h"
+#import "Application.h"
+#import "SavedSearch.h"
 #import "AppDelegate.h"
 
 @interface OnlineGateway(){
-    const NSString *_jsonRoot, *_rootVacancy, *_rootCandidates, *_rootReferences, *_rootDocuments;
+    const NSString *_jsonRoot, *_rootVacancy, *_rootCandidates, *_rootReferences, *_rootDocuments, *_rootEmployments, *_rootApplications, *_rootSavedSearches;
     const AppDelegate *_appDelegate;
 }
 
@@ -40,6 +43,9 @@ static OnlineGateway *sharedOnlineGateway = nil;
         _rootCandidates = @"https://arctestapi.velosi.com/CandidateSvc.svc/json/";
         _rootReferences = @"https://arctestapi.velosi.com/Reference.svc/json/";
         _rootDocuments = @"https://arctestapi.velosi.com/DocumentSvc.svc/json/";
+        _rootEmployments = @"https://arctestapi.velosi.com/CandidateJobSvc.svc/json/";
+        _rootApplications = @"https://arctestapi.velosi.com/ApplicationSvc.svc/json/";
+        _rootSavedSearches = @"https://arctestapi.velosi.com/JobsByEmailSvc.svc/json/";
         _appDelegate = appDelegate;
 
 //        NSError *error = [[NSError alloc] init];
@@ -93,7 +99,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
             case 501: return @"Not Implemented";
             case 502: return @"Service temporarily overloaded";
             case 503: return @"Gateway Timeout";
-            default:  return [NSString stringWithFormat:@"%d",responseCode.statusCode];
+            default:  return [NSString stringWithFormat:@"%d",(int)responseCode.statusCode];
         }
     }
 
@@ -323,7 +329,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
 
 - (NSArray *)getDocuments{
     NSString *errorMessage;
-    id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@%@",_rootDocuments,[NSString stringWithFormat:@"GetByCandidateID?id=%@",[_appDelegate.propGatewayOffline getUserID]]]];
+    id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@GetByCandidateID?id=%@",_rootDocuments,[_appDelegate.propGatewayOffline getUserID]]];
     
     if([data isKindOfClass:[NSString class]])
         errorMessage = data;
@@ -347,6 +353,78 @@ static OnlineGateway *sharedOnlineGateway = nil;
     
     [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
     return [NSArray array];
+}
+
+- (id)getEmployments{
+    id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@GetByCandidateID?id=%@",_rootEmployments,[_appDelegate.propGatewayOffline getUserID]]];
+    
+    if([data isKindOfClass:[NSString class]])
+        return data;
+    else{
+        NSError *error = [[NSError alloc] init];
+        
+        @try {
+            NSMutableArray *employments = [NSMutableArray array];
+            NSArray *jsonEmployments = [[NSJSONSerialization JSONObjectWithData:data options:0 error:&error] objectForKey:@"GetByCandidateIDResult"];
+            
+            if(jsonEmployments){
+                for (id jsonEmployment in jsonEmployments)
+                    [employments addObject:[[Employment alloc] initWithID:[[jsonEmployment objectForKey:@"JobID"] intValue] jobTitle:[jsonEmployment objectForKey:@"Title"] startDate:[jsonEmployment objectForKey:@"StartDate"] endDate:[jsonEmployment objectForKey:@"EndDate"] employer:[jsonEmployment objectForKey:@"Employer"] description:[jsonEmployment objectForKey:@"Description"]]];
+            }
+            
+            return employments;
+        }@catch (NSException *exception) {
+            return exception.reason;
+        }
+    }
+}
+
+- (id)getApplications{
+    id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@GetByCandidateID?id=%@",_rootApplications,[_appDelegate.propGatewayOffline getUserID]]];
+    
+    if([data isKindOfClass:[NSString class]])
+        return data;
+    else{
+        NSError *error = [[NSError alloc] init];
+        
+        @try{
+            NSMutableArray *applications = [NSMutableArray array];
+            NSArray *jsonApplications = [[NSJSONSerialization JSONObjectWithData:data options:0 error:&error] objectForKey:@"GetByCandidateIDResult"];
+            
+            if(jsonApplications){
+                for(id jsonApplication in jsonApplications)
+                    [applications addObject:[[Application alloc] initWithID:[[jsonApplication objectForKey:@"ApplicationID"] intValue] title:[jsonApplication objectForKey:@"VacancyTitle"] reference:[jsonApplication objectForKey:@"VacancyRef"] status:[[jsonApplication objectForKey:@"AppStatus"] objectForKey:@"StatusName"] dateAdded:[self deserializeJsonDateString:[jsonApplication objectForKey:@"DateCreated"]]]];
+            }
+            
+            return applications;
+        }@catch(NSException *exception){
+            return exception.reason;
+        }
+    }
+}
+
+- (id)getSavedSearches{
+    id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@GetByCandidateID?id=%@",_rootSavedSearches,[_appDelegate.propGatewayOffline getUserID]]];
+    
+    if([data isKindOfClass:[NSString class]])
+        return data;
+    else{
+        NSError *error = [[NSError alloc] init];
+        
+        @try{
+            NSMutableArray *savedSearches = [NSMutableArray array];
+            NSArray *jsonSavedSearches = [[NSJSONSerialization JSONObjectWithData:data options:0 error:&error] objectForKey:@"GetByCandidateIDResult"];
+            
+            if(jsonSavedSearches){
+                for(id jsonSavedSearch in jsonSavedSearches)
+                    [savedSearches addObject:[[SavedSearch alloc] initWithID:[[jsonSavedSearch objectForKey:@"JBEID"] intValue] title:[jsonSavedSearch objectForKey:@"Name"] dateAdded:[self deserializeJsonDateString:[jsonSavedSearch objectForKey:@"DateCreated"]] status:[[jsonSavedSearch objectForKey:@"EmailAlert"] boolValue] searchFor:[jsonSavedSearch objectForKey:@"SearchText"] searchInID:[[[jsonSavedSearch objectForKey:@"VacancySearchIn"] objectForKey:@"VacancySearchInID"] intValue] location:[[jsonSavedSearch objectForKey:@"Location"] objectForKey:@"CountryName"] distance:[[jsonSavedSearch objectForKey:@"Radius"] intValue] countryID:[[jsonSavedSearch objectForKey:@"CountryID"] intValue] jobTypeID:[[[jsonSavedSearch objectForKey:@"VacancyType"] objectForKey:@"TypeID"] intValue] postedWithin:[[jsonSavedSearch objectForKey:@"LastXDays"] intValue]]];
+            }
+            
+            return savedSearches;
+        }@catch(NSException *exception){
+            return exception.reason;
+        }
+    }
 }
 
 - (NSString *)changePassword:(NSString *)oldPassword to:(NSString *)newPassword{

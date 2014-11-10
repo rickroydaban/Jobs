@@ -13,6 +13,7 @@
 #import "UserPageNavigators.h"
 #import "CurrencyList.h"
 #import "VCSlider.h"
+#import "CountryList.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -26,6 +27,10 @@
 @property (strong, nonatomic, readonly) CurrencyList *propListCurrency;
 @property (strong, nonatomic) UserPageNavigators *propPageNavigator;
 @property (strong, nonatomic) NSDateFormatter *propDateFormatVelosi;
+
+@property (strong, nonatomic, readonly) NSArray *propListSearchIns, *propListJobTypes, *propListPostedWithins;
+@property (strong, nonatomic, readonly) CountryList *propListCountries;
+@property (strong, nonatomic, readonly) NSDictionary *propDictCountries, *propDictSearchIns, *propDictJobTypes, *propDictPostedWithins;
 
 - (void)updateReferrerDictionary:(NSDictionary *)dictionary fromOnlineGateway:(OnlineGateway *)key;
 - (void)updateSlider:(VCSlider *)slider;

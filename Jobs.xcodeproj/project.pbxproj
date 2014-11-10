@@ -33,6 +33,13 @@
 		8F7BD62519DA8FDB00E20A77 /* VCJobDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7BD62419DA8FDB00E20A77 /* VCJobDetails.m */; };
 		8F7FD44D1A01E2E6005DA69C /* VCDocumentDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7FD44C1A01E2E6005DA69C /* VCDocumentDetails.m */; };
 		8F822C7A19DAAED900DB597E /* JobDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F822C7919DAAED900DB597E /* JobDetail.m */; };
+		8F8486AC1A1069B7003F476B /* VCEmploymentDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8486AB1A1069B7003F476B /* VCEmploymentDetail.m */; };
+		8F8486AF1A106DDE003F476B /* VCTableViewDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8486AE1A106DDE003F476B /* VCTableViewDetail.m */; };
+		8F8486B21A1082EA003F476B /* CellApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8486B11A1082EA003F476B /* CellApplication.m */; };
+		8F8486B51A108394003F476B /* Application.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8486B41A108394003F476B /* Application.m */; };
+		8F8486BB1A10C5FA003F476B /* CellSavedSearches.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8486BA1A10C5FA003F476B /* CellSavedSearches.m */; };
+		8F8486BE1A10C89A003F476B /* SavedSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8486BD1A10C89A003F476B /* SavedSearch.m */; };
+		8F8486C11A10DF75003F476B /* VCSavedSearchDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8486C01A10DF75003F476B /* VCSavedSearchDetail.m */; };
 		8F86E28719FE0E84006602FB /* VCHome.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F86E28619FE0E84006602FB /* VCHome.m */; };
 		8F877F9D19D5123C00B0F820 /* CountryList.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F877F9C19D5123C00B0F820 /* CountryList.m */; };
 		8F877FA219D5687B00B0F820 /* VCLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F877FA119D5687B00B0F820 /* VCLogin.m */; };
@@ -47,6 +54,8 @@
 		8FB37F1819D4198400B798BB /* JobsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB37F1719D4198400B798BB /* JobsTests.m */; };
 		8FB628A319FF70D0001D492C /* VCUserTables.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB628A219FF70D0001D492C /* VCUserTables.m */; };
 		8FB628AA19FF9C05001D492C /* VCAboutUs.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB628A919FF9C05001D492C /* VCAboutUs.m */; };
+		8FBEF3AE1A10574500A479F6 /* CellEmployment.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEF3AD1A10574500A479F6 /* CellEmployment.m */; };
+		8FBEF3B11A105A9200A479F6 /* Employment.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEF3B01A105A9200A479F6 /* Employment.m */; };
 		8FC0C91219D41A11006F3652 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC0C91119D41A11006F3652 /* AppDelegate.m */; };
 		8FC0C91619D41A25006F3652 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC0C91519D41A25006F3652 /* MBProgressHUD.m */; };
 		8FC0C91A19D41A43006F3652 /* OnlineGateway.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC0C91919D41A43006F3652 /* OnlineGateway.m */; };
@@ -125,6 +134,20 @@
 		8F7FD44C1A01E2E6005DA69C /* VCDocumentDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCDocumentDetails.m; sourceTree = "<group>"; };
 		8F822C7819DAAED900DB597E /* JobDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobDetail.h; sourceTree = "<group>"; };
 		8F822C7919DAAED900DB597E /* JobDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobDetail.m; sourceTree = "<group>"; };
+		8F8486AA1A1069B7003F476B /* VCEmploymentDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCEmploymentDetail.h; sourceTree = "<group>"; };
+		8F8486AB1A1069B7003F476B /* VCEmploymentDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCEmploymentDetail.m; sourceTree = "<group>"; };
+		8F8486AD1A106DDE003F476B /* VCTableViewDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCTableViewDetail.h; sourceTree = "<group>"; };
+		8F8486AE1A106DDE003F476B /* VCTableViewDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCTableViewDetail.m; sourceTree = "<group>"; };
+		8F8486B01A1082EA003F476B /* CellApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellApplication.h; sourceTree = "<group>"; };
+		8F8486B11A1082EA003F476B /* CellApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellApplication.m; sourceTree = "<group>"; };
+		8F8486B31A108394003F476B /* Application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Application.h; sourceTree = "<group>"; };
+		8F8486B41A108394003F476B /* Application.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Application.m; sourceTree = "<group>"; };
+		8F8486B91A10C5FA003F476B /* CellSavedSearches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellSavedSearches.h; sourceTree = "<group>"; };
+		8F8486BA1A10C5FA003F476B /* CellSavedSearches.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellSavedSearches.m; sourceTree = "<group>"; };
+		8F8486BC1A10C89A003F476B /* SavedSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedSearch.h; sourceTree = "<group>"; };
+		8F8486BD1A10C89A003F476B /* SavedSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedSearch.m; sourceTree = "<group>"; };
+		8F8486BF1A10DF75003F476B /* VCSavedSearchDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCSavedSearchDetail.h; sourceTree = "<group>"; };
+		8F8486C01A10DF75003F476B /* VCSavedSearchDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCSavedSearchDetail.m; sourceTree = "<group>"; };
 		8F86E28519FE0E84006602FB /* VCHome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCHome.h; sourceTree = "<group>"; };
 		8F86E28619FE0E84006602FB /* VCHome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCHome.m; sourceTree = "<group>"; };
 		8F877F9B19D5123C00B0F820 /* CountryList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountryList.h; sourceTree = "<group>"; };
@@ -153,6 +176,10 @@
 		8FB628A219FF70D0001D492C /* VCUserTables.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCUserTables.m; sourceTree = "<group>"; };
 		8FB628A819FF9C05001D492C /* VCAboutUs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCAboutUs.h; sourceTree = "<group>"; };
 		8FB628A919FF9C05001D492C /* VCAboutUs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCAboutUs.m; sourceTree = "<group>"; };
+		8FBEF3AC1A10574500A479F6 /* CellEmployment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellEmployment.h; sourceTree = "<group>"; };
+		8FBEF3AD1A10574500A479F6 /* CellEmployment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellEmployment.m; sourceTree = "<group>"; };
+		8FBEF3AF1A105A9200A479F6 /* Employment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Employment.h; sourceTree = "<group>"; };
+		8FBEF3B01A105A9200A479F6 /* Employment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Employment.m; sourceTree = "<group>"; };
 		8FC0C91019D41A11006F3652 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8FC0C91119D41A11006F3652 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8FC0C91419D41A25006F3652 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -200,6 +227,8 @@
 		8F6CDDA719DD42ED002D7079 /* profile */ = {
 			isa = PBXGroup;
 			children = (
+				8F8486AD1A106DDE003F476B /* VCTableViewDetail.h */,
+				8F8486AE1A106DDE003F476B /* VCTableViewDetail.m */,
 				8F877FA019D5687B00B0F820 /* VCLogin.h */,
 				8F877FA119D5687B00B0F820 /* VCLogin.m */,
 				8F6CDDA819DD4302002D7079 /* VCUserDetails.h */,
@@ -212,10 +241,14 @@
 				8F7FD44C1A01E2E6005DA69C /* VCDocumentDetails.m */,
 				8F6CDDB119DD49B5002D7079 /* VCUserEmployments.h */,
 				8F6CDDB219DD49B5002D7079 /* VCUserEmployments.m */,
+				8F8486AA1A1069B7003F476B /* VCEmploymentDetail.h */,
+				8F8486AB1A1069B7003F476B /* VCEmploymentDetail.m */,
 				8FC8F44819EE7D1C00BA9084 /* VCUserApplications.h */,
 				8FC8F44919EE7D1C00BA9084 /* VCUserApplications.m */,
 				8F6CDDAB19DD499E002D7079 /* VCUserSearches.h */,
 				8F6CDDAC19DD499E002D7079 /* VCUserSearches.m */,
+				8F8486BF1A10DF75003F476B /* VCSavedSearchDetail.h */,
+				8F8486C01A10DF75003F476B /* VCSavedSearchDetail.m */,
 				8F6CDDB419DD49BF002D7079 /* VCUserPassword.h */,
 				8F6CDDB519DD49BF002D7079 /* VCUserPassword.m */,
 			);
@@ -239,6 +272,12 @@
 				8F5A74B319EB9DEC0006DFAE /* UserDetails.m */,
 				8F4928911A00B0EB0060697A /* Document.h */,
 				8F4928921A00B0EB0060697A /* Document.m */,
+				8FBEF3AF1A105A9200A479F6 /* Employment.h */,
+				8FBEF3B01A105A9200A479F6 /* Employment.m */,
+				8F8486B31A108394003F476B /* Application.h */,
+				8F8486B41A108394003F476B /* Application.m */,
+				8F8486BC1A10C89A003F476B /* SavedSearch.h */,
+				8F8486BD1A10C89A003F476B /* SavedSearch.m */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -399,6 +438,12 @@
 				8F5D8B5A19F8F71500EEC020 /* CellSidebar.m */,
 				8F49288E1A00AA010060697A /* CellDocument.h */,
 				8F49288F1A00AA010060697A /* CellDocument.m */,
+				8FBEF3AC1A10574500A479F6 /* CellEmployment.h */,
+				8FBEF3AD1A10574500A479F6 /* CellEmployment.m */,
+				8F8486B01A1082EA003F476B /* CellApplication.h */,
+				8F8486B11A1082EA003F476B /* CellApplication.m */,
+				8F8486B91A10C5FA003F476B /* CellSavedSearches.h */,
+				8F8486BA1A10C5FA003F476B /* CellSavedSearches.m */,
 			);
 			name = customviews;
 			sourceTree = "<group>";
@@ -512,11 +557,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F8486B51A108394003F476B /* Application.m in Sources */,
+				8F8486BE1A10C89A003F476B /* SavedSearch.m in Sources */,
 				8FA1799D19F4B05F00F6AF24 /* VCLanguages.m in Sources */,
 				8FB628AA19FF9C05001D492C /* VCAboutUs.m in Sources */,
 				8F3F7D8B19DBE50B001C9D78 /* OfflineGateway.m in Sources */,
+				8F8486B21A1082EA003F476B /* CellApplication.m in Sources */,
 				8F4928871A0084690060697A /* VCCopyright.m in Sources */,
 				8FC0C92E19D41AAD006F3652 /* VelosiCustomPicker.m in Sources */,
+				8FBEF3AE1A10574500A479F6 /* CellEmployment.m in Sources */,
 				8F6CDDAA19DD4302002D7079 /* VCUserDetails.m in Sources */,
 				8F7BD62519DA8FDB00E20A77 /* VCJobDetails.m in Sources */,
 				8FC0C92119D41A60006F3652 /* VCLocationSelection.m in Sources */,
@@ -526,12 +575,16 @@
 				8FC0C92A19D41A83006F3652 /* VelosiColors.m in Sources */,
 				8F877F9D19D5123C00B0F820 /* CountryList.m in Sources */,
 				8FC8F44A19EE7D1C00BA9084 /* VCUserApplications.m in Sources */,
+				8F8486AC1A1069B7003F476B /* VCEmploymentDetail.m in Sources */,
+				8FBEF3B11A105A9200A479F6 /* Employment.m in Sources */,
 				8F4928841A0084480060697A /* VCPrivacy.m in Sources */,
 				8F49288A1A00848A0060697A /* VCDisclaimer.m in Sources */,
 				8FB628A319FF70D0001D492C /* VCUserTables.m in Sources */,
 				8FC0C92719D41A79006F3652 /* VCSearchJob.m in Sources */,
+				8F8486C11A10DF75003F476B /* VCSavedSearchDetail.m in Sources */,
 				8F49288D1A00849F0060697A /* VCSecurityPolicy.m in Sources */,
 				8F3F7D8E19DBF719001C9D78 /* User.m in Sources */,
+				8F8486BB1A10C5FA003F476B /* CellSavedSearches.m in Sources */,
 				8FC0C93119D41AB8006F3652 /* VelosiDesigner.m in Sources */,
 				8F49287B1A0083A90060697A /* VCCVHelp.m in Sources */,
 				8FC0C91A19D41A43006F3652 /* OnlineGateway.m in Sources */,
@@ -546,6 +599,7 @@
 				8F3F7D8719DBAA4B001C9D78 /* CellDetail.m in Sources */,
 				8F822C7A19DAAED900DB597E /* JobDetail.m in Sources */,
 				8F4928811A0084160060697A /* VCTerms.m in Sources */,
+				8F8486AF1A106DDE003F476B /* VCTableViewDetail.m in Sources */,
 				8F4928931A00B0EB0060697A /* Document.m in Sources */,
 				8F5A74B419EB9DEC0006DFAE /* UserDetails.m in Sources */,
 				8FAB94AF19D93D49008D23C8 /* VCJobSummary.m in Sources */,

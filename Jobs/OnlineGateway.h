@@ -21,6 +21,9 @@
 - (id)authenticateUserName:(NSString *)username password:(NSString *)password;
 - (NSArray *)getReferrerList;
 - (NSArray *)getDocuments;
+- (id)getEmployments;
+- (id)getApplications;
+- (id)getSavedSearches;
 - (NSString *)changePassword:(NSString *)oldPassword to:(NSString *)newPassword;
 - (NSString *)saveCandidateDetailsWithUser:(User *)user;
 
