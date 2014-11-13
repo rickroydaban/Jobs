@@ -7,10 +7,15 @@
 //
 
 #import "VCTableViewDetail.h"
+#import "VelosiColors.h"
 
 @implementation VCTableViewDetail
 
 - (void)viewDidLoad{
+    self.navigationController.navigationBar.barTintColor = [VelosiColors orangeVelosi];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.view.backgroundColor = [VelosiColors white];
+
     _propAppDelegate = [[UIApplication sharedApplication] delegate];
 }
 

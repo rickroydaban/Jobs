@@ -7,7 +7,6 @@
 //
 
 #import "VCCountrySelection.h"
-#import "VelosiColors.h"
 #import "VCSearchJob.h"
 #import "CountryList.h"
 
@@ -72,7 +71,7 @@
     self.lv.delegate = self;
     self.lv.dataSource = self;
     self.lv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.fieldSearch.delegate = self;
+    self.propFieldSearch.delegate = self;
 }
 
 - (void)done{
@@ -80,18 +79,17 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    NSString *text;
+- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    NSString *searched;
     if(range.length>0)
-        text = [NSString stringWithFormat:@"%@",[textField.text substringWithRange:NSMakeRange(0, [textField.text length]-1)]];
+        searched = [NSString stringWithFormat:@"%@",[searchBar.text substringWithRange:NSMakeRange(0, [searchBar.text length]-1)]];
     else
-        text = [NSString stringWithFormat:@"%@%@",textField.text,string];
+        searched = [NSString stringWithFormat:@"%@%@",searchBar.text,text];
     
-    NSLog(@"%@",text);
-    if([text length] == 1){
+    if([searched length] == 1){
         [_alphaArray removeAllObjects];
         [_alphaDictionary removeAllObjects];
-        NSString *key = [[NSString stringWithFormat:@"%c",[text characterAtIndex:0]] uppercaseString];
+        NSString *key = [[NSString stringWithFormat:@"%c",[searched characterAtIndex:0]] uppercaseString];
         [_alphaArray addObject:key];
         [_alphaDictionary setObject:[_countryDictionary objectForKey:key] forKey:key];
         
@@ -100,14 +98,14 @@
         
         [_resultsArray addObject:key];
         [_resultsDictionary setObject:[_alphaDictionary objectForKey:key] forKey:key];
-    }else if([text length] > 1){
+    }else if([searched length] > 1){
         NSString *key = _alphaArray[0];
         NSMutableArray *arr = [NSMutableArray array];
         for(NSString *country in [_alphaDictionary objectForKey:key]){
-            if([[country lowercaseString] hasPrefix:[text lowercaseString]])
+            if([[country lowercaseString] hasPrefix:[searched lowercaseString]])
                 [arr addObject:country];
         }
-
+        
         [_resultsArray removeAllObjects];
         [_resultsDictionary removeAllObjects];
         
@@ -125,12 +123,15 @@
     return YES;
 }
 
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    NSLog(@"%@", _resultsArray);
+    NSLog(@"");
+    NSLog(@"%@",_resultsDictionary);
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-    
     cell.textLabel.text = [[_resultsDictionary objectForKey:[_resultsArray objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
-    cell.textLabel.textColor = [VelosiColors blackFont];
-    cell.textLabel.font = [UIFont systemFontOfSize:15];
     
     cell. accessoryType = (self.selectedFields!=nil && [self.selectedFields containsObject:cell.textLabel.text])?UITableViewCellAccessoryCheckmark:UITableViewCellAccessoryNone;
     
@@ -166,10 +167,6 @@
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView{
     return _resultsArray;
-}
-
-- (IBAction)cancel:(id)sender {
-    [self.view endEditing:YES];
 }
 
 - (void)cellSelectorSelectedCell:(UITableViewCell *)cell{

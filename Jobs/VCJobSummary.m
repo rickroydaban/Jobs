@@ -11,6 +11,7 @@
 #import "Job.h"
 #import "VelosiColors.h"
 #import "VCJobDetails.h"
+#import "MBProgressHUD.h"
 
 @interface VCJobSummary(){
     NSMutableArray *_heights;
@@ -22,12 +23,21 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    
-    _heights = [NSMutableArray array];
-    self.propLv.dataSource = self;
-    self.propLv.delegate = self;
     self.propLv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.propLv.separatorColor = [VelosiColors listSeparator];
+        
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        _propListJobs = [self.propAppDelegate.propGatewayOnline getAdvanceSearchResults:_propSearchFor in:_propSearchIn location:_propSearchLocation radius:_propSearchDistance jobType:_propSearchJobType country:_propSearchCountry postedWithin:_propSearchPostedWithin];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _heights = [NSMutableArray array];
+            self.propLv.dataSource = self;
+            self.propLv.delegate = self;
+            self.propLv.separatorColor = [VelosiColors listSeparator];
+            [self.propLv reloadData];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
+    });
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

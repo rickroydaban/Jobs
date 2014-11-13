@@ -145,7 +145,7 @@ static OfflineGateway *sharedOfflineGateway = nil;
 }
 
 - (NSString *)getUserID{
-    return [_prefs objectForKey:SESSION];
+    return [NSString stringWithFormat:@"%@",[_prefs objectForKey:SESSION]];
 }
 
 - (NSString *)getFirstName{

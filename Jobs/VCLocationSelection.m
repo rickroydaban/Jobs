@@ -8,7 +8,6 @@
 
 #import "VCLocationSelection.h"
 #import "VelosiDesigner.h"
-#import "VelosiColors.h"
 #import "MBProgressHUD.h"
 #import "VCSearchJob.h"
 
@@ -24,7 +23,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor whiteColor];
     self.propLv.delegate = self;
     self.propLv.dataSource = self;
     self.propLv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -35,8 +33,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     cell.textLabel.text = [_locations objectAtIndex:indexPath.row];
-    cell.textLabel.textColor = [VelosiColors blackFont];
-    cell.textLabel.font = [UIFont systemFontOfSize:14];
     return cell;
 }
 
@@ -44,8 +40,8 @@
     return ((NSMutableArray *)_locations).count;
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    NSString *searchString = [NSString stringWithFormat:@"%@%@",textField.text,string];
+- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    NSString *searchString = [NSString stringWithFormat:@"%@%@",searchBar.text,text];
     if(searchString.length > 2){
         [MBProgressHUD showHUDAddedTo:self.propLv animated:YES];
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{

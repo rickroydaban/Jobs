@@ -17,8 +17,6 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:[[UIBarButtonItem alloc] initWithTitle:@"List" style:UIBarButtonItemStylePlain target:self action:@selector(viewApplicationStatusList)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)],nil];
-
     _propLv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     _propLv.delegate = self;
     _propLv.dataSource = self;
@@ -39,14 +37,6 @@
     });
 }
 
-- (void)viewApplicationStatusList{
-    
-}
-
-- (void)refresh{
-    
-}
-
 - (void)viewWillAppear:(BOOL)animated{
     [self.propLv reloadData];
 }
@@ -61,6 +51,32 @@
     cell.propLabelDateAdded.text = [NSString stringWithFormat:@"Added on %@",application.propDateAdded];
     
     return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{
+    NSMutableString *str = [NSMutableString string];
+    [str appendString:@"\n\nApplied Online\n"];
+    [str appendString:@"You applied for the vacancy via our website or job boards/social media platforms we subscribe to\n\n"];
+    [str appendString:@"Unsuitable\n"];
+    [str appendString:@"Your qualifications, skills and experience aren't aligned with the job description\n\n"];
+    [str appendString:@"Resourced\n"];
+    [str appendString:@"Our 150+ recuitment consultants worldwide found your CV on our database and feel you are a strong match for the vacancy\n\n"];
+    [str appendString:@"Shortlisted\n"];
+    [str appendString:@"You have progressed tot he shortlist stage and a recruitment consultant will contact you to (a)gather your appetite in the role (b)obtain your permission for your CV to  be sent to our client\n\n"];
+    [str appendString:@"Interested\n"];
+    [str appendString:@"Post contact you have expressed that you are interested in the role\n\n"];
+    [str appendString:@"CV Submitted\n"];
+    [str appendString:@"We have contacted you and ascertained your interest in the vacancy and obtained permission to send your CV to our client. This will be the date one of our 150+ recruitment consultants worldwide will have send your CV onto our client for consideration\n\n"];
+    [str appendString:@"Interview Date\n"];
+    [str appendString:@"If we obtained positive feedback from our client and have been or are awaiting daes for an interview\n\n"];
+    [str appendString:@"Client Accepted\n"];
+    [str appendString:@"Post interview our client has expressed an interview in you and has or inteds to make an offer of employment\n\n"];
+    [str appendString:@"Client Rejected\n"];
+    [str appendString:@"Post interview our client found there were stronger candidates available\n\n"];
+    [str appendString:@"Not Interested\n"];
+    [str appendString:@"Either we have been in contact and you have stated the position is not for you or post interview our client intends to make an offer of employment but you are no longer interested"];
+    
+    return str;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

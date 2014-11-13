@@ -10,9 +10,9 @@
 #import "VCSearchJob.h"
 #import "CellSelector.h"
 
-@interface VCLocationSelection : VCPage<UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, CellSelector>
+@interface VCLocationSelection : VCPage<UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, CellSelector>
 
 @property (strong, nonatomic) IBOutlet UITableView *propLv;
-@property (strong, nonatomic) IBOutlet UITextField *propFieldSearch;
+@property (strong, nonatomic) IBOutlet UISearchBar *propFieldSearch;
 
 @end

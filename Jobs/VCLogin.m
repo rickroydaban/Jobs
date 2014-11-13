@@ -18,7 +18,6 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    [self.navigationController setNavigationBarHidden:YES];
     self.view.backgroundColor = [VelosiColors orange];
     _viewTappedRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onViewTapped)];
     [self.view addGestureRecognizer:_viewTappedRecognizer];
@@ -40,12 +39,17 @@
         self.fieldPassword.leftViewMode = UITextFieldViewModeAlways;
     self.fieldPassword.leftView= ivPassword;
     self.fieldUsername.text = @"admin@blandyuk.co.uk";
-    self.fieldPassword.text = @"redrose1982";
+    self.fieldPassword.text = @"redROSE1982";
 
     self.buttonLogin.layer.borderWidth = 2;
     self.buttonLogin.layer.borderColor = [VelosiColors orangeDark].CGColor;
     self.buttonLogin.layer.cornerRadius = 5;
     self.buttonLogin.backgroundColor = [VelosiColors orangeVelosi];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (void)onViewTapped{

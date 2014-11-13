@@ -11,11 +11,10 @@
 
 @interface UserPageNavigators(){
     UIStoryboard *_storyBoard;
-    UINavigationController *_navigatorUserDetail, *_navigatorUserSearches, *_navigatorUserDocuments, *_navigatorUserApplications, *_navigatorUserEmployment, *_navigatorUserPassword,
+    UINavigationController *_navigatorLogin, *_navigatorUserDetail, *_navigatorUserSearches, *_navigatorUserDocuments, *_navigatorUserApplications, *_navigatorUserEmployment, *_navigatorUserPassword,
     
         *_navigatorAboutus, *_navigatorCVHelp, *_navigatorNews, *_navigatorTerms, *_navigatorPrivacy, *_navigatorCopyright, *_navigatorDisclaimer, *_navigatorSecurityPolicy;
     
-    VCPage *_vcLogin;
     VCPage *_vcHome;
     VCPage *_vcSearchJob;
 }
@@ -56,11 +55,11 @@ static UserPageNavigators *sharedNavigators = nil;
     return _vcSearchJob;
 }
 
-- (VCPage *)getVCLogin{
-    if(_vcLogin == nil)
-        _vcLogin = [_storyBoard instantiateViewControllerWithIdentifier:@"loginPage"];
+- (UINavigationController *)getLoginNavigator{
+    if(_navigatorLogin == nil)
+        _navigatorLogin = [_storyBoard instantiateViewControllerWithIdentifier:@"navigatorLogin"];
     
-    return _vcLogin;
+    return _navigatorLogin;
 }
 
 - (UINavigationController *)getUserDetailNavigator{

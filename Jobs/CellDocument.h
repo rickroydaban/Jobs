@@ -12,8 +12,7 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *propTitle;
 @property (strong, nonatomic) IBOutlet UILabel *propDateExpire;
-@property (strong, nonatomic) IBOutlet UILabel *propExtension;
+@property (strong, nonatomic) IBOutlet UILabel *propExtAndType;
 @property (strong, nonatomic) IBOutlet UILabel *propFileSize;
-@property (strong, nonatomic) IBOutlet UILabel *propType;
 
 @end

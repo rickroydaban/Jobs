@@ -52,6 +52,7 @@
 		8FB37F0919D4198400B798BB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FB37F0819D4198400B798BB /* Images.xcassets */; };
 		8FB37F0C19D4198400B798BB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FB37F0A19D4198400B798BB /* LaunchScreen.xib */; };
 		8FB37F1819D4198400B798BB /* JobsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB37F1719D4198400B798BB /* JobsTests.m */; };
+		8FB50F871A11D88800FB4307 /* VCForgotPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB50F861A11D88800FB4307 /* VCForgotPassword.m */; };
 		8FB628A319FF70D0001D492C /* VCUserTables.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB628A219FF70D0001D492C /* VCUserTables.m */; };
 		8FB628AA19FF9C05001D492C /* VCAboutUs.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB628A919FF9C05001D492C /* VCAboutUs.m */; };
 		8FBEF3AE1A10574500A479F6 /* CellEmployment.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEF3AD1A10574500A479F6 /* CellEmployment.m */; };
@@ -172,6 +173,8 @@
 		8FB37F1119D4198400B798BB /* JobsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JobsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FB37F1619D4198400B798BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8FB37F1719D4198400B798BB /* JobsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsTests.m; sourceTree = "<group>"; };
+		8FB50F851A11D88800FB4307 /* VCForgotPassword.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCForgotPassword.h; sourceTree = "<group>"; };
+		8FB50F861A11D88800FB4307 /* VCForgotPassword.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCForgotPassword.m; sourceTree = "<group>"; };
 		8FB628A119FF70D0001D492C /* VCUserTables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCUserTables.h; sourceTree = "<group>"; };
 		8FB628A219FF70D0001D492C /* VCUserTables.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCUserTables.m; sourceTree = "<group>"; };
 		8FB628A819FF9C05001D492C /* VCAboutUs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCAboutUs.h; sourceTree = "<group>"; };
@@ -231,6 +234,8 @@
 				8F8486AE1A106DDE003F476B /* VCTableViewDetail.m */,
 				8F877FA019D5687B00B0F820 /* VCLogin.h */,
 				8F877FA119D5687B00B0F820 /* VCLogin.m */,
+				8FB50F851A11D88800FB4307 /* VCForgotPassword.h */,
+				8FB50F861A11D88800FB4307 /* VCForgotPassword.m */,
 				8F6CDDA819DD4302002D7079 /* VCUserDetails.h */,
 				8F6CDDA919DD4302002D7079 /* VCUserDetails.m */,
 				8FA1799B19F4B05F00F6AF24 /* VCLanguages.h */,
@@ -595,6 +600,7 @@
 				8F6CDDB019DD49A9002D7079 /* VCUserDocuments.m in Sources */,
 				8F6CDDB319DD49B5002D7079 /* VCUserEmployments.m in Sources */,
 				8FC0C92019D41A60006F3652 /* VCCountrySelection.m in Sources */,
+				8FB50F871A11D88800FB4307 /* VCForgotPassword.m in Sources */,
 				8F49287E1A0084080060697A /* VCNews.m in Sources */,
 				8F3F7D8719DBAA4B001C9D78 /* CellDetail.m in Sources */,
 				8F822C7A19DAAED900DB597E /* JobDetail.m in Sources */,

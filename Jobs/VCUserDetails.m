@@ -16,7 +16,7 @@
 #import "MBProgressHUD.h"
 
 @interface VCUserDetails(){
-    UIPickerView *_pickerGender, *_pickerYearGraduated, *_pickerEducation, *_pickerLicense, *_pickerNationality, *_pickerEthnicity, *_pickerReferrers, *_pickerStatus, *_pickerWillRelocate, *_pickerAvailability, *_pickerSalaryType, *_pickerCurrency;
+    VelosiCustomPicker *_pickerGender, *_pickerYearGraduated, *_pickerEducation, *_pickerLicense, *_pickerNationality, *_pickerEthnicity, *_pickerReferrers, *_pickerStatus, *_pickerWillRelocate, *_pickerAvailability, *_pickerSalaryType, *_pickerCurrency;
     UIDatePicker *_pickerBday, *_pickerAvailableFrom;
 }
 @end
@@ -125,7 +125,7 @@
     self.fieldMainSkills.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10);
     
     _pickerGender = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propUserDetails.propListGender andRowSelectionDelegate:self hasAll:NO];
-    [self selectPicker:_pickerGender list:self.propAppDelegate.propUserDetails.propListGender field:self.fieldGender];
+    [_pickerGender selectRowWithText:self.fieldGender.text];
     _pickerBday = [[UIDatePicker alloc] init];
     _pickerBday.datePickerMode = UIDatePickerModeDate;
     _pickerBday.date = [self.propAppDelegate.propDateFormatVelosi dateFromString:self.fieldBirthdate.text];
@@ -136,23 +136,23 @@
     _pickerBday.layer.shadowOffset = CGSizeMake(0, 0);
     [_pickerBday addTarget:self action:@selector(updateBirthdayField) forControlEvents:UIControlEventValueChanged];
     _pickerYearGraduated = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propUserDetails.propListYearGraduated andRowSelectionDelegate:self hasAll:NO];
-    [self selectPicker:_pickerYearGraduated list:self.propAppDelegate.propUserDetails.propListYearGraduated field:self.fieldYearGraduated];
+    [_pickerYearGraduated selectRowWithText:self.fieldYearGraduated.text];
     _pickerEducation = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propUserDetails.propListEducation andRowSelectionDelegate:self hasAll:NO];
-    [self selectPicker:_pickerEducation list:self.propAppDelegate.propUserDetails.propListEducation field:self.fieldEducation];
+    [_pickerEducation selectRowWithText:self.fieldEducation.text];
     _pickerLicense = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propUserDetails.propListLicense andRowSelectionDelegate:self hasAll:NO];
-    [self selectPicker:_pickerLicense list:self.propAppDelegate.propUserDetails.propListLicense field:self.fieldLicense];
+    [_pickerLicense selectRowWithText:self.fieldLicense.text];
     _pickerNationality = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propUserDetails.propListNationality andRowSelectionDelegate:self hasAll:NO];
-    [self selectPicker:_pickerNationality list:self.propAppDelegate.propUserDetails.propListNationality field:self.fieldNationality];
+    [_pickerNationality selectRowWithText:self.fieldNationality.text];
     _pickerEthnicity = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propUserDetails.propListEthnicity andRowSelectionDelegate:self hasAll:NO];
-    [self selectPicker:_pickerEthnicity list:self.propAppDelegate.propUserDetails.propListEthnicity field:self.fieldEthnicity];
+    [_pickerEthnicity selectRowWithText:self.fieldEthnicity.text];
     _pickerReferrers = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propListReferrers andRowSelectionDelegate:self hasAll:NO];
-    [self selectPicker:_pickerReferrers list:self.propAppDelegate.propListReferrers field:self.fieldReferrer];
+    [_pickerReferrers selectRowWithText:self.fieldReferrer.text];
     _pickerStatus = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propUserDetails.propListMaritalStatus andRowSelectionDelegate:self hasAll:NO];
-    [self selectPicker:_pickerStatus list:self.propAppDelegate.propUserDetails.propListMaritalStatus field:self.fieldMaritalStatus];
+    [_pickerStatus selectRowWithText:self.fieldMaritalStatus.text];
     _pickerWillRelocate = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propUserDetails.propListRelocate andRowSelectionDelegate:self hasAll:NO];
-    [self selectPicker:_pickerWillRelocate list:self.propAppDelegate.propUserDetails.propListRelocate field:self.fieldWillRelocate];
+    [_pickerWillRelocate selectRowWithText:self.fieldWillRelocate.text];
     _pickerAvailability = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propUserDetails.propListAvailability andRowSelectionDelegate:self hasAll:NO];
-    [self selectPicker:_pickerAvailability list:self.propAppDelegate.propUserDetails.propListAvailability field:self.fieldNoticePeriod];
+    [_pickerAvailability selectRowWithText:self.fieldNoticePeriod.text];
     _pickerAvailableFrom = [[UIDatePicker alloc] init];
     _pickerAvailableFrom.datePickerMode = UIDatePickerModeDate;
     if([self.fieldAvailableFrom.text length] > 0)
@@ -163,14 +163,9 @@
     _pickerAvailableFrom.layer.shadowOffset = CGSizeMake(0, 0);
     [_pickerAvailableFrom addTarget:self action:@selector(updateAvailableFromField) forControlEvents:UIControlEventValueChanged];
     _pickerSalaryType = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propUserDetails.propListSalaryType andRowSelectionDelegate:self hasAll:NO];
-    [self selectPicker:_pickerSalaryType list:self.propAppDelegate.propUserDetails.propListSalaryType field:self.fieldSalaryType];
+    [_pickerSalaryType selectRowWithText:self.fieldSalaryType.text];
     _pickerCurrency = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propListCurrency.propListCurrencyNames andRowSelectionDelegate:self hasAll:NO];
-    [self selectPicker:_pickerCurrency list:self.propAppDelegate.propListCurrency.propListCurrencySymbols field:self.fieldCurrency];
-}
-
-- (void)selectPicker:(UIPickerView *)picker list:(NSArray *)list field:(UITextField *)tf{
-    if(tf.text && tf.text.length>0 && [list containsObject:tf.text])
-        [picker selectRow:[list indexOfObject:tf.text] inComponent:0 animated:NO];
+    [_pickerCurrency selectRowWithText:self.fieldCurrency.text];
 }
 
 - (void)updateBirthdayField{
@@ -180,7 +175,6 @@
 - (void)updateAvailableFromField{
     self.fieldAvailableFrom.text = [self.propAppDelegate.propDateFormatVelosi stringFromDate:_pickerAvailableFrom.date];
 }
-
 
 //fix country, referrers and currency
 - (IBAction)done:(id)sender {

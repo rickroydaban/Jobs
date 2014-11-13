@@ -41,9 +41,10 @@
     CellSavedSearches *cell = [_propLv dequeueReusableCellWithIdentifier:@"cell"];
     SavedSearch *savedSearch = [_propListSavedSearches objectAtIndex:indexPath.row];
     
-    cell.propLabelTitle.text = savedSearch.propTitle;
-    cell.propLabelDateAdded.text = savedSearch.propDateAdded;
-    cell.propLabelStatus.text = (savedSearch.propEmailAlert)?@"Sending":@"Not Sending";
+    cell.propLabelTitle.text = [savedSearch getName];
+//    cell.propLabelDateAdded.text = [NSString stringWithFormat:@"Added on %@",savedSearch get];
+    cell.propLabelDateAdded.text = @"Date added here";
+    cell.propLabelStatus.text = ([savedSearch willAlert])?@"Sending":@"Not Sending";
     cell.tag = indexPath.row;
     
     return cell;

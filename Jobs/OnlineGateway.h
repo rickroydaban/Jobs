@@ -10,11 +10,14 @@
 @class AppDelegate;
 @class JobDetail;
 @class User;
+@class Employment;
+@class SavedSearch;
 
-@interface OnlineGateway : NSObject<NSURLConnectionDelegate>
+@interface OnlineGateway : NSObject<NSURLConnectionDataDelegate>
 
 + (OnlineGateway *)sharedOnlineGateway:(AppDelegate *)appDelegate;
 
+- (NSString *)resetPasswordWithEmail:(NSString *)email;
 - (JobDetail *)getJobDetailById:(int)jobId;
 - (NSMutableArray *)getLocationSuggestions: (NSString *)searched;
 - (NSMutableArray *)getAdvanceSearchResults:(NSString *)searched in:(NSString *)searchIn location:(NSString *)location radius:(NSString *)radius jobType:(NSString *)jobType country:(NSString *)country postedWithin:(NSString *)postedWithin;
@@ -27,5 +30,7 @@
 - (NSString *)changePassword:(NSString *)oldPassword to:(NSString *)newPassword;
 - (NSString *)saveCandidateDetailsWithUser:(User *)user;
 
+- (void)saveEmployment:(Employment *)e connectionDelegate:(NSObject<NSURLConnectionDataDelegate> *)delegate;
+- (void)saveSavedSearchesWithJSONContents:(NSString *)jsonContents connectionDelegate:(NSObject<NSURLConnectionDataDelegate> *)delegate;
 
 @end

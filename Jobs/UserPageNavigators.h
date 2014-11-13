@@ -15,9 +15,9 @@
 
 + (UserPageNavigators *)sharedNavigators;
 
-- (VCPage *)getVCLogin;
 - (VCPage *)getVCHome;
 - (VCPage *)getVCSearchPage;
+- (UINavigationController *)getLoginNavigator;
 - (UINavigationController *)getUserDetailNavigator;
 - (UINavigationController *)getUserSearchesNavigator;
 - (UINavigationController *)getUserDocumentsNavigator;

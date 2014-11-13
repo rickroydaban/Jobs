@@ -38,6 +38,11 @@
     return self;
 }
 
+- (void)selectRowWithText:(NSString *)text{
+    if(text && text.length>0 && [_elements containsObject:text])
+        [self selectRow:[_elements indexOfObject:text] inComponent:0 animated:NO];
+}
+
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
     return [_elements count];
 }

@@ -14,5 +14,4 @@
 @property (strong, nonatomic) IBOutlet UITextField *fieldPassword;
 @property (strong, nonatomic) IBOutlet UIButton *buttonLogin;
 
-
 @end

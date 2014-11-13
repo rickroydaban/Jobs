@@ -106,34 +106,34 @@ static OnlineGateway *sharedOnlineGateway = nil;
     return responseData;
 }
 
-- (id)httpPostFrom:(NSString *)url withValues:(NSDictionary *)dict{
-    NSMutableString *tempPairsString = [NSMutableString string];
-    NSArray *keys = [dict allKeys];
-    
-    for(NSString *key in keys){
-        [tempPairsString appendFormat:@"%@=%@&",key, [dict objectForKey:key]];
-    }
-    
-    NSString *pairsString = [tempPairsString substringWithRange:NSMakeRange(0, tempPairsString.length-1)];
-//    NSData *postData = [pairsString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-//    NSString *postLength = [NSString stringWithFormat:@"%d",(int)postData.length];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    request.URL = [NSURL URLWithString:url];
+- (void)httpPostFrom:(NSString *)url withBody:(NSString *)jsonString connectionDelegate:(NSObject<NSURLConnectionDataDelegate> *)delegate{
+//    NSMutableArray *tempPairsString = [NSMutableArray array];
+//    
+//    [dict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+//        [tempPairsString addObject:[NSString stringWithFormat:@"%@=%@",key,CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)obj, NULL, (CFStringRef)@":/?@!$&'()*+,;= ",kCFStringEncodingUTF8))]];
+//    }];
+//    
+//    NSString *pairsString = [tempPairsString componentsJoinedByString:@"&"];
+//    NSLog(@"str: %@",pairsString);
+
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     request.HTTPMethod = @"POST";
-    request.HTTPBody = [pairsString dataUsingEncoding:NSUTF8StringEncoding];
-    [request setValue:[NSString stringWithFormat:@"%d",(int)pairsString.length] forHTTPHeaderField:@"Content-Length"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[NSString stringWithFormat:@"%d",(int)jsonString.length] forHTTPHeaderField:@"Content-Length"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    request.HTTPBody = [NSData dataWithBytes:[jsonString UTF8String] length:[jsonString length]];
+    [[NSURLConnection connectionWithRequest:request delegate:delegate] start];
     
-    NSError *error = [[NSError alloc] init];
-    NSHTTPURLResponse *responseCode = nil;
-    
-    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
-    if(responseCode.statusCode != 200){
-        NSLog(@"error: %@",responseCode);
-        return @"";
-    }
-    
-    return responseData;
+//    NSError *error = [[NSError alloc] init];
+//    NSHTTPURLResponse *responseCode = nil;
+//    
+//    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
+//    if(responseCode.statusCode != 200){
+//        NSLog(@"error: %@",responseCode);
+//        return @"error";
+//    }
+//    
+//    return responseData;
 }
 
 - (NSString *)fixKey:(NSString *)key{
@@ -152,8 +152,20 @@ static OnlineGateway *sharedOnlineGateway = nil;
 }
 
 #pragma mark GET
+- (NSString *)resetPasswordWithEmail:(NSString *)email{
+    NSError *error;
+    id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@ResetPassword?e=%@",_rootCandidates,email]];
+    NSString *result = [[NSJSONSerialization JSONObjectWithData:data options:0 error:&error] objectForKey:@"ResetPasswordResult"];
+
+    if(error == nil)
+        return result;
+    
+    return error.localizedFailureReason;
+}
+
 - (NSMutableArray *)getAdvanceSearchResults:(NSString *)searched in:(NSString *)searchIn location:(NSString *)location radius:(NSString *)radius jobType:(NSString *)jobType country:(NSString *)country postedWithin:(NSString *)postedWithin{
     NSString *errorMessage;
+    NSLog(@"%@%@",_rootVacancy,[NSString stringWithFormat:@"Search?search=%@&loc=%@&searchIn=%@&radius=%@&vacType=%@&countryID=%@&days=%@&top=50",searched,location,searchIn,radius,jobType,country,postedWithin]);
     id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@%@",_rootVacancy,[NSString stringWithFormat:@"Search?search=%@&loc=%@&searchIn=%@&radius=%@&vacType=%@&countryID=%@&days=%@&top=50",searched,location,searchIn,radius,jobType,country,postedWithin]]];
     
     if([data isKindOfClass:[NSString class]])
@@ -417,7 +429,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
             
             if(jsonSavedSearches){
                 for(id jsonSavedSearch in jsonSavedSearches)
-                    [savedSearches addObject:[[SavedSearch alloc] initWithID:[[jsonSavedSearch objectForKey:@"JBEID"] intValue] title:[jsonSavedSearch objectForKey:@"Name"] dateAdded:[self deserializeJsonDateString:[jsonSavedSearch objectForKey:@"DateCreated"]] status:[[jsonSavedSearch objectForKey:@"EmailAlert"] boolValue] searchFor:[jsonSavedSearch objectForKey:@"SearchText"] searchInID:[[[jsonSavedSearch objectForKey:@"VacancySearchIn"] objectForKey:@"VacancySearchInID"] intValue] location:[[jsonSavedSearch objectForKey:@"Location"] objectForKey:@"CountryName"] distance:[[jsonSavedSearch objectForKey:@"Radius"] intValue] countryID:[[jsonSavedSearch objectForKey:@"CountryID"] intValue] jobTypeID:[[[jsonSavedSearch objectForKey:@"VacancyType"] objectForKey:@"TypeID"] intValue] postedWithin:[[jsonSavedSearch objectForKey:@"LastXDays"] intValue]]];
+                    [savedSearches addObject:[[SavedSearch alloc] initWithDictionary:jsonSavedSearch]];
             }
             
             return savedSearches;
@@ -489,11 +501,32 @@ static OnlineGateway *sharedOnlineGateway = nil;
 //    [dict setObject: [NSString stringWithFormat:@"%@",user.propAltPhone] forKey:@"Phone2"];
 //    [dict setObject: (user.propAllowAlerts)?@"true":@"false" forKey:@"SendEmails"];
 //    [dict setObject: (user.propAllowAlerts)?@"true":@"false" forKey:@"SendSMS"];
-    id data = [self httpPostFrom:[NSString stringWithFormat:@"%@Save",_rootCandidates] withValues:dict];
+//    id data = [self httpPostFrom:[NSString stringWithFormat:@"%@Save",_rootCandidates] withValues:dict];
 
 //    NSString *result = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
 //    return result;
     return @"";
+}
+
+- (void)saveEmployment:(Employment *)e connectionDelegate:(NSObject<NSURLConnectionDataDelegate> *)delegate{
+//    NSError *error = [[NSError alloc] init];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    [dict setObject:[NSString stringWithFormat:@"%d",e.propJobID] forKey:@"JobID"];
+    [dict setObject:e.propJobTitle forKey:@"Title"];
+    [dict setObject:e.propEmployer forKey:@"Employer"];
+    [dict setObject:e.propDescription forKey:@"Description"];
+    [dict setObject:e.propDateStart forKey:@"StartDate"];
+    [dict setObject:e.propDateEnd forKey:@"EndDate"];
+    
+//    [self httpPostFrom:@"https://arctestapi.velosi.com/CandidateJobSvc.svc/json/Save" withValues:dict connectionDelegate:delegate];
+}
+
+- (void)saveSavedSearchesWithJSONContents:(NSString *)jsonContents connectionDelegate:(NSObject<NSURLConnectionDataDelegate> *)delegate{
+    
+//    NSString *body = @"{\"j\":{\"CandidateID\":243078,\"CountryID\":0,\"DateCreated\":\"/Date(1369249140000+0100)/\",\"EmailAlert\":true,\"Industry\":{\"Industry\":0,\"IndustryID\":0,\"IndustryName\":\"Unknown\"},\"JBEID\":123,\"LastXDays\":0,\"Location\":{\"AccentCity\":\"\",\"City\":\"\",\"CodeInt\":0,\"Country2\":\"\",\"CountryName\":\"\",\"Latitude\":0,\"LocationFull\":\"\",\"Longitude\":0,\"Population\":0,\"Region\":\"\",\"Region2\":\"\"},\"Name\":\"HSE Site Engineer\",\"Radius\":100,\"SearchText\":\"HSE\",\"VacancySearchIn\":{\"VacancySearchIn\":1,\"VacancySearchInID\":1,\"VacancySearchInName\":\"Job Title\"},\"VacancyType\":{\"Description\":\"Unknown\",\"Type\":0,\"TypeID\":0}}}";
+    NSString *body = [NSString stringWithFormat:@"{j:%@}",jsonContents];
+    [self httpPostFrom:@"https://arctestapi.velosi.com/JobsByEmailSvc.svc/json/Save" withBody:body connectionDelegate:delegate];
 }
 
 

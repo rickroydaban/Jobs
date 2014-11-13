@@ -10,7 +10,7 @@
 #import "SavedSearch.h"
 #import "VelosiPickerRowSelectionDelegate.h"
 
-@interface VCSavedSearchDetail : VCTableViewDetail<VelosiPickerRowSelectionDelegate>
+@interface VCSavedSearchDetail : VCTableViewDetail<VelosiPickerRowSelectionDelegate, NSURLConnectionDataDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *propFieldName;
 @property (strong, nonatomic) IBOutlet UITextField *propFieldSearchFor;

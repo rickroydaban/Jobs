@@ -7,17 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VCPage.h"
+#import "VCTableViewDetail.h"
 #import "VelosiPickerRowSelectionDelegate.h"
 
-@interface VCSearchJob : VCPage<UITextFieldDelegate, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, VelosiPickerRowSelectionDelegate>
+@interface VCSearchJob : VCTableViewDetail<VelosiPickerRowSelectionDelegate>
 
-@property (strong, nonatomic) IBOutlet UITableView *propLv;
-@property (strong, nonatomic) UITextField *fieldSearchFor;
-@property (strong, nonatomic) UITextField *fieldSearchIn;
-@property (strong, nonatomic) UITextField *fieldCountry;
-@property (strong, nonatomic) UITextField *fieldDistance;
-@property (strong, nonatomic) UITextField *fieldJobType;
-@property (strong, nonatomic) UITextField *fieldPostedWithin;
+@property (strong, nonatomic) IBOutlet UITextField *propFieldSearchFor;
+@property (strong, nonatomic) IBOutlet UITextField *propFieldSearchIn;
+@property (strong, nonatomic) IBOutlet UITableViewCell *propCellLocation;
+@property (strong, nonatomic) IBOutlet UITableViewCell *propCellCountry;
+@property (strong, nonatomic) IBOutlet UITextField *propFieldDistance;
+@property (strong, nonatomic) IBOutlet UITextField *propFieldJobType;
+@property (strong, nonatomic) IBOutlet UITextField *propFieldPostedWithin;
 
 @end

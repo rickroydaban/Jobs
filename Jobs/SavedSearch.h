@@ -10,13 +10,20 @@
 
 @interface SavedSearch : NSObject
 
-@property (assign, nonatomic) int propID, propJobTypeID, propSearchIn, propCountryID, propPostedWithin, propDistance;
-@property (assign, nonatomic) BOOL propEmailAlert;
-@property (strong, nonatomic) NSString *propTitle;
-@property (strong, nonatomic) NSString *propDateAdded;
-@property (strong, nonatomic) NSString *propSearchFor;
-@property (strong, nonatomic) NSString *propLocation;
+@property (strong, nonatomic) NSDictionary *propSavedSearchDictionary;
 
-- (SavedSearch *)initWithID:(int)savedSearchID title:(NSString *)title dateAdded:(NSString *)dateAdded status:(BOOL)emailAlert searchFor:(NSString *)searchFor searchInID:(int)searchIn location:(NSString *)location distance:(int)distance countryID:(int)country jobTypeID:(int)jobType postedWithin:(int)postedWithin;
+- (SavedSearch *)initWithDictionary:(NSDictionary *)dictionary;
+
+- (NSString *)getName;
+- (NSString *)getSearchFor;
+- (NSString *)getSearchIn;
+- (NSString *)getLocation;
+- (NSString *)getCountryID; //the viewcontroller will handle to get the corresponding value of  this id impose simplicity of this class (avoid using for countrylist)
+- (NSString *)getDistance;
+- (NSString *)getJobType;
+- (NSString *)getPostedWithin;
+- (BOOL) willAlert;
+
+-(NSString *)jsonFromName:(NSString *)name searchFor:(NSString *)searchFor searchInID:(NSString *)searchInID searchIn:(NSString *)searchIn location:(NSString *)location lat:(NSString *)lattitude lng:(NSString *)longitude countryID:(NSString *)countryID distance:(NSString *)distance jobTypeID:(NSString *)jobTypeID jobType:(NSString *)jobType postedWithin:(NSString *)postedWithin willAlert:(NSString *)willAlert;
 
 @end

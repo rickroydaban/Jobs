@@ -186,7 +186,7 @@
                             temp = _currIndexPath;
                             break;
                         case 7: [_appDelegate.propGatewayOffline logout];
-                            [self changePage:[_appDelegate.propPageNavigator getVCLogin]];
+                            [self changePage:[_appDelegate.propPageNavigator getLoginNavigator]];
                             [self reloadSidebar];
                             break;
                             
@@ -194,7 +194,7 @@
                             break;
                     }
                 }else
-                    [self changePage:[_appDelegate.propPageNavigator getVCLogin]];
+                    [self changePage:[_appDelegate.propPageNavigator getLoginNavigator]];
                 break;
                 
             case 2:

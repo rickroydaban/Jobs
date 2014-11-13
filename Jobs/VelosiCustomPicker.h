@@ -13,5 +13,6 @@
 
 - (id)initWithElements :(NSArray *)elements andRowSelectionDelegate :(NSObject<VelosiPickerRowSelectionDelegate> *)delegate hasAll:(BOOL)hasAll;
 - (NSArray *)elements;
+- (void)selectRowWithText:(NSString *)text;
 
 @end
