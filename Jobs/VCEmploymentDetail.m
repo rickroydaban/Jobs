@@ -20,12 +20,12 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    self.propFieldJobTitle.text = self.propEmployment.propJobTitle;
-    self.propFieldDateStart.text = self.propEmployment.propDateStart;
-    self.propFieldDateEnd.text = self.propEmployment.propDateEnd;
-    self.propFieldEmployer.text = self.propEmployment.propEmployer;
-    self.propFieldDescription.text = self.propEmployment.propDescription;
-    
+    self.propFieldJobTitle.text = [_propEmployment getJobTitle];
+    self.propFieldDateStart.text = [_propEmployment getDateStart];
+    self.propFieldDateEnd.text = [_propEmployment getDateEnd];
+    self.propFieldEmployer.text = [_propEmployment getEmployer];
+    self.propFieldDescription.text = [_propEmployment getDescription];
+    self.propFieldDescription.textContainerInset = UIEdgeInsetsMake(5, 15, 5, 15);
     self.propFieldJobTitle.delegate = self;
     self.propFieldDateStart.delegate = self;
     self.propFieldDateEnd.delegate = self;
@@ -36,32 +36,15 @@
 
 - (IBAction)done:(id)sender {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [self.propAppDelegate.propGatewayOnline saveEmployment:[[Employment alloc] initWithID:_propEmployment.propJobID jobTitle:_propFieldJobTitle.text startDate:_propFieldDateStart.text endDate:_propFieldDateEnd.text employer:_propFieldEmployer.text description:_propFieldDescription.text] connectionDelegate:self];
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
-    NSLog(@"failed %@",error);
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
-    NSLog(@"response %@",response);
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-}
-
-//- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
-//    NSError *error;
-//    
-//    NSLog(@"data %@",data);
-//    if(error)
-//        NSLog(@"error");
-//    
-//    [MBProgressHUD hideHUDForView:self.view animated:YES];
-//}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection{
-    NSLog(@"success!");
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        NSString *result = [self.propAppDelegate.propGatewayOnline saveEmploymentWithJSONContents:[_propEmployment jsonFromEmployer:_propFieldEmployer.text jobTitle:_propFieldJobTitle.text startDate:_propFieldDateStart.text endDate:_propFieldDateEnd.text description:_propFieldDescription.text]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[[UIAlertView alloc] initWithTitle:@" " message:result delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
+            [self.view endEditing:YES];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
+    });
 }
 
 @end

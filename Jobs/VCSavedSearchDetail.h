@@ -10,7 +10,7 @@
 #import "SavedSearch.h"
 #import "VelosiPickerRowSelectionDelegate.h"
 
-@interface VCSavedSearchDetail : VCTableViewDetail<VelosiPickerRowSelectionDelegate, NSURLConnectionDataDelegate>
+@interface VCSavedSearchDetail : VCTableViewDetail<VelosiPickerRowSelectionDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *propFieldName;
 @property (strong, nonatomic) IBOutlet UITextField *propFieldSearchFor;
@@ -20,7 +20,6 @@
 @property (strong, nonatomic) IBOutlet UITextField *propFieldDistance;
 @property (strong, nonatomic) IBOutlet UITextField *propFieldJobType;
 @property (strong, nonatomic) IBOutlet UITextField *propFieldPostedWithin;
-@property (strong, nonatomic) IBOutlet UISwitch *propSwitchSendEmail;
 
 @property (strong, nonatomic) SavedSearch *propSavedSearch;
 

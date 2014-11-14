@@ -10,4 +10,8 @@
 
 @implementation CellSavedSearches
 
+- (IBAction)changeStatus:(id)sender {
+    [_delegate cellSavedSearchChangeStatus:self];
+}
+
 @end

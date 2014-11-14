@@ -12,11 +12,20 @@
 #import "VCEmploymentDetail.h"
 #import "MBProgressHUD.h"
 
+@interface VCUserEmployments(){
+    UIAlertView *_deleteConfirmationAlert;
+    UITableViewCell *_cellDeleteTarget;
+}
+@end
+
 @implementation VCUserEmployments
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-        
+    
+    _deleteConfirmationAlert = [[UIAlertView alloc] initWithTitle:@"Confirm" message:nil delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+
+    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addDocument)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)]];
     _propLV.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     _propLV.delegate = self;
     _propLV.dataSource = self;
@@ -37,17 +46,38 @@
     });
 }
 
+- (void)addDocument{
+    
+}
+
+- (void)refresh{
+    
+}
+
+
 - (void)viewWillAppear:(BOOL)animated{
     [self.propLV reloadData];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(editingStyle == UITableViewCellEditingStyleDelete){
+        _cellDeleteTarget = [tableView cellForRowAtIndexPath:indexPath];
+        _deleteConfirmationAlert.message = [NSString stringWithFormat:@"Are you sure you want to delete %@?",[((Employment *)[_propListEmployments objectAtIndex:indexPath.row]) getJobTitle]];
+        [_deleteConfirmationAlert show];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CellEmployment *cell = [_propLV dequeueReusableCellWithIdentifier:@"cell"];
     Employment *employment = [_propListEmployments objectAtIndex:indexPath.row];
     
-    cell.propLabelTitle.text = employment.propJobTitle;
-    cell.propLabelDate.text = [NSString stringWithFormat:@"%@ - %@",employment.propDateStart,employment.propDateEnd];
-    cell.propLabelEmployer.text = employment.propEmployer;
+    cell.propLabelTitle.text = [employment getJobTitle];
+    cell.propLabelDate.text = [NSString stringWithFormat:@"%@ - %@",[employment getDateStart],[employment getDateEnd]];
+    cell.propLabelEmployer.text = [employment getEmployer];
     cell.tag = indexPath.row;
     
     return cell;
@@ -61,12 +91,23 @@
     [self.propAppDelegate.propSlider toggleSidebar];
 }
 
-- (IBAction)done:(id)sender {
-    NSLog(@"Done");
-}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     ((VCEmploymentDetail *)segue.destinationViewController).propEmployment = [_propListEmployments objectAtIndex:((CellEmployment *)sender).tag];
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 0:
+            break;
+            
+        case 1:
+            NSLog(@"%@",[self.propAppDelegate.propGatewayOnline deleteEmploymentWithID:[NSString stringWithFormat:@"%d",_cellDeleteTarget.tag]]);
+            [_propListEmployments removeObjectAtIndex:_cellDeleteTarget.tag];
+            [self.propLV deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:_cellDeleteTarget.tag inSection:0]] withRowAnimation:YES];
+            break;
+            
+        default:
+            break;
+    }
+}
 @end

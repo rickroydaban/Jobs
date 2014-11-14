@@ -14,8 +14,9 @@
     self = [super init];
     
     if(self){
-        _propSavedSearchDictionary = dictionary;
+        _propSavedSearchDictionary = [dictionary mutableCopy];
     }
+    
     return self;
 }
 
@@ -36,11 +37,11 @@
 }
 
 - (NSString *)getCountryID{
-    return [_propSavedSearchDictionary objectForKey:@"CountryID"];
+    return [NSString stringWithFormat:@"%@",[_propSavedSearchDictionary objectForKey:@"CountryID"]];
 }
 
 - (NSString *)getDistance{
-    return [_propSavedSearchDictionary objectForKey:@"Radius"];
+    return [NSString stringWithFormat:@"%@",[_propSavedSearchDictionary objectForKey:@"Radius"]];
 }
 
 - (NSString *)getJobType{
@@ -48,14 +49,14 @@
 }
 
 - (NSString *)getPostedWithin{
-    return [_propSavedSearchDictionary objectForKey:@"LastXDays"];
+    return [NSString stringWithFormat:@"%@",[_propSavedSearchDictionary objectForKey:@"LastXDays"]];
 }
 
 - (BOOL)willAlert{
     return [[_propSavedSearchDictionary objectForKey:@"EmailAlert"] boolValue];
 }
 
--(NSString *)jsonFromName:(NSString *)name searchFor:(NSString *)searchFor searchInID:(NSString *)searchInID searchIn:(NSString *)searchIn location:(NSString *)location lat:(NSString *)lattitude lng:(NSString *)longitude countryID:(NSString *)countryID distance:(NSString *)distance jobTypeID:(NSString *)jobTypeID jobType:(NSString *)jobType postedWithin:(NSString *)postedWithin willAlert:(NSString *)willAlert{
+-(NSString *)jsonFromName:(NSString *)name searchFor:(NSString *)searchFor searchInID:(NSString *)searchInID searchIn:(NSString *)searchIn location:(NSString *)location lat:(NSString *)lattitude lng:(NSString *)longitude countryID:(NSString *)countryID distance:(NSString *)distance jobTypeID:(NSString *)jobTypeID jobType:(NSString *)jobType postedWithin:(NSString *)postedWithin{
 
     [_propSavedSearchDictionary setValue:name forKey:@"Name"];
     [_propSavedSearchDictionary setValue:searchFor forKey:@"SearchText"];
@@ -65,8 +66,13 @@
     [_propSavedSearchDictionary setValue:distance forKey:@"Radius"];
     [_propSavedSearchDictionary setValue:[NSDictionary dictionaryWithObjects:@[jobType,jobTypeID,jobTypeID] forKeys:@[@"Description",@"Type",@"TypeID"]] forKey:@"VacancyType"];
     [_propSavedSearchDictionary setValue:postedWithin forKey:@"LastXDays"];
-    [_propSavedSearchDictionary setValue:willAlert forKey:@"EmailAlert"];
-    
+
     return [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:_propSavedSearchDictionary options:0 error:nil] encoding:NSUTF8StringEncoding];
 }
+
+- (NSString *)jsonFromChangingStatus:(BOOL)willAlert{
+    [_propSavedSearchDictionary setValue:(willAlert)?@"true":@"false" forKey:@"EmailAlert"];
+    return [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:_propSavedSearchDictionary options:0 error:nil] encoding:NSUTF8StringEncoding];
+}
+
 @end

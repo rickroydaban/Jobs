@@ -75,38 +75,13 @@ static OnlineGateway *sharedOnlineGateway = nil;
     
     NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
     if(responseCode.statusCode != 200){
-        switch (responseCode.statusCode) {
-            case 204: return @"No Response";
-            case 400: return @"Bad Request";
-            case 401: return @"Unauthorized";
-            case 402: return @"Payment Required";
-            case 403: return @"Forbidden";
-            case 404: return @"Not Found";
-            case 405: return @"Method Not Allowed";
-            case 406: return @"Not Acceptable";
-            case 407: return @"Proxy Authentication Required";
-            case 408: return @"Request Timeout";
-            case 409: return @"Conflict";
-            case 410: return @"Gone";
-            case 411: return @"Length Required";
-            case 412: return @"Precondition Failed";
-            case 413: return @"Request Entity Too Large";
-            case 414: return @"Request-URI Too Long";
-            case 415: return @"Unsupported Media Type";
-            case 416: return @"Request Range Not Satisfiable";
-            case 417: return @"Expectation Failed";
-            case 500: return @"Internal Server Error";
-            case 501: return @"Not Implemented";
-            case 502: return @"Service temporarily overloaded";
-            case 503: return @"Gateway Timeout";
-            default:  return [NSString stringWithFormat:@"%d",(int)responseCode.statusCode];
-        }
+        return [self responseErrorDescriptionFromStatusCode:responseCode.statusCode];
     }
 
     return responseData;
 }
 
-- (void)httpPostFrom:(NSString *)url withBody:(NSString *)jsonString connectionDelegate:(NSObject<NSURLConnectionDataDelegate> *)delegate{
+- (id)httpPostFrom:(NSString *)url withBody:(NSString *)jsonString{
 //    NSMutableArray *tempPairsString = [NSMutableArray array];
 //    
 //    [dict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
@@ -122,18 +97,46 @@ static OnlineGateway *sharedOnlineGateway = nil;
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     request.HTTPBody = [NSData dataWithBytes:[jsonString UTF8String] length:[jsonString length]];
-    [[NSURLConnection connectionWithRequest:request delegate:delegate] start];
+//    [[NSURLConnection connectionWithRequest:request delegate:delegate] start];
     
-//    NSError *error = [[NSError alloc] init];
-//    NSHTTPURLResponse *responseCode = nil;
-//    
-//    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
-//    if(responseCode.statusCode != 200){
-//        NSLog(@"error: %@",responseCode);
-//        return @"error";
-//    }
-//    
-//    return responseData;
+    NSError *error = [[NSError alloc] init];
+    NSHTTPURLResponse *responseCode = nil;
+    
+    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
+    if(responseCode.statusCode != 200){
+        return [self responseErrorDescriptionFromStatusCode:responseCode.statusCode];
+    }
+    
+    return responseData;
+}
+
+- (NSString *)responseErrorDescriptionFromStatusCode:(int)statusCode{
+    switch (statusCode) {
+        case 204: return @"No Response";
+        case 400: return @"Bad Request";
+        case 401: return @"Unauthorized";
+        case 402: return @"Payment Required";
+        case 403: return @"Forbidden";
+        case 404: return @"Not Found";
+        case 405: return @"Method Not Allowed";
+        case 406: return @"Not Acceptable";
+        case 407: return @"Proxy Authentication Required";
+        case 408: return @"Request Timeout";
+        case 409: return @"Conflict";
+        case 410: return @"Gone";
+        case 411: return @"Length Required";
+        case 412: return @"Precondition Failed";
+        case 413: return @"Request Entity Too Large";
+        case 414: return @"Request-URI Too Long";
+        case 415: return @"Unsupported Media Type";
+        case 416: return @"Request Range Not Satisfiable";
+        case 417: return @"Expectation Failed";
+        case 500: return @"Internal Server Error";
+        case 501: return @"Not Implemented";
+        case 502: return @"Service temporarily overloaded";
+        case 503: return @"Gateway Timeout";
+        default:  return [NSString stringWithFormat:@"%d",statusCode];
+    }
 }
 
 - (NSString *)fixKey:(NSString *)key{
@@ -381,13 +384,24 @@ static OnlineGateway *sharedOnlineGateway = nil;
             
             if(jsonEmployments){
                 for (id jsonEmployment in jsonEmployments)
-                    [employments addObject:[[Employment alloc] initWithID:[[jsonEmployment objectForKey:@"JobID"] intValue] jobTitle:[jsonEmployment objectForKey:@"Title"] startDate:[jsonEmployment objectForKey:@"StartDate"] endDate:[jsonEmployment objectForKey:@"EndDate"] employer:[jsonEmployment objectForKey:@"Employer"] description:[jsonEmployment objectForKey:@"Description"]]];
+                    [employments addObject:[[Employment alloc] initWithDictionary:jsonEmployment]];
             }
             
             return employments;
         }@catch (NSException *exception) {
             return exception.reason;
         }
+    }
+}
+
+- (NSString *)deleteEmploymentWithID:(NSString *)employmentID{
+    id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@Delete?id=%@",_rootEmployments,employmentID]];
+    NSError *error;
+    
+    @try{
+        return [[NSJSONSerialization JSONObjectWithData:data options:0 error:&error] objectForKey:@"DeleteResult"];
+    }@catch(NSException *exception){
+        return exception.reason;
     }
 }
 
@@ -436,6 +450,17 @@ static OnlineGateway *sharedOnlineGateway = nil;
         }@catch(NSException *exception){
             return exception.reason;
         }
+    }
+}
+
+- (NSString *)deleteSavedSearchesWithJBEID:(NSString *)jbeID{
+    id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@Delete?id=%@",_rootSavedSearches,jbeID]];
+    NSError *error;
+    
+    @try{
+        return [[NSJSONSerialization JSONObjectWithData:data options:0 error:&error] objectForKey:@"DeleteResult"];
+    }@catch(NSException *exception){
+        return exception.reason;
     }
 }
 
@@ -508,25 +533,16 @@ static OnlineGateway *sharedOnlineGateway = nil;
     return @"";
 }
 
-- (void)saveEmployment:(Employment *)e connectionDelegate:(NSObject<NSURLConnectionDataDelegate> *)delegate{
-//    NSError *error = [[NSError alloc] init];
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    
-    [dict setObject:[NSString stringWithFormat:@"%d",e.propJobID] forKey:@"JobID"];
-    [dict setObject:e.propJobTitle forKey:@"Title"];
-    [dict setObject:e.propEmployer forKey:@"Employer"];
-    [dict setObject:e.propDescription forKey:@"Description"];
-    [dict setObject:e.propDateStart forKey:@"StartDate"];
-    [dict setObject:e.propDateEnd forKey:@"EndDate"];
-    
-//    [self httpPostFrom:@"https://arctestapi.velosi.com/CandidateJobSvc.svc/json/Save" withValues:dict connectionDelegate:delegate];
+- (id)saveEmploymentWithJSONContents:(NSString *)jsonContents{
+    NSString *body = [NSString stringWithFormat:@"{\"j\":%@}",jsonContents];
+    id result = [self httpPostFrom:@"https://arctestapi.velosi.com/CandidateJobSvc.svc/json/Save" withBody:body];
+    return ([result isKindOfClass:[NSString class]])?result:@"Saved Successfullly!";
 }
 
-- (void)saveSavedSearchesWithJSONContents:(NSString *)jsonContents connectionDelegate:(NSObject<NSURLConnectionDataDelegate> *)delegate{
-    
-//    NSString *body = @"{\"j\":{\"CandidateID\":243078,\"CountryID\":0,\"DateCreated\":\"/Date(1369249140000+0100)/\",\"EmailAlert\":true,\"Industry\":{\"Industry\":0,\"IndustryID\":0,\"IndustryName\":\"Unknown\"},\"JBEID\":123,\"LastXDays\":0,\"Location\":{\"AccentCity\":\"\",\"City\":\"\",\"CodeInt\":0,\"Country2\":\"\",\"CountryName\":\"\",\"Latitude\":0,\"LocationFull\":\"\",\"Longitude\":0,\"Population\":0,\"Region\":\"\",\"Region2\":\"\"},\"Name\":\"HSE Site Engineer\",\"Radius\":100,\"SearchText\":\"HSE\",\"VacancySearchIn\":{\"VacancySearchIn\":1,\"VacancySearchInID\":1,\"VacancySearchInName\":\"Job Title\"},\"VacancyType\":{\"Description\":\"Unknown\",\"Type\":0,\"TypeID\":0}}}";
-    NSString *body = [NSString stringWithFormat:@"{j:%@}",jsonContents];
-    [self httpPostFrom:@"https://arctestapi.velosi.com/JobsByEmailSvc.svc/json/Save" withBody:body connectionDelegate:delegate];
+- (NSString *)saveSavedSearchesWithJSONContents:(NSString *)jsonContents{
+    NSString *body = [NSString stringWithFormat:@"{\"j\":%@}",jsonContents];
+    id result = [self httpPostFrom:@"https://arctestapi.velosi.com/JobsByEmailSvc.svc/json/Save" withBody:body];
+    return ([result isKindOfClass:[NSString class]])?result:@"Saved Successfullly!";
 }
 
 

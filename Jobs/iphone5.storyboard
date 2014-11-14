@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="k8n-vo-EZt">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
@@ -1770,24 +1771,24 @@
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Not Sending" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNI-ei-cZI">
-                                                    <rect key="frame" x="162" y="31" width="82" height="21"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                                    <color key="textColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Piping Engineer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eFa-a5-GQL">
-                                                    <rect key="frame" x="15" y="12" width="195" height="23"/>
+                                                    <rect key="frame" x="15" y="13" width="207" height="23"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <color key="textColor" red="0.1647058824" green="0.1647058824" blue="0.1647058824" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XRQ-6O-5ea">
+                                                    <rect key="frame" x="230" y="16" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="changeStatus:" destination="vuG-Ne-qOb" eventType="valueChanged" id="VOA-0O-BTW"/>
+                                                    </connections>
+                                                </switch>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="propLabelDateAdded" destination="biM-hQ-0wh" id="hMV-cy-ZoA"/>
-                                            <outlet property="propLabelStatus" destination="BNI-ei-cZI" id="kTa-F3-qQV"/>
                                             <outlet property="propLabelTitle" destination="eFa-a5-GQL" id="z0B-A1-1yC"/>
+                                            <outlet property="propSwitchStatus" destination="XRQ-6O-5ea" id="7yH-Xp-3TK"/>
                                             <segue destination="Mhy-uD-1sO" kind="show" id="wNZ-Id-Q8c"/>
                                         </connections>
                                     </tableViewCell>
@@ -1804,12 +1805,6 @@
                                 <action selector="showList:" destination="zDl-L1-673" id="Idd-Or-ew2"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="H92-gN-EwD">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="refresh:" destination="zDl-L1-673" id="qu4-07-DPG"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
@@ -1818,7 +1813,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jnW-L2-DUK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1015" y="3409"/>
+            <point key="canvasLocation" x="1015" y="3408"/>
         </scene>
         <!--Saved Search Detail-->
         <scene sceneID="3ml-wr-gOC">
@@ -2011,27 +2006,6 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="6kv-eD-qJK">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="cY0-C3-qIA">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cY0-C3-qIA" id="ex4-Js-0qx">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Send Jobs by Email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Tp-qq-P8l">
-                                                    <rect key="frame" x="15" y="13" width="137" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HKc-hd-bCq">
-                                                    <rect key="frame" x="263" y="8" width="51" height="31"/>
-                                                </switch>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="Mhy-uD-1sO" id="SEy-tV-UyT"/>
@@ -2058,7 +2032,6 @@
                         <outlet property="propFieldPostedWithin" destination="pRQ-92-LlF" id="H4u-lv-UNT"/>
                         <outlet property="propFieldSearchFor" destination="AFd-k4-qMz" id="p9t-4g-CSQ"/>
                         <outlet property="propFieldSearchIn" destination="cJM-h7-O3x" id="cDQ-gE-10y"/>
-                        <outlet property="propSwitchSendEmail" destination="HKc-hd-bCq" id="2Yd-sC-TNB"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JfM-Q3-6yh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2131,9 +2104,6 @@
                             <connections>
                                 <action selector="showList:" destination="FNq-eS-jrf" id="5nP-3c-RLL"/>
                             </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="oNs-rv-Nc8">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -2242,7 +2212,7 @@
             </objects>
             <point key="canvasLocation" x="1441" y="1321"/>
         </scene>
-        <!--Previos Employment-->
+        <!--Employments-->
         <scene sceneID="etY-lP-EMu">
             <objects>
                 <viewController id="U5C-HV-E0s" customClass="VCUserEmployments" sceneMemberID="viewController">
@@ -2295,18 +2265,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Previos Employment" id="FPY-kM-gmA">
+                    <navigationItem key="navigationItem" title="Employments" id="FPY-kM-gmA">
                         <barButtonItem key="backBarButtonItem" title="Back" id="yig-Fz-ou5"/>
                         <barButtonItem key="leftBarButtonItem" image="icon_list" id="f9y-0d-88H">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="showList:" destination="U5C-HV-E0s" id="Q6a-2Z-7zy"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="refresh" id="798-es-Iws">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="done:" destination="U5C-HV-E0s" id="YzO-ee-T0J"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

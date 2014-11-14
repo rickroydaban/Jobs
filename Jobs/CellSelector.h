@@ -10,6 +10,6 @@
 
 @protocol CellSelector <NSObject>
 
-- (void)cellSelectorSelectedCell:(UITableViewCell *)cell;
+- (void)cellSelectorSelectedCell:(UITableViewCell *)sender;
 
 @end

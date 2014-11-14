@@ -183,6 +183,7 @@
 		8FBEF3AD1A10574500A479F6 /* CellEmployment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellEmployment.m; sourceTree = "<group>"; };
 		8FBEF3AF1A105A9200A479F6 /* Employment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Employment.h; sourceTree = "<group>"; };
 		8FBEF3B01A105A9200A479F6 /* Employment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Employment.m; sourceTree = "<group>"; };
+		8FC03BA81A160AA9006D1EC9 /* CellSavedSearchesDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellSavedSearchesDelegate.h; sourceTree = "<group>"; };
 		8FC0C91019D41A11006F3652 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8FC0C91119D41A11006F3652 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8FC0C91419D41A25006F3652 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -458,6 +459,7 @@
 			children = (
 				8FC0C93319D41AC8006F3652 /* VelosiPickerRowSelectionDelegate.h */,
 				8F5853C619F0C8B000F89DEC /* CellSelector.h */,
+				8FC03BA81A160AA9006D1EC9 /* CellSavedSearchesDelegate.h */,
 			);
 			name = protocols;
 			sourceTree = "<group>";

@@ -10,13 +10,17 @@
 
 @interface Employment : NSObject
 
-@property (assign, nonatomic) int propJobID;
-@property (strong, nonatomic) NSString *propJobTitle;
-@property (strong, nonatomic) NSString *propDateStart;
-@property (strong, nonatomic) NSString *propDateEnd;
-@property (strong, nonatomic) NSString *propEmployer;
-@property (strong, nonatomic) NSString *propDescription;
+@property (strong, nonatomic) NSMutableDictionary *propEmploymentDictionary;
 
-- (Employment *)initWithID:(int)jobID jobTitle:(NSString *)jobTitle startDate:(NSString *)startDate endDate:(NSString *)endDate employer:(NSString *)employer description:(NSString *)description;
+- (Employment *)initWithDictionary:(NSDictionary *)dictionary;
+
+//fields in the edit detail view controller
+- (NSString *)getEmployer;
+- (NSString *)getJobTitle;
+- (NSString *)getDateStart;
+- (NSString *)getDateEnd;
+- (NSString *)getDescription;
+
+- (NSString *)jsonFromEmployer:(NSString *)employer jobTitle:(NSString *)jobTitle startDate:(NSString *)dateStart endDate:(NSString *)dateEnd description:(NSString *)description;
 
 @end

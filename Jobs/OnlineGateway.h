@@ -25,12 +25,14 @@
 - (NSArray *)getReferrerList;
 - (NSArray *)getDocuments;
 - (id)getEmployments;
+- (NSString *)deleteEmploymentWithID:(NSString *)employmentID;
 - (id)getApplications;
 - (id)getSavedSearches;
+- (NSString *)deleteSavedSearchesWithJBEID:(NSString *)jbeID;
 - (NSString *)changePassword:(NSString *)oldPassword to:(NSString *)newPassword;
 - (NSString *)saveCandidateDetailsWithUser:(User *)user;
 
-- (void)saveEmployment:(Employment *)e connectionDelegate:(NSObject<NSURLConnectionDataDelegate> *)delegate;
-- (void)saveSavedSearchesWithJSONContents:(NSString *)jsonContents connectionDelegate:(NSObject<NSURLConnectionDataDelegate> *)delegate;
+- (id)saveEmploymentWithJSONContents:(NSString *)jsonContents;
+- (id)saveSavedSearchesWithJSONContents:(NSString *)jsonContents;
 
 @end

@@ -40,6 +40,7 @@
     _mainPageX = 0;
     _isSidebarShowing = NO;
     _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
+    _panGestureRecognizer.delegate = self;
     [self.view addGestureRecognizer:_panGestureRecognizer];
     
     _propMainPage.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -56,6 +57,12 @@
     
     [_propLvSidebar.delegate tableView:_propLvSidebar didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     [_propLvSidebar selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionBottom];
+    [_propLvSidebar.delegate tableView:_propLvSidebar didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:1]];
+}
+
+//lets child gestures be triggered along with the swipe gesture
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
 }
 
 

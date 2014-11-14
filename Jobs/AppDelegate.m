@@ -33,7 +33,7 @@
     self.propDateFormatVelosi = [[NSDateFormatter alloc] init];
     self.propDateFormatVelosi.dateFormat = @"dd/MMM/yyyy";
     self.propPageNavigator = [UserPageNavigators sharedNavigators];
-    _propListReferrers = [self.propGatewayOnline getReferrerList];
+//    _propListReferrers = [self.propGatewayOnline getReferrerList];
     _propListCurrency = [[CurrencyList alloc] init];
         
     return YES;

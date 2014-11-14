@@ -14,7 +14,6 @@
 
 @interface VCSavedSearchDetail(){
     VelosiCustomPicker *_pickerSearchIns, *_pickerJobTypes, *_pickerPostedWithins;
-    
 }
 @end
 
@@ -38,7 +37,6 @@
     [_pickerJobTypes selectRowWithText:_propFieldJobType.text];
     _propFieldPostedWithin.text = [self.propAppDelegate.propDictPostedWithins allKeysForObject:[_propSavedSearch getPostedWithin]][0];
     [_pickerPostedWithins selectRowWithText:_propFieldPostedWithin.text];
-    _propSwitchSendEmail.on = ([_propSavedSearch willAlert])?YES:NO;
     
     _propFieldName.delegate = self;
     _propFieldSearchFor.delegate = self;
@@ -50,51 +48,21 @@
 
 - (IBAction)done:(id)sender {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    NSString *searchInID = [self.propAppDelegate.propDictSearchIns allKeysForObject:_propFieldSearchIn.text][0];
-    NSString *countryID = [self.propAppDelegate.propListCountries.propDictCountryIds allKeysForObject:_propCellCountry.detailTextLabel.text][0];
-    NSString *jobTypeID = [self.propAppDelegate.propDictJobTypes allKeysForObject:_propFieldJobType.text][0];
-    NSString *postedWithin = [self.propAppDelegate.propDictPostedWithins allKeysForObject:_propFieldPostedWithin][0];
+    NSString *searchInID = [self.propAppDelegate.propDictSearchIns objectForKey:_propFieldSearchIn.text];
+    NSString *countryID = [self.propAppDelegate.propListCountries.propDictCountryIds objectForKey:_propCellCountry.detailTextLabel.text];
+    NSString *jobTypeID = [self.propAppDelegate.propDictJobTypes objectForKey:_propFieldJobType.text];
+    NSString *postedWithin = [self.propAppDelegate.propDictPostedWithins objectForKey:_propFieldPostedWithin];
     
-    [self.propAppDelegate.propGatewayOnline saveSavedSearchesWithJSONContents:[_propSavedSearch jsonFromName:_propFieldName.text searchFor:_propFieldSearchFor.text searchInID:searchInID searchIn:_propFieldSearchIn.text location:_propCellLocation.detailTextLabel.text lat:0 lng:0 countryID:countryID distance:_propFieldDistance.text jobTypeID:jobTypeID jobType:_propFieldJobType.text postedWithin:postedWithin willAlert:(_propSwitchSendEmail.isOn)?@"true":@"false"] connectionDelegate:self];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        NSString *result = [self.propAppDelegate.propGatewayOnline saveSavedSearchesWithJSONContents:[_propSavedSearch jsonFromName:_propFieldName.text searchFor:_propFieldSearchFor.text searchInID:searchInID searchIn:_propFieldSearchIn.text location:_propCellLocation.detailTextLabel.text lat:@"0" lng:@"0" countryID:countryID distance:_propFieldDistance.text jobTypeID:jobTypeID jobType:_propFieldJobType.text postedWithin:postedWithin]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[[UIAlertView alloc] initWithTitle:@" " message:result delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
+            [self.view endEditing:YES];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
+    });
 }
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
-    NSLog(@"failed %@",error);
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
-    NSLog(@"response %@",response);
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
-    NSLog(@"%@",[[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding]);
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection{
-    NSLog(@"success!");
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-}
-
-- (void) connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge{
-    if([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]){
-        [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust]
-             forAuthenticationChallenge:challenge];
-    }
-    
-    [challenge.sender continueWithoutCredentialForAuthenticationChallenge:challenge];
-}
-
-- (BOOL) connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace{
-    if([[protectionSpace authenticationMethod] isEqualToString:NSURLAuthenticationMethodServerTrust]){
-        return YES;
-    }
-    
-    return NO;
-}
-
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
     if(textField == _propFieldSearchIn)

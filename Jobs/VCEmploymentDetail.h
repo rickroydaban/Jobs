@@ -10,7 +10,7 @@
 #import "VCTableViewDetail.h"
 #import "Employment.h"
 
-@interface VCEmploymentDetail : VCTableViewDetail<NSURLConnectionDataDelegate>
+@interface VCEmploymentDetail : VCTableViewDetail
 
 @property (strong, nonatomic) IBOutlet UITextField *propFieldEmployer;
 @property (strong, nonatomic) IBOutlet UITextField *propFieldJobTitle;

@@ -10,7 +10,7 @@
 
 @interface SavedSearch : NSObject
 
-@property (strong, nonatomic) NSDictionary *propSavedSearchDictionary;
+@property (strong, nonatomic) NSMutableDictionary *propSavedSearchDictionary;
 
 - (SavedSearch *)initWithDictionary:(NSDictionary *)dictionary;
 
@@ -24,6 +24,7 @@
 - (NSString *)getPostedWithin;
 - (BOOL) willAlert;
 
--(NSString *)jsonFromName:(NSString *)name searchFor:(NSString *)searchFor searchInID:(NSString *)searchInID searchIn:(NSString *)searchIn location:(NSString *)location lat:(NSString *)lattitude lng:(NSString *)longitude countryID:(NSString *)countryID distance:(NSString *)distance jobTypeID:(NSString *)jobTypeID jobType:(NSString *)jobType postedWithin:(NSString *)postedWithin willAlert:(NSString *)willAlert;
+-(NSString *)jsonFromName:(NSString *)name searchFor:(NSString *)searchFor searchInID:(NSString *)searchInID searchIn:(NSString *)searchIn location:(NSString *)location lat:(NSString *)lattitude lng:(NSString *)longitude countryID:(NSString *)countryID distance:(NSString *)distance jobTypeID:(NSString *)jobTypeID jobType:(NSString *)jobType postedWithin:(NSString *)postedWithin;
+- (NSString *)jsonFromChangingStatus:(BOOL)willAlert;
 
 @end

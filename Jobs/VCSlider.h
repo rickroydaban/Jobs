@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VCSlider : UIViewController<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIAlertViewDelegate>
+@interface VCSlider : UIViewController<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIAlertViewDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *propLvSidebar;
 @property (strong, nonatomic) IBOutlet UIView *propMainPage;
