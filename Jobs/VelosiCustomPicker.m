@@ -17,19 +17,19 @@
 
 @implementation VelosiCustomPicker
 
-- (id)initWithElements :(NSArray *)elements andRowSelectionDelegate :(NSObject<VelosiPickerRowSelectionDelegate> *)delegate hasAll:(BOOL)hasAll{
+- (id)initWithArray :(NSArray *)elements rowSelectionDelegate :(NSObject<VelosiPickerRowSelectionDelegate> *)delegate selectedItem:(NSString *)selectedItem{
     if([super init]){
         _elements = [NSMutableArray array];
-        
-        if(hasAll)
-            [_elements addObject:@"All"];
         
         [_elements addObjectsFromArray:elements];
         _selectionDelegate = delegate;
         [self setDelegate:self];
         [self setDataSource:self];
         [self setShowsSelectionIndicator:YES];       
-    }
+
+        if(selectedItem != nil)
+            [self selectRowWithText:selectedItem];
+}
     
     self.backgroundColor = [UIColor whiteColor];
     self.layer.shadowColor = [UIColor darkGrayColor].CGColor;

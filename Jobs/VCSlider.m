@@ -18,7 +18,6 @@
 #import "DAKeyboardControl.h"
 
 @interface VCSlider(){
-    UIPanGestureRecognizer *_panGestureRecognizer;
     CGFloat _mainPageX;
     UIViewController *_currMainController;
     BOOL _isSidebarShowing;
@@ -39,9 +38,6 @@
     [_appDelegate updateSlider:self];
     _mainPageX = 0;
     _isSidebarShowing = NO;
-    _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
-    _panGestureRecognizer.delegate = self;
-    [self.view addGestureRecognizer:_panGestureRecognizer];
     
     _propMainPage.layer.shadowColor = [UIColor blackColor].CGColor;
     _propMainPage.layer.shadowOpacity = 1;
@@ -59,12 +55,6 @@
     [_propLvSidebar selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionBottom];
     [_propLvSidebar.delegate tableView:_propLvSidebar didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:1]];
 }
-
-//lets child gestures be triggered along with the swipe gesture
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    return YES;
-}
-
 
 - (void)changePage:(UIViewController *)controller{
     if([controller isKindOfClass:[UINavigationController class]])
@@ -248,23 +238,6 @@
         [_propLvSidebar selectRowAtIndexPath:_currIndexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
     }
     
-}
-
-- (void)pan:(UIPanGestureRecognizer *)recognizer{
-    if (recognizer.state == UIGestureRecognizerStateChanged){
-        //update the foreview's horizontal  placement while panning
-        CGFloat pannedDistance = [recognizer translationInView:_propMainPage].x;
-        
-        if(_mainPageX+pannedDistance > 0)
-            _propMainPage.transform = CGAffineTransformMakeTranslation(pannedDistance+_mainPageX, 0);
-        
-    } else if (recognizer.state == UIGestureRecognizerStateEnded){
-        //decide wether which view will be shown after panning
-        _mainPageX = _propMainPage.transform.tx;
-        
-        if(_mainPageX > 0)
-            [self updateSidebarWillShow:(_mainPageX>MINPANTOSHOWMAINPAGE && !_isSidebarShowing)?YES:NO];
-    }
 }
 
 - (void)updateSidebarWillShow:(BOOL)willShow{

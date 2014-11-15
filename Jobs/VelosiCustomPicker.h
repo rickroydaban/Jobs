@@ -11,7 +11,7 @@
 
 @interface VelosiCustomPicker :UIPickerView<UIPickerViewDelegate, UIPickerViewDataSource>
 
-- (id)initWithElements :(NSArray *)elements andRowSelectionDelegate :(NSObject<VelosiPickerRowSelectionDelegate> *)delegate hasAll:(BOOL)hasAll;
+- (id)initWithArray :(NSArray *)elements rowSelectionDelegate :(NSObject<VelosiPickerRowSelectionDelegate> *)delegate selectedItem:(NSString *)selectedItem;
 - (NSArray *)elements;
 - (void)selectRowWithText:(NSString *)text;
 

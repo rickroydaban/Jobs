@@ -23,9 +23,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
         
-    _pickerSearchIns = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propListSearchIns andRowSelectionDelegate:self hasAll:NO];
-    _pickerJobTypes = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propListJobTypes andRowSelectionDelegate:self hasAll:NO];
-    _pickerPostedWithins = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propListPostedWithins andRowSelectionDelegate:self hasAll:NO];
+    _pickerSearchIns = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propListSearchIns rowSelectionDelegate:self selectedItem:nil];
+    _pickerJobTypes = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propListJobTypes rowSelectionDelegate:self selectedItem:nil];
+    _pickerPostedWithins = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propListPostedWithins rowSelectionDelegate:self selectedItem:nil];
     
     self.propFieldSearchFor.delegate = self;
     self.propFieldSearchIn.delegate = self;
@@ -82,7 +82,7 @@
         vcJobSummary.propSearchJobType = [self.propAppDelegate.propDictJobTypes objectForKey:self.propFieldJobType.text];
         vcJobSummary.propSearchPostedWithin = [self.propAppDelegate.propDictPostedWithins objectForKey:self.propFieldPostedWithin.text];
     }else{
-        [(NSObject<CellSelector> *)segue.destinationViewController cellSelectorSelectedCell:sender];
+        [(NSObject<CellSelector> *)segue.destinationViewController cellSelectorSelectedCell:sender withObject:nil];
     }    
 }
 

@@ -33,7 +33,8 @@
 }
 
 - (NSString *)getLocation{
-    return [[_propSavedSearchDictionary objectForKey:@"Location"] objectForKey:@"LocationFull"];
+    NSString *location = [[_propSavedSearchDictionary objectForKey:@"Location"] objectForKey:@"LocationFull"];
+    return ([location isEqualToString:@""])?@"Any":location;
 }
 
 - (NSString *)getCountryID{

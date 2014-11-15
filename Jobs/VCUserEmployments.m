@@ -25,14 +25,22 @@
     
     _deleteConfirmationAlert = [[UIAlertView alloc] initWithTitle:@"Confirm" message:nil delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
 
-    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addDocument)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)]];
+    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addItem)]];
     _propLV.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     _propLV.delegate = self;
     _propLV.dataSource = self;
+    [self refresh];
+}
+
+- (void)addItem{
+    
+}
+
+- (void)refresh{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         id employmentList = [self.propAppDelegate.propGatewayOnline getEmployments];
-
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             if([employmentList isKindOfClass:[NSString class]])
                 [[[UIAlertView alloc] initWithTitle:@"Error" message:employmentList delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
@@ -44,14 +52,6 @@
             
         });
     });
-}
-
-- (void)addDocument{
-    
-}
-
-- (void)refresh{
-    
 }
 
 

@@ -9,7 +9,7 @@
 #import "VCPage.h"
 #import "CellSavedSearches.h"
 
-@interface VCUserSearches : VCPage<UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, CellSavedSearchDelegate>
+@interface VCUserSearches : VCPage<UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, CellSavedSearchDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *propLv;
 @property (strong, nonatomic) NSMutableArray *propListSavedSearches;

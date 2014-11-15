@@ -169,7 +169,7 @@
     return _resultsArray;
 }
 
-- (void)cellSelectorSelectedCell:(UITableViewCell *)cell{
+- (void)cellSelectorSelectedCell:(UITableViewCell *)cell withObject:(id)data{
     _selectedCell = cell;
 }
 

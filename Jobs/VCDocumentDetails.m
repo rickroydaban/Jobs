@@ -31,8 +31,7 @@
     self.propType.delegate = self;
     self.propDateExpiry.delegate = self;
     
-    _typesPicker = [[VelosiCustomPicker alloc] initWithElements:_appDelegate.propUserDetails.propListDocumentTypes andRowSelectionDelegate:self hasAll:NO];
-    [_typesPicker selectRow:[_appDelegate.propUserDetails.propListDocumentTypes indexOfObject:[_appDelegate.propUserDetails.propDictDocumentTypes objectForKey:[NSString stringWithFormat:@"%d",self.propDocument.propType]]] inComponent:0 animated:NO];
+    _typesPicker = [[VelosiCustomPicker alloc] initWithArray:_appDelegate.propUserDetails.propListDocumentTypes rowSelectionDelegate:self selectedItem:[_appDelegate.propUserDetails.propDictDocumentTypes objectForKey:[NSString stringWithFormat:@"%d",self.propDocument.propType]]];
     _dateExpiryPicker = [[UIDatePicker alloc] init];
     _dateExpiryPicker.datePickerMode = UIDatePickerModeDate;
     _dateExpiryPicker.date = [_appDelegate.propDateFormatVelosi dateFromString:self.propDocument.propDateExpire];

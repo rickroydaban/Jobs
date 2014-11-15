@@ -18,10 +18,17 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
-    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addDocument)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)]];
+    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addItem)]];
     self.view.backgroundColor = [UIColor whiteColor];
     self.propLv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [self refresh];
+}
+
+- (void)addItem{
     
+}
+
+- (void)refresh{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         _propListDocuments = [self.propAppDelegate.propGatewayOnline getDocuments];
@@ -33,14 +40,6 @@
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
     });
-}
-
-- (void)addDocument{
-    
-}
-
-- (void)refresh{
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated{

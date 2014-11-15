@@ -26,8 +26,6 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
 
-//    self.propListLocationPrefs = [NSMutableArray arrayWithArray:[self.propAppDelegate.propGatewayOffline getPreferredLocations]];
-//    self.propListLanguages = [NSMutableArray arrayWithArray:[self.propAppDelegate.propGatewayOffline getLanguages]];
     self.propListLocationPrefs = [NSMutableArray array];
     self.propListLanguages = [NSMutableArray array];
     
@@ -124,8 +122,7 @@
     self.fieldMainSkills.delegate = self;
     self.fieldMainSkills.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10);
     
-    _pickerGender = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propUserDetails.propListGender andRowSelectionDelegate:self hasAll:NO];
-    [_pickerGender selectRowWithText:self.fieldGender.text];
+    _pickerGender = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListGender rowSelectionDelegate:self selectedItem:self.fieldGender.text];
     _pickerBday = [[UIDatePicker alloc] init];
     _pickerBday.datePickerMode = UIDatePickerModeDate;
     _pickerBday.date = [self.propAppDelegate.propDateFormatVelosi dateFromString:self.fieldBirthdate.text];
@@ -135,24 +132,15 @@
     _pickerBday.layer.shadowOpacity = 1;
     _pickerBday.layer.shadowOffset = CGSizeMake(0, 0);
     [_pickerBday addTarget:self action:@selector(updateBirthdayField) forControlEvents:UIControlEventValueChanged];
-    _pickerYearGraduated = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propUserDetails.propListYearGraduated andRowSelectionDelegate:self hasAll:NO];
-    [_pickerYearGraduated selectRowWithText:self.fieldYearGraduated.text];
-    _pickerEducation = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propUserDetails.propListEducation andRowSelectionDelegate:self hasAll:NO];
-    [_pickerEducation selectRowWithText:self.fieldEducation.text];
-    _pickerLicense = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propUserDetails.propListLicense andRowSelectionDelegate:self hasAll:NO];
-    [_pickerLicense selectRowWithText:self.fieldLicense.text];
-    _pickerNationality = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propUserDetails.propListNationality andRowSelectionDelegate:self hasAll:NO];
-    [_pickerNationality selectRowWithText:self.fieldNationality.text];
-    _pickerEthnicity = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propUserDetails.propListEthnicity andRowSelectionDelegate:self hasAll:NO];
-    [_pickerEthnicity selectRowWithText:self.fieldEthnicity.text];
-    _pickerReferrers = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propListReferrers andRowSelectionDelegate:self hasAll:NO];
-    [_pickerReferrers selectRowWithText:self.fieldReferrer.text];
-    _pickerStatus = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propUserDetails.propListMaritalStatus andRowSelectionDelegate:self hasAll:NO];
-    [_pickerStatus selectRowWithText:self.fieldMaritalStatus.text];
-    _pickerWillRelocate = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propUserDetails.propListRelocate andRowSelectionDelegate:self hasAll:NO];
-    [_pickerWillRelocate selectRowWithText:self.fieldWillRelocate.text];
-    _pickerAvailability = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propUserDetails.propListAvailability andRowSelectionDelegate:self hasAll:NO];
-    [_pickerAvailability selectRowWithText:self.fieldNoticePeriod.text];
+    _pickerYearGraduated = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListYearGraduated rowSelectionDelegate:self selectedItem:self.fieldYearGraduated.text];
+    _pickerEducation = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListEducation rowSelectionDelegate:self selectedItem:self.fieldEducation.text];
+    _pickerLicense = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListLicense rowSelectionDelegate:self selectedItem:self.fieldLicense.text];
+    _pickerNationality = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListNationality rowSelectionDelegate:self selectedItem:self.fieldNationality.text];
+    _pickerEthnicity = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListEthnicity rowSelectionDelegate:self selectedItem:self.fieldEthnicity.text];
+    _pickerReferrers = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propListReferrers rowSelectionDelegate:self selectedItem:self.fieldReferrer.text];
+    _pickerStatus = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListMaritalStatus rowSelectionDelegate:self selectedItem:self.fieldMaritalStatus.text];
+    _pickerWillRelocate = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListRelocate rowSelectionDelegate:self selectedItem:self.fieldWillRelocate.text];
+    _pickerAvailability = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListAvailability rowSelectionDelegate:self selectedItem:self.fieldNoticePeriod.text];
     _pickerAvailableFrom = [[UIDatePicker alloc] init];
     _pickerAvailableFrom.datePickerMode = UIDatePickerModeDate;
     if([self.fieldAvailableFrom.text length] > 0)
@@ -162,10 +150,8 @@
     _pickerAvailableFrom.layer.shadowOpacity = 1;
     _pickerAvailableFrom.layer.shadowOffset = CGSizeMake(0, 0);
     [_pickerAvailableFrom addTarget:self action:@selector(updateAvailableFromField) forControlEvents:UIControlEventValueChanged];
-    _pickerSalaryType = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propUserDetails.propListSalaryType andRowSelectionDelegate:self hasAll:NO];
-    [_pickerSalaryType selectRowWithText:self.fieldSalaryType.text];
-    _pickerCurrency = [[VelosiCustomPicker alloc] initWithElements:self.propAppDelegate.propListCurrency.propListCurrencyNames andRowSelectionDelegate:self hasAll:NO];
-    [_pickerCurrency selectRowWithText:self.fieldCurrency.text];
+    _pickerSalaryType = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListSalaryType rowSelectionDelegate:self selectedItem:self.fieldSalaryType.text];
+    _pickerCurrency = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propListCurrency.propListCurrencyNames rowSelectionDelegate:self selectedItem:self.fieldCurrency.text];
 }
 
 - (void)updateBirthdayField{
@@ -302,15 +288,15 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if([segue.identifier isEqualToString:@"segueDetailToCountrySelection"]){
-        [(VCCountrySelection *)segue.destinationViewController cellSelectorSelectedCell:sender];
+        [(VCCountrySelection *)segue.destinationViewController cellSelectorSelectedCell:sender withObject:nil];
     } else if([segue.identifier isEqualToString:@"segueLocationPreferences"]){
         ((VCCountrySelection *)segue.destinationViewController).selectedFields = self.propListLocationPrefs;
-        [(VCCountrySelection *)segue.destinationViewController cellSelectorSelectedCell:sender];
+        [(VCCountrySelection *)segue.destinationViewController cellSelectorSelectedCell:sender withObject:nil];
     }
     
     if([segue.destinationViewController isKindOfClass:[VCLanguages class]]){
         ((VCLanguages *)segue.destinationViewController).propListLanguages = self.propListLanguages;
-        [(VCLanguages *)segue.destinationViewController cellSelectorSelectedCell:sender];
+        [(VCLanguages *)segue.destinationViewController cellSelectorSelectedCell:sender withObject:nil];
     }
 }
 

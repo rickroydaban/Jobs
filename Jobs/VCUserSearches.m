@@ -78,7 +78,8 @@
         NSString *result = [self.propAppDelegate.propGatewayOnline saveSavedSearchesWithJSONContents:[[_propListSavedSearches objectAtIndex:cell.tag] jsonFromChangingStatus:cell.propSwitchStatus.isOn]];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [[[UIAlertView alloc] initWithTitle:@" " message:result delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
+            if(result!=nil)
+                [[[UIAlertView alloc] initWithTitle:@" " message:result delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
     });
@@ -117,7 +118,6 @@
             break;
             
         case 1:
-            NSLog(@"%@",[self.propAppDelegate.propGatewayOnline deleteSavedSearchesWithJBEID:[NSString stringWithFormat:@"%d",_cellDeletetarget.tag]]);
             [self.propListSavedSearches removeObjectAtIndex:_cellDeletetarget.tag];
             [self.propLv deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:_cellDeletetarget.tag inSection:0]] withRowAnimation:YES];
             break;

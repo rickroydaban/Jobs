@@ -14,6 +14,7 @@
 @interface VCLocationSelection (){
     id _locations;
     UITableViewCell *_selectedCell;
+    NSMutableDictionary *_dictionary;
 }
 
 @end
@@ -22,6 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _locations = [NSMutableArray arrayWithObject:@"Any"];
     
     self.propLv.delegate = self;
     self.propLv.dataSource = self;
@@ -32,7 +34,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-    cell.textLabel.text = [_locations objectAtIndex:indexPath.row];
+    
+    if(indexPath.row > 0)
+        cell.textLabel.text = [[_locations objectAtIndex:indexPath.row] objectForKey:@"LocationFull"];
+    else
+        cell.textLabel.text = [_locations objectAtIndex:indexPath.row];
+    
     return cell;
 }
 
@@ -45,7 +52,8 @@
     if(searchString.length > 2){
         [MBProgressHUD showHUDAddedTo:self.propLv animated:YES];
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            _locations = [self.propAppDelegate.propGatewayOnline getLocationSuggestions:searchString];
+            _locations = [NSMutableArray arrayWithObject:@"Any"];
+            [_locations addObjectsFromArray:[self.propAppDelegate.propGatewayOnline getLocationSuggestions:searchString]];
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 if([_locations isKindOfClass:[NSString class]])
@@ -61,12 +69,19 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    _selectedCell.detailTextLabel.text = [_locations objectAtIndex:indexPath.row];
+    if(indexPath.row>0){
+        [_dictionary setValuesForKeysWithDictionary:[_locations objectAtIndex:indexPath.row]];
+        _selectedCell.detailTextLabel.text = [_dictionary objectForKey:@"LocationFull"];
+    }
+    else
+        [_locations objectAtIndex:0];
+    
     [self.navigationController popViewControllerAnimated:TRUE];
 }
 
-- (void)cellSelectorSelectedCell:(UITableViewCell *)cell{
+- (void)cellSelectorSelectedCell:(UITableViewCell *)cell withObject:(id)data{
     _selectedCell = cell;
+    _dictionary = data;
 }
 
 

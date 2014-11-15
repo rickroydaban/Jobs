@@ -18,7 +18,7 @@
 #import "AppDelegate.h"
 
 @interface OnlineGateway(){
-    const NSString *_jsonRoot, *_rootVacancy, *_rootCandidates, *_rootReferences, *_rootDocuments, *_rootEmployments, *_rootApplications, *_rootSavedSearches;
+    const NSString *_jsonLocation, *_rootVacancy, *_rootCandidates, *_rootReferences, *_rootDocuments, *_rootEmployments, *_rootApplications, *_rootSavedSearches;
     const AppDelegate *_appDelegate;
 }
 
@@ -38,7 +38,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
 - (OnlineGateway *)initWithAppDelegate: (AppDelegate *)appDelegate{
     self = [super init];
     if(self){
-        _jsonRoot = @"https://arctest.velosi.com/handlers/";
+        _jsonLocation = @"https://arctestapi.velosi.com/Geolocation.svc/json/";
         _rootVacancy = @"https://arctestapi.velosi.com/VacancySvc.svc/json/";
         _rootCandidates = @"https://arctestapi.velosi.com/CandidateSvc.svc/json/";
         _rootReferences = @"https://arctestapi.velosi.com/Reference.svc/json/";
@@ -168,7 +168,6 @@ static OnlineGateway *sharedOnlineGateway = nil;
 
 - (NSMutableArray *)getAdvanceSearchResults:(NSString *)searched in:(NSString *)searchIn location:(NSString *)location radius:(NSString *)radius jobType:(NSString *)jobType country:(NSString *)country postedWithin:(NSString *)postedWithin{
     NSString *errorMessage;
-    NSLog(@"%@%@",_rootVacancy,[NSString stringWithFormat:@"Search?search=%@&loc=%@&searchIn=%@&radius=%@&vacType=%@&countryID=%@&days=%@&top=50",searched,location,searchIn,radius,jobType,country,postedWithin]);
     id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@%@",_rootVacancy,[NSString stringWithFormat:@"Search?search=%@&loc=%@&searchIn=%@&radius=%@&vacType=%@&countryID=%@&days=%@&top=50",searched,location,searchIn,radius,jobType,country,postedWithin]]];
     
     if([data isKindOfClass:[NSString class]])
@@ -243,9 +242,8 @@ static OnlineGateway *sharedOnlineGateway = nil;
 
 - (id)getLocationSuggestions: (NSString *)searched{
     NSString *errorMessage;
-    NSLog(@"%@",[NSString stringWithFormat:@"%@%@",_jsonRoot,[NSString stringWithFormat:@"location-search.ashx?s=%@&n=%d",searched,50]]);
-    id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@%@",_jsonRoot,[NSString stringWithFormat:@"location-search.ashx?s=%@&n=%d",searched,50]]];
-    
+    id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@Search?s=%@&n=%d",_jsonLocation, [searched lowercaseString],50]];
+
     if([data isKindOfClass:[NSString class]])
         errorMessage = (NSString *)data;
     else{
@@ -254,8 +252,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
         NSError *error = [[NSError alloc] init];
         
         @try{
-            jsonLocationSuggestions = [NSJSONSerialization JSONObjectWithData:(NSData *)data options:0 error:&error];
-            NSLog(@"%@",jsonLocationSuggestions);
+            jsonLocationSuggestions = [[NSJSONSerialization JSONObjectWithData:(NSData *)data options:0 error:&error] objectForKey:@"SearchJSONResult"];
             if(jsonLocationSuggestions){
                 for(id jsonLocationSuggestion in jsonLocationSuggestions)
                     [locationSuggestions addObject:jsonLocationSuggestion];
@@ -542,7 +539,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
 - (NSString *)saveSavedSearchesWithJSONContents:(NSString *)jsonContents{
     NSString *body = [NSString stringWithFormat:@"{\"j\":%@}",jsonContents];
     id result = [self httpPostFrom:@"https://arctestapi.velosi.com/JobsByEmailSvc.svc/json/Save" withBody:body];
-    return ([result isKindOfClass:[NSString class]])?result:@"Saved Successfullly!";
+    return ([result isKindOfClass:[NSString class]])?result:nil;
 }
 
 
