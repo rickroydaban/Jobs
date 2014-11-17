@@ -70,8 +70,8 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if(sender == self.navigationController.navigationBar.topItem.rightBarButtonItem){
-        NSString *searchCountry = ([_propCellCountry.detailTextLabel.text isEqualToString:@"Select"])?@"0":[self.propAppDelegate.propListCountries.propDictCountryIds objectForKey:_propCellCountry.detailTextLabel.text];
-        NSString *searchLocation = ([_propCellLocation.detailTextLabel.text isEqualToString:@"Select"])?@"0":_propCellLocation.detailTextLabel.text;
+        NSString *searchCountry = ([_propCellCountry.detailTextLabel.text isEqualToString:@"Any"])?@"0":[self.propAppDelegate.propListCountries.propDictCountryIds objectForKey:_propCellCountry.detailTextLabel.text];
+        NSString *searchLocation = ([_propCellLocation.detailTextLabel.text isEqualToString:@"Any"])?@"0":_propCellLocation.detailTextLabel.text;
         
         VCJobSummary *vcJobSummary = (VCJobSummary *)segue.destinationViewController;
         vcJobSummary.propSearchFor = self.propFieldSearchFor.text;

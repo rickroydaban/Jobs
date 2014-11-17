@@ -12,7 +12,7 @@
 #import "VCSearchJob.h"
 
 @interface VCLocationSelection (){
-    id _locations;
+    NSMutableArray *_locations;
     UITableViewCell *_selectedCell;
     NSMutableDictionary *_dictionary;
 }
@@ -48,21 +48,31 @@
 }
 
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-    NSString *searchString = [NSString stringWithFormat:@"%@%@",searchBar.text,text];
+    NSString *searchString = (range.length>0)?[searchBar.text substringWithRange:NSMakeRange(0, searchBar.text.length-range.length)]:[NSString stringWithFormat:@"%@%@",searchBar.text, text];
+    
     if(searchString.length > 2){
         [MBProgressHUD showHUDAddedTo:self.propLv animated:YES];
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            _locations = [NSMutableArray arrayWithObject:@"Any"];
-            [_locations addObjectsFromArray:[self.propAppDelegate.propGatewayOnline getLocationSuggestions:searchString]];
-
+            
+            id result = [self.propAppDelegate.propGatewayOnline getLocationSuggestions:searchString];
+            if(![result isKindOfClass:[NSString class]]){
+                [_locations removeAllObjects];
+                [_locations addObject:@"Any"];
+                [_locations addObjectsFromArray:result];
+            }
+                
             dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideAllHUDsForView:self.propLv animated:YES];
                 if([_locations isKindOfClass:[NSString class]])
-                    [[[UIAlertView alloc] initWithTitle:@"Error" message:_locations delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
+                    [[[UIAlertView alloc] initWithTitle:@"Error" message:result delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
                 else
                     [self.propLv reloadData];
-                [MBProgressHUD hideHUDForView:self.propLv animated:YES];
             });
         });
+    }else{
+        [_locations removeAllObjects];
+        [_locations addObject:@"Any"];
+        [self.propLv reloadData];
     }
 
     return YES;
@@ -70,11 +80,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.row>0){
-        [_dictionary setValuesForKeysWithDictionary:[_locations objectAtIndex:indexPath.row]];
-        _selectedCell.detailTextLabel.text = [_dictionary objectForKey:@"LocationFull"];
+        if(_dictionary != nil)
+            [_dictionary setValuesForKeysWithDictionary:[_locations objectAtIndex:indexPath.row]];
+
+        _selectedCell.detailTextLabel.text = [[_locations objectAtIndex:indexPath.row] objectForKey:@"LocationFull"];
     }
     else
-        [_locations objectAtIndex:0];
+        _selectedCell.detailTextLabel.text = [_locations objectAtIndex:0];
     
     [self.navigationController popViewControllerAnimated:TRUE];
 }

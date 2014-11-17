@@ -14,7 +14,9 @@
 
 @interface VCUserSearches(){
     UIAlertView *_deleteConfirmationAlert;
+    UIBarButtonItem *_buttonSubscribe, *_buttonUnsubscribe, *_buttonRefresh;
     UITableViewCell *_cellDeletetarget;
+    int _countSubscribedItems;
 }
 @end
 
@@ -23,11 +25,69 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
 
+    _buttonRefresh = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)];
+    _buttonUnsubscribe = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_unsubscribe"] style:UIBarButtonItemStyleBordered target:self action:@selector(unsubscribeAll)];
+    _buttonSubscribe = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_subscribe"] style:UIBarButtonItemStyleBordered target:self action:@selector(subscribeAll)];
+    
     _deleteConfirmationAlert = [[UIAlertView alloc] initWithTitle:@"Confirm" message:nil delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
     
     _propLv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     _propLv.delegate = self;
     _propLv.dataSource = self;
+    [self refresh];
+}
+                                                
+- (void)subscribeAll{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        NSString *result = [self.propAppDelegate.propGatewayOnline changeAllSavedSearchSubscriptionForCandidateID:[self.propAppDelegate.propGatewayOffline getUserID] status:YES];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(![result isEqualToString:@"OK"])
+                [[[UIAlertView alloc] initWithTitle:@" " message:result delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
+            else{
+                _countSubscribedItems = _propListSavedSearches.count;
+                [self updateRightNavigationButtons];
+                
+                for(SavedSearch *ss in _propListSavedSearches)
+                    [ss changeSubscriptionWillAlert:YES];
+                
+                _countSubscribedItems = _propListSavedSearches.count;
+                [self updateRightNavigationButtons];
+                [self.propLv reloadData];
+            }
+            
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
+    });
+}
+
+- (void)unsubscribeAll{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        NSString *result = [self.propAppDelegate.propGatewayOnline changeAllSavedSearchSubscriptionForCandidateID:[self.propAppDelegate.propGatewayOffline getUserID] status:NO];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(![result isEqualToString:@"OK"])
+                [[[UIAlertView alloc] initWithTitle:@" " message:result delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
+            else{
+                _countSubscribedItems = _propListSavedSearches.count;
+                [self updateRightNavigationButtons];
+                
+                for(SavedSearch *ss in _propListSavedSearches)
+                    [ss changeSubscriptionWillAlert:NO];
+                
+                _countSubscribedItems = 0;
+                [self updateRightNavigationButtons];
+                [self.propLv reloadData];
+            }
+            
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
+    });
+}
+                                                
+- (void)refresh{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         id savedSearchesList = [self.propAppDelegate.propGatewayOnline getSavedSearches];
@@ -35,14 +95,31 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             if([savedSearchesList isKindOfClass:[NSString class]])
                 [[[UIAlertView alloc] initWithTitle:@"Error" message:savedSearchesList delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
-            else
+            else{
                 _propListSavedSearches = savedSearchesList;
+                _countSubscribedItems = 0;
+                
+                for(SavedSearch *ss in _propListSavedSearches){
+                    if([ss willAlert])
+                        _countSubscribedItems++;
+                }
+                [self updateRightNavigationButtons];
+            }
             
             [self.propLv reloadData];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             
         });
     });
+}
+
+- (void)updateRightNavigationButtons{
+    if(_countSubscribedItems == _propListSavedSearches.count)
+        self.navigationItem.rightBarButtonItems = @[_buttonRefresh, _buttonUnsubscribe];
+    else if(_countSubscribedItems == 0)
+        self.navigationItem.rightBarButtonItems = @[_buttonRefresh, _buttonSubscribe];
+    else
+        self.navigationItem.rightBarButtonItems = @[_buttonRefresh, _buttonUnsubscribe, _buttonSubscribe];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -63,8 +140,7 @@
     
     cell.delegate = self;
     cell.propLabelTitle.text = [savedSearch getName];
-//    cell.propLabelDateAdded.text = [NSString stringWithFormat:@"Added on %@",savedSearch get];
-    cell.propLabelDateAdded.text = @"Date added here";
+    cell.propLabelDateAdded.text = [NSString stringWithFormat:@"Added on %@",[self.propAppDelegate.propGatewayOnline deserializeJsonDateString:[savedSearch getDateAdded]]];
     cell.propSwitchStatus.on = [savedSearch willAlert];
     cell.tag = indexPath.row;
     
@@ -80,6 +156,15 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             if(result!=nil)
                 [[[UIAlertView alloc] initWithTitle:@" " message:result delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
+            else{
+                if(cell.propSwitchStatus.isOn)
+                    _countSubscribedItems++;
+                else
+                    _countSubscribedItems--;
+                
+                [self updateRightNavigationButtons];
+            }
+            
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
     });
@@ -106,6 +191,7 @@
 }
 
 - (IBAction)refresh:(id)sender {
+    [self refresh];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{

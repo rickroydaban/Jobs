@@ -15,6 +15,7 @@
 - (SavedSearch *)initWithDictionary:(NSDictionary *)dictionary;
 
 - (NSString *)getName;
+- (NSString *)getDateAdded;
 - (NSString *)getSearchFor;
 - (NSString *)getSearchIn;
 - (NSString *)getLocation;
@@ -23,6 +24,7 @@
 - (NSString *)getJobType;
 - (NSString *)getPostedWithin;
 - (BOOL) willAlert;
+- (void)changeSubscriptionWillAlert:(BOOL)willAlert;
 
 -(NSString *)jsonFromName:(NSString *)name searchFor:(NSString *)searchFor searchInID:(NSString *)searchInID searchIn:(NSString *)searchIn location:(NSString *)location lat:(NSString *)lattitude lng:(NSString *)longitude countryID:(NSString *)countryID distance:(NSString *)distance jobTypeID:(NSString *)jobTypeID jobType:(NSString *)jobType postedWithin:(NSString *)postedWithin;
 - (NSString *)jsonFromChangingStatus:(BOOL)willAlert;

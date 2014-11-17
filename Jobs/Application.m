@@ -10,13 +10,14 @@
 
 @implementation Application
 
-- (Application *)initWithID:(int)applicationId title:(NSString *)title reference:(NSString *)reference status:(NSString *)status dateAdded:(NSString *)dateAdded{
+- (Application *)initWithID:(int)applicationID title:(NSString *)title jobID:(NSString *)jobID jobRef:(NSString *)jobRef status:(NSString *)status dateAdded:(NSString *)dateAdded{
     self = [super init];
     
     if(self){
-        _propID = applicationId;
+        _propID = applicationID;
         _propTitle = title;
-        _propReference = reference;
+        _propJobID = jobID;
+        _propJobRef = jobRef;
         _propStatus = status;
         _propDateAdded = dateAdded;
     }

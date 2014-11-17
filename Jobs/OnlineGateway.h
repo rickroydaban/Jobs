@@ -17,6 +17,7 @@
 
 + (OnlineGateway *)sharedOnlineGateway:(AppDelegate *)appDelegate;
 
+- (NSString *)deserializeJsonDateString: (NSString *)jsonDateString;
 - (NSString *)resetPasswordWithEmail:(NSString *)email;
 - (JobDetail *)getJobDetailById:(int)jobId;
 - (NSMutableArray *)getLocationSuggestions: (NSString *)searched;
@@ -28,10 +29,11 @@
 - (NSString *)deleteEmploymentWithID:(NSString *)employmentID;
 - (id)getApplications;
 - (id)getSavedSearches;
+- (id)changeAllSavedSearchSubscriptionForCandidateID:(NSString *)cID status:(BOOL)willSubscribe;
 - (NSString *)deleteSavedSearchesWithJBEID:(NSString *)jbeID;
 - (NSString *)changePassword:(NSString *)oldPassword to:(NSString *)newPassword;
-- (NSString *)saveCandidateDetailsWithUser:(User *)user;
 
+- (NSString *)saveCandidateDetailsWithUser:(User *)user;
 - (id)saveEmploymentWithJSONContents:(NSString *)jsonContents;
 - (id)saveSavedSearchesWithJSONContents:(NSString *)jsonContents;
 

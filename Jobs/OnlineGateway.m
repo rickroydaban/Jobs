@@ -416,7 +416,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
             
             if(jsonApplications){
                 for(id jsonApplication in jsonApplications)
-                    [applications addObject:[[Application alloc] initWithID:[[jsonApplication objectForKey:@"ApplicationID"] intValue] title:[jsonApplication objectForKey:@"VacancyTitle"] reference:[jsonApplication objectForKey:@"VacancyRef"] status:[[jsonApplication objectForKey:@"AppStatus"] objectForKey:@"StatusName"] dateAdded:[self deserializeJsonDateString:[jsonApplication objectForKey:@"DateCreated"]]]];
+                    [applications addObject:[[Application alloc] initWithID:[[jsonApplication objectForKey:@"ApplicationID"] intValue] title:[jsonApplication objectForKey:@"VacancyTitle"] jobID:[jsonApplication objectForKey:@"VacancyID"] jobRef:[jsonApplication objectForKey:@"VacancyRef"] status:[[jsonApplication objectForKey:@"AppStatus"] objectForKey:@"StatusName"] dateAdded:[self deserializeJsonDateString:[jsonApplication objectForKey:@"DateCreated"]]]];
             }
             
             return applications;
@@ -449,6 +449,18 @@ static OnlineGateway *sharedOnlineGateway = nil;
         }
     }
 }
+
+- (id)changeAllSavedSearchSubscriptionForCandidateID:(NSString *)cID status:(BOOL)willSubscribe{
+    id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@ChangeStatusByCandidateID?id=%@&enabled=%@",_rootSavedSearches,cID, (willSubscribe)?@"true":@"false"]];
+    NSError *error;
+    
+    @try{
+        return [[NSJSONSerialization JSONObjectWithData:data options:0 error:&error] objectForKey:@"ChangeStatusByCandidateIDResult"];
+    }@catch(NSException *exception){
+        return exception.reason;
+    }
+}
+
 
 - (NSString *)deleteSavedSearchesWithJBEID:(NSString *)jbeID{
     id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@Delete?id=%@",_rootSavedSearches,jbeID]];

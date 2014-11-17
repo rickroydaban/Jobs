@@ -24,6 +24,10 @@
     return [_propSavedSearchDictionary objectForKey:@"Name"];
 }
 
+- (NSString *)getDateAdded{
+    return [_propSavedSearchDictionary objectForKey:@"DateCreated"];
+}
+
 - (NSString *)getSearchFor{
     return [_propSavedSearchDictionary objectForKey:@"SearchText"];
 }
@@ -55,6 +59,10 @@
 
 - (BOOL)willAlert{
     return [[_propSavedSearchDictionary objectForKey:@"EmailAlert"] boolValue];
+}
+
+- (void)changeSubscriptionWillAlert:(BOOL)willAlert{
+    [_propSavedSearchDictionary setValue:(willAlert)?@"true":@"false" forKey:@"EmailAlert"];
 }
 
 -(NSString *)jsonFromName:(NSString *)name searchFor:(NSString *)searchFor searchInID:(NSString *)searchInID searchIn:(NSString *)searchIn location:(NSString *)location lat:(NSString *)lattitude lng:(NSString *)longitude countryID:(NSString *)countryID distance:(NSString *)distance jobTypeID:(NSString *)jobTypeID jobType:(NSString *)jobType postedWithin:(NSString *)postedWithin{

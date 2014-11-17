@@ -11,7 +11,7 @@
 
 @interface VCJobDetails : VCPage<UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate, UIAlertViewDelegate>
 
-@property (strong, atomic) IBOutlet UITableView *propLv;
+@property (strong, nonatomic) IBOutlet UITableView *propLv;
 @property (strong, nonatomic) Job *propJob;
 
 @end

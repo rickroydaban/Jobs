@@ -71,7 +71,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Select" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gIT-cz-e8I">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Any" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gIT-cz-e8I">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
@@ -94,7 +94,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Select" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WI8-xD-BQc">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Any" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WI8-xD-BQc">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
@@ -277,7 +277,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="boO-Bc-d6y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1009" y="-205"/>
+            <point key="canvasLocation" x="2035" y="-205"/>
         </scene>
         <!--Job Summary-->
         <scene sceneID="OaV-AU-j1j">
@@ -2714,6 +2714,7 @@
                                             <outlet property="propLabelReference" destination="2EG-2H-ehO" id="lOS-N8-bdq"/>
                                             <outlet property="propLabelStatus" destination="G9q-5F-bPS" id="rSj-To-Hvd"/>
                                             <outlet property="propLabelTitle" destination="iyk-TH-YQb" id="rY8-Kg-mOp"/>
+                                            <segue destination="bSo-Ml-qeo" kind="show" id="u6U-qg-fop"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -2731,6 +2732,9 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="BmZ-r1-4LZ">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="refresh:" destination="a3h-Qf-ROz" id="xGh-Ru-Zh5"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -2740,7 +2744,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UzC-pb-x4l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1009" y="2706"/>
+            <point key="canvasLocation" x="1591" y="2707"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hbS-Fd-rr3">
@@ -3234,5 +3238,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="rQE-GR-YxJ"/>
         <segue reference="htX-Kd-ahd"/>
+        <segue reference="u6U-qg-fop"/>
     </inferredMetricsTieBreakers>
 </document>

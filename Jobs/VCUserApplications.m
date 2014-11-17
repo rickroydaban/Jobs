@@ -10,7 +10,8 @@
 #import "MBProgressHUD.h"
 #import "CellApplication.h"
 #import "Application.h"
-
+#import "VCJobDetails.h"
+#import "JobDetail.h"
 
 @implementation VCUserApplications
 
@@ -21,6 +22,14 @@
     _propLv.delegate = self;
     _propLv.dataSource = self;
     
+    [self refresh];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [self.propLv reloadData];
+}
+
+- (void)refresh{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         id applicationList = [self.propAppDelegate.propGatewayOnline getApplications];
@@ -28,18 +37,15 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             if([applicationList isKindOfClass:[NSString class]])
                 [[[UIAlertView alloc] initWithTitle:@"Error" message:applicationList delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
-            else
+            else{
                 _propListApplications = applicationList;
-            
+            }
             [self.propLv reloadData];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
     });
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    [self.propLv reloadData];
-}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CellApplication *cell = [self.propLv dequeueReusableCellWithIdentifier:@"cell"];
@@ -47,8 +53,9 @@
     
     cell.propLabelTitle.text = application.propTitle;
     cell.propLabelStatus.text = application.propStatus;
-    cell.propLabelReference.text = [NSString stringWithFormat:@"Reference: %@", application.propReference];
+    cell.propLabelReference.text = [NSString stringWithFormat:@"Reference: /VAC/%@", application.propJobRef];
     cell.propLabelDateAdded.text = [NSString stringWithFormat:@"Added on %@",application.propDateAdded];
+    cell.tag = indexPath.row;
     
     return cell;
 }
@@ -87,5 +94,13 @@
     [self.propAppDelegate.propSlider toggleSidebar];
 }
 
+- (IBAction)refresh:(id)sender {
+    [self refresh];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    Application *application = [_propListApplications objectAtIndex:((CellApplication *)sender).tag];
+    ((VCJobDetails *)segue.destinationViewController).propJob = [[Job alloc] initWithId:[application.propJobID intValue] title:nil reference:application.propJobRef country:nil dateAdded:nil details:nil];
+}
 
 @end
