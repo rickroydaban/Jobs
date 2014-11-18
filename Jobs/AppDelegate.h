@@ -14,17 +14,19 @@
 #import "CurrencyList.h"
 #import "VCSlider.h"
 #import "CountryList.h"
+@class User;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) User *propUser;
 @property (strong, nonatomic, readonly) VCSlider *propSlider;
 @property (strong, nonatomic, readonly) OnlineGateway *propGatewayOnline;
 @property (strong, nonatomic, readonly) OfflineGateway *propGatewayOffline;
 @property (strong, nonatomic, readonly) UserDetails *propUserDetails;
 @property (strong, nonatomic, readonly) NSArray *propListReferrers;
 @property (strong, nonatomic, readonly) NSDictionary *propDictReferrers;
-@property (strong, nonatomic, readonly) CurrencyList *propListCurrency;
+@property (strong, nonatomic, readonly) CurrencyList *propCurrency;
 @property (strong, nonatomic) UserPageNavigators *propPageNavigator;
 @property (strong, nonatomic) NSDateFormatter *propDateFormatVelosi;
 

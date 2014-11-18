@@ -9,9 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "VCUserTables.h"
 #import "VelosiPickerRowSelectionDelegate.h"
+@class User;
 
 @interface VCUserDetails : VCUserTables<VelosiPickerRowSelectionDelegate, UITextViewDelegate, UITextFieldDelegate>
 
+@property (strong, nonatomic, readonly) User *user;
 @property (strong, nonatomic) NSMutableArray *propListLocationPrefs, *propListLanguages;
 
 @property (strong, nonatomic) IBOutlet UITextField *fieldFirstName;

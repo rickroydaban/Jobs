@@ -46,13 +46,13 @@
             if(![result isEqualToString:@"OK"])
                 [[[UIAlertView alloc] initWithTitle:@" " message:result delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
             else{
-                _countSubscribedItems = _propListSavedSearches.count;
+                _countSubscribedItems = (int)_propListSavedSearches.count;
                 [self updateRightNavigationButtons];
                 
                 for(SavedSearch *ss in _propListSavedSearches)
                     [ss changeSubscriptionWillAlert:YES];
                 
-                _countSubscribedItems = _propListSavedSearches.count;
+                _countSubscribedItems = (int)_propListSavedSearches.count;
                 [self updateRightNavigationButtons];
                 [self.propLv reloadData];
             }
@@ -71,7 +71,7 @@
             if(![result isEqualToString:@"OK"])
                 [[[UIAlertView alloc] initWithTitle:@" " message:result delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
             else{
-                _countSubscribedItems = _propListSavedSearches.count;
+                _countSubscribedItems = (int)_propListSavedSearches.count;
                 [self updateRightNavigationButtons];
                 
                 for(SavedSearch *ss in _propListSavedSearches)

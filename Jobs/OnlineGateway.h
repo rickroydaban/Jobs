@@ -33,7 +33,7 @@
 - (NSString *)deleteSavedSearchesWithJBEID:(NSString *)jbeID;
 - (NSString *)changePassword:(NSString *)oldPassword to:(NSString *)newPassword;
 
-- (NSString *)saveCandidateDetailsWithUser:(User *)user;
+- (id)saveCandidateDetailsWitJSONContents:(NSString *)jsonContents;
 - (id)saveEmploymentWithJSONContents:(NSString *)jsonContents;
 - (id)saveSavedSearchesWithJSONContents:(NSString *)jsonContents;
 

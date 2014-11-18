@@ -18,6 +18,7 @@
 @interface VCUserDetails(){
     VelosiCustomPicker *_pickerGender, *_pickerYearGraduated, *_pickerEducation, *_pickerLicense, *_pickerNationality, *_pickerEthnicity, *_pickerReferrers, *_pickerStatus, *_pickerWillRelocate, *_pickerAvailability, *_pickerSalaryType, *_pickerCurrency;
     UIDatePicker *_pickerBday, *_pickerAvailableFrom;
+    NSDictionary *_selectedCountry;
 }
 @end
 
@@ -25,61 +26,69 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-
     self.propListLocationPrefs = [NSMutableArray array];
     self.propListLanguages = [NSMutableArray array];
+    _user = self.propAppDelegate.propUser;
     
-    [self manageTextField:self.fieldFirstName withValue:[self.propAppDelegate.propGatewayOffline getFirstName]];
-    [self manageTextField:self.fieldLastName withValue:[self.propAppDelegate.propGatewayOffline getLastName]];
-    [self manageTextField:self.fieldEmail withValue:[self.propAppDelegate.propGatewayOffline getEmail]];
-    [self manageTextField:self.fieldAltEmail withValue:[self.propAppDelegate.propGatewayOffline getAlternateEmail]];
-    [self manageTextField:self.fieldGender withValue:[self.propAppDelegate.propGatewayOffline getGender]];
-    [self manageTextField:self.fieldPhone withValue:[self.propAppDelegate.propGatewayOffline getPhone]];
-    [self manageTextField:self.fieldAltPhone withValue:[self.propAppDelegate.propGatewayOffline getAlternatePhone]];
-    [self manageTextField:self.fieldMobile withValue:[self.propAppDelegate.propGatewayOffline getMobile]];
-    [self manageTextField:self.fieldBirthdate withValue:[self.propAppDelegate.propGatewayOffline getBirthdate]];
+    [self manageTextField:self.fieldFirstName withValue:[_user propFirstName]];
+    [self manageTextField:self.fieldLastName withValue:[_user propLastName]];
+    [self manageTextField:self.fieldEmail withValue:[_user propEmail]];
+    [self manageTextField:self.fieldAltEmail withValue:[_user propAltEmail]];
+    [self manageTextField:self.fieldGender withValue:[self.propAppDelegate.propUserDetails.propDictGender objectForKey:[_user propGenderID]]];
+    [self manageTextField:self.fieldPhone withValue:[_user propPhone]];
+    [self manageTextField:self.fieldAltPhone withValue:[_user propAltPhone]];
+    [self manageTextField:self.fieldMobile withValue:[_user propMobile]];
+    [self manageTextField:self.fieldBirthdate withValue:[self.propAppDelegate.propGatewayOnline deserializeJsonDateString:[_user propBirthdate]]];
     
-    [self manageTextField:self.fieldAddress withValue:[self.propAppDelegate.propGatewayOffline getAddress]];
-    [self manageTextField:self.fieldCity withValue:[self.propAppDelegate.propGatewayOffline getCity]];
-    [self manageTextField:self.fieldCountryState withValue:[self.propAppDelegate.propGatewayOffline getCountryState]];
-    [self manageTextField:self.fieldPostcode withValue:[self.propAppDelegate.propGatewayOffline getPostcode]];
-    [self manageTextField:self.fieldLinkedin withValue:[self.propAppDelegate.propGatewayOffline getLinkedin]];
-    [self manageTextField:self.fieldTwitter withValue:[self.propAppDelegate.propGatewayOffline getTwitter]];
-    [self manageTextField:self.fieldSkype withValue:[self.propAppDelegate.propGatewayOffline getSkype]];
+    NSLog(@"1");
+    [self manageTextField:self.fieldAddress withValue:[_user propAddress]];
+    [self manageTextField:self.fieldCity withValue:[_user propCity]];
+    [self manageTextField:self.fieldCountryState withValue:[_user propCountryState]];
+    [self manageTextField:self.fieldPostcode withValue:[_user propPostCode]];
+    [self manageTextField:self.fieldLinkedin withValue:[_user propLinkedIn]];
+    [self manageTextField:self.fieldTwitter withValue:[_user propTwitter]];
+    [self manageTextField:self.fieldSkype withValue:[_user propSkype]];
     
-    [self manageTextField:self.fieldUniversity withValue:[self.propAppDelegate.propGatewayOffline getUniversity]];
-    [self manageTextField:self.fieldSubject withValue:[self.propAppDelegate.propGatewayOffline getSubject]];
-    [self manageTextField:self.fieldYearGraduated withValue:[self.propAppDelegate.propGatewayOffline getYearGraduated]];
-    [self manageTextField:self.fieldEducation withValue:[self.propAppDelegate.propGatewayOffline getEducation]];
+    NSLog(@"2");
+    [self manageTextField:self.fieldUniversity withValue:[_user propUniversity]];
+    [self manageTextField:self.fieldSubject withValue:[_user propSubject]];
+    [self manageTextField:self.fieldYearGraduated withValue:[_user propYearGraduated]];
+    [self manageTextField:self.fieldEducation withValue:[self.propAppDelegate.propUserDetails.propDictEducation objectForKey:[_user propEducationID]]];
 
-    [self manageTextField:self.fieldLicense withValue:[self.propAppDelegate.propGatewayOffline getDrivingLicense]];
-    [self manageTextField:self.fieldNationality withValue:[self.propAppDelegate.propGatewayOffline getNationality]];
-    [self manageTextField:self.fieldEthnicity withValue:[self.propAppDelegate.propGatewayOffline getEthnicity]];
-    [self manageTextField:self.fieldReferrer withValue:[self.propAppDelegate.propGatewayOffline getReferrer]];
-    [self manageTextField:self.fieldMaritalStatus withValue:[self.propAppDelegate.propGatewayOffline getMaritalStatus]];
+    NSLog(@"3");
+    [self manageTextField:self.fieldLicense withValue:[self.propAppDelegate.propUserDetails.propDictLicense objectForKey:[_user propDrivingLicenseID]]];
+    [self manageTextField:self.fieldNationality withValue:[self.propAppDelegate.propUserDetails.propDictNationality objectForKey:[_user propNationalityID]]];
+    [self manageTextField:self.fieldEthnicity withValue:[self.propAppDelegate.propUserDetails.propDictEtchnicity objectForKey:[_user propEthnicityID]]];
+    [self manageTextField:self.fieldReferrer withValue:[self.propAppDelegate.propDictReferrers objectForKey:[_user propReferrerID]]];
+    [self manageTextField:self.fieldMaritalStatus withValue:[self.propAppDelegate.propUserDetails.propDictMaritalStatus objectForKey:[_user propMaritalStatusID]]];
 
-    [self manageTextField:self.fieldWillRelocate withValue:[self.propAppDelegate.propGatewayOffline getWillRelocate]];
-    [self manageTextField:self.fieldNoticePeriod withValue:[self.propAppDelegate.propGatewayOffline getNoticePeriod]];
-    [self manageTextField:self.fieldAvailableFrom withValue:[self.propAppDelegate.propGatewayOffline getAvailableFrom]];
+    NSLog(@"4");
+    [self manageTextField:self.fieldWillRelocate withValue:[self.propAppDelegate.propUserDetails.propDictRelocate objectForKey:[_user propWillingToRelocateID]]];
+    [self manageTextField:self.fieldNoticePeriod withValue:[self.propAppDelegate.propUserDetails.propDictAvailability objectForKey:[_user propNoticePeriodID]]];
+    [self manageTextField:self.fieldAvailableFrom withValue:[self.propAppDelegate.propGatewayOnline deserializeJsonDateString:[_user propAvailableFrom]]];
 
-    [self manageTextField:self.fieldJobTitles withValue:[self.propAppDelegate.propGatewayOffline getPreferredJobTitles]];
-    [self manageTextField:self.fieldCurrency withValue:[self.propAppDelegate.propGatewayOffline getCurrency]];
+    NSLog(@"5");
+    [self manageTextField:self.fieldJobTitles withValue:[_user propJobTitles]];
+    [self manageTextField:self.fieldCurrency withValue:[_user propCurrency]];
 
-    [self manageTextField:self.fieldSalaryFrom withValue:[self.propAppDelegate.propGatewayOffline getSalaryFrom]];
-    [self manageTextField:self.fieldSalaryTo withValue:[self.propAppDelegate.propGatewayOffline getSalaryTo]];
-    [self manageTextField:self.fieldSalaryType withValue:[self.propAppDelegate.propGatewayOffline getSalaryType]];
+    NSLog(@"6");
+    [self manageTextField:self.fieldSalaryFrom withValue:[_user propSalaryFrom]];
+    [self manageTextField:self.fieldSalaryTo withValue:[_user propSalaryTo]];
+    [self manageTextField:self.fieldSalaryType withValue:[self.propAppDelegate.propUserDetails.propDictSalaryType objectForKey:[_user propSalaryTypeID]]];
 
-    self.cellCountry.detailTextLabel.text = [self.propAppDelegate.propGatewayOffline getCountry];
+    NSLog(@"7");
+    self.cellCountry.detailTextLabel.text = [self.propAppDelegate.propDictCountries objectForKey:[_user propCountryID]];
     self.cellPreferredLocation.detailTextLabel.text = [NSString stringWithFormat:@"%d",(int)self.propListLocationPrefs.count];
     self.cellLanguages.detailTextLabel.text = [NSString stringWithFormat:@"%d",(int)self.propListLanguages.count];
 
-    self.switchEUAuthorized.on = [self.propAppDelegate.propGatewayOffline isEUAuthorized];
-    self.switchWillAllowAlerts.on = [self.propAppDelegate.propGatewayOffline isAlertsAllowed];
-    self.switchIsPermanent.on = [self.propAppDelegate.propGatewayOffline isPermanent];
-    self.switchIsTemporary.on = [self.propAppDelegate.propGatewayOffline isTemporary];
-    self.switchIsContract.on = [self.propAppDelegate.propGatewayOffline isContract];
-    self.switchIsParttime.on = [self.propAppDelegate.propGatewayOffline isPartTime];
-    self.fieldMainSkills.text = [self.propAppDelegate.propGatewayOffline getMainSkills];
+    NSLog(@"8");
+    self.switchEUAuthorized.on = [_user propIsEUAuthorized];
+    self.switchWillAllowAlerts.on = [_user propIsAlertsAllowed];
+    self.switchIsPermanent.on = [_user propIsPermanent];
+    self.switchIsTemporary.on = [_user propIsTemporary];
+    self.switchIsContract.on = [_user propIsContract];
+    self.switchIsParttime.on = [_user propIsPartTime];
+    self.fieldMainSkills.text = [_user propMainSkills];
     
     self.fieldFirstName.delegate = self;
     self.fieldLastName.delegate = self;
@@ -151,7 +160,7 @@
     _pickerAvailableFrom.layer.shadowOffset = CGSizeMake(0, 0);
     [_pickerAvailableFrom addTarget:self action:@selector(updateAvailableFromField) forControlEvents:UIControlEventValueChanged];
     _pickerSalaryType = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListSalaryType rowSelectionDelegate:self selectedItem:self.fieldSalaryType.text];
-    _pickerCurrency = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propListCurrency.propListCurrencyNames rowSelectionDelegate:self selectedItem:self.fieldCurrency.text];
+    _pickerCurrency = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propCurrency.propListCurrencyNames rowSelectionDelegate:self selectedItem:self.fieldCurrency.text];
 }
 
 - (void)updateBirthdayField{
@@ -162,11 +171,10 @@
     self.fieldAvailableFrom.text = [self.propAppDelegate.propDateFormatVelosi stringFromDate:_pickerAvailableFrom.date];
 }
 
-//fix country, referrers and currency
 - (IBAction)done:(id)sender {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        NSString *result = [self.propAppDelegate.propGatewayOnline saveCandidateDetailsWithUser:[[User alloc] initWithID:[self.propAppDelegate.propGatewayOffline getUserID] fname:_fieldFirstName.text lname:_fieldLastName.text email:_fieldEmail.text altEmail:_fieldEmail.text gender:[self keysFromDictionary:self.propAppDelegate.propUserDetails.propDictGender forValue:_fieldGender.text] phone:_fieldPhone.text altPhone:_fieldAltPhone.text mobile:_fieldMobile.text birthday:_fieldBirthdate.text address:_fieldAddress.text city:_fieldCity.text countryState:_fieldCountryState.text postCode:_fieldPostcode.text country:_cellCountry.detailTextLabel.text linkedIn:_fieldLinkedin.text twitter:_fieldTwitter.text skype:_fieldSkype.text isEUAuthorised:_switchEUAuthorized.isOn university:_fieldUniversity.text subject:_fieldSubject.text yearGraduated:_fieldYearGraduated.text hea:[self keysFromDictionary:self.propAppDelegate.propUserDetails.propDictEducation forValue:_fieldEducation.text] driverLicense:[self keysFromDictionary:self.propAppDelegate.propUserDetails.propDictLicense forValue:_fieldLicense.text] nationality:[self keysFromDictionary:self.propAppDelegate.propUserDetails.propDictNationality forValue:_fieldNationality.text] ethnicity:[self keysFromDictionary:self.propAppDelegate.propUserDetails.propDictEtchnicity forValue:_fieldEthnicity.text] referrer:[self keysFromDictionary:self.propAppDelegate.propDictReferrers forValue:_fieldReferrer.text] maritalStatus:[self keysFromDictionary:self.propAppDelegate.propUserDetails.propDictMaritalStatus forValue:_fieldMaritalStatus.text] isPermanent:_switchIsPermanent.isOn isContract:_switchIsContract.isOn isTemporary:_switchIsTemporary.isOn isPartTime:_switchIsParttime.isOn jobTitlePrefs:_fieldJobTitles.text currency:[self keysFromDictionary:self.propAppDelegate.propListCurrency.propDictCurrencySymbolNames forValue:_fieldCurrency.text] salaryFrom:_fieldSalaryFrom.text salaryTo:_fieldSalaryTo.text salaryType:[self keysFromDictionary:self.propAppDelegate.propUserDetails.propDictSalaryType forValue:_fieldSalaryType.text] mainSkills:_fieldMainSkills.text locationPrefs:_propListLocationPrefs relocationWillingness:[self keysFromDictionary:self.propAppDelegate.propUserDetails.propDictRelocate forValue:_fieldWillRelocate.text] noticePeriod:[self keysFromDictionary:self.propAppDelegate.propUserDetails.propDictAvailability forValue:_fieldNoticePeriod.text] availableFrom:_fieldAvailableFrom.text languages:_propListLanguages allowAlerts:_switchWillAllowAlerts.isOn]];
+        NSString *result = [self.propAppDelegate.propGatewayOnline saveCandidateDetailsWitJSONContents:[_user jsonFromUserWithFirstName:_fieldFirstName.text lastName:_fieldLastName.text email:_fieldEmail.text altEmail:_fieldAltEmail.text genderID:[self.propAppDelegate.propUserDetails.propDictGender allKeysForObject:_fieldGender.text][0] gender:_fieldGender.text phone:_fieldPhone.text altPhone:_fieldAltPhone.text mobile:_fieldMobile.text bday:_fieldBirthdate.text address:_fieldAddress.text city:_fieldCity.text countryState:_fieldCountryState.text postcode:_fieldPostcode.text countryDictionary:_selectedCountry linkedIn:_fieldLinkedin.text twitter:_fieldTwitter.text skype:_fieldSkype.text isEUAuthorized:_switchEUAuthorized.isOn university:_fieldUniversity.text subject:_fieldSubject.text yearGraduated:_fieldYearGraduated.text educationID:[self.propAppDelegate.propUserDetails.propDictEducation allKeysForObject:_fieldEducation.text][0] education:_fieldEducation.text drivingLicenseID:[self.propAppDelegate.propUserDetails.propDictLicense allKeysForObject:_fieldLicense.text][0] drivingLicense:_fieldLicense.text nationalityID:[self.propAppDelegate.propUserDetails.propDictNationality allKeysForObject:_fieldNationality.text][0] nationality:_fieldNationality.text ethnicityID:[self.propAppDelegate.propUserDetails.propDictEtchnicity allKeysForObject:_fieldEthnicity.text][0] ethnicity:_fieldEthnicity.text referrerID:[self.propAppDelegate.propDictReferrers allKeysForObject:_fieldReferrer.text][0] referrer:_fieldReferrer.text maritalStatusID:[self.propAppDelegate.propUserDetails.propDictMaritalStatus allKeysForObject:_fieldMaritalStatus.text][0] maritalStatus:_fieldMaritalStatus.text preferredLocations:[self.propListLocationPrefs componentsJoinedByString:@","] willingToRelocateID:[self.propAppDelegate.propUserDetails.propDictRelocate allKeysForObject:_fieldWillRelocate.text][0] willingToRelocate:_fieldWillRelocate.text noticePeriodID:[self.propAppDelegate.propUserDetails.propDictAvailability allKeysForObject:_fieldNoticePeriod.text][0] noticePeriod:_fieldNoticePeriod.text availableFrom:_fieldAvailableFrom.text languages:[self.propListLanguages componentsJoinedByString:@","] isAlertsAllowed:_switchWillAllowAlerts.isOn isPermanent:_switchIsPermanent.isOn isTemporary:_switchIsTemporary.isOn isContract:_switchIsContract.isOn isPartTime:_switchIsParttime.isOn jobTitles:_fieldJobTitles.text currencyID:_fieldCurrency.text currency:[self.propAppDelegate.propCurrency.propDictCurrencySymbolNames allKeysForObject:_fieldCurrency.text][0] salaryFrom:_fieldSalaryFrom.text salaryTo:_fieldSalaryTo.text salaryTypeID:[self.propAppDelegate.propUserDetails.propDictSalaryType allKeysForObject:_fieldSalaryType.text][0] salaryType:_fieldSalaryType.text mainSkills:_fieldMainSkills.text]];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [[[UIAlertView alloc] initWithTitle:nil message:(result!=nil)?result:@"Changed Succesfully!" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
@@ -264,7 +272,7 @@
     else if(pickerView == _pickerSalaryType)
         self.fieldSalaryType.text = [self.propAppDelegate.propUserDetails.propListSalaryType objectAtIndex:row];
     else if(pickerView == _pickerCurrency)
-        self.fieldCurrency.text = [self.propAppDelegate.propListCurrency.propListCurrencySymbols objectAtIndex:row];
+        self.fieldCurrency.text = [self.propAppDelegate.propCurrency.propListCurrencySymbols objectAtIndex:row];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView{

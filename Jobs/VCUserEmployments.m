@@ -101,7 +101,7 @@
             break;
             
         case 1:
-            NSLog(@"%@",[self.propAppDelegate.propGatewayOnline deleteEmploymentWithID:[NSString stringWithFormat:@"%d",_cellDeleteTarget.tag]]);
+            NSLog(@"%@",[self.propAppDelegate.propGatewayOnline deleteEmploymentWithID:[NSString stringWithFormat:@"%d",(int)_cellDeleteTarget.tag]]);
             [_propListEmployments removeObjectAtIndex:_cellDeleteTarget.tag];
             [self.propLV deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:_cellDeleteTarget.tag inSection:0]] withRowAnimation:YES];
             break;

@@ -7,60 +7,60 @@
 //
 
 #import <Foundation/Foundation.h>
+@class ObjectPair;
 
 @interface User : NSObject
 
-@property (strong, nonatomic) NSString *propID;
+@property (strong, nonatomic) NSMutableDictionary *dictionary;
 
-@property (strong, nonatomic) NSString *propFname;
-@property (strong, nonatomic) NSString *propLname;
-@property (strong, nonatomic) NSString *propEmail;
-@property (strong, nonatomic) NSString *propAltEmail;
-@property (strong, nonatomic) NSString *propGender;
-@property (strong, nonatomic) NSString *propPhone;
-@property (strong, nonatomic) NSString *propAltPhone;
-@property (strong, nonatomic) NSString *propMobile;
-@property (strong, nonatomic) NSString *propBday;
+- (User *)initWithDictionary:(NSDictionary *)dictionary;
 
-@property (strong, nonatomic) NSString *propAddress;
-@property (strong, nonatomic) NSString *propCity;
-@property (strong, nonatomic) NSString *propCountryState;
-@property (strong, nonatomic) NSString *propPostCode;
-@property (strong, nonatomic) NSString *propCountry;
-@property (strong, nonatomic) NSString *propLinkedIn;
-@property (strong, nonatomic) NSString *propTwitter;
-@property (strong, nonatomic) NSString *propSkype;
-@property (assign, nonatomic) BOOL propIsEUAuthorised;
+- (NSString *)propID;
+- (NSString *)propPercentComplete;
+- (NSString *)propFirstName;
+- (NSString *)propLastName;
+- (NSString *)propEmail;
+- (NSString *)propAltEmail;
+- (NSString *)propGenderID;
+- (NSString *)propPhone;
+- (NSString *)propAltPhone;
+- (NSString *)propMobile;
+- (NSString *)propBirthdate;
+- (NSString *)propAddress;
+- (NSString *)propCity;
+- (NSString *)propCountryState;
+- (NSString *)propPostCode;
+- (NSString *)propCountryID;
+- (NSString *)propLinkedIn;
+- (NSString *)propTwitter;
+- (NSString *)propSkype;
+- (BOOL)propIsEUAuthorized;
+- (NSString *)propUniversity;
+- (NSString *)propSubject;
+- (NSString *)propYearGraduated;
+- (NSString *)propEducationID;
+- (NSString *)propDrivingLicenseID;
+- (NSString *)propNationalityID;
+- (NSString *)propEthnicityID;
+- (NSString *)propReferrerID;
+- (NSString *)propMaritalStatusID;
+- (NSString *)propPreferredLocations;
+- (NSString *)propWillingToRelocateID;
+- (NSString *)propNoticePeriodID;
+- (NSString *)propAvailableFrom;
+- (NSString *)propLanguages;
+- (BOOL)propIsAlertsAllowed;
+- (BOOL)propIsPermanent;
+- (BOOL)propIsTemporary;
+- (BOOL)propIsContract;
+- (BOOL)propIsPartTime;
+- (NSString *)propJobTitles;
+- (NSString *)propCurrency;
+- (NSString *)propSalaryFrom;
+- (NSString *)propSalaryTo;
+- (NSString *)propSalaryTypeID;
+- (NSString *)propMainSkills;
 
-@property (strong, nonatomic) NSString *propUniversity;
-@property (strong, nonatomic) NSString *propSubject;
-@property (strong, nonatomic) NSString *propYearGraduated;
-@property (strong, nonatomic) NSString *propHEA;
-
-@property (strong, nonatomic) NSString *propDiverLicense;
-@property (strong, nonatomic) NSString *propNationality;
-@property (strong, nonatomic) NSString *propEthnicity;
-@property (strong, nonatomic) NSString *propReferrer;
-@property (strong, nonatomic) NSString *propMaritalStatus;
-
-@property (assign, nonatomic) BOOL propIsPermanent;
-@property (assign, nonatomic) BOOL propIsContract;
-@property (assign, nonatomic) BOOL propIsTemporary;
-@property (assign, nonatomic) BOOL propIsPartTime;
-@property (strong, nonatomic) NSString *propJobTitlePrefs;
-@property (strong, nonatomic) NSString *propCurrency;
-@property (strong, nonatomic) NSString *propSalaryFrom;
-@property (strong, nonatomic) NSString *propSalaryTo;
-@property (strong, nonatomic) NSString *propSalaryType;
-@property (strong, nonatomic) NSString *propMainSkills;
-@property (strong, nonatomic) NSMutableArray *propLocationPrefs;
-@property (strong, nonatomic) NSString *propRelocationWillingness;
-@property (strong, nonatomic) NSString *propNoticePeriod;
-@property (strong, nonatomic) NSString *propAvailableFrom;
-@property (strong, nonatomic) NSMutableArray *propLanguages;
-@property (assign, nonatomic) BOOL propAllowAlerts;
-
-- (User *)initWithID:(NSString *)userId fname:(NSString *)fname lname:(NSString *)lname email:(NSString *)email altEmail:(NSString *)altEmail gender:(NSString *)gender phone:(NSString *)phone altPhone:(NSString *)altPhone mobile:(NSString *)mobile birthday:(NSString *) bday address:(NSString *)address city:(NSString *)city countryState:(NSString *)countryState postCode:(NSString *)postCode country:(NSString *)country linkedIn:(NSString *)linkedIn twitter:(NSString *)twitter skype:(NSString *)skype isEUAuthorised:(BOOL)isEUAuthorized university:(NSString *)university subject:(NSString *)subject yearGraduated:(NSString *)yearGraduated hea:(NSString *)hea driverLicense:(NSString *)driverLicense nationality:(NSString *)nationality ethnicity:(NSString *)ethnicity referrer:(NSString *)referrer maritalStatus:(NSString *)maritalStatus isPermanent:(BOOL)isPermanent isContract:(BOOL)isContract isTemporary:(BOOL)isTemporary isPartTime:(BOOL)isPartTime jobTitlePrefs:(NSString *)jobTitlePrefs currency:(NSString *)currency salaryFrom:(NSString *)salaryFrom salaryTo:(NSString *)salaryTo salaryType:(NSString *)salaryType mainSkills:(NSString *)mainSkills locationPrefs:(NSMutableArray *)locationPrefs relocationWillingness:(NSString *)relocationWillingness noticePeriod:(NSString *)noticePeriod availableFrom: (NSString *)availableFrom languages:(NSMutableArray *)languages allowAlerts:(BOOL)allowAlerts;
-
+- (NSString *)jsonFromUserWithFirstName:(NSString *)firstName lastName:(NSString *)lastName email:(NSString *)email altEmail:(NSString *)altEmail genderID:(NSString *)genderID gender:(NSString *)gender phone:(NSString *)phone altPhone:(NSString *)altPhone mobile:(NSString *)mobile bday:(NSString *)bday address:(NSString *)address city:(NSString *)city countryState:(NSString *)countryState postcode:(NSString *)postcode countryDictionary:(NSDictionary *)country linkedIn:(NSString *)linkedIn twitter:(NSString *)twitter skype:(NSString *)skype isEUAuthorized:(BOOL)isEUAuthorized university:(NSString *)university subject:(NSString *)subject yearGraduated:(NSString *)yearGraduated educationID:(NSString *)educationID education:(NSString *)education drivingLicenseID:(NSString *)drivingLicenseID drivingLicense:(NSString *)drivingLicense nationalityID:(NSString *)nationalityID nationality:(NSString *)nationality ethnicityID:(NSString *)ethnicityID ethnicity:(NSString *)etchnicity referrerID:(NSString *)referrerID referrer:(NSString *)referrer maritalStatusID:(NSString *)maritalStatusID maritalStatus:(NSString *)maritalStatus preferredLocations:(NSString *)preferredLocations willingToRelocateID:(NSString *)willingToRelocateID willingToRelocate:(NSString *)willingToRelocate noticePeriodID:(NSString *)noticePeriodID noticePeriod:(NSString *)noticePeriod availableFrom:(NSString *)availableFrom languages:(NSString *)languages isAlertsAllowed:(BOOL)isAlertsAllowed isPermanent:(BOOL)isPermanent isTemporary:(BOOL)isTemporary isContract:(BOOL)isContract isPartTime:(BOOL)isPartTime jobTitles:(NSString *)jobTitles currencyID:(NSString *)currencyID currency:(NSString *)currency salaryFrom:(NSString *)salaryFrom salaryTo:(NSString *)salaryTo salaryTypeID:(NSString *)salaryTypeID salaryType:(NSString *)salaryType mainSkills:(NSString *)mainSkills;
 
 @end

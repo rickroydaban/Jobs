@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		8F25E12F19DE7B840043C6F0 /* CurrencyList.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F25E12E19DE7B840043C6F0 /* CurrencyList.m */; };
 		8F3F7D8719DBAA4B001C9D78 /* CellDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3F7D8619DBAA4B001C9D78 /* CellDetail.m */; };
-		8F3F7D8B19DBE50B001C9D78 /* OfflineGateway.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3F7D8A19DBE50B001C9D78 /* OfflineGateway.m */; };
 		8F3F7D8E19DBF719001C9D78 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3F7D8D19DBF719001C9D78 /* User.m */; };
 		8F49287B1A0083A90060697A /* VCCVHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F49287A1A0083A90060697A /* VCCVHelp.m */; };
 		8F49287E1A0084080060697A /* VCNews.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F49287D1A0084080060697A /* VCNews.m */; };
@@ -57,6 +56,7 @@
 		8FB628AA19FF9C05001D492C /* VCAboutUs.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB628A919FF9C05001D492C /* VCAboutUs.m */; };
 		8FBEF3AE1A10574500A479F6 /* CellEmployment.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEF3AD1A10574500A479F6 /* CellEmployment.m */; };
 		8FBEF3B11A105A9200A479F6 /* Employment.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEF3B01A105A9200A479F6 /* Employment.m */; };
+		8FC08FCF1A1AEF9000A0E4BE /* OfflineGateway.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC08FCE1A1AEF9000A0E4BE /* OfflineGateway.m */; };
 		8FC0C91219D41A11006F3652 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC0C91119D41A11006F3652 /* AppDelegate.m */; };
 		8FC0C91619D41A25006F3652 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC0C91519D41A25006F3652 /* MBProgressHUD.m */; };
 		8FC0C91A19D41A43006F3652 /* OnlineGateway.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC0C91919D41A43006F3652 /* OnlineGateway.m */; };
@@ -86,8 +86,6 @@
 		8F25E12E19DE7B840043C6F0 /* CurrencyList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyList.m; sourceTree = "<group>"; };
 		8F3F7D8519DBAA4B001C9D78 /* CellDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellDetail.h; sourceTree = "<group>"; };
 		8F3F7D8619DBAA4B001C9D78 /* CellDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellDetail.m; sourceTree = "<group>"; };
-		8F3F7D8919DBE50B001C9D78 /* OfflineGateway.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfflineGateway.h; sourceTree = "<group>"; };
-		8F3F7D8A19DBE50B001C9D78 /* OfflineGateway.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfflineGateway.m; sourceTree = "<group>"; };
 		8F3F7D8C19DBF719001C9D78 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		8F3F7D8D19DBF719001C9D78 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		8F4928791A0083A90060697A /* VCCVHelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCCVHelp.h; sourceTree = "<group>"; };
@@ -184,6 +182,8 @@
 		8FBEF3AF1A105A9200A479F6 /* Employment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Employment.h; sourceTree = "<group>"; };
 		8FBEF3B01A105A9200A479F6 /* Employment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Employment.m; sourceTree = "<group>"; };
 		8FC03BA81A160AA9006D1EC9 /* CellSavedSearchesDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellSavedSearchesDelegate.h; sourceTree = "<group>"; };
+		8FC08FCD1A1AEF9000A0E4BE /* OfflineGateway.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfflineGateway.h; sourceTree = "<group>"; };
+		8FC08FCE1A1AEF9000A0E4BE /* OfflineGateway.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfflineGateway.m; sourceTree = "<group>"; };
 		8FC0C91019D41A11006F3652 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8FC0C91119D41A11006F3652 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8FC0C91419D41A25006F3652 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -397,8 +397,8 @@
 				8FC0C92919D41A83006F3652 /* VelosiColors.m */,
 				8FC0C91819D41A43006F3652 /* OnlineGateway.h */,
 				8FC0C91919D41A43006F3652 /* OnlineGateway.m */,
-				8F3F7D8919DBE50B001C9D78 /* OfflineGateway.h */,
-				8F3F7D8A19DBE50B001C9D78 /* OfflineGateway.m */,
+				8FC08FCD1A1AEF9000A0E4BE /* OfflineGateway.h */,
+				8FC08FCE1A1AEF9000A0E4BE /* OfflineGateway.m */,
 				8F6CDDB719DD5B4E002D7079 /* UserPageNavigators.h */,
 				8F6CDDB819DD5B4E002D7079 /* UserPageNavigators.m */,
 				8FC0C91319D41A1D006F3652 /* libs */,
@@ -568,7 +568,6 @@
 				8F8486BE1A10C89A003F476B /* SavedSearch.m in Sources */,
 				8FA1799D19F4B05F00F6AF24 /* VCLanguages.m in Sources */,
 				8FB628AA19FF9C05001D492C /* VCAboutUs.m in Sources */,
-				8F3F7D8B19DBE50B001C9D78 /* OfflineGateway.m in Sources */,
 				8F8486B21A1082EA003F476B /* CellApplication.m in Sources */,
 				8F4928871A0084690060697A /* VCCopyright.m in Sources */,
 				8FC0C92E19D41AAD006F3652 /* VelosiCustomPicker.m in Sources */,
@@ -611,6 +610,7 @@
 				8F4928931A00B0EB0060697A /* Document.m in Sources */,
 				8F5A74B419EB9DEC0006DFAE /* UserDetails.m in Sources */,
 				8FAB94AF19D93D49008D23C8 /* VCJobSummary.m in Sources */,
+				8FC08FCF1A1AEF9000A0E4BE /* OfflineGateway.m in Sources */,
 				8F5D8B5B19F8F71500EEC020 /* CellSidebar.m in Sources */,
 				8FC0C91619D41A25006F3652 /* MBProgressHUD.m in Sources */,
 				8FC0C92419D41A69006F3652 /* VCPage.m in Sources */,
@@ -692,6 +692,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -726,6 +727,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
