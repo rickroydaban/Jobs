@@ -20,6 +20,9 @@
     
     self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addItem)]];
     self.view.backgroundColor = [UIColor whiteColor];
+    self.propListDocuments = [NSMutableArray array];
+    self.propLv.delegate = self;
+    self.propLv.dataSource = self;
     self.propLv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self refresh];
 }
@@ -31,11 +34,15 @@
 - (void)refresh{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        _propListDocuments = [self.propAppDelegate.propGatewayOnline getDocuments];
+        id result = [self.propAppDelegate.propGatewayOnline getDocuments];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.propLv.delegate = self;
-            self.propLv.dataSource = self;
+            [_propListDocuments removeAllObjects];
+            if([result isKindOfClass:[NSString class]])
+                [[[UIAlertView alloc] initWithTitle:@"Error" message:result delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
+            else
+                [_propListDocuments addObjectsFromArray:result];
+
             [self.propLv reloadData];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });

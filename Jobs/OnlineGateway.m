@@ -47,14 +47,15 @@ static OnlineGateway *sharedOnlineGateway = nil;
         _rootApplications = @"https://arctestapi.velosi.com/ApplicationSvc.svc/json/";
         _rootSavedSearches = @"https://arctestapi.velosi.com/JobsByEmailSvc.svc/json/";
         _appDelegate = appDelegate;
-
+//
+//        NSLog(@"init");
 //        NSError *error = [[NSError alloc] init];
 //        @try{
-//            NSMutableArray *jsonLocationSuggestions = [[NSJSONSerialization JSONObjectWithData:[self httpsGetFrom:[NSString stringWithFormat:@"https://arctestapi.velosi.com/Reference.svc/json/CurrencyGetList"]] options:0 error:&error] objectForKey:@"CurrencyGetListResult"];
+//            NSMutableArray *jsonLocationSuggestions = [[NSJSONSerialization JSONObjectWithData:[self httpsGetFrom:[NSString stringWithFormat:@"https://arctestapi.velosi.com/Reference.svc/json/CountryGetList"]] options:0 error:&error] objectForKey:@"CountryGetListResult"];
 //            
 //            if(jsonLocationSuggestions){
 //                for(id jsonLocationSuggestion in jsonLocationSuggestions){
-//                    printf("CURRENCY_%s, ",[[[[jsonLocationSuggestion objectForKey:@"CurrencyName"] uppercaseString] stringByReplacingOccurrencesOfString:@" " withString:@""] UTF8String]);
+//                    printf("        [_propDictCountryIds setValue:%s forKey:@\"%d\"];\n",[[[[jsonLocationSuggestion objectForKey:@"CountryName"] uppercaseString] stringByReplacingOccurrencesOfString:@" " withString:@"_"] UTF8String],[[jsonLocationSuggestion objectForKey:@"CountryID"] intValue]);
 //                }
 //            }
 //        }@catch(NSException *exception){
@@ -166,12 +167,11 @@ static OnlineGateway *sharedOnlineGateway = nil;
     return error.localizedFailureReason;
 }
 
-- (NSMutableArray *)getAdvanceSearchResults:(NSString *)searched in:(NSString *)searchIn location:(NSString *)location radius:(NSString *)radius jobType:(NSString *)jobType country:(NSString *)country postedWithin:(NSString *)postedWithin{
-    NSString *errorMessage;
+- (id)getAdvanceSearchResults:(NSString *)searched in:(NSString *)searchIn location:(NSString *)location radius:(NSString *)radius jobType:(NSString *)jobType country:(NSString *)country postedWithin:(NSString *)postedWithin{
     id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@%@",_rootVacancy,[NSString stringWithFormat:@"Search?search=%@&loc=%@&searchIn=%@&radius=%@&vacType=%@&countryID=%@&days=%@&top=50",searched,location,searchIn,radius,jobType,country,postedWithin]]];
     
     if([data isKindOfClass:[NSString class]])
-        errorMessage = data;
+        return data;
     else{
         NSError *error = [[NSError alloc] init];
 
@@ -195,14 +195,11 @@ static OnlineGateway *sharedOnlineGateway = nil;
                 
                 return results;
             }else
-                errorMessage = error.localizedFailureReason;
+                return error.localizedFailureReason;
         }@catch(NSException *exception){
-            errorMessage = exception.reason;
+            return exception.reason;
         }
-    }
-    
-    [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
-    return nil;
+    }    
 }
 
 - (JobDetail *)getJobDetailById:(int)jobId{
@@ -292,11 +289,10 @@ static OnlineGateway *sharedOnlineGateway = nil;
 }
 
 - (NSArray *)getReferrerList{
-    NSString *errorMessage;
     id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@%@",_rootReferences,[NSString stringWithFormat:@"ReferrerGetList"]]];
     
     if([data isKindOfClass:[NSString class]])
-        errorMessage = data;
+        return nil;
     else{
         NSError *error = [[NSError alloc] init];
         
@@ -306,30 +302,26 @@ static OnlineGateway *sharedOnlineGateway = nil;
             
             if(jsonReferrers){
                 NSMutableDictionary *refDicts = [NSMutableDictionary dictionary];
-                for(int i=0; i<jsonReferrers.count; i++){
-                    [referrers addObject:[[jsonReferrers objectAtIndex:i] objectForKey:@"Description"]];
-                    [refDicts setObject:[[jsonReferrers objectAtIndex:i] objectForKey:@"Description"] forKey:[[jsonReferrers objectAtIndex:i] objectForKey:@"ReferrerID"]];
+                for(id jsonReferrer in jsonReferrers){
+                    [referrers addObject:[jsonReferrer objectForKey:@"Description"]];
+                    [refDicts setObject:[jsonReferrer objectForKey:@"Description"] forKey:[NSString stringWithFormat:@"%@",[jsonReferrer objectForKey:@"ReferrerID"]]];
                 }
                 
                 [_appDelegate updateReferrerDictionary:refDicts fromOnlineGateway:self];
                 return referrers;
             }else
-                errorMessage = error.localizedFailureReason;
+                return nil;
         }@catch(NSException *exception){
-            errorMessage = exception.reason;
+            return nil;
         }
-    }
-    
-    [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
-    return nil;
+    }    
 }
 
-- (NSArray *)getDocuments{
-    NSString *errorMessage;
+- (id)getDocuments{
     id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@GetByCandidateID?id=%@",_rootDocuments,[_appDelegate.propGatewayOffline getUserID]]];
     
     if([data isKindOfClass:[NSString class]])
-        errorMessage = data;
+        return data;
     else{
         NSError *error = [[NSError alloc] init];
 
@@ -340,16 +332,13 @@ static OnlineGateway *sharedOnlineGateway = nil;
             if(jsonDocuments){
                 for(id jsonDocument in jsonDocuments)
                     [documents addObject:[[Document alloc] initWithID:[jsonDocument objectForKey:@"DocID"] name:[jsonDocument objectForKey:@"DocName"] extension:[jsonDocument objectForKey:@"Ext"] fileSize:[jsonDocument objectForKey:@"FileSize"] dateExpire:[self deserializeJsonDateString:[jsonDocument objectForKey:@"DateExpiry"]] type:[[jsonDocument objectForKey:@"DocType"] intValue]]];
-                return [NSArray arrayWithArray:documents];
+                return documents;
             }else
-                errorMessage = error.localizedFailureReason;
+                return error.localizedFailureReason;
         }@catch(NSException *exception){
-            errorMessage = exception.reason;
+            return exception.reason;
         }
     }
-    
-    [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
-    return [NSArray array];
 }
 
 - (id)getEmployments{
@@ -472,8 +461,11 @@ static OnlineGateway *sharedOnlineGateway = nil;
 #pragma mark POSTS
 
 - (id)saveCandidateDetailsWitJSONContents:(NSString *)jsonContents{
-    NSString *body = [NSString stringWithFormat:@"{\"j\":%@}",jsonContents];
+    NSString *body = [NSString stringWithFormat:@"{\"c\":%@}",jsonContents];
+    NSLog(@"%@",body);
+
     id result = [self httpPostFrom:@"https://arctestapi.velosi.com/CandidateSvc.svc/json/Save" withBody:body];
+//    NSLog(@"result :%@",[NSJSONSerialization JSONObjectWithData:result options:NSJSONWritingPrettyPrinted error:nil]);
     return ([result isKindOfClass:[NSString class]])?result:@"Saved Successfullly!";
 }
 

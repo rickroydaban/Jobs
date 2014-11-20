@@ -13,7 +13,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    _propListCountries = [[CountryList alloc] init];
+    _propCountries = [[CountryList alloc] init];
     _propListSearchIns = @[@"Job Title and Description", @"Job Title", @"Job Description"];
     _propDictSearchIns = [NSDictionary dictionaryWithObjects:@[@"0", @"1", @"2"] forKeys:_propListSearchIns];
     _propListJobTypes = @[@"Permanent", @"Contract", @"Temporary", @"Part time", @"Ad hoc", @"Any", @"Unknown"];
@@ -27,7 +27,7 @@
     self.propDateFormatVelosi = [[NSDateFormatter alloc] init];
     self.propDateFormatVelosi.dateFormat = @"dd/MMM/yyyy";
     self.propPageNavigator = [UserPageNavigators sharedNavigators];
-//    _propListReferrers = [self.propGatewayOnline getReferrerList];
+    _propListReferrers = [self.propGatewayOnline getReferrerList];
     _propCurrency = [[CurrencyList alloc] init];
         
     return YES;

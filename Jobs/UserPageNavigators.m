@@ -41,6 +41,14 @@ static UserPageNavigators *sharedNavigators = nil;
     return self;
 }
 
+- (void)logout{
+    _navigatorUserDetail = nil;
+    _navigatorUserDocuments = nil;
+    _navigatorUserEmployment = nil;
+    _navigatorUserApplications = nil;
+    _navigatorUserSearches = nil;
+}
+
 - (VCPage *)getVCHome{
     if(_vcHome == nil)
         _vcHome = [_storyBoard instantiateViewControllerWithIdentifier:@"homePage"];

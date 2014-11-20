@@ -29,6 +29,7 @@
 		8F6CDDB619DD49BF002D7079 /* VCUserPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6CDDB519DD49BF002D7079 /* VCUserPassword.m */; };
 		8F6CDDB919DD5B4E002D7079 /* UserPageNavigators.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6CDDB819DD5B4E002D7079 /* UserPageNavigators.m */; };
 		8F6F5BCA19E7C39800271FB5 /* DAKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6F5BC919E7C39800271FB5 /* DAKeyboardControl.m */; };
+		8F77B3FC1A1DF96300D74FFC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F77B3FB1A1DF96300D74FFC /* LaunchScreen.xib */; };
 		8F7BD62519DA8FDB00E20A77 /* VCJobDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7BD62419DA8FDB00E20A77 /* VCJobDetails.m */; };
 		8F7FD44D1A01E2E6005DA69C /* VCDocumentDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7FD44C1A01E2E6005DA69C /* VCDocumentDetails.m */; };
 		8F822C7A19DAAED900DB597E /* JobDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F822C7919DAAED900DB597E /* JobDetail.m */; };
@@ -47,9 +48,9 @@
 		8FAB94A919D909A4008D23C8 /* Job.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAB94A819D909A4008D23C8 /* Job.m */; };
 		8FAB94AC19D93B46008D23C8 /* CellJobSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAB94AB19D93B46008D23C8 /* CellJobSummary.m */; };
 		8FAB94AF19D93D49008D23C8 /* VCJobSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAB94AE19D93D49008D23C8 /* VCJobSummary.m */; };
+		8FAB973D1A1DFD480033BACE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FAB973C1A1DFD480033BACE /* Default-568h@2x.png */; };
 		8FB37EFE19D4198400B798BB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB37EFD19D4198400B798BB /* main.m */; };
 		8FB37F0919D4198400B798BB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FB37F0819D4198400B798BB /* Images.xcassets */; };
-		8FB37F0C19D4198400B798BB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FB37F0A19D4198400B798BB /* LaunchScreen.xib */; };
 		8FB37F1819D4198400B798BB /* JobsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB37F1719D4198400B798BB /* JobsTests.m */; };
 		8FB50F871A11D88800FB4307 /* VCForgotPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB50F861A11D88800FB4307 /* VCForgotPassword.m */; };
 		8FB628A319FF70D0001D492C /* VCUserTables.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB628A219FF70D0001D492C /* VCUserTables.m */; };
@@ -127,6 +128,7 @@
 		8F6CDDB819DD5B4E002D7079 /* UserPageNavigators.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPageNavigators.m; sourceTree = "<group>"; };
 		8F6F5BC819E7C39800271FB5 /* DAKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAKeyboardControl.h; sourceTree = "<group>"; };
 		8F6F5BC919E7C39800271FB5 /* DAKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAKeyboardControl.m; sourceTree = "<group>"; };
+		8F77B3FB1A1DF96300D74FFC /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		8F7BD62319DA8FDB00E20A77 /* VCJobDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCJobDetails.h; sourceTree = "<group>"; };
 		8F7BD62419DA8FDB00E20A77 /* VCJobDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCJobDetails.m; sourceTree = "<group>"; };
 		8F7FD44B1A01E2E6005DA69C /* VCDocumentDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCDocumentDetails.h; sourceTree = "<group>"; };
@@ -163,11 +165,11 @@
 		8FAB94AB19D93B46008D23C8 /* CellJobSummary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellJobSummary.m; sourceTree = "<group>"; };
 		8FAB94AD19D93D49008D23C8 /* VCJobSummary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCJobSummary.h; sourceTree = "<group>"; };
 		8FAB94AE19D93D49008D23C8 /* VCJobSummary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCJobSummary.m; sourceTree = "<group>"; };
+		8FAB973C1A1DFD480033BACE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		8FB37EF819D4198400B798BB /* Jobs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jobs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FB37EFC19D4198400B798BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8FB37EFD19D4198400B798BB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8FB37F0819D4198400B798BB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		8FB37F0B19D4198400B798BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		8FB37F1119D4198400B798BB /* JobsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JobsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FB37F1619D4198400B798BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8FB37F1719D4198400B798BB /* JobsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsTests.m; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 		8FB37EEF19D4198400B798BB = {
 			isa = PBXGroup;
 			children = (
+				8FAB973C1A1DFD480033BACE /* Default-568h@2x.png */,
 				8FB37EFA19D4198400B798BB /* Jobs */,
 				8FB37F1419D4198400B798BB /* JobsTests */,
 				8FB37EF919D4198400B798BB /* Products */,
@@ -320,8 +323,8 @@
 				8F877F9A19D5121A00B0F820 /* models */,
 				8FC0C91719D41A2D006F3652 /* utils */,
 				8FC0C93419D41B2A006F3652 /* iphone5.storyboard */,
+				8F77B3FB1A1DF96300D74FFC /* LaunchScreen.xib */,
 				8FB37F0819D4198400B798BB /* Images.xcassets */,
-				8FB37F0A19D4198400B798BB /* LaunchScreen.xib */,
 				8FB37EFB19D4198400B798BB /* Supporting Files */,
 			);
 			path = Jobs;
@@ -513,6 +516,7 @@
 				TargetAttributes = {
 					8FB37EF719D4198400B798BB = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = HR27VC98VQ;
 					};
 					8FB37F1019D4198400B798BB = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -544,9 +548,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8FB37F0C19D4198400B798BB /* LaunchScreen.xib in Resources */,
 				8FC0C93519D41B2A006F3652 /* iphone5.storyboard in Resources */,
+				8F77B3FC1A1DF96300D74FFC /* LaunchScreen.xib in Resources */,
 				8FB37F0919D4198400B798BB /* Images.xcassets in Resources */,
+				8FAB973D1A1DFD480033BACE /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -643,17 +648,6 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		8FB37F0A19D4198400B798BB /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8FB37F0B19D4198400B798BB /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		8FB37F1919D4198400B798BB /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -737,10 +731,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Jobs/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -748,10 +744,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Jobs/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

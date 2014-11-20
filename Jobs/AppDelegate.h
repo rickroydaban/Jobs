@@ -31,8 +31,8 @@
 @property (strong, nonatomic) NSDateFormatter *propDateFormatVelosi;
 
 @property (strong, nonatomic, readonly) NSArray *propListSearchIns, *propListJobTypes, *propListPostedWithins;
-@property (strong, nonatomic, readonly) CountryList *propListCountries;
-@property (strong, nonatomic, readonly) NSDictionary *propDictCountries, *propDictSearchIns, *propDictJobTypes, *propDictPostedWithins;
+@property (strong, nonatomic, readonly) CountryList *propCountries;
+@property (strong, nonatomic, readonly) NSDictionary *propDictSearchIns, *propDictJobTypes, *propDictPostedWithins;
 
 - (void)updateReferrerDictionary:(NSDictionary *)dictionary fromOnlineGateway:(OnlineGateway *)key;
 - (void)updateSlider:(VCSlider *)slider;

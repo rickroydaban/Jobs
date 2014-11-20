@@ -19,9 +19,9 @@
     [super viewDidLoad];
     
     _propLv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    _propListApplications = [NSMutableArray array];
     _propLv.delegate = self;
     _propLv.dataSource = self;
-    
     [self refresh];
 }
 
@@ -35,11 +35,12 @@
         id applicationList = [self.propAppDelegate.propGatewayOnline getApplications];
         
         dispatch_async(dispatch_get_main_queue(), ^{
+            [_propListApplications removeAllObjects];
             if([applicationList isKindOfClass:[NSString class]])
                 [[[UIAlertView alloc] initWithTitle:@"Error" message:applicationList delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
-            else{
-                _propListApplications = applicationList;
-            }
+            else
+                [_propListApplications addObjectsFromArray:applicationList];
+            
             [self.propLv reloadData];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });

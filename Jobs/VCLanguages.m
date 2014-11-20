@@ -64,8 +64,8 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)cellSelectorSelectedCell:(UITableViewCell *)cell{
-    _selectedCell = cell;
+- (void)cellSelectorSelectedCell:(UITableViewCell *)sender withObject:(id)data{
+    _selectedCell = sender;
 }
 
 @end

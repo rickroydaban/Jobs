@@ -11,6 +11,6 @@
 @interface VCUserDocuments : VCPage<UIActionSheetDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *propLv;
-@property (strong, nonatomic) NSArray *propListDocuments;
+@property (strong, nonatomic) NSMutableArray *propListDocuments;
 
 @end

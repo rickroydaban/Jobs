@@ -10,6 +10,7 @@
 #import "VelosiCustomPicker.h"
 #import "VCCountrySelection.h"
 #import "VCLocationSelection.h"
+#import "VCJobSummary.h"
 #import "MBProgressHUD.h"
 
 @interface VCSavedSearchDetail(){
@@ -24,6 +25,8 @@
     [super viewDidLoad];
     _selectedLocation = [NSMutableDictionary dictionary];
     
+    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(save)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search)]];
+    
     _pickerSearchIns = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propListSearchIns rowSelectionDelegate:self selectedItem:nil];
     _pickerJobTypes = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propListJobTypes rowSelectionDelegate:self selectedItem:nil];
     _pickerPostedWithins = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propListPostedWithins rowSelectionDelegate:self selectedItem:nil];
@@ -33,7 +36,7 @@
     _propFieldSearchIn.text = [_propSavedSearch getSearchIn];
     [_pickerSearchIns selectRowWithText:_propFieldSearchIn.text];
     _propCellLocation.detailTextLabel.text = [_propSavedSearch getLocation];
-    _propCellCountry.detailTextLabel.text = [self.propAppDelegate.propListCountries.propDictCountryIds allKeysForObject:[_propSavedSearch getCountryID]][0];
+    _propCellCountry.detailTextLabel.text = [self.propAppDelegate.propCountries.propDictCountryIds objectForKey:[_propSavedSearch getCountryID]];
     _propFieldDistance.text = [_propSavedSearch getDistance];
     _propFieldJobType.text = [_propSavedSearch getJobType];
     [_pickerJobTypes selectRowWithText:_propFieldJobType.text];
@@ -48,14 +51,10 @@
     _propFieldPostedWithin.delegate = self;
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    NSLog(@"%@",_selectedLocation);
-}
-
-- (IBAction)done:(id)sender {
+- (void)save{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *searchInID = [self.propAppDelegate.propDictSearchIns objectForKey:_propFieldSearchIn.text];
-    NSString *countryID = [self.propAppDelegate.propListCountries.propDictCountryIds objectForKey:_propCellCountry.detailTextLabel.text];
+    NSString *countryID = [self.propAppDelegate.propCountries.propDictCountryIds objectForKey:_propCellCountry.detailTextLabel.text];
     NSString *jobTypeID = [self.propAppDelegate.propDictJobTypes objectForKey:_propFieldJobType.text];
     NSString *postedWithin = [self.propAppDelegate.propDictPostedWithins objectForKey:_propFieldPostedWithin];
     
@@ -68,6 +67,10 @@
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
     });
+}
+
+- (void)search{
+    [self performSegueWithIdentifier:@"savedSearchToJobSummary" sender:nil];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
@@ -89,11 +92,23 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    NSLog(@"%@",sender);
     if([segue.identifier isEqualToString:@"segueSavedSearchDetailToLoation"])
         [(VCLocationSelection *)segue.destinationViewController cellSelectorSelectedCell:sender withObject:_selectedLocation];
     else if([segue.identifier isEqualToString:@"segueSavedSearchDetailToCountry"])
         [(VCCountrySelection *)segue.destinationViewController cellSelectorSelectedCell:sender withObject:nil];
+    else if([segue.identifier isEqualToString:@"savedSearchToJobSummary"]){
+        NSString *searchCountry = ([_propCellCountry.detailTextLabel.text isEqualToString:@"Any"])?@"0":[self.propAppDelegate.propCountries.propDictCountryIds objectForKey:_propCellCountry.detailTextLabel.text];
+        NSString *searchLocation = ([_propCellLocation.detailTextLabel.text isEqualToString:@"Any"])?@"0":_propCellLocation.detailTextLabel.text;
+
+        VCJobSummary *vcJobSummary = (VCJobSummary *)segue.destinationViewController;
+        vcJobSummary.propSearchFor = self.propFieldSearchFor.text;
+        vcJobSummary.propSearchIn = [self.propAppDelegate.propDictSearchIns objectForKey:self.propFieldSearchIn.text];
+        vcJobSummary.propSearchLocation = searchLocation;
+        vcJobSummary.propSearchCountry = searchCountry;
+        vcJobSummary.propSearchDistance = self.propFieldDistance.text;
+        vcJobSummary.propSearchJobType = [self.propAppDelegate.propDictJobTypes objectForKey:self.propFieldJobType.text];
+        vcJobSummary.propSearchPostedWithin = [self.propAppDelegate.propDictPostedWithins objectForKey:self.propFieldPostedWithin.text];
+    }
 }
 
 

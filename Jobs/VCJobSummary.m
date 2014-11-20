@@ -14,6 +14,10 @@
 #import "MBProgressHUD.h"
 
 @interface VCJobSummary(){
+    UIAlertView *_saveSearchAlert;
+    UITextView *_saveTextViewTitle;
+    UISwitch *_saveSwitchAlert;
+    
     NSMutableArray *_heights;
     Job *_selectedJob;
 }
@@ -23,21 +27,53 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
+    _propListJobs = [NSMutableArray array];
+    _heights = [NSMutableArray array];
+    
+    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveSearch)]];
+    _saveSearchAlert = [[UIAlertView alloc] initWithTitle:@"Save Search" message:@"Label this search" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:@"Save", nil];
+    
+    //create custom content for our contentview
+    UIView *contentView = [[UIView alloc] init];
+    _saveTextViewTitle = [[UITextView alloc] initWithFrame:CGRectMake(5, 5, contentView.frame.size.width-5, 30)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, _saveTextViewTitle.frame.origin.y+5, 100, 30)];
+    label.text = @"Jobs by Email";
+    _saveSwitchAlert = [[UISwitch alloc] initWithFrame:CGRectMake(label.frame.origin.x+5, 0, 100, 30)];
+    _saveSwitchAlert.center = label.center;
+    
+    [contentView addSubview:_saveTextViewTitle];
+    [contentView addSubview:label];
+    [contentView addSubview:_saveSwitchAlert];
+    [_saveSearchAlert setValue:contentView forKey:@"accessoryView"];
+    
     self.propLv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-        
+    self.propLv.dataSource = self;
+    self.propLv.delegate = self;
+    self.propLv.separatorColor = [VelosiColors listSeparator];
+    [self refresh];
+}
+
+- (void)refresh{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        _propListJobs = [self.propAppDelegate.propGatewayOnline getAdvanceSearchResults:_propSearchFor in:_propSearchIn location:_propSearchLocation radius:_propSearchDistance jobType:_propSearchJobType country:_propSearchCountry postedWithin:_propSearchPostedWithin];
+        id result = [self.propAppDelegate.propGatewayOnline getAdvanceSearchResults:_propSearchFor in:_propSearchIn location:_propSearchLocation radius:_propSearchDistance jobType:_propSearchJobType country:_propSearchCountry postedWithin:_propSearchPostedWithin];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            _heights = [NSMutableArray array];
-            self.propLv.dataSource = self;
-            self.propLv.delegate = self;
-            self.propLv.separatorColor = [VelosiColors listSeparator];
+            [_propListJobs removeAllObjects];
+            
+            if([result isKindOfClass:[NSString class]])
+                [[[UIAlertView alloc] initWithTitle:@" " message:result delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
+            else
+                [_propListJobs addObjectsFromArray:result];
+            
             [self.propLv reloadData];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
     });
+}
+
+- (void)saveSearch{
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -119,10 +155,5 @@
     VCJobDetails *vcJobDetails = (VCJobDetails *)segue.destinationViewController;
     vcJobDetails.propJob = [self.propListJobs objectAtIndex:((CellJobSummary *)sender).tag];
 }
-
-- (IBAction)showActions:(id)sender {
-    [[[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Reload Search", @"Save Search", nil] showInView:self.view];
-}
-
 
 @end

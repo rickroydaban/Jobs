@@ -182,7 +182,9 @@
                         case 6: [[[UIAlertView alloc] initWithTitle:@"Delete Account" message:@"Are you sure you want to delete this account?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil] show];
                             temp = _currIndexPath;
                             break;
-                        case 7: [_appDelegate.propGatewayOffline logout];
+                        case 7:
+                            [_appDelegate.propGatewayOffline logout];
+                            [_appDelegate.propPageNavigator logout];
                             [self changePage:[_appDelegate.propPageNavigator getLoginNavigator]];
                             [self reloadSidebar];
                             break;

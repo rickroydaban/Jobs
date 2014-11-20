@@ -27,6 +27,7 @@
 
     self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addItem)]];
     _propLV.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    _propListEmployments = [NSMutableArray array];
     _propLV.delegate = self;
     _propLV.dataSource = self;
     [self refresh];
@@ -42,10 +43,11 @@
         id employmentList = [self.propAppDelegate.propGatewayOnline getEmployments];
         
         dispatch_async(dispatch_get_main_queue(), ^{
+            [_propListEmployments removeAllObjects];
             if([employmentList isKindOfClass:[NSString class]])
                 [[[UIAlertView alloc] initWithTitle:@"Error" message:employmentList delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
             else
-                _propListEmployments = employmentList;
+                [_propListEmployments addObjectsFromArray:employmentList];
             
             [self.propLV reloadData];
             [MBProgressHUD hideHUDForView:self.view animated:YES];

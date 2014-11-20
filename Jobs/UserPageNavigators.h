@@ -15,6 +15,7 @@
 
 + (UserPageNavigators *)sharedNavigators;
 
+- (void)logout;
 - (VCPage *)getVCHome;
 - (VCPage *)getVCSearchPage;
 - (UINavigationController *)getLoginNavigator;

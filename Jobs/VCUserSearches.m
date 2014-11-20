@@ -26,12 +26,13 @@
     [super viewDidLoad];
 
     _buttonRefresh = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)];
-    _buttonUnsubscribe = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_unsubscribe"] style:UIBarButtonItemStyleBordered target:self action:@selector(unsubscribeAll)];
-    _buttonSubscribe = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_subscribe"] style:UIBarButtonItemStyleBordered target:self action:@selector(subscribeAll)];
+    _buttonUnsubscribe = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_unsubscribe"] style:UIBarButtonItemStylePlain target:self action:@selector(unsubscribeAll)];
+    _buttonSubscribe = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_subscribe"] style:UIBarButtonItemStylePlain target:self action:@selector(subscribeAll)];
     
     _deleteConfirmationAlert = [[UIAlertView alloc] initWithTitle:@"Confirm" message:nil delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
     
     _propLv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    _propListSavedSearches = [NSMutableArray array];
     _propLv.delegate = self;
     _propLv.dataSource = self;
     [self refresh];
@@ -93,10 +94,11 @@
         id savedSearchesList = [self.propAppDelegate.propGatewayOnline getSavedSearches];
         
         dispatch_async(dispatch_get_main_queue(), ^{
+            [_propListSavedSearches removeAllObjects];
             if([savedSearchesList isKindOfClass:[NSString class]])
                 [[[UIAlertView alloc] initWithTitle:@"Error" message:savedSearchesList delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
             else{
-                _propListSavedSearches = savedSearchesList;
+                [_propListSavedSearches addObjectsFromArray:savedSearchesList];
                 _countSubscribedItems = 0;
                 
                 for(SavedSearch *ss in _propListSavedSearches){
