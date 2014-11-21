@@ -34,7 +34,7 @@
 }
 
 - (void)addItem{
-    
+    [self performSegueWithIdentifier:@"segueEmploymentsToDetails" sender:nil];
 }
 
 - (void)refresh{
@@ -85,6 +85,10 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self performSegueWithIdentifier:@"segueEmploymentsToDetails" sender:[tableView.dataSource tableView:tableView cellForRowAtIndexPath:indexPath]];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return _propListEmployments.count;
 }
@@ -94,7 +98,8 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    ((VCEmploymentDetail *)segue.destinationViewController).propEmployment = [_propListEmployments objectAtIndex:((CellEmployment *)sender).tag];
+    if([sender isKindOfClass:[UITableViewCell class]])
+        ((VCEmploymentDetail *)segue.destinationViewController).propEmployment = [_propListEmployments objectAtIndex:((CellEmployment *)sender).tag];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{

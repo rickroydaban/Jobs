@@ -37,7 +37,6 @@
             self.propLv.delegate = self;
             self.propLv.dataSource = self;
             self.propLv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
     });
 }
@@ -137,6 +136,12 @@
     _cellDetailHeight = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight;"] floatValue]+10;
     if(shouldReload)
         [self.propLv reloadData];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [[[UIAlertView alloc] initWithTitle:@"" message:error.localizedFailureReason delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
 }
 
 - (IBAction)apply:(id)sender {

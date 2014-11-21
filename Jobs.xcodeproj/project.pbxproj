@@ -48,7 +48,11 @@
 		8FAB94A919D909A4008D23C8 /* Job.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAB94A819D909A4008D23C8 /* Job.m */; };
 		8FAB94AC19D93B46008D23C8 /* CellJobSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAB94AB19D93B46008D23C8 /* CellJobSummary.m */; };
 		8FAB94AF19D93D49008D23C8 /* VCJobSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAB94AE19D93D49008D23C8 /* VCJobSummary.m */; };
-		8FAB973D1A1DFD480033BACE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FAB973C1A1DFD480033BACE /* Default-568h@2x.png */; };
+		8FAF21071A1EE24F0065579D /* CellLatestVacancy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAF21061A1EE24F0065579D /* CellLatestVacancy.m */; };
+		8FAF210D1A1F188D0065579D /* VelosDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAF210C1A1F188D0065579D /* VelosDatePicker.m */; };
+		8FB178491A1E27BE00DD15AD /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FB178461A1E27BE00DD15AD /* Default-568h@2x.png */; };
+		8FB1784A1A1E27BE00DD15AD /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FB178471A1E27BE00DD15AD /* Default.png */; };
+		8FB1784B1A1E27BE00DD15AD /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FB178481A1E27BE00DD15AD /* Default@2x.png */; };
 		8FB37EFE19D4198400B798BB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB37EFD19D4198400B798BB /* main.m */; };
 		8FB37F0919D4198400B798BB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FB37F0819D4198400B798BB /* Images.xcassets */; };
 		8FB37F1819D4198400B798BB /* JobsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB37F1719D4198400B798BB /* JobsTests.m */; };
@@ -165,7 +169,13 @@
 		8FAB94AB19D93B46008D23C8 /* CellJobSummary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellJobSummary.m; sourceTree = "<group>"; };
 		8FAB94AD19D93D49008D23C8 /* VCJobSummary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCJobSummary.h; sourceTree = "<group>"; };
 		8FAB94AE19D93D49008D23C8 /* VCJobSummary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCJobSummary.m; sourceTree = "<group>"; };
-		8FAB973C1A1DFD480033BACE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		8FAF21051A1EE24F0065579D /* CellLatestVacancy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellLatestVacancy.h; sourceTree = "<group>"; };
+		8FAF21061A1EE24F0065579D /* CellLatestVacancy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellLatestVacancy.m; sourceTree = "<group>"; };
+		8FAF210B1A1F188D0065579D /* VelosDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VelosDatePicker.h; sourceTree = "<group>"; };
+		8FAF210C1A1F188D0065579D /* VelosDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VelosDatePicker.m; sourceTree = "<group>"; };
+		8FB178461A1E27BE00DD15AD /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		8FB178471A1E27BE00DD15AD /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		8FB178481A1E27BE00DD15AD /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		8FB37EF819D4198400B798BB /* Jobs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jobs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FB37EFC19D4198400B798BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8FB37EFD19D4198400B798BB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -293,7 +303,9 @@
 		8FB37EEF19D4198400B798BB = {
 			isa = PBXGroup;
 			children = (
-				8FAB973C1A1DFD480033BACE /* Default-568h@2x.png */,
+				8FB178461A1E27BE00DD15AD /* Default-568h@2x.png */,
+				8FB178471A1E27BE00DD15AD /* Default.png */,
+				8FB178481A1E27BE00DD15AD /* Default@2x.png */,
 				8FB37EFA19D4198400B798BB /* Jobs */,
 				8FB37F1419D4198400B798BB /* JobsTests */,
 				8FB37EF919D4198400B798BB /* Products */,
@@ -439,6 +451,8 @@
 			children = (
 				8FC0C92C19D41AAD006F3652 /* VelosiCustomPicker.h */,
 				8FC0C92D19D41AAD006F3652 /* VelosiCustomPicker.m */,
+				8FAF210B1A1F188D0065579D /* VelosDatePicker.h */,
+				8FAF210C1A1F188D0065579D /* VelosDatePicker.m */,
 				8FAB94AA19D93B46008D23C8 /* CellJobSummary.h */,
 				8FAB94AB19D93B46008D23C8 /* CellJobSummary.m */,
 				8F3F7D8519DBAA4B001C9D78 /* CellDetail.h */,
@@ -453,6 +467,8 @@
 				8F8486B11A1082EA003F476B /* CellApplication.m */,
 				8F8486B91A10C5FA003F476B /* CellSavedSearches.h */,
 				8F8486BA1A10C5FA003F476B /* CellSavedSearches.m */,
+				8FAF21051A1EE24F0065579D /* CellLatestVacancy.h */,
+				8FAF21061A1EE24F0065579D /* CellLatestVacancy.m */,
 			);
 			name = customviews;
 			sourceTree = "<group>";
@@ -548,10 +564,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FB1784B1A1E27BE00DD15AD /* Default@2x.png in Resources */,
 				8FC0C93519D41B2A006F3652 /* iphone5.storyboard in Resources */,
+				8FB178491A1E27BE00DD15AD /* Default-568h@2x.png in Resources */,
 				8F77B3FC1A1DF96300D74FFC /* LaunchScreen.xib in Resources */,
 				8FB37F0919D4198400B798BB /* Images.xcassets in Resources */,
-				8FAB973D1A1DFD480033BACE /* Default-568h@2x.png in Resources */,
+				8FB1784A1A1E27BE00DD15AD /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,6 +592,7 @@
 				8FA1799D19F4B05F00F6AF24 /* VCLanguages.m in Sources */,
 				8FB628AA19FF9C05001D492C /* VCAboutUs.m in Sources */,
 				8F8486B21A1082EA003F476B /* CellApplication.m in Sources */,
+				8FAF21071A1EE24F0065579D /* CellLatestVacancy.m in Sources */,
 				8F4928871A0084690060697A /* VCCopyright.m in Sources */,
 				8FC0C92E19D41AAD006F3652 /* VelosiCustomPicker.m in Sources */,
 				8FBEF3AE1A10574500A479F6 /* CellEmployment.m in Sources */,
@@ -581,6 +600,7 @@
 				8F7BD62519DA8FDB00E20A77 /* VCJobDetails.m in Sources */,
 				8FC0C92119D41A60006F3652 /* VCLocationSelection.m in Sources */,
 				8FC0C91219D41A11006F3652 /* AppDelegate.m in Sources */,
+				8FAF210D1A1F188D0065579D /* VelosDatePicker.m in Sources */,
 				8F25E12F19DE7B840043C6F0 /* CurrencyList.m in Sources */,
 				8F6F5BCA19E7C39800271FB5 /* DAKeyboardControl.m in Sources */,
 				8FC0C92A19D41A83006F3652 /* VelosiColors.m in Sources */,
@@ -731,9 +751,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Jobs/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -744,9 +765,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Jobs/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;

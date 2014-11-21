@@ -11,11 +11,12 @@
 
 @interface UserPageNavigators(){
     UIStoryboard *_storyBoard;
-    UINavigationController *_navigatorLogin, *_navigatorUserDetail, *_navigatorUserSearches, *_navigatorUserDocuments, *_navigatorUserApplications, *_navigatorUserEmployment, *_navigatorUserPassword,
+    UINavigationController
+        *_navigatorHome,
+        *_navigatorLogin, *_navigatorUserDetail, *_navigatorUserSearches, *_navigatorUserDocuments, *_navigatorUserApplications, *_navigatorUserEmployment, *_navigatorUserPassword,
     
         *_navigatorAboutus, *_navigatorCVHelp, *_navigatorNews, *_navigatorTerms, *_navigatorPrivacy, *_navigatorCopyright, *_navigatorDisclaimer, *_navigatorSecurityPolicy;
     
-    VCPage *_vcHome;
     VCPage *_vcSearchJob;
 }
 @end
@@ -49,11 +50,11 @@ static UserPageNavigators *sharedNavigators = nil;
     _navigatorUserSearches = nil;
 }
 
-- (VCPage *)getVCHome{
-    if(_vcHome == nil)
-        _vcHome = [_storyBoard instantiateViewControllerWithIdentifier:@"homePage"];
+- (UINavigationController *)getVCHome{
+    if(_navigatorHome == nil)
+        _navigatorHome = [_storyBoard instantiateViewControllerWithIdentifier:@"homePage"];
     
-    return _vcHome;
+    return _navigatorHome;
 }
 
 - (VCPage *)getVCSearchPage{

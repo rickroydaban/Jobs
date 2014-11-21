@@ -8,10 +8,6 @@
 
 #import <Foundation/Foundation.h>
 @class AppDelegate;
-@class JobDetail;
-@class User;
-@class Employment;
-@class SavedSearch;
 
 @interface OnlineGateway : NSObject<NSURLConnectionDataDelegate>
 
@@ -19,7 +15,7 @@
 
 - (NSString *)deserializeJsonDateString: (NSString *)jsonDateString;
 - (NSString *)resetPasswordWithEmail:(NSString *)email;
-- (JobDetail *)getJobDetailById:(int)jobId;
+- (id)getJobDetailById:(int)jobId;
 - (NSMutableArray *)getLocationSuggestions: (NSString *)searched;
 - (NSMutableArray *)getAdvanceSearchResults:(NSString *)searched in:(NSString *)searchIn location:(NSString *)location radius:(NSString *)radius jobType:(NSString *)jobType country:(NSString *)country postedWithin:(NSString *)postedWithin;
 - (id)authenticateUserName:(NSString *)username password:(NSString *)password;

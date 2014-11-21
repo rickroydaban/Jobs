@@ -8,6 +8,9 @@
 
 #import "VCPage.h"
 
-@interface VCHome : VCPage
+@interface VCHome : VCPage<UITableViewDataSource, UITableViewDelegate>
+
+@property (strong, nonatomic) IBOutlet UITableView *propLV;
+@property (strong, nonatomic) NSMutableArray *propListVacancies;
 
 @end

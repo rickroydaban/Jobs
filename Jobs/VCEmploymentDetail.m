@@ -9,9 +9,9 @@
 #import "VCEmploymentDetail.h"
 #import "AppDelegate.h"
 #import "MBProgressHUD.h"
+#import "VelosDatePicker.h"
 
 @interface VCEmploymentDetail(){
-    AppDelegate *_appDelegate;
     UIDatePicker *_datePicekrStart, *_datePickerEnd;
 }
 @end
@@ -20,11 +20,20 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    self.propFieldJobTitle.text = [_propEmployment getJobTitle];
-    self.propFieldDateStart.text = [_propEmployment getDateStart];
-    self.propFieldDateEnd.text = [_propEmployment getDateEnd];
-    self.propFieldEmployer.text = [_propEmployment getEmployer];
-    self.propFieldDescription.text = [_propEmployment getDescription];
+    
+    if(_propEmployment != nil){
+        self.propFieldJobTitle.text = [_propEmployment getJobTitle];
+        self.propFieldDateStart.text = [_propEmployment getDateStart];
+        self.propFieldDateEnd.text = [_propEmployment getDateEnd];
+        self.propFieldEmployer.text = [_propEmployment getEmployer];
+        self.propFieldDescription.text = [_propEmployment getDescription];
+    }else
+        self.navigationItem.title = @"New Employment";
+
+    
+    _datePicekrStart = [[VelosDatePicker alloc] initWithDate:(_propEmployment!=nil)?[self.propAppDelegate.propDateFormatVelosi dateFromString:[_propEmployment getDateStart]]:nil minimumDate:nil viewController:self action:@selector(updateStartDate)];
+    _datePickerEnd = [[VelosDatePicker alloc] initWithDate:(_propEmployment!=nil)?[self.propAppDelegate.propDateFormatVelosi dateFromString:[_propEmployment getDateEnd]]:nil minimumDate:nil viewController:self action:@selector(updateEndDate)];
+    
     self.propFieldDescription.textContainerInset = UIEdgeInsetsMake(5, 15, 5, 15);
     self.propFieldJobTitle.delegate = self;
     self.propFieldDateStart.delegate = self;
@@ -33,6 +42,22 @@
     self.propFieldDescription.delegate = self;
 }
 
+- (void)updateStartDate{
+    self.propFieldDateStart.text = [self.propAppDelegate.propDateFormatVelosi stringFromDate:_datePicekrStart.date];
+}
+
+- (void)updateEndDate{
+    self.propFieldDateEnd.text = [self.propAppDelegate.propDateFormatVelosi stringFromDate:_datePickerEnd.date];
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    [super textFieldDidBeginEditing:textField];
+    
+    if(textField == self.propFieldDateStart)
+        textField.inputView = _datePicekrStart;
+    else if(textField == self.propFieldDateEnd)
+        textField.inputView = _datePickerEnd;
+}
 
 - (IBAction)done:(id)sender {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];

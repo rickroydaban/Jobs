@@ -28,7 +28,7 @@
 }
 
 - (void)addItem{
-    
+    [self performSegueWithIdentifier:@"segueDocumentsToDetails" sender:nil];
 }
 
 - (void)refresh{
@@ -59,11 +59,15 @@
 
     cell.propTitle.text = document.propName;
     cell.propDateExpire.text = [NSString stringWithFormat:@"Expire on %@",document.propDateExpire];
-    cell.propExtAndType.text = [NSString stringWithFormat:@"%@ | %@",[self.propAppDelegate.propUserDetails.propDictDocumentTypes objectForKey:[NSString stringWithFormat:@"%d",document.propType]],document.propExtension];
+    cell.propExtAndType.text = [self.propAppDelegate.propUserDetails.propDictDocumentTypes objectForKey:[NSString stringWithFormat:@"%d",document.propType]];
     cell.propFileSize.text = [NSString stringWithFormat:@"%@ kb",document.propFileSize];
     cell.tag = indexPath.row;
 
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self performSegueWithIdentifier:@"segueDocumentsToDetails" sender:[tableView.dataSource tableView:tableView cellForRowAtIndexPath:indexPath]];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -71,7 +75,8 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    ((VCDocumentDetails *)segue.destinationViewController).propDocument = [self.propListDocuments objectAtIndex:((CellDocument *)sender).tag];
+    if([sender isKindOfClass:[UITableViewCell class]])
+        ((VCDocumentDetails *)segue.destinationViewController).propDocument = [self.propListDocuments objectAtIndex:((CellDocument *)sender).tag];
 }
 
 - (IBAction)showList:(id)sender {

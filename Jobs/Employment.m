@@ -21,7 +21,6 @@
 
 - (NSString *)getEmployer{
     return [_propEmploymentDictionary objectForKey:@"Employer"];
-    
 }
 
 - (NSString *)getJobTitle{

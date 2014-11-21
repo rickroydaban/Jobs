@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 #import "Document.h"
 #import "VelosiPickerRowSelectionDelegate.h"
+#import "VCTableViewDetail.h"
 
-@interface VCDocumentDetails : UITableViewController<UITextFieldDelegate, VelosiPickerRowSelectionDelegate>
+@interface VCDocumentDetails : VCTableViewDetail<VelosiPickerRowSelectionDelegate>
 
 @property (strong, nonatomic) Document *propDocument;
 

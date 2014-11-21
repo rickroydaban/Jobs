@@ -53,7 +53,7 @@
     
     [_propLvSidebar.delegate tableView:_propLvSidebar didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     [_propLvSidebar selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionBottom];
-    [_propLvSidebar.delegate tableView:_propLvSidebar didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:1]];
+    [_propLvSidebar.delegate tableView:_propLvSidebar didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 }
 
 - (void)changePage:(UIViewController *)controller{
@@ -268,6 +268,9 @@
 }
 
 - (void)toggleSidebar{
+    if(!_isSidebarShowing)
+        [self.view endEditing:YES];
+    
     [self updateSidebarWillShow:!_isSidebarShowing];
 }
 

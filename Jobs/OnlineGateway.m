@@ -83,22 +83,12 @@ static OnlineGateway *sharedOnlineGateway = nil;
 }
 
 - (id)httpPostFrom:(NSString *)url withBody:(NSString *)jsonString{
-//    NSMutableArray *tempPairsString = [NSMutableArray array];
-//    
-//    [dict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-//        [tempPairsString addObject:[NSString stringWithFormat:@"%@=%@",key,CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)obj, NULL, (CFStringRef)@":/?@!$&'()*+,;= ",kCFStringEncodingUTF8))]];
-//    }];
-//    
-//    NSString *pairsString = [tempPairsString componentsJoinedByString:@"&"];
-//    NSLog(@"str: %@",pairsString);
-
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     request.HTTPMethod = @"POST";
     [request setValue:[NSString stringWithFormat:@"%d",(int)jsonString.length] forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     request.HTTPBody = [NSData dataWithBytes:[jsonString UTF8String] length:[jsonString length]];
-//    [[NSURLConnection connectionWithRequest:request delegate:delegate] start];
     
     NSError *error = [[NSError alloc] init];
     NSHTTPURLResponse *responseCode = nil;
@@ -202,13 +192,11 @@ static OnlineGateway *sharedOnlineGateway = nil;
     }    
 }
 
-- (JobDetail *)getJobDetailById:(int)jobId{
-    NSString *errorMessage;
-    
+- (id)getJobDetailById:(int)jobId{
     id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@%@",_rootVacancy,[NSString stringWithFormat:@"GetByID?id=%d",jobId]]];
     
     if([data isKindOfClass:[NSString class]])
-        errorMessage = (NSString *)data;
+        return data;
     else{
         NSError *error = [[NSError alloc] init];
 
@@ -227,14 +215,11 @@ static OnlineGateway *sharedOnlineGateway = nil;
                 
                 return [[JobDetail alloc] initWithType:jobType duration:duration rotation:rotation location:location salary:salary contacts:contact details:details];
             }else
-                errorMessage = error.localizedFailureReason;
+                return error.localizedFailureReason;
         }@catch (NSException *exception) {
-            errorMessage = exception.reason;
+            return exception.reason;
         }
     }
-    
-    [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
-    return nil;
 }
 
 - (id)getLocationSuggestions: (NSString *)searched{
@@ -352,7 +337,6 @@ static OnlineGateway *sharedOnlineGateway = nil;
         @try {
             NSMutableArray *employments = [NSMutableArray array];
             NSArray *jsonEmployments = [[NSJSONSerialization JSONObjectWithData:data options:0 error:&error] objectForKey:@"GetByCandidateIDResult"];
-            
             if(jsonEmployments){
                 for (id jsonEmployment in jsonEmployments)
                     [employments addObject:[[Employment alloc] initWithDictionary:jsonEmployment]];
@@ -465,7 +449,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
     NSLog(@"%@",body);
 
     id result = [self httpPostFrom:@"https://arctestapi.velosi.com/CandidateSvc.svc/json/Save" withBody:body];
-//    NSLog(@"result :%@",[NSJSONSerialization JSONObjectWithData:result options:NSJSONWritingPrettyPrinted error:nil]);
+    NSLog(@"result :%@",[NSJSONSerialization JSONObjectWithData:result options:NSJSONWritingPrettyPrinted error:nil]);
     return ([result isKindOfClass:[NSString class]])?result:@"Saved Successfullly!";
 }
 

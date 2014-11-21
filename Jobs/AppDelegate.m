@@ -25,7 +25,7 @@
     _propGatewayOnline = [OnlineGateway sharedOnlineGateway:self];
     _propGatewayOffline = [OfflineGateway sharedOfflineGateway:self];
     self.propDateFormatVelosi = [[NSDateFormatter alloc] init];
-    self.propDateFormatVelosi.dateFormat = @"dd/MMM/yyyy";
+    self.propDateFormatVelosi.dateFormat = @"yyyy-MM-dd";
     self.propPageNavigator = [UserPageNavigators sharedNavigators];
     _propListReferrers = [self.propGatewayOnline getReferrerList];
     _propCurrency = [[CurrencyList alloc] init];
