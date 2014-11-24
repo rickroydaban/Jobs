@@ -13,7 +13,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *propLvSidebar;
 @property (strong, nonatomic) IBOutlet UIView *propMainPage;
 
-- (void)login;
+- (void)changeToProfileSidebarItemsAfterLoginSuccess;
 - (void)toggleSidebar;
 - (void)reloadSidebar;
 

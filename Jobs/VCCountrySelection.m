@@ -11,7 +11,7 @@
 #import "CountryList.h"
 
 @interface VCCountrySelection (){
-    BOOL *_isSearching;
+    BOOL _isSearching;
     UITableViewCell *_selectedCell;
     
     NSArray *_countryArray;

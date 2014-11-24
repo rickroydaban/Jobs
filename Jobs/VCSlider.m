@@ -35,7 +35,7 @@
     
     [_propMainPage addKeyboardPanningWithActionHandler:nil];
     _appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [_appDelegate updateSlider:self];
+    [_appDelegate setupOnSliderOnLoad:self];
     _mainPageX = 0;
     _isSidebarShowing = NO;
     
@@ -56,6 +56,7 @@
     [_propLvSidebar.delegate tableView:_propLvSidebar didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 }
 
+#pragma mark private methods
 - (void)changePage:(UIViewController *)controller{
     if([controller isKindOfClass:[UINavigationController class]])
         [(UINavigationController *)controller setDelegate:self];
@@ -88,6 +89,7 @@
     }
 }
 
+#pragma mark implemented methods
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 4;
 }
@@ -256,9 +258,8 @@
                                                   }];
 }
 
-#pragma mark Visible Instance Methods
-
-- (void)login{
+#pragma mark public methods
+- (void)changeToProfileSidebarItemsAfterLoginSuccess{
     if([_appDelegate.propGatewayOffline isLoggedIn])
         [self changePage:[_appDelegate.propPageNavigator getUserDetailNavigator]];
 }

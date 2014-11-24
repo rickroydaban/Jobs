@@ -65,7 +65,7 @@
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             if([self.propAppDelegate.propGatewayOffline isLoggedIn]){
                 [self.propAppDelegate.propSlider reloadSidebar];
-                [self.propAppDelegate.propSlider login];
+                [self.propAppDelegate.propSlider changeToProfileSidebarItemsAfterLoginSuccess];
             }
             
             if(result != nil)

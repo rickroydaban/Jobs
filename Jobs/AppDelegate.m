@@ -33,11 +33,14 @@
     return YES;
 }
 
-- (void)updateSlider:(VCSlider *)slider{
+//no private methods in app delegate
+
+#pragma mark public methods
+- (void)setupOnSliderOnLoad:(VCSlider *)slider{
     _propSlider = slider;
 }
 
-- (void)updateReferrerDictionary:(NSDictionary *)dictionary fromOnlineGateway:(OnlineGateway *)key{
+- (void)setupOnApplicationLaunchReferrerDictionary:(NSDictionary *)dictionary fromOnlineGateway:(OnlineGateway *)key{
     _propDictReferrers = dictionary;
 }
 

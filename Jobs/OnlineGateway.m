@@ -292,7 +292,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
                     [refDicts setObject:[jsonReferrer objectForKey:@"Description"] forKey:[NSString stringWithFormat:@"%@",[jsonReferrer objectForKey:@"ReferrerID"]]];
                 }
                 
-                [_appDelegate updateReferrerDictionary:refDicts fromOnlineGateway:self];
+                [_appDelegate setupOnApplicationLaunchReferrerDictionary:refDicts fromOnlineGateway:self];
                 return referrers;
             }else
                 return nil;
