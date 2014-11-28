@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import "VCTableViewDetail.h"
+#import "VCDetail.h"
 #import "VelosiColors.h"
 
-@implementation VCTableViewDetail
+@implementation VCDetail
 
 - (void)viewDidLoad{
     self.navigationController.navigationBar.barTintColor = [VelosiColors orangeVelosi];

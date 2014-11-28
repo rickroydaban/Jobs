@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "Document.h"
 #import "VelosiPickerRowSelectionDelegate.h"
-#import "VCTableViewDetail.h"
+#import "VCDetail.h"
 
-@interface VCDocumentDetails : VCTableViewDetail<VelosiPickerRowSelectionDelegate>
+@interface VCDocumentDetails : VCDetail<VelosiPickerRowSelectionDelegate>
 
 @property (strong, nonatomic) Document *propDocument;
 

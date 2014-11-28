@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "OnlineGateway.h"
 #import "Job.h"
 #import "JobDetail.h"
@@ -15,7 +14,6 @@
 #import "Employment.h"
 #import "Application.h"
 #import "SavedSearch.h"
-#import "AppDelegate.h"
 
 @interface OnlineGateway(){
     const NSString *_jsonLocation, *_rootVacancy, *_rootCandidates, *_rootReferences, *_rootDocuments, *_rootEmployments, *_rootApplications, *_rootSavedSearches;

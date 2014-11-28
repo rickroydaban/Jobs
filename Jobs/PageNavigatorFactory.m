@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import "UserPageNavigators.h"
+#import "PageNavigatorFactory.h"
 #import "VCPage.h"
 
-@interface UserPageNavigators(){
+@interface PageNavigatorFactory(){
     UIStoryboard *_storyBoard;
     UINavigationController
         *_navigatorHome,
@@ -17,15 +17,15 @@
     
         *_navigatorAboutus, *_navigatorCVHelp, *_navigatorNews, *_navigatorTerms, *_navigatorPrivacy, *_navigatorCopyright, *_navigatorDisclaimer, *_navigatorSecurityPolicy;
     
-    VCPage *_vcSearchJob;
+    UINavigationController *_vcSearchJob;
 }
 @end
 
-@implementation UserPageNavigators
+@implementation PageNavigatorFactory
 
-static UserPageNavigators *sharedNavigators = nil;
+static PageNavigatorFactory *sharedNavigators = nil;
 
-+ (UserPageNavigators *)sharedNavigators{
++ (PageNavigatorFactory *)sharedNavigators{
     if(sharedNavigators == nil)
         sharedNavigators = [[super alloc] init];
     
@@ -57,7 +57,7 @@ static UserPageNavigators *sharedNavigators = nil;
     return _navigatorHome;
 }
 
-- (VCPage *)getVCSearchPage{
+- (UINavigationController *)getVCSearchPage{
     if(_vcSearchJob == nil)
         _vcSearchJob = [_storyBoard instantiateViewControllerWithIdentifier:@"advanceSearchPage"];
     

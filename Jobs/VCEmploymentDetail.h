@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VCTableViewDetail.h"
+#import "VCDetail.h"
 #import "Employment.h"
 
-@interface VCEmploymentDetail : VCTableViewDetail
+@interface VCEmploymentDetail : VCDetail
 
 @property (strong, nonatomic) IBOutlet UITextField *propFieldEmployer;
 @property (strong, nonatomic) IBOutlet UITextField *propFieldJobTitle;

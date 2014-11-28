@@ -6,9 +6,6 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
 @protocol VelosiPickerRowSelectionDelegate <NSObject>
 
 -(void)pickerSelection:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component;

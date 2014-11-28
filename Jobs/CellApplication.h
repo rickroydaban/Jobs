@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface CellApplication : UITableViewCell
 
 @property (strong, nonatomic) IBOutlet UILabel *propLabelTitle;

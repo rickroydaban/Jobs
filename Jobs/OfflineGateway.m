@@ -12,7 +12,6 @@
 
 #import "OfflineGateway.h"
 #import "User.h"
-#import "AppDelegate.h"
 
 @interface OfflineGateway(){
     NSUserDefaults *_prefs;

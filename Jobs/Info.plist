@@ -5,7 +5,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>applusvelosi.projects.ios.$(PRODUCT_NAME:rfc1034identifier)</string>
+	<string>applusvelosi.projects.ios.Jobs</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 @protocol VelosiPickerRowSelectionDelegate;
 
 @interface VelosiCustomPicker :UIPickerView<UIPickerViewDelegate, UIPickerViewDataSource>

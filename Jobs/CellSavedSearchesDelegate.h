@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "CellSavedSearches.h"
 @protocol CellSavedSearchDelegate <NSObject>
 

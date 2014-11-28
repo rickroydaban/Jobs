@@ -6,11 +6,10 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "VCTableViewDetail.h"
+#import "VCDetail.h"
 #import "VelosiPickerRowSelectionDelegate.h"
 
-@interface VCSearchJob : VCTableViewDetail<VelosiPickerRowSelectionDelegate>
+@interface VCSearchJob : VCDetail<VelosiPickerRowSelectionDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *propFieldSearchFor;
 @property (strong, nonatomic) IBOutlet UITextField *propFieldSearchIn;

@@ -11,13 +11,8 @@
 #import "Job.h"
 #import "VelosiColors.h"
 #import "VCJobDetails.h"
-#import "MBProgressHUD.h"
 
 @interface VCJobSummary(){
-    UIAlertView *_saveSearchAlert;
-    UITextView *_saveTextViewTitle;
-    UISwitch *_saveSwitchAlert;
-    
     NSMutableArray *_heights;
     Job *_selectedJob;
 }
@@ -31,26 +26,20 @@
     _heights = [NSMutableArray array];
     
     self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveSearch)]];
-    _saveSearchAlert = [[UIAlertView alloc] initWithTitle:@"Save Search" message:@"Label this search" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:@"Save", nil];
-    
-    //create custom content for our contentview
-    UIView *contentView = [[UIView alloc] init];
-    _saveTextViewTitle = [[UITextView alloc] initWithFrame:CGRectMake(5, 5, contentView.frame.size.width-5, 30)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, _saveTextViewTitle.frame.origin.y+5, 100, 30)];
-    label.text = @"Jobs by Email";
-    _saveSwitchAlert = [[UISwitch alloc] initWithFrame:CGRectMake(label.frame.origin.x+5, 0, 100, 30)];
-    _saveSwitchAlert.center = label.center;
-    
-    [contentView addSubview:_saveTextViewTitle];
-    [contentView addSubview:label];
-    [contentView addSubview:_saveSwitchAlert];
-    [_saveSearchAlert setValue:contentView forKey:@"accessoryView"];
     
     self.propLv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.propLv.dataSource = self;
     self.propLv.delegate = self;
     self.propLv.separatorColor = [VelosiColors listSeparator];
     [self refresh];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [self.propLv reloadData];
+}
+
+- (void)saveSearch{
+    [self performSegueWithIdentifier:@"segueJobSummaryToSave" sender:nil];
 }
 
 - (void)refresh{
@@ -72,10 +61,6 @@
     });
 }
 
-- (void)saveSearch{
-    [_saveSearchAlert show];
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITextView *newDescTV;
     CGFloat newHeight = [[_heights objectAtIndex:indexPath.row] floatValue];
@@ -83,22 +68,19 @@
     CellJobSummary *cell = (CellJobSummary *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
     Job *job = [self.propListJobs objectAtIndex:indexPath.row];
     cell.fieldTitle.text = job.propTitle;
-    cell.fieldTitle.textColor = [VelosiColors blackFont];
     cell.fieldReference.text = [NSString stringWithFormat:@"Reference: %@",job.propReference];
     cell.fieldCountry.text = job.propCountry;
     cell.fieldAddDate.text = [NSString stringWithFormat:@"Added on %@",job.propDateAdded];
-    cell.fieldDescription.text = @"test";
+    cell.fieldDescription.text = @"";
     
     if([cell.fieldDescription isDescendantOfView:cell.fieldTitle.superview]){
         CGRect oldFrame = cell.fieldDescription.frame;
         UIView *superView = (UIView *)cell.fieldTitle.superview;
         newDescTV = [[UITextView alloc] initWithFrame:CGRectMake(oldFrame.origin.x, oldFrame.origin.y, oldFrame.size.width, newHeight)];
-        newDescTV.backgroundColor = [UIColor clearColor];
         newDescTV.tag = 4;
         newDescTV.editable = NO;
         [cell.fieldDescription removeFromSuperview];
         [superView addSubview:newDescTV];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.tag = indexPath.row;
     }else{
         for(UIView *temp in [cell.fieldTitle.superview subviews]){
@@ -152,8 +134,12 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    VCJobDetails *vcJobDetails = (VCJobDetails *)segue.destinationViewController;
-    vcJobDetails.propJob = [self.propListJobs objectAtIndex:((CellJobSummary *)sender).tag];
+    if([segue.identifier isEqualToString:@"segueJobSummaryToSave"]){
+        
+    }else{
+        VCJobDetails *vcJobDetails = (VCJobDetails *)segue.destinationViewController;
+        vcJobDetails.propJob = [self.propListJobs objectAtIndex:((CellJobSummary *)sender).tag];
+    }
 }
 
 @end

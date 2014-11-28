@@ -7,8 +7,9 @@
 //
 
 #import "VCPage.h"
+#import "LanguageChangeDelegate.h"
 
-@interface VCHome : VCPage<UITableViewDataSource, UITableViewDelegate>
+@interface VCHome : VCPage<UITableViewDataSource, UITableViewDelegate, LanguageChangeDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *propLV;
 @property (strong, nonatomic) NSMutableArray *propListVacancies;

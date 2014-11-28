@@ -13,7 +13,6 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *lv;
 @property (strong, nonatomic) IBOutlet UISearchBar *propFieldSearch;
-
 @property (strong, nonatomic) NSMutableArray *selectedFields;
 
 @end

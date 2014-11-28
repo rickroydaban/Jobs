@@ -6,9 +6,7 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "User.h"
-@class AppDelegate;
 
 @interface OfflineGateway : NSObject
 

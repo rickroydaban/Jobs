@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import "VCTableViewDetail.h"
+#import "VCDetail.h"
 #import "SavedSearch.h"
 #import "VelosiPickerRowSelectionDelegate.h"
 
-@interface VCSavedSearchDetail : VCTableViewDetail<VelosiPickerRowSelectionDelegate>
+@interface VCSavedSearchDetail : VCDetail<VelosiPickerRowSelectionDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *propFieldName;
 @property (strong, nonatomic) IBOutlet UITextField *propFieldSearchFor;

@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface CountryList : NSObject
 
 @property (strong, nonatomic) NSMutableDictionary *propDictCountryIds;

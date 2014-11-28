@@ -8,7 +8,7 @@
 
 #import "VCPage.h"
 
-@interface VCJobSummary : VCPage<UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
+@interface VCJobSummary : VCPage<UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *propLv;
 @property (strong, nonatomic) NSMutableArray *propListJobs;

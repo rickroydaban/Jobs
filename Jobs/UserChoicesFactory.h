@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface UserDetails : NSObject
+@interface UserChoicesFactory : NSObject
 
 @property (strong, nonatomic, readonly) NSArray *propListSalaryType;
 @property (strong, nonatomic, readonly) NSArray *propListAvailability;

@@ -6,9 +6,6 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-@class ObjectPair;
-
 @interface User : NSObject
 
 @property (strong, nonatomic) NSMutableDictionary *dictionary;

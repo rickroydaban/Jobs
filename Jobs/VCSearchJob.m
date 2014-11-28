@@ -10,7 +10,6 @@
 #import "VelosiDesigner.h"
 #import "VelosiCustomPicker.h"
 #import "VCJobSummary.h"
-#import "MBProgressHUD.h"
 #import "CellSelector.h"
 
 @interface VCSearchJob (){

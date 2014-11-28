@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface JobDetail : NSObject
 
 @property (strong, nonatomic) NSString *propJobType;

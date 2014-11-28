@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "VCUserTables.h"
+#import "VCList.h"
 #import "VelosiPickerRowSelectionDelegate.h"
 @class User;
 
-@interface VCUserDetails : VCUserTables<VelosiPickerRowSelectionDelegate, UITextViewDelegate, UITextFieldDelegate>
+@interface VCUserDetails : VCList<VelosiPickerRowSelectionDelegate, UITextViewDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic, readonly) User *user;
 @property (strong, nonatomic) NSMutableArray *propListLocationPrefs, *propListLanguages;

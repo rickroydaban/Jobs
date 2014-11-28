@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @protocol CellSelector <NSObject>
 
 - (void)cellSelectorSelectedCell:(UITableViewCell *)sender withObject:(id)data;

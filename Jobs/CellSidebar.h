@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface CellSidebar : UITableViewCell
 
 @property (strong, nonatomic) IBOutlet UIImageView *cellIImage;

@@ -13,8 +13,6 @@
 #import "VCSlider.h"
 #import "CellSidebar.h"
 #import "VelosiColors.h"
-#import "AppDelegate.h"
-#import "VCPage.h"
 #import "DAKeyboardControl.h"
 
 @interface VCSlider(){
@@ -33,6 +31,7 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
+    //set swipe down gesture on views to close opened keyboards
     [_propMainPage addKeyboardPanningWithActionHandler:nil];
     _appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [_appDelegate setupOnSliderOnLoad:self];
@@ -51,7 +50,7 @@
     self.propLvSidebar.delegate = self;
     self.propLvSidebar.dataSource = self;
     
-    [_propLvSidebar.delegate tableView:_propLvSidebar didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    //initial selection requires to steps: hightlight selected then switch to selected
     [_propLvSidebar selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionBottom];
     [_propLvSidebar.delegate tableView:_propLvSidebar didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 }
@@ -87,6 +86,32 @@
                                 }
          ];
     }
+}
+
+- (void)updateSidebarWillShow:(BOOL)willShow{
+    _propMainPage.userInteractionEnabled = NO;
+    _propLvSidebar.userInteractionEnabled = NO;
+    
+    [UIView animateWithDuration:ANIMATIONDURATION animations:^{
+        _propMainPage.transform = CGAffineTransformMakeTranslation((willShow)?MAXPANNING:0, 0);
+    } completion:^(BOOL finished){
+        _propMainPage.userInteractionEnabled = YES;
+        _propLvSidebar.userInteractionEnabled = YES;
+        _isSidebarShowing = willShow;
+        _mainPageX = 0;
+    }];
+}
+
+#pragma mark default methods
+- (void)reloadSidebarItems{
+    [_propLvSidebar reloadData];
+}
+
+- (void)toggleSidebar{
+    if(!_isSidebarShowing)
+        [self.view endEditing:YES];
+    
+    [self updateSidebarWillShow:!_isSidebarShowing];
 }
 
 #pragma mark implemented methods
@@ -188,7 +213,7 @@
                             [_appDelegate.propGatewayOffline logout];
                             [_appDelegate.propPageNavigator logout];
                             [self changePage:[_appDelegate.propPageNavigator getLoginNavigator]];
-                            [self reloadSidebar];
+                            [self reloadSidebarItems];
                             break;
                             
                         default:
@@ -244,36 +269,10 @@
     
 }
 
-- (void)updateSidebarWillShow:(BOOL)willShow{
-    _propMainPage.userInteractionEnabled = NO;
-    _propLvSidebar.userInteractionEnabled = NO;
-
-    [UIView animateWithDuration:ANIMATIONDURATION animations:^{
-                                                      _propMainPage.transform = CGAffineTransformMakeTranslation((willShow)?MAXPANNING:0, 0);
-                                                  } completion:^(BOOL finished){
-                                                      _propMainPage.userInteractionEnabled = YES;
-                                                      _propLvSidebar.userInteractionEnabled = YES;
-                                                      _isSidebarShowing = willShow;
-                                                      _mainPageX = 0;
-                                                  }];
-}
-
-#pragma mark public methods
+#pragma mark custom methods
 - (void)changeToProfileSidebarItemsAfterLoginSuccess{
     if([_appDelegate.propGatewayOffline isLoggedIn])
         [self changePage:[_appDelegate.propPageNavigator getUserDetailNavigator]];
 }
-
-- (void)reloadSidebar{
-    [_propLvSidebar reloadData];
-}
-
-- (void)toggleSidebar{
-    if(!_isSidebarShowing)
-        [self.view endEditing:YES];
-    
-    [self updateSidebarWillShow:!_isSidebarShowing];
-}
-
 
 @end

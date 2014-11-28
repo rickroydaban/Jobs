@@ -7,9 +7,9 @@
 //
 
 #import "VCPage.h"
-#import "VCUserTables.h"
+#import "VCList.h"
 
-@interface VCUserPassword : VCUserTables<UIAlertViewDelegate>
+@interface VCUserPassword : VCList<UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *fieldOldPassword;
 @property (strong, nonatomic) IBOutlet UITextField *fieldNewPassword;

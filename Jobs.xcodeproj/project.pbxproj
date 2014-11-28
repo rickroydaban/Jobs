@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8F25E12F19DE7B840043C6F0 /* CurrencyList.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F25E12E19DE7B840043C6F0 /* CurrencyList.m */; };
+		8F3C8E641A2820B300645A9B /* LanguageChanger.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3C8E631A2820B300645A9B /* LanguageChanger.m */; };
 		8F3F7D8719DBAA4B001C9D78 /* CellDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3F7D8619DBAA4B001C9D78 /* CellDetail.m */; };
 		8F3F7D8E19DBF719001C9D78 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3F7D8D19DBF719001C9D78 /* User.m */; };
 		8F49287B1A0083A90060697A /* VCCVHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F49287A1A0083A90060697A /* VCCVHelp.m */; };
@@ -19,7 +20,7 @@
 		8F49288D1A00849F0060697A /* VCSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F49288C1A00849F0060697A /* VCSecurityPolicy.m */; };
 		8F4928901A00AA010060697A /* CellDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F49288F1A00AA010060697A /* CellDocument.m */; };
 		8F4928931A00B0EB0060697A /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4928921A00B0EB0060697A /* Document.m */; };
-		8F5A74B419EB9DEC0006DFAE /* UserDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5A74B319EB9DEC0006DFAE /* UserDetails.m */; };
+		8F5A74B419EB9DEC0006DFAE /* UserChoicesFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5A74B319EB9DEC0006DFAE /* UserChoicesFactory.m */; };
 		8F5D8B5819F8C97F00EEC020 /* VCSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5D8B5719F8C97F00EEC020 /* VCSlider.m */; };
 		8F5D8B5B19F8F71500EEC020 /* CellSidebar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5D8B5A19F8F71500EEC020 /* CellSidebar.m */; };
 		8F6CDDAA19DD4302002D7079 /* VCUserDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6CDDA919DD4302002D7079 /* VCUserDetails.m */; };
@@ -27,19 +28,20 @@
 		8F6CDDB019DD49A9002D7079 /* VCUserDocuments.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6CDDAF19DD49A9002D7079 /* VCUserDocuments.m */; };
 		8F6CDDB319DD49B5002D7079 /* VCUserEmployments.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6CDDB219DD49B5002D7079 /* VCUserEmployments.m */; };
 		8F6CDDB619DD49BF002D7079 /* VCUserPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6CDDB519DD49BF002D7079 /* VCUserPassword.m */; };
-		8F6CDDB919DD5B4E002D7079 /* UserPageNavigators.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6CDDB819DD5B4E002D7079 /* UserPageNavigators.m */; };
+		8F6CDDB919DD5B4E002D7079 /* PageNavigatorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6CDDB819DD5B4E002D7079 /* PageNavigatorFactory.m */; };
 		8F6F5BCA19E7C39800271FB5 /* DAKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6F5BC919E7C39800271FB5 /* DAKeyboardControl.m */; };
 		8F77B3FC1A1DF96300D74FFC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F77B3FB1A1DF96300D74FFC /* LaunchScreen.xib */; };
 		8F7BD62519DA8FDB00E20A77 /* VCJobDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7BD62419DA8FDB00E20A77 /* VCJobDetails.m */; };
 		8F7FD44D1A01E2E6005DA69C /* VCDocumentDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7FD44C1A01E2E6005DA69C /* VCDocumentDetails.m */; };
 		8F822C7A19DAAED900DB597E /* JobDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F822C7919DAAED900DB597E /* JobDetail.m */; };
 		8F8486AC1A1069B7003F476B /* VCEmploymentDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8486AB1A1069B7003F476B /* VCEmploymentDetail.m */; };
-		8F8486AF1A106DDE003F476B /* VCTableViewDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8486AE1A106DDE003F476B /* VCTableViewDetail.m */; };
+		8F8486AF1A106DDE003F476B /* VCDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8486AE1A106DDE003F476B /* VCDetail.m */; };
 		8F8486B21A1082EA003F476B /* CellApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8486B11A1082EA003F476B /* CellApplication.m */; };
 		8F8486B51A108394003F476B /* Application.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8486B41A108394003F476B /* Application.m */; };
 		8F8486BB1A10C5FA003F476B /* CellSavedSearches.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8486BA1A10C5FA003F476B /* CellSavedSearches.m */; };
 		8F8486BE1A10C89A003F476B /* SavedSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8486BD1A10C89A003F476B /* SavedSearch.m */; };
 		8F8486C11A10DF75003F476B /* VCSavedSearchDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8486C01A10DF75003F476B /* VCSavedSearchDetail.m */; };
+		8F85E6881A24316500A24E4D /* VCSaveSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F85E6871A24316500A24E4D /* VCSaveSearch.m */; };
 		8F86E28719FE0E84006602FB /* VCHome.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F86E28619FE0E84006602FB /* VCHome.m */; };
 		8F877F9D19D5123C00B0F820 /* CountryList.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F877F9C19D5123C00B0F820 /* CountryList.m */; };
 		8F877FA219D5687B00B0F820 /* VCLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F877FA119D5687B00B0F820 /* VCLogin.m */; };
@@ -57,7 +59,7 @@
 		8FB37F0919D4198400B798BB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FB37F0819D4198400B798BB /* Images.xcassets */; };
 		8FB37F1819D4198400B798BB /* JobsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB37F1719D4198400B798BB /* JobsTests.m */; };
 		8FB50F871A11D88800FB4307 /* VCForgotPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB50F861A11D88800FB4307 /* VCForgotPassword.m */; };
-		8FB628A319FF70D0001D492C /* VCUserTables.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB628A219FF70D0001D492C /* VCUserTables.m */; };
+		8FB628A319FF70D0001D492C /* VCList.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB628A219FF70D0001D492C /* VCList.m */; };
 		8FB628AA19FF9C05001D492C /* VCAboutUs.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB628A919FF9C05001D492C /* VCAboutUs.m */; };
 		8FBEF3AE1A10574500A479F6 /* CellEmployment.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEF3AD1A10574500A479F6 /* CellEmployment.m */; };
 		8FBEF3B11A105A9200A479F6 /* Employment.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEF3B01A105A9200A479F6 /* Employment.m */; };
@@ -74,6 +76,8 @@
 		8FC0C93119D41AB8006F3652 /* VelosiDesigner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC0C93019D41AB8006F3652 /* VelosiDesigner.m */; };
 		8FC0C93519D41B2A006F3652 /* iphone5.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FC0C93419D41B2A006F3652 /* iphone5.storyboard */; };
 		8FC8F44A19EE7D1C00BA9084 /* VCUserApplications.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC8F44919EE7D1C00BA9084 /* VCUserApplications.m */; };
+		8FDF96911A2843E3008E9D0A /* LanguageEnglish.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FDF96901A2843E3008E9D0A /* LanguageEnglish.m */; };
+		B436E801FFB6533A9E07F629 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 446948109AA87B391C57B7F9 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,8 +91,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		30EDC7A813EB2A3B96D1F570 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		446948109AA87B391C57B7F9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F25E12D19DE7B840043C6F0 /* CurrencyList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyList.h; sourceTree = "<group>"; };
 		8F25E12E19DE7B840043C6F0 /* CurrencyList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyList.m; sourceTree = "<group>"; };
+		8F3C8E5E1A2819CF00645A9B /* LanguageChangeDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageChangeDelegate.h; sourceTree = "<group>"; };
+		8F3C8E621A2820B300645A9B /* LanguageChanger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageChanger.h; sourceTree = "<group>"; };
+		8F3C8E631A2820B300645A9B /* LanguageChanger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageChanger.m; sourceTree = "<group>"; };
+		8F3C8E681A28417B00645A9B /* Language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Language.h; sourceTree = "<group>"; };
 		8F3F7D8519DBAA4B001C9D78 /* CellDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellDetail.h; sourceTree = "<group>"; };
 		8F3F7D8619DBAA4B001C9D78 /* CellDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellDetail.m; sourceTree = "<group>"; };
 		8F3F7D8C19DBF719001C9D78 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -112,8 +122,8 @@
 		8F4928911A00B0EB0060697A /* Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Document.h; sourceTree = "<group>"; };
 		8F4928921A00B0EB0060697A /* Document.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Document.m; sourceTree = "<group>"; };
 		8F5853C619F0C8B000F89DEC /* CellSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellSelector.h; sourceTree = "<group>"; };
-		8F5A74B219EB9DEB0006DFAE /* UserDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetails.h; sourceTree = "<group>"; };
-		8F5A74B319EB9DEC0006DFAE /* UserDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetails.m; sourceTree = "<group>"; };
+		8F5A74B219EB9DEB0006DFAE /* UserChoicesFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserChoicesFactory.h; sourceTree = "<group>"; };
+		8F5A74B319EB9DEC0006DFAE /* UserChoicesFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserChoicesFactory.m; sourceTree = "<group>"; };
 		8F5D8B5619F8C97F00EEC020 /* VCSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCSlider.h; sourceTree = "<group>"; };
 		8F5D8B5719F8C97F00EEC020 /* VCSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCSlider.m; sourceTree = "<group>"; };
 		8F5D8B5919F8F71500EEC020 /* CellSidebar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellSidebar.h; sourceTree = "<group>"; };
@@ -128,8 +138,8 @@
 		8F6CDDB219DD49B5002D7079 /* VCUserEmployments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCUserEmployments.m; sourceTree = "<group>"; };
 		8F6CDDB419DD49BF002D7079 /* VCUserPassword.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCUserPassword.h; sourceTree = "<group>"; };
 		8F6CDDB519DD49BF002D7079 /* VCUserPassword.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCUserPassword.m; sourceTree = "<group>"; };
-		8F6CDDB719DD5B4E002D7079 /* UserPageNavigators.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPageNavigators.h; sourceTree = "<group>"; };
-		8F6CDDB819DD5B4E002D7079 /* UserPageNavigators.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPageNavigators.m; sourceTree = "<group>"; };
+		8F6CDDB719DD5B4E002D7079 /* PageNavigatorFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageNavigatorFactory.h; sourceTree = "<group>"; };
+		8F6CDDB819DD5B4E002D7079 /* PageNavigatorFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageNavigatorFactory.m; sourceTree = "<group>"; };
 		8F6F5BC819E7C39800271FB5 /* DAKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAKeyboardControl.h; sourceTree = "<group>"; };
 		8F6F5BC919E7C39800271FB5 /* DAKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAKeyboardControl.m; sourceTree = "<group>"; };
 		8F77B3FB1A1DF96300D74FFC /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
@@ -141,8 +151,8 @@
 		8F822C7919DAAED900DB597E /* JobDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobDetail.m; sourceTree = "<group>"; };
 		8F8486AA1A1069B7003F476B /* VCEmploymentDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCEmploymentDetail.h; sourceTree = "<group>"; };
 		8F8486AB1A1069B7003F476B /* VCEmploymentDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCEmploymentDetail.m; sourceTree = "<group>"; };
-		8F8486AD1A106DDE003F476B /* VCTableViewDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCTableViewDetail.h; sourceTree = "<group>"; };
-		8F8486AE1A106DDE003F476B /* VCTableViewDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCTableViewDetail.m; sourceTree = "<group>"; };
+		8F8486AD1A106DDE003F476B /* VCDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCDetail.h; sourceTree = "<group>"; };
+		8F8486AE1A106DDE003F476B /* VCDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCDetail.m; sourceTree = "<group>"; };
 		8F8486B01A1082EA003F476B /* CellApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellApplication.h; sourceTree = "<group>"; };
 		8F8486B11A1082EA003F476B /* CellApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellApplication.m; sourceTree = "<group>"; };
 		8F8486B31A108394003F476B /* Application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Application.h; sourceTree = "<group>"; };
@@ -153,6 +163,8 @@
 		8F8486BD1A10C89A003F476B /* SavedSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedSearch.m; sourceTree = "<group>"; };
 		8F8486BF1A10DF75003F476B /* VCSavedSearchDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCSavedSearchDetail.h; sourceTree = "<group>"; };
 		8F8486C01A10DF75003F476B /* VCSavedSearchDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCSavedSearchDetail.m; sourceTree = "<group>"; };
+		8F85E6861A24316500A24E4D /* VCSaveSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCSaveSearch.h; sourceTree = "<group>"; };
+		8F85E6871A24316500A24E4D /* VCSaveSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCSaveSearch.m; sourceTree = "<group>"; };
 		8F86E28519FE0E84006602FB /* VCHome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCHome.h; sourceTree = "<group>"; };
 		8F86E28619FE0E84006602FB /* VCHome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCHome.m; sourceTree = "<group>"; };
 		8F877F9B19D5123C00B0F820 /* CountryList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountryList.h; sourceTree = "<group>"; };
@@ -185,8 +197,8 @@
 		8FB37F1719D4198400B798BB /* JobsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsTests.m; sourceTree = "<group>"; };
 		8FB50F851A11D88800FB4307 /* VCForgotPassword.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCForgotPassword.h; sourceTree = "<group>"; };
 		8FB50F861A11D88800FB4307 /* VCForgotPassword.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCForgotPassword.m; sourceTree = "<group>"; };
-		8FB628A119FF70D0001D492C /* VCUserTables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCUserTables.h; sourceTree = "<group>"; };
-		8FB628A219FF70D0001D492C /* VCUserTables.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCUserTables.m; sourceTree = "<group>"; };
+		8FB628A119FF70D0001D492C /* VCList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCList.h; sourceTree = "<group>"; };
+		8FB628A219FF70D0001D492C /* VCList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCList.m; sourceTree = "<group>"; };
 		8FB628A819FF9C05001D492C /* VCAboutUs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCAboutUs.h; sourceTree = "<group>"; };
 		8FB628A919FF9C05001D492C /* VCAboutUs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCAboutUs.m; sourceTree = "<group>"; };
 		8FBEF3AC1A10574500A479F6 /* CellEmployment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellEmployment.h; sourceTree = "<group>"; };
@@ -220,6 +232,10 @@
 		8FC0C93419D41B2A006F3652 /* iphone5.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iphone5.storyboard; sourceTree = "<group>"; };
 		8FC8F44819EE7D1C00BA9084 /* VCUserApplications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCUserApplications.h; sourceTree = "<group>"; };
 		8FC8F44919EE7D1C00BA9084 /* VCUserApplications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCUserApplications.m; sourceTree = "<group>"; };
+		8FDF968F1A2843E3008E9D0A /* LanguageEnglish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageEnglish.h; sourceTree = "<group>"; };
+		8FDF96901A2843E3008E9D0A /* LanguageEnglish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageEnglish.m; sourceTree = "<group>"; };
+		8FDF96941A284C98008E9D0A /* Jobs-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Jobs-Prefix.pch"; sourceTree = "<group>"; };
+		AEBD228C5F23C412553BE1A6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +243,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B436E801FFB6533A9E07F629 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,11 +257,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5942652DD97192391B0FAA97 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AEBD228C5F23C412553BE1A6 /* Pods.debug.xcconfig */,
+				30EDC7A813EB2A3B96D1F570 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		7E81FB624F88044629233A7C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				446948109AA87B391C57B7F9 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8F6CDDA719DD42ED002D7079 /* profile */ = {
 			isa = PBXGroup;
 			children = (
-				8F8486AD1A106DDE003F476B /* VCTableViewDetail.h */,
-				8F8486AE1A106DDE003F476B /* VCTableViewDetail.m */,
 				8F877FA019D5687B00B0F820 /* VCLogin.h */,
 				8F877FA119D5687B00B0F820 /* VCLogin.m */,
 				8FB50F851A11D88800FB4307 /* VCForgotPassword.h */,
@@ -273,6 +305,17 @@
 			name = profile;
 			sourceTree = "<group>";
 		};
+		8F85E6851A241E0100A24E4D /* factories */ = {
+			isa = PBXGroup;
+			children = (
+				8F5A74B219EB9DEB0006DFAE /* UserChoicesFactory.h */,
+				8F5A74B319EB9DEC0006DFAE /* UserChoicesFactory.m */,
+				8F6CDDB719DD5B4E002D7079 /* PageNavigatorFactory.h */,
+				8F6CDDB819DD5B4E002D7079 /* PageNavigatorFactory.m */,
+			);
+			name = factories;
+			sourceTree = "<group>";
+		};
 		8F877F9A19D5121A00B0F820 /* models */ = {
 			isa = PBXGroup;
 			children = (
@@ -286,8 +329,6 @@
 				8F822C7919DAAED900DB597E /* JobDetail.m */,
 				8F3F7D8C19DBF719001C9D78 /* User.h */,
 				8F3F7D8D19DBF719001C9D78 /* User.m */,
-				8F5A74B219EB9DEB0006DFAE /* UserDetails.h */,
-				8F5A74B319EB9DEC0006DFAE /* UserDetails.m */,
 				8F4928911A00B0EB0060697A /* Document.h */,
 				8F4928921A00B0EB0060697A /* Document.m */,
 				8FBEF3AF1A105A9200A479F6 /* Employment.h */,
@@ -309,6 +350,8 @@
 				8FB37EFA19D4198400B798BB /* Jobs */,
 				8FB37F1419D4198400B798BB /* JobsTests */,
 				8FB37EF919D4198400B798BB /* Products */,
+				5942652DD97192391B0FAA97 /* Pods */,
+				7E81FB624F88044629233A7C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -330,6 +373,10 @@
 				8F5D8B5719F8C97F00EEC020 /* VCSlider.m */,
 				8FC0C92219D41A69006F3652 /* VCPage.h */,
 				8FC0C92319D41A69006F3652 /* VCPage.m */,
+				8FB628A119FF70D0001D492C /* VCList.h */,
+				8FB628A219FF70D0001D492C /* VCList.m */,
+				8F8486AD1A106DDE003F476B /* VCDetail.h */,
+				8F8486AE1A106DDE003F476B /* VCDetail.m */,
 				8FC0C91B19D41A4B006F3652 /* pages */,
 				8FC0C92B19D41A8F006F3652 /* customviews */,
 				8F877F9A19D5121A00B0F820 /* models */,
@@ -338,6 +385,7 @@
 				8F77B3FB1A1DF96300D74FFC /* LaunchScreen.xib */,
 				8FB37F0819D4198400B798BB /* Images.xcassets */,
 				8FB37EFB19D4198400B798BB /* Supporting Files */,
+				8FDF96941A284C98008E9D0A /* Jobs-Prefix.pch */,
 			);
 			path = Jobs;
 			sourceTree = "<group>";
@@ -405,6 +453,8 @@
 		8FC0C91719D41A2D006F3652 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				8FDF96921A2843EE008E9D0A /* languages */,
+				8F85E6851A241E0100A24E4D /* factories */,
 				8FC0C93219D41ABF006F3652 /* protocols */,
 				8FC0C92F19D41AB8006F3652 /* VelosiDesigner.h */,
 				8FC0C93019D41AB8006F3652 /* VelosiDesigner.m */,
@@ -414,9 +464,9 @@
 				8FC0C91919D41A43006F3652 /* OnlineGateway.m */,
 				8FC08FCD1A1AEF9000A0E4BE /* OfflineGateway.h */,
 				8FC08FCE1A1AEF9000A0E4BE /* OfflineGateway.m */,
-				8F6CDDB719DD5B4E002D7079 /* UserPageNavigators.h */,
-				8F6CDDB819DD5B4E002D7079 /* UserPageNavigators.m */,
 				8FC0C91319D41A1D006F3652 /* libs */,
+				8F3C8E621A2820B300645A9B /* LanguageChanger.h */,
+				8F3C8E631A2820B300645A9B /* LanguageChanger.m */,
 			);
 			name = utils;
 			sourceTree = "<group>";
@@ -428,16 +478,16 @@
 				8F86E28619FE0E84006602FB /* VCHome.m */,
 				8FC0C92519D41A79006F3652 /* VCSearchJob.h */,
 				8FC0C92619D41A79006F3652 /* VCSearchJob.m */,
+				8FAB94AD19D93D49008D23C8 /* VCJobSummary.h */,
+				8FAB94AE19D93D49008D23C8 /* VCJobSummary.m */,
+				8F85E6861A24316500A24E4D /* VCSaveSearch.h */,
+				8F85E6871A24316500A24E4D /* VCSaveSearch.m */,
+				8F7BD62319DA8FDB00E20A77 /* VCJobDetails.h */,
+				8F7BD62419DA8FDB00E20A77 /* VCJobDetails.m */,
 				8FC0C91C19D41A60006F3652 /* VCCountrySelection.h */,
 				8FC0C91D19D41A60006F3652 /* VCCountrySelection.m */,
 				8FC0C91E19D41A60006F3652 /* VCLocationSelection.h */,
 				8FC0C91F19D41A60006F3652 /* VCLocationSelection.m */,
-				8FAB94AD19D93D49008D23C8 /* VCJobSummary.h */,
-				8FAB94AE19D93D49008D23C8 /* VCJobSummary.m */,
-				8F7BD62319DA8FDB00E20A77 /* VCJobDetails.h */,
-				8F7BD62419DA8FDB00E20A77 /* VCJobDetails.m */,
-				8FB628A119FF70D0001D492C /* VCUserTables.h */,
-				8FB628A219FF70D0001D492C /* VCUserTables.m */,
 				8F6CDDA719DD42ED002D7079 /* profile */,
 				8F9D86F31A007C85004878A4 /* VCLink.h */,
 				8F9D86F41A007C85004878A4 /* VCLink.m */,
@@ -479,8 +529,19 @@
 				8FC0C93319D41AC8006F3652 /* VelosiPickerRowSelectionDelegate.h */,
 				8F5853C619F0C8B000F89DEC /* CellSelector.h */,
 				8FC03BA81A160AA9006D1EC9 /* CellSavedSearchesDelegate.h */,
+				8F3C8E5E1A2819CF00645A9B /* LanguageChangeDelegate.h */,
+				8F3C8E681A28417B00645A9B /* Language.h */,
 			);
 			name = protocols;
+			sourceTree = "<group>";
+		};
+		8FDF96921A2843EE008E9D0A /* languages */ = {
+			isa = PBXGroup;
+			children = (
+				8FDF968F1A2843E3008E9D0A /* LanguageEnglish.h */,
+				8FDF96901A2843E3008E9D0A /* LanguageEnglish.m */,
+			);
+			name = languages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -490,9 +551,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8FB37F1B19D4198400B798BB /* Build configuration list for PBXNativeTarget "Jobs" */;
 			buildPhases = (
+				A7132F0DB69427DE935D03BF /* Check Pods Manifest.lock */,
 				8FB37EF419D4198400B798BB /* Sources */,
 				8FB37EF519D4198400B798BB /* Frameworks */,
 				8FB37EF619D4198400B798BB /* Resources */,
+				C6D103F1DA16383E51FC70F5 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -582,6 +645,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A7132F0DB69427DE935D03BF /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C6D103F1DA16383E51FC70F5 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8FB37EF419D4198400B798BB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -591,12 +687,15 @@
 				8F8486BE1A10C89A003F476B /* SavedSearch.m in Sources */,
 				8FA1799D19F4B05F00F6AF24 /* VCLanguages.m in Sources */,
 				8FB628AA19FF9C05001D492C /* VCAboutUs.m in Sources */,
+				8F3C8E641A2820B300645A9B /* LanguageChanger.m in Sources */,
 				8F8486B21A1082EA003F476B /* CellApplication.m in Sources */,
 				8FAF21071A1EE24F0065579D /* CellLatestVacancy.m in Sources */,
 				8F4928871A0084690060697A /* VCCopyright.m in Sources */,
 				8FC0C92E19D41AAD006F3652 /* VelosiCustomPicker.m in Sources */,
 				8FBEF3AE1A10574500A479F6 /* CellEmployment.m in Sources */,
+				8FDF96911A2843E3008E9D0A /* LanguageEnglish.m in Sources */,
 				8F6CDDAA19DD4302002D7079 /* VCUserDetails.m in Sources */,
+				8F85E6881A24316500A24E4D /* VCSaveSearch.m in Sources */,
 				8F7BD62519DA8FDB00E20A77 /* VCJobDetails.m in Sources */,
 				8FC0C92119D41A60006F3652 /* VCLocationSelection.m in Sources */,
 				8FC0C91219D41A11006F3652 /* AppDelegate.m in Sources */,
@@ -610,7 +709,7 @@
 				8FBEF3B11A105A9200A479F6 /* Employment.m in Sources */,
 				8F4928841A0084480060697A /* VCPrivacy.m in Sources */,
 				8F49288A1A00848A0060697A /* VCDisclaimer.m in Sources */,
-				8FB628A319FF70D0001D492C /* VCUserTables.m in Sources */,
+				8FB628A319FF70D0001D492C /* VCList.m in Sources */,
 				8FC0C92719D41A79006F3652 /* VCSearchJob.m in Sources */,
 				8F8486C11A10DF75003F476B /* VCSavedSearchDetail.m in Sources */,
 				8F49288D1A00849F0060697A /* VCSecurityPolicy.m in Sources */,
@@ -631,15 +730,15 @@
 				8F3F7D8719DBAA4B001C9D78 /* CellDetail.m in Sources */,
 				8F822C7A19DAAED900DB597E /* JobDetail.m in Sources */,
 				8F4928811A0084160060697A /* VCTerms.m in Sources */,
-				8F8486AF1A106DDE003F476B /* VCTableViewDetail.m in Sources */,
+				8F8486AF1A106DDE003F476B /* VCDetail.m in Sources */,
 				8F4928931A00B0EB0060697A /* Document.m in Sources */,
-				8F5A74B419EB9DEC0006DFAE /* UserDetails.m in Sources */,
+				8F5A74B419EB9DEC0006DFAE /* UserChoicesFactory.m in Sources */,
 				8FAB94AF19D93D49008D23C8 /* VCJobSummary.m in Sources */,
 				8FC08FCF1A1AEF9000A0E4BE /* OfflineGateway.m in Sources */,
 				8F5D8B5B19F8F71500EEC020 /* CellSidebar.m in Sources */,
 				8FC0C91619D41A25006F3652 /* MBProgressHUD.m in Sources */,
 				8FC0C92419D41A69006F3652 /* VCPage.m in Sources */,
-				8F6CDDB919DD5B4E002D7079 /* UserPageNavigators.m in Sources */,
+				8F6CDDB919DD5B4E002D7079 /* PageNavigatorFactory.m in Sources */,
 				8FB37EFE19D4198400B798BB /* main.m in Sources */,
 				8FAB94A919D909A4008D23C8 /* Job.m in Sources */,
 				8F6CDDB619DD49BF002D7079 /* VCUserPassword.m in Sources */,
@@ -749,28 +848,38 @@
 		};
 		8FB37F1C19D4198400B798BB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AEBD228C5F23C412553BE1A6 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Rick Royd Aban (U5Q2WFTGV5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rick Royd Aban (U5Q2WFTGV5)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Jobs/Jobs-Prefix.pch";
 				INFOPLIST_FILE = Jobs/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "5755d892-b5e6-49b3-8344-ff93f32fcf3c";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		8FB37F1D19D4198400B798BB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 30EDC7A813EB2A3B96D1F570 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Rick Royd Aban (U5Q2WFTGV5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rick Royd Aban (U5Q2WFTGV5)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Jobs/Jobs-Prefix.pch";
 				INFOPLIST_FILE = Jobs/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "5755d892-b5e6-49b3-8344-ff93f32fcf3c";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

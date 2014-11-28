@@ -7,10 +7,6 @@
 //
 // Designed parent class to common view controller classes
 
-#import <UIKit/UIKit.h>
-#import "AppDelegate.h"
-#import "MBProgressHUD.h"
-
 @interface VCPage : UIViewController
 
 @property (strong, nonatomic) AppDelegate *propAppDelegate;

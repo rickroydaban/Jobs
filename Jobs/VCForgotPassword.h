@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import "VCTableViewDetail.h"
+#import "VCDetail.h"
 
-@interface VCForgotPassword : VCTableViewDetail
+@interface VCForgotPassword : VCDetail
 
 @property (strong, nonatomic) IBOutlet UITextField *propFieldUsername;
 

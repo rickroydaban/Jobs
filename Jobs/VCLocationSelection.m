@@ -8,7 +8,6 @@
 
 #import "VCLocationSelection.h"
 #import "VelosiDesigner.h"
-#import "MBProgressHUD.h"
 #import "VCSearchJob.h"
 
 @interface VCLocationSelection (){

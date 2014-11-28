@@ -20,14 +20,14 @@
     self.propLV.delegate = self;
     self.propLV.dataSource = self;
     self.propLV.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    [self refresh];
+    [self resetTableContents];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [self.propLV reloadData];
 }
 
-- (void)refresh{
+- (void)resetTableContents{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         id result = [self.propAppDelegate.propGatewayOnline getAdvanceSearchResults:@"" in:@"0" location:@"0" radius:@"100" jobType:@"1" country:@"0" postedWithin:@"0"];
@@ -51,7 +51,7 @@
 }
 
 - (IBAction)refresh:(id)sender{
-    [self refresh];
+    [self resetTableContents];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -69,6 +69,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return _propListVacancies.count;
+}
+
+- (void)onLanguageChanged{
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{

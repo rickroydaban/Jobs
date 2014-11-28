@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface Job : NSObject
 
 @property (assign, nonatomic) int propJobID;

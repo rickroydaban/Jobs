@@ -7,7 +7,6 @@
 //
 
 #import "VCForgotPassword.h"
-#import "MBProgressHUD.h"
 
 @implementation VCForgotPassword
 

@@ -296,7 +296,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="132" id="icH-ma-oYf" customClass="CellJobSummary">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="132" id="icH-ma-oYf" customClass="CellJobSummary">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="icH-ma-oYf" id="Xpe-dz-buF">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -362,11 +362,84 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="propLv" destination="yBk-B8-LUq" id="lu5-bG-kxe"/>
+                        <segue destination="YEP-gb-pcO" kind="show" identifier="segueJobSummaryToSave" id="N5e-aT-Ohe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Poq-54-Rnn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="593" y="-205"/>
+        </scene>
+        <!--Save Search-->
+        <scene sceneID="YvG-Od-koN">
+            <objects>
+                <tableViewController id="YEP-gb-pcO" customClass="VCSaveSearch" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="49" sectionHeaderHeight="10" sectionFooterHeight="10" id="Fj7-c1-olI">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="Label this search" id="kNs-HD-aQ1">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellTitle" id="bQq-ih-IsU">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bQq-ih-IsU" id="hEy-Jd-tuG">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bg5-oh-ubx">
+                                                    <rect key="frame" x="15" y="11" width="297" height="30"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Alerts" id="gbt-ul-MjJ">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="FFP-Eq-oWo">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FFP-Eq-oWo" id="PZw-9R-6tm">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Allow Email Alerts" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uwP-Mi-UxU">
+                                                    <rect key="frame" x="15" y="13" width="158" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6h5-v6-rkf">
+                                                    <rect key="frame" x="263" y="9" width="51" height="31"/>
+                                                </switch>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="YEP-gb-pcO" id="HRV-sC-dFT"/>
+                            <outlet property="delegate" destination="YEP-gb-pcO" id="cTd-uh-zXA"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Save Search" id="HKh-Pw-xql">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="HqC-jw-BAN"/>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="CGP-OZ-fUc">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="done:" destination="YEP-gb-pcO" id="6iJ-YF-oqh"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="propFieldTitle" destination="Bg5-oh-ubx" id="ele-Pt-jf9"/>
+                        <outlet property="propSwitchAlerts" destination="6h5-v6-rkf" id="iFa-Wt-d7T"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uMO-Av-TPG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1032" y="218"/>
         </scene>
         <!--Forgot Password-->
         <scene sceneID="jiQ-7j-5gv">
@@ -3289,9 +3362,9 @@
         <image name="logo_applusvelosi" width="287" height="124"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dGl-6l-FFp"/>
-        <segue reference="rQE-GR-YxJ"/>
-        <segue reference="VBy-8T-jtx"/>
+        <segue reference="uML-us-Wzd"/>
+        <segue reference="vnU-gw-cCX"/>
+        <segue reference="GHi-R7-6n6"/>
         <segue reference="183-Zi-foc"/>
     </inferredMetricsTieBreakers>
 </document>

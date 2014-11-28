@@ -6,15 +6,16 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface VCSlider : UIViewController<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *propLvSidebar;
 @property (strong, nonatomic) IBOutlet UIView *propMainPage;
 
-- (void)changeToProfileSidebarItemsAfterLoginSuccess;
+//default methods
 - (void)toggleSidebar;
-- (void)reloadSidebar;
+- (void)reloadSidebarItems;
+
+//custom methods
+- (void)changeToProfileSidebarItemsAfterLoginSuccess;
 
 @end

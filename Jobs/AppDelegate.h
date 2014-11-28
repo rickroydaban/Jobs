@@ -5,15 +5,21 @@
 //  Created by Rick Royd Aban on 9/23/14.
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
-// Every view controller must have the instance of this class
-// Subclassing the VCPage (designed parent class for view controllers), VCUserTables (designed parent class for tableview controllers) and VCTableViewDetails (designed for tableview controllers of static cells) will get the instance of this class so subclasses do not need to get the instance of this class anymore
-// AppDelegate is theoritically accessible everywhere  in the controller classes in the app so IMPORTANT CLASSES ARE MADE TO BE ACCESSIBLE HERE
+// AppDelegate is theoritically accessible everywhere  in the controller classes so CLASSES THAT NEEDS TO BE GLOBALLY ACCESSIBLE MUST BE DECLARED HERE
+// to get this instance from a view controller, JUST CALL [self sharedApplication].delegate
 
-#import <UIKit/UIKit.h>
+/************************* SUPER CLASSES *************************/
+//    VCPage === view controllers that may have tableviewcontrollers
+//    VCList === tableviewcontrollers with dynamic cells
+//    VCDetail == tableviewcontrollers with static cells
+
+/************************ IMPORTANT NOTE ************************/
+//    initial view controller must be a VCSlider class and should initialize self's slider property
+
 #import "OnlineGateway.h"
 #import "OfflineGateway.h"
-#import "UserDetails.h"
-#import "UserPageNavigators.h"
+#import "UserChoicesFactory.h"
+#import "PageNavigatorFactory.h"
 #import "CurrencyList.h"
 #import "VCSlider.h"
 #import "CountryList.h"
@@ -25,11 +31,12 @@
 @property (strong, nonatomic, readonly) VCSlider *propSlider;
 @property (strong, nonatomic, readonly) OnlineGateway *propGatewayOnline;
 @property (strong, nonatomic, readonly) OfflineGateway *propGatewayOffline;
-@property (strong, nonatomic) UserPageNavigators *propPageNavigator;
+@property (strong, nonatomic) PageNavigatorFactory *propPageNavigator;
+@property (strong, nonatomic) NSMutableArray *languageChangeObservables; //list of labels to change on language change
 
 //detail classes
 @property (strong, nonatomic) NSDateFormatter *propDateFormatVelosi;
-@property (strong, nonatomic, readonly) UserDetails *propUserDetails;
+@property (strong, nonatomic, readonly) UserChoicesFactory *propUserDetails;
 @property (strong, nonatomic) User *propUser;
 @property (strong, nonatomic, readonly) CurrencyList *propCurrency;
 @property (strong, nonatomic, readonly) CountryList *propCountries;

@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface Employment : NSObject
 
 @property (strong, nonatomic) NSMutableDictionary *propEmploymentDictionary;

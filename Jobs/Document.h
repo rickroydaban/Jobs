@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface Document : NSObject
 
 @property (assign, nonatomic, readonly) int propType;

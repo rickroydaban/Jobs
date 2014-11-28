@@ -6,10 +6,8 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "VCJobDetails.h"
 #import "JobDetail.h"
-#import "MBProgressHUD.h"
 #import "VelosiColors.h"
 #import "CellDetail.h"
 

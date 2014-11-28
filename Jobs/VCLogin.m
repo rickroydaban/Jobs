@@ -7,7 +7,6 @@
 //
 #import "VCLogin.h"
 #import "VelosiColors.h"
-#import "MBProgressHUD.h"
 
 @interface VCLogin(){
     UITapGestureRecognizer *_viewTappedRecognizer;
@@ -64,7 +63,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             if([self.propAppDelegate.propGatewayOffline isLoggedIn]){
-                [self.propAppDelegate.propSlider reloadSidebar];
+                [self.propAppDelegate.propSlider reloadSidebarItems];
                 [self.propAppDelegate.propSlider changeToProfileSidebarItemsAfterLoginSuccess];
             }
             
