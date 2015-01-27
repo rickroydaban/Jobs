@@ -212,6 +212,7 @@
                         case 7:
                             [_appDelegate.propGatewayOffline logout];
                             [_appDelegate.propPageNavigator logout];
+                            temp = _currIndexPath;
                             [self changePage:[_appDelegate.propPageNavigator getLoginNavigator]];
                             [self reloadSidebarItems];
                             break;

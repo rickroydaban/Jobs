@@ -23,11 +23,17 @@
     [application registerUserNotificationSettings:settings];
     [application registerForRemoteNotifications];
     
+    _errorTitle = @"Error";
+    _messageErrorGeneral = @"Cannot connect to server";
+    _messageSaveSuccessful = @"Saved Successfully";
+    
+    _cancelButton = @"Dismiss";
+    
     _propCountries = [[CountryList alloc] init];
     _propListSearchIns = @[@"Job Title and Description", @"Job Title", @"Job Description"];
     _propDictSearchIns = [NSDictionary dictionaryWithObjects:@[@"0", @"1", @"2"] forKeys:_propListSearchIns];
-    _propListJobTypes = @[@"Permanent", @"Contract", @"Temporary", @"Part time", @"Ad hoc", @"Any", @"Unknown"];
-    _propDictJobTypes = [NSDictionary dictionaryWithObjects:@[@"1", @"2", @"3", @"4", @"5", @"9", @"0"] forKeys:_propListJobTypes];
+    _propListJobTypes = @[@"Permanent", @"Contract", @"Temporary", @"Part time", @"Ad hoc", @"Any"];
+    _propDictJobTypes = [NSDictionary dictionaryWithObjects:@[@"1", @"2", @"3", @"4", @"5", @"0"] forKeys:_propListJobTypes];
     _propListPostedWithins = @[@"Any", @"42 Days", @"35 Days", @"28 Days", @"21 Days", @"14 Days", @"7 Days",@"1 Day"];
     _propDictPostedWithins = [NSDictionary dictionaryWithObjects:@[@"0", @"42", @"35", @"28", @"21", @"14", @"7", @"1"] forKeys:_propListPostedWithins];
     

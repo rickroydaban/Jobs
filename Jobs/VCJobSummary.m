@@ -11,6 +11,7 @@
 #import "Job.h"
 #import "VelosiColors.h"
 #import "VCJobDetails.h"
+#import "VCSaveSearch.h"
 
 @interface VCJobSummary(){
     NSMutableArray *_heights;
@@ -45,7 +46,7 @@
 - (void)refresh{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        id result = [self.propAppDelegate.propGatewayOnline getAdvanceSearchResults:_propSearchFor in:_propSearchIn location:_propSearchLocation radius:_propSearchDistance jobType:_propSearchJobType country:_propSearchCountry postedWithin:_propSearchPostedWithin];
+        id result = [self.propAppDelegate.propGatewayOnline getAdvanceSearchResults:_propSearchFor in:[self.propAppDelegate.propDictSearchIns objectForKey:_propSearchIn] location:_propSearchLocationID radius:_propSearchDistance jobType:[self.propAppDelegate.propDictJobTypes objectForKey:_propSearchJobType] country:_propSearchCountryID postedWithin:_propSearchPostedWithin];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [_propListJobs removeAllObjects];
@@ -135,10 +136,24 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if([segue.identifier isEqualToString:@"segueJobSummaryToSave"]){
+        VCSaveSearch *vcSaveSearch = (VCSaveSearch *)segue.destinationViewController;
+        vcSaveSearch.propSearchInID = [self.propAppDelegate.propDictSearchIns objectForKey:_propSearchIn];
+        vcSaveSearch.propSearchIn = _propSearchIn;
+        vcSaveSearch.propJobTypeID = [self.propAppDelegate.propDictJobTypes objectForKey:_propSearchJobType];
+        vcSaveSearch.propJobType = _propSearchJobType;
+        vcSaveSearch.propCountryID = _propSearchCountryID;
+        vcSaveSearch.propPostedWithin = _propSearchPostedWithin;
+        vcSaveSearch.propSearchFor = _propSearchFor;
+        vcSaveSearch.propLocation = _propSearchLocation;
+        vcSaveSearch.propLocationID = _propSearchLocationID;
+        vcSaveSearch.propLat = @"0";
+        vcSaveSearch.propLng = @"0";
+        vcSaveSearch.propDistance = _propSearchDistance;
         
     }else{
         VCJobDetails *vcJobDetails = (VCJobDetails *)segue.destinationViewController;
         vcJobDetails.propJob = [self.propListJobs objectAtIndex:((CellJobSummary *)sender).tag];
+        vcJobDetails.shouldShowApplyButton = true;
     }
 }
 

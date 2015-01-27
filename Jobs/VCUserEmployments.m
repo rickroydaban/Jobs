@@ -58,7 +58,7 @@
 
 
 - (void)viewWillAppear:(BOOL)animated{
-    [self.propLV reloadData];
+    [self refresh];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -107,10 +107,24 @@
         case 0:
             break;
             
-        case 1:
-            NSLog(@"%@",[self.propAppDelegate.propGatewayOnline deleteEmploymentWithID:[NSString stringWithFormat:@"%d",(int)_cellDeleteTarget.tag]]);
-            [_propListEmployments removeObjectAtIndex:_cellDeleteTarget.tag];
-            [self.propLV deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:_cellDeleteTarget.tag inSection:0]] withRowAnimation:YES];
+        case 1:{
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                NSString *result = [self.propAppDelegate.propGatewayOnline deleteEmploymentWithID:[(Employment *)[self.propListEmployments objectAtIndex:_cellDeleteTarget.tag] getJobID]];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if(![result isEqualToString:@"OK"])
+                        [[[UIAlertView alloc] initWithTitle:@" " message:result delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
+                    else{
+                        [self.propListEmployments removeObjectAtIndex:_cellDeleteTarget.tag];
+                        [self.propLV deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:_cellDeleteTarget.tag inSection:0]] withRowAnimation:YES];
+                    }
+                    
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    [self.propLV reloadData];
+                });
+            });
+        }
             break;
             
         default:

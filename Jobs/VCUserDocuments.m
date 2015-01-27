@@ -13,54 +13,63 @@
 #import "MBProgressHUD.h"
 #import "VCDocumentDetails.h"
 
+@interface VCUserDocuments(){
+    UIAlertView *_deleteConfirmationAlert;
+    UITableViewCell *_cellDeletetarget;
+}
+@end
+
 @implementation VCUserDocuments
 
 - (void)viewDidLoad{
     [super viewDidLoad];
     
-    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addItem)]];
     self.view.backgroundColor = [UIColor whiteColor];
     self.propListDocuments = [NSMutableArray array];
     self.propLv.delegate = self;
     self.propLv.dataSource = self;
     self.propLv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    [self refresh];
+    [self reloadData];
 }
 
 - (void)addItem{
     [self performSegueWithIdentifier:@"segueDocumentsToDetails" sender:nil];
 }
 
-- (void)refresh{
+- (IBAction)refresh:(id)sender {
+    [self reloadData];
+}
+
+- (void)reloadData{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         id result = [self.propAppDelegate.propGatewayOnline getDocuments];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [_propListDocuments removeAllObjects];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             if([result isKindOfClass:[NSString class]])
                 [[[UIAlertView alloc] initWithTitle:@"Error" message:result delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
-            else
+            else{
+                [_propListDocuments removeAllObjects];
                 [_propListDocuments addObjectsFromArray:result];
-
-            [self.propLv reloadData];
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+                [self.propLv reloadData];
+            }
         });
     });
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    [self.propLv reloadData];
+    [self reloadData];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CellDocument *cell = [self.propLv dequeueReusableCellWithIdentifier:@"cell"];
     Document *document = [self.propListDocuments objectAtIndex:indexPath.row];
 
-    cell.propTitle.text = document.propName;
-    cell.propDateExpire.text = [NSString stringWithFormat:@"Expire on %@",document.propDateExpire];
-    cell.propExtAndType.text = [self.propAppDelegate.propUserDetails.propDictDocumentTypes objectForKey:[NSString stringWithFormat:@"%d",document.propType]];
-    cell.propFileSize.text = [NSString stringWithFormat:@"%@ kb",document.propFileSize];
+    cell.propTitle.text = [document getName];
+    cell.propDateExpire.text = [NSString stringWithFormat:@"Expire on %@",[document getDateExpire]];
+    cell.propExtAndType.text = [self.propAppDelegate.propUserDetails.propDictDocumentTypes objectForKey:[NSString stringWithFormat:@"%d",[document getType]]];
+    cell.propFileSize.text = [NSString stringWithFormat:@"%@ kb",[document getFileSize]];
     cell.tag = indexPath.row;
 
     return cell;
@@ -81,6 +90,45 @@
 
 - (IBAction)showList:(id)sender {
     [self.propAppDelegate.propSlider toggleSidebar];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(editingStyle == UITableViewCellEditingStyleDelete){
+        _cellDeletetarget = [tableView cellForRowAtIndexPath:indexPath];
+        _deleteConfirmationAlert.message = [NSString stringWithFormat:@"Are you sure you want to delete %@?",[((Document *)[_propListDocuments objectAtIndex:indexPath.row]) getName]];
+        [_deleteConfirmationAlert show];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 0: break;
+        case 1: {
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                NSString *result = [self.propAppDelegate.propGatewayOnline deleteDocumentsWithID:[((Document *)[self.propListDocuments objectAtIndex:_cellDeletetarget.tag]) getDocumentID]];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                   if(![result isEqualToString:@"OK"])
+                       [[[UIAlertView alloc] initWithTitle:@" " message:result delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
+                   else{
+                       [self.propListDocuments removeObjectAtIndex:_cellDeletetarget.tag];
+                       [self.propLv deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:_cellDeletetarget.tag inSection:0]] withRowAnimation:YES];
+                   }
+                    
+                   [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                });
+            });
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 @end

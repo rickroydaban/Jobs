@@ -19,6 +19,7 @@
 - (NSString *)propEmail;
 - (NSString *)propAltEmail;
 - (NSString *)propGenderID;
+- (NSString *)propGenderName;
 - (NSString *)propPhone;
 - (NSString *)propAltPhone;
 - (NSString *)propMobile;

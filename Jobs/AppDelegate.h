@@ -37,7 +37,7 @@
 //detail classes
 @property (strong, nonatomic) NSDateFormatter *propDateFormatVelosi;
 @property (strong, nonatomic, readonly) UserChoicesFactory *propUserDetails;
-@property (strong, nonatomic) User *propUser;
+//@property (strong, nonatomic) User *propUser;
 @property (strong, nonatomic, readonly) CurrencyList *propCurrency;
 @property (strong, nonatomic, readonly) CountryList *propCountries;
 @property (strong, nonatomic, readonly) NSArray *propListReferrers, *propListSearchIns, *propListJobTypes, *propListPostedWithins;
@@ -46,6 +46,7 @@
 //required by IOS
 @property (strong, nonatomic) UIWindow *window;
 
+@property (strong, nonatomic) NSString *errorTitle, *messageErrorGeneral, *messageSaveSuccessful, *cancelButton;
 
 
 //Setup methods which will be triggered only once

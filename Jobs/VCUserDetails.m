@@ -18,6 +18,7 @@
 @interface VCUserDetails(){
     VelosiCustomPicker *_pickerGender, *_pickerYearGraduated, *_pickerEducation, *_pickerLicense, *_pickerNationality, *_pickerEthnicity, *_pickerReferrers, *_pickerStatus, *_pickerWillRelocate, *_pickerAvailability, *_pickerSalaryType, *_pickerCurrency;
     UIDatePicker *_pickerBday, *_pickerAvailableFrom;
+    User *_user;
 }
 @end
 
@@ -25,63 +26,12 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
+    
+    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(save)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)]];
+
     self.propListLocationPrefs = [NSMutableArray array];
     self.propListLanguages = [NSMutableArray array];
-    _user = self.propAppDelegate.propUser;
-    
-    [self manageTextField:self.fieldFirstName withValue:[_user propFirstName]];
-    [self manageTextField:self.fieldLastName withValue:[_user propLastName]];
-    [self manageTextField:self.fieldEmail withValue:[_user propEmail]];
-    [self manageTextField:self.fieldAltEmail withValue:[_user propAltEmail]];
-    [self manageTextField:self.fieldGender withValue:[self.propAppDelegate.propUserDetails.propDictGender objectForKey:[_user propGenderID]]];
-    [self manageTextField:self.fieldPhone withValue:[_user propPhone]];
-    [self manageTextField:self.fieldAltPhone withValue:[_user propAltPhone]];
-    [self manageTextField:self.fieldMobile withValue:[_user propMobile]];
-    [self manageTextField:self.fieldBirthdate withValue:[self.propAppDelegate.propGatewayOnline deserializeJsonDateString:[_user propBirthdate]]];
-    
-    [self manageTextField:self.fieldAddress withValue:[_user propAddress]];
-    [self manageTextField:self.fieldCity withValue:[_user propCity]];
-    [self manageTextField:self.fieldCountryState withValue:[_user propCountryState]];
-    [self manageTextField:self.fieldPostcode withValue:[_user propPostCode]];
-    [self manageTextField:self.fieldLinkedin withValue:[_user propLinkedIn]];
-    [self manageTextField:self.fieldTwitter withValue:[_user propTwitter]];
-    [self manageTextField:self.fieldSkype withValue:[_user propSkype]];
-    
-    [self manageTextField:self.fieldUniversity withValue:[_user propUniversity]];
-    [self manageTextField:self.fieldSubject withValue:[_user propSubject]];
-    [self manageTextField:self.fieldYearGraduated withValue:[_user propYearGraduated]];
-    [self manageTextField:self.fieldEducation withValue:[self.propAppDelegate.propUserDetails.propDictEducation objectForKey:[_user propEducationID]]];
 
-    [self manageTextField:self.fieldLicense withValue:[self.propAppDelegate.propUserDetails.propDictLicense objectForKey:[_user propDrivingLicenseID]]];
-    [self manageTextField:self.fieldNationality withValue:[self.propAppDelegate.propUserDetails.propDictNationality objectForKey:[_user propNationalityID]]];
-    [self manageTextField:self.fieldEthnicity withValue:[self.propAppDelegate.propUserDetails.propDictEtchnicity objectForKey:[_user propEthnicityID]]];
-    
-    [self manageTextField:self.fieldReferrer withValue:[self.propAppDelegate.propDictReferrers objectForKey:[_user propReferrerID]]];
-    [self manageTextField:self.fieldMaritalStatus withValue:[self.propAppDelegate.propUserDetails.propDictMaritalStatus objectForKey:[_user propMaritalStatusID]]];
-
-    [self manageTextField:self.fieldWillRelocate withValue:[self.propAppDelegate.propUserDetails.propDictRelocate objectForKey:[_user propWillingToRelocateID]]];
-    [self manageTextField:self.fieldNoticePeriod withValue:[self.propAppDelegate.propUserDetails.propDictAvailability objectForKey:[_user propNoticePeriodID]]];
-    [self manageTextField:self.fieldAvailableFrom withValue:[self.propAppDelegate.propGatewayOnline deserializeJsonDateString:[_user propAvailableFrom]]];
-
-    [self manageTextField:self.fieldJobTitles withValue:[_user propJobTitles]];
-    [self manageTextField:self.fieldCurrency withValue:[_user propCurrency]];
-
-    [self manageTextField:self.fieldSalaryFrom withValue:[_user propSalaryFrom]];
-    [self manageTextField:self.fieldSalaryTo withValue:[_user propSalaryTo]];
-    [self manageTextField:self.fieldSalaryType withValue:[self.propAppDelegate.propUserDetails.propDictSalaryType objectForKey:[_user propSalaryTypeID]]];
-
-    self.cellCountry.detailTextLabel.text = [self.propAppDelegate.propCountries.propDictCountryIds objectForKey:[_user propCountryID]];
-    self.cellPreferredLocation.detailTextLabel.text = [NSString stringWithFormat:@"%d",(int)self.propListLocationPrefs.count];
-    self.cellLanguages.detailTextLabel.text = [NSString stringWithFormat:@"%d",(int)self.propListLanguages.count];
-
-    self.switchEUAuthorized.on = [_user propIsEUAuthorized];
-    self.switchWillAllowAlerts.on = [_user propIsAlertsAllowed];
-    self.switchIsPermanent.on = [_user propIsPermanent];
-    self.switchIsTemporary.on = [_user propIsTemporary];
-    self.switchIsContract.on = [_user propIsContract];
-    self.switchIsParttime.on = [_user propIsPartTime];
-    self.fieldMainSkills.text = [_user propMainSkills];
-    
     self.fieldFirstName.delegate = self;
     self.fieldLastName.delegate = self;
     self.fieldEmail.delegate = self;
@@ -123,36 +73,34 @@
     self.fieldMainSkills.delegate = self;
     self.fieldMainSkills.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10);
     
-    _pickerGender = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListGender rowSelectionDelegate:self selectedItem:self.fieldGender.text];
+    _pickerGender = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListGender rowSelectionDelegate:self selectedItem:nil];
     _pickerBday = [[UIDatePicker alloc] init];
     _pickerBday.datePickerMode = UIDatePickerModeDate;
-    _pickerBday.date = [self.propAppDelegate.propDateFormatVelosi dateFromString:self.fieldBirthdate.text];
     _pickerBday.maximumDate = [NSDate date];
     _pickerBday.backgroundColor = [UIColor whiteColor];
     _pickerBday.layer.shadowColor = [UIColor darkGrayColor].CGColor;
     _pickerBday.layer.shadowOpacity = 1;
     _pickerBday.layer.shadowOffset = CGSizeMake(0, 0);
     [_pickerBday addTarget:self action:@selector(updateBirthdayField) forControlEvents:UIControlEventValueChanged];
-    _pickerYearGraduated = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListYearGraduated rowSelectionDelegate:self selectedItem:self.fieldYearGraduated.text];
-    _pickerEducation = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListEducation rowSelectionDelegate:self selectedItem:self.fieldEducation.text];
-    _pickerLicense = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListLicense rowSelectionDelegate:self selectedItem:self.fieldLicense.text];
-    _pickerNationality = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListNationality rowSelectionDelegate:self selectedItem:self.fieldNationality.text];
-    _pickerEthnicity = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListEthnicity rowSelectionDelegate:self selectedItem:self.fieldEthnicity.text];
-    _pickerReferrers = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propListReferrers rowSelectionDelegate:self selectedItem:self.fieldReferrer.text];
-    _pickerStatus = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListMaritalStatus rowSelectionDelegate:self selectedItem:self.fieldMaritalStatus.text];
-    _pickerWillRelocate = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListRelocate rowSelectionDelegate:self selectedItem:self.fieldWillRelocate.text];
-    _pickerAvailability = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListAvailability rowSelectionDelegate:self selectedItem:self.fieldNoticePeriod.text];
+    _pickerYearGraduated = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListYearGraduated rowSelectionDelegate:self selectedItem:nil];
+    _pickerEducation = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListEducation rowSelectionDelegate:self selectedItem:nil];
+    _pickerLicense = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListLicense rowSelectionDelegate:self selectedItem:nil];
+    _pickerNationality = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListNationality rowSelectionDelegate:self selectedItem:nil];
+    _pickerEthnicity = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListEthnicity rowSelectionDelegate:self selectedItem:nil];
+    _pickerReferrers = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propListReferrers rowSelectionDelegate:self selectedItem:nil];
+    _pickerStatus = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListMaritalStatus rowSelectionDelegate:self selectedItem:nil];
+    _pickerWillRelocate = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListRelocate rowSelectionDelegate:self selectedItem:nil];
+    _pickerAvailability = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListAvailability rowSelectionDelegate:self selectedItem:nil];
     _pickerAvailableFrom = [[UIDatePicker alloc] init];
     _pickerAvailableFrom.datePickerMode = UIDatePickerModeDate;
-    if([self.fieldAvailableFrom.text length] > 0)
-        _pickerAvailableFrom.date = [self.propAppDelegate.propDateFormatVelosi dateFromString:self.fieldAvailableFrom.text];
     _pickerAvailableFrom.backgroundColor = [UIColor whiteColor];
     _pickerAvailableFrom.layer.shadowColor = [UIColor darkGrayColor].CGColor;
     _pickerAvailableFrom.layer.shadowOpacity = 1;
     _pickerAvailableFrom.layer.shadowOffset = CGSizeMake(0, 0);
     [_pickerAvailableFrom addTarget:self action:@selector(updateAvailableFromField) forControlEvents:UIControlEventValueChanged];
-    _pickerSalaryType = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListSalaryType rowSelectionDelegate:self selectedItem:self.fieldSalaryType.text];
-    _pickerCurrency = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propCurrency.propListCurrencyNames rowSelectionDelegate:self selectedItem:self.fieldCurrency.text];
+    _pickerSalaryType = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListSalaryType rowSelectionDelegate:self selectedItem:nil];
+    _pickerCurrency = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propCurrency.propListCurrencyNames rowSelectionDelegate:self selectedItem:nil];
+    [self refresh];
 }
 
 - (void)updateBirthdayField{
@@ -163,26 +111,129 @@
     self.fieldAvailableFrom.text = [self.propAppDelegate.propDateFormatVelosi stringFromDate:_pickerAvailableFrom.date];
 }
 
-- (IBAction)done:(id)sender {
+- (void)save{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        NSNumber *genderID = [NSNumber numberWithInt:[[self.propAppDelegate.propUserDetails.propDictGender allKeysForObject:_fieldGender.text][0] intValue]];
+        NSNumber *genderID = [NSNumber numberWithInt:[[self.propAppDelegate.propUserDetails.propDictGender objectForKey:_fieldGender.text] intValue]];
         NSNumber *countryID = [NSNumber numberWithInt:[[self.propAppDelegate.propCountries.propDictCountryIds allKeysForObject:_cellCountry.detailTextLabel.text][0] intValue]];
-        NSNumber *educationID = [NSNumber numberWithInt:[[self.propAppDelegate.propUserDetails.propDictEducation allKeysForObject:_fieldEducation.text][0] intValue]];
-        NSNumber *licenseID = [NSNumber numberWithInt:[[self.propAppDelegate.propUserDetails.propDictLicense allKeysForObject:_fieldLicense.text][0] intValue]];
-        NSNumber *nationalityID = [NSNumber numberWithInt:[[self.propAppDelegate.propUserDetails.propDictNationality allKeysForObject:_fieldNationality.text][0] intValue]];
-        NSNumber *ethnicityID = [NSNumber numberWithInt:[[self.propAppDelegate.propUserDetails.propDictEtchnicity allKeysForObject:_fieldEthnicity.text][0] intValue]];
+        NSNumber *educationID = [NSNumber numberWithInt:[[self.propAppDelegate.propUserDetails.propDictEducation objectForKey:_fieldEducation.text] intValue]];
+        NSNumber *licenseID = [NSNumber numberWithInt:[[self.propAppDelegate.propUserDetails.propDictLicense objectForKey:_fieldLicense.text] intValue]];
+        NSNumber *nationalityID = [NSNumber numberWithInt:[[self.propAppDelegate.propUserDetails.propDictNationality objectForKey:_fieldNationality.text] intValue]];
+        NSNumber *ethnicityID = [NSNumber numberWithInt:[[self.propAppDelegate.propUserDetails.propDictEtchnicity objectForKey:_fieldEthnicity.text] intValue]];
         NSNumber *referrerID = [NSNumber numberWithInt:[[self.propAppDelegate.propDictReferrers allKeysForObject:_fieldReferrer.text][0] intValue]];
-        NSNumber *marStatID = [NSNumber numberWithInt:[[self.propAppDelegate.propUserDetails.propDictMaritalStatus allKeysForObject:_fieldMaritalStatus.text][0] intValue]];
-        NSNumber *relocateID = [NSNumber numberWithInt:[[self.propAppDelegate.propUserDetails.propDictRelocate allKeysForObject:_fieldWillRelocate.text][0] intValue]];
-        NSNumber *notPeriodID = [NSNumber numberWithInt:[[self.propAppDelegate.propUserDetails.propDictAvailability allKeysForObject:_fieldNoticePeriod.text][0] intValue]];
-        NSNumber *salTypeID = [NSNumber numberWithInt:[[self.propAppDelegate.propUserDetails.propDictSalaryType allKeysForObject:_fieldSalaryType.text][0] intValue]];
+        NSNumber *marStatID = [NSNumber numberWithInt:[[self.propAppDelegate.propUserDetails.propDictMaritalStatus objectForKey:_fieldMaritalStatus.text] intValue]];
+        NSNumber *relocateID = [NSNumber numberWithInt:[[self.propAppDelegate.propUserDetails.propDictRelocate objectForKey:_fieldWillRelocate.text] intValue]];
+        NSNumber *notPeriodID = [NSNumber numberWithInt:[[self.propAppDelegate.propUserDetails.propDictAvailability objectForKey:_fieldNoticePeriod.text] intValue]];
+        NSNumber *salTypeID = [NSNumber numberWithInt:[[self.propAppDelegate.propUserDetails.propDictSalaryType objectForKey:_fieldSalaryType.text] intValue]];
         NSString *result = [self.propAppDelegate.propGatewayOnline saveCandidateDetailsWitJSONContents:[_user jsonFromUserWithFirstName:_fieldFirstName.text lastName:_fieldLastName.text email:_fieldEmail.text altEmail:_fieldAltEmail.text genderID:genderID gender:_fieldGender.text phone:_fieldPhone.text altPhone:_fieldAltPhone.text mobile:_fieldMobile.text bday:_fieldBirthdate.text address:_fieldAddress.text city:_fieldCity.text countryState:_fieldCountryState.text postcode:_fieldPostcode.text countryID:countryID country:_cellCountry.detailTextLabel.text linkedIn:_fieldLinkedin.text twitter:_fieldTwitter.text skype:_fieldSkype.text isEUAuthorized:[NSNumber numberWithBool:_switchEUAuthorized.isOn] university:_fieldUniversity.text subject:_fieldSubject.text yearGraduated:[NSNumber numberWithInt:[_fieldYearGraduated.text intValue]] educationID:educationID education:_fieldEducation.text drivingLicenseID:licenseID drivingLicense:_fieldLicense.text nationalityID:nationalityID nationality:_fieldNationality.text ethnicityID:ethnicityID ethnicity:_fieldEthnicity.text referrerID:referrerID referrer:_fieldReferrer.text maritalStatusID:marStatID maritalStatus:_fieldMaritalStatus.text preferredLocations:[self.propListLocationPrefs componentsJoinedByString:@","] willingToRelocateID:relocateID willingToRelocate:_fieldWillRelocate.text noticePeriodID:notPeriodID noticePeriod:_fieldNoticePeriod.text availableFrom:_fieldAvailableFrom.text languages:[self.propListLanguages componentsJoinedByString:@","] isAlertsAllowed:[NSNumber numberWithBool:_switchWillAllowAlerts.isOn] isPermanent:[NSNumber numberWithBool:_switchIsPermanent.isOn] isTemporary:[NSNumber numberWithBool:_switchIsTemporary.isOn] isContract:[NSNumber numberWithBool:_switchIsContract.isOn] isPartTime:[NSNumber numberWithBool:_switchIsParttime.isOn] jobTitles:_fieldJobTitles.text currencyThree:_fieldCurrency.text salaryFrom:[NSNumber numberWithInt:[_fieldSalaryFrom.text intValue]] salaryTo:[NSNumber numberWithInt:[_fieldSalaryTo.text intValue]] salaryTypeID:salTypeID salaryType:_fieldSalaryType.text mainSkills:_fieldMainSkills.text]];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [[[UIAlertView alloc] initWithTitle:nil message:(result!=nil)?result:@"Changed Succesfully!" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
+            [[[UIAlertView alloc] initWithTitle:@"" message:(result)?result:self.propAppDelegate.messageSaveSuccessful delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
             
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [self refresh];
+        });
+    });
+}
+
+- (void)refresh{
+    [self.view endEditing:YES];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        id result = [self.propAppDelegate.propGatewayOnline getCandidateData];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            if([result isKindOfClass:[NSDictionary class]]){
+                _user = [[User alloc] initWithDictionary:result];
+                
+                self.propLabelPercentComplete.text = [NSString stringWithFormat:@"%@%%",[_user propPercentComplete]];
+                [self manageTextField:self.fieldFirstName withValue:[_user propFirstName]];
+                [self manageTextField:self.fieldLastName withValue:[_user propLastName]];
+                [self manageTextField:self.fieldEmail withValue:[_user propEmail]];
+                [self manageTextField:self.fieldAltEmail withValue:[_user propAltEmail]];
+                [self manageTextField:self.fieldGender withValue:[self.propAppDelegate.propUserDetails.propDictGender allKeysForObject:@([[_user propGenderID] intValue])][0]];
+                [self manageTextField:self.fieldPhone withValue:[_user propPhone]];
+                [self manageTextField:self.fieldAltPhone withValue:[_user propAltPhone]];
+                [self manageTextField:self.fieldMobile withValue:[_user propMobile]];
+                [self manageTextField:self.fieldBirthdate withValue:[self.propAppDelegate.propGatewayOnline deserializeJsonDateString:[_user propBirthdate]]];
+                
+                [self manageTextField:self.fieldAddress withValue:[_user propAddress]];
+                [self manageTextField:self.fieldCity withValue:[_user propCity]];
+                [self manageTextField:self.fieldCountryState withValue:[_user propCountryState]];
+                [self manageTextField:self.fieldPostcode withValue:[_user propPostCode]];
+                [self manageTextField:self.fieldLinkedin withValue:[_user propLinkedIn]];
+                [self manageTextField:self.fieldTwitter withValue:[_user propTwitter]];
+                [self manageTextField:self.fieldSkype withValue:[_user propSkype]];
+                
+                [self manageTextField:self.fieldUniversity withValue:[_user propUniversity]];
+                [self manageTextField:self.fieldSubject withValue:[_user propSubject]];
+                [self manageTextField:self.fieldYearGraduated withValue:[_user propYearGraduated]];
+                [self manageTextField:self.fieldEducation withValue:[self.propAppDelegate.propUserDetails.propDictEducation allKeysForObject:@([[_user propEducationID] intValue])][0]];
+                
+                [self manageTextField:self.fieldLicense withValue:[self.propAppDelegate.propUserDetails.propDictLicense allKeysForObject:@([[_user propDrivingLicenseID] intValue])][0]];
+                [self manageTextField:self.fieldNationality withValue:[self.propAppDelegate.propUserDetails.propDictNationality allKeysForObject:@([[_user propNationalityID] intValue])][0]];
+                [self manageTextField:self.fieldEthnicity withValue:[self.propAppDelegate.propUserDetails.propDictEtchnicity allKeysForObject:@([[_user propEthnicityID] intValue])][0]];
+                
+                [self manageTextField:self.fieldReferrer withValue:[self.propAppDelegate.propDictReferrers objectForKey:[_user propReferrerID]]];
+                [self manageTextField:self.fieldMaritalStatus withValue:[self.propAppDelegate.propUserDetails.propDictMaritalStatus allKeysForObject:@([[_user propMaritalStatusID] intValue])][0]];
+                
+                [self manageTextField:self.fieldWillRelocate withValue:[self.propAppDelegate.propUserDetails.propDictRelocate allKeysForObject:@([[_user propWillingToRelocateID] intValue])][0]];
+                [self manageTextField:self.fieldNoticePeriod withValue:[self.propAppDelegate.propUserDetails.propDictAvailability allKeysForObject:@([[_user propNoticePeriodID] intValue])][0]];
+                [self manageTextField:self.fieldAvailableFrom withValue:[self.propAppDelegate.propGatewayOnline deserializeJsonDateString:[_user propAvailableFrom]]];
+                
+                [self manageTextField:self.fieldJobTitles withValue:[_user propJobTitles]];
+                [self manageTextField:self.fieldCurrency withValue:[_user propCurrency]];
+                
+                [self manageTextField:self.fieldSalaryFrom withValue:[_user propSalaryFrom]];
+                [self manageTextField:self.fieldSalaryTo withValue:[_user propSalaryTo]];
+                [self manageTextField:self.fieldSalaryType withValue:[self.propAppDelegate.propUserDetails.propDictSalaryType allKeysForObject:@([[_user propSalaryTypeID] intValue])][0]];
+                
+                for (NSString *languageStr in [[_user propLanguages] componentsSeparatedByString:@","]){
+                    if(languageStr.length > 0)
+                        [self.propListLanguages addObject:languageStr];
+                }
+                
+                for (NSString *location in [[_user propPreferredLocations] componentsSeparatedByString:@","]){
+                    if(location.length > 0)
+                        [self.propListLocationPrefs addObject:location];
+                }
+                
+                //    for (NSString *locationID in [[_user propPreferredLocations] componentsSeparatedByString:@","]){
+                //        if(locationID.length > 0)
+                //            [self.propListLocationPrefs addObject:[self.propAppDelegate.propCountries.propDictCountryIds objectForKey:locationID]];
+                //    }
+                
+                
+                self.cellCountry.detailTextLabel.text = [self.propAppDelegate.propCountries.propDictCountryIds objectForKey:[_user propCountryID]];
+                self.cellPreferredLocation.detailTextLabel.text = [NSString stringWithFormat:@"%d",(int)self.propListLocationPrefs.count];
+                self.cellLanguages.detailTextLabel.text = [NSString stringWithFormat:@"%d",(int)self.propListLanguages.count];
+                
+                self.switchEUAuthorized.on = [_user propIsEUAuthorized];
+                self.switchWillAllowAlerts.on = [_user propIsAlertsAllowed];
+                self.switchIsPermanent.on = [_user propIsPermanent];
+                self.switchIsTemporary.on = [_user propIsTemporary];
+                self.switchIsContract.on = [_user propIsContract];
+                self.switchIsParttime.on = [_user propIsPartTime];
+                self.fieldMainSkills.text = [_user propMainSkills];
+                
+                if([self.fieldBirthdate.text length] > 0)
+                _pickerBday.date = [self.propAppDelegate.propDateFormatVelosi dateFromString:self.fieldBirthdate.text];
+                if([self.fieldAvailableFrom.text length] > 0)
+                    _pickerAvailableFrom.date = [self.propAppDelegate.propDateFormatVelosi dateFromString:self.fieldAvailableFrom.text];
+
+                [_pickerYearGraduated selectRowWithText:self.fieldYearGraduated.text];
+                [_pickerEducation selectRowWithText:self.fieldEducation.text];
+                [_pickerLicense selectRowWithText:self.fieldLicense.text];
+                [_pickerNationality selectRowWithText:self.fieldNationality.text];
+                [_pickerEthnicity selectRowWithText:self.fieldEthnicity.text];
+                [_pickerReferrers selectRowWithText:self.fieldReferrer.text];
+                [_pickerStatus selectRowWithText:self.fieldMaritalStatus.text];
+                [_pickerWillRelocate selectRowWithText:self.fieldWillRelocate.text];
+                [_pickerAvailability selectRowWithText:self.fieldAvailableFrom.text];
+            }else{
+                [[[UIAlertView alloc] initWithTitle:@"Error" message:result delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
+            }
         });
     });
 }

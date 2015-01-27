@@ -94,10 +94,10 @@
         id savedSearchesList = [self.propAppDelegate.propGatewayOnline getSavedSearches];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [_propListSavedSearches removeAllObjects];
             if([savedSearchesList isKindOfClass:[NSString class]])
                 [[[UIAlertView alloc] initWithTitle:@"Error" message:savedSearchesList delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
             else{
+                [_propListSavedSearches removeAllObjects];
                 [_propListSavedSearches addObjectsFromArray:savedSearchesList];
                 _countSubscribedItems = 0;
                 
@@ -106,9 +106,9 @@
                         _countSubscribedItems++;
                 }
                 [self updateRightNavigationButtons];
+                [self.propLv reloadData];
             }
             
-            [self.propLv reloadData];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             
         });
@@ -185,15 +185,11 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    [self.propLv reloadData];
+    [self refresh];
 }
 
 - (IBAction)showList:(id)sender {
     [self.propAppDelegate.propSlider toggleSidebar];
-}
-
-- (IBAction)refresh:(id)sender {
-    [self refresh];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
@@ -205,9 +201,29 @@
         case 0:
             break;
             
-        case 1:
-            [self.propListSavedSearches removeObjectAtIndex:_cellDeletetarget.tag];
-            [self.propLv deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:_cellDeletetarget.tag inSection:0]] withRowAnimation:YES];
+        case 1:{
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                NSString *result = [self.propAppDelegate.propGatewayOnline deleteSavedSearchesWithJBEID:[(SavedSearch *)[self.propListSavedSearches objectAtIndex:_cellDeletetarget.tag] getJBEID]];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if(![result isEqualToString:@"OK"])
+                        [[[UIAlertView alloc] initWithTitle:@" " message:result delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
+                    else{
+                        [self.propListSavedSearches removeObjectAtIndex:_cellDeletetarget.tag];
+                        _countSubscribedItems = 0;
+                        for(SavedSearch *ss in _propListSavedSearches){
+                            if([ss willAlert])
+                                _countSubscribedItems++;
+                        }
+                        [self updateRightNavigationButtons];
+                        [self.propLv deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:_cellDeletetarget.tag inSection:0]] withRowAnimation:YES];
+                    }
+                    
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                });
+            });
+            }
             break;
             
         default:

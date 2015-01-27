@@ -13,9 +13,9 @@
 
 @interface VCUserDetails : VCList<VelosiPickerRowSelectionDelegate, UITextViewDelegate, UITextFieldDelegate>
 
-@property (strong, nonatomic, readonly) User *user;
 @property (strong, nonatomic) NSMutableArray *propListLocationPrefs, *propListLanguages;
 
+@property (strong, nonatomic) IBOutlet UILabel *propLabelPercentComplete;
 @property (strong, nonatomic) IBOutlet UITextField *fieldFirstName;
 @property (strong, nonatomic) IBOutlet UITextField *fieldLastName;
 @property (strong, nonatomic) IBOutlet UITextField *fieldEmail;

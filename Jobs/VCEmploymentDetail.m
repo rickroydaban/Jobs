@@ -62,10 +62,16 @@
 - (IBAction)done:(id)sender {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        NSString *result = [self.propAppDelegate.propGatewayOnline saveEmploymentWithJSONContents:[_propEmployment jsonFromEmployer:_propFieldEmployer.text jobTitle:_propFieldJobTitle.text startDate:_propFieldDateStart.text endDate:_propFieldDateEnd.text description:_propFieldDescription.text]];
+        NSString *json;
+        if(_propEmployment)
+            json = [_propEmployment jsonFromEmployer:_propFieldEmployer.text jobTitle:_propFieldJobTitle.text startDate:_propFieldDateStart.text endDate:_propFieldDateEnd.text description:_propFieldDescription.text];
+        else
+            json = [Employment jsonFromNewEmployerName:_propFieldEmployer.text jobTitle:_propFieldJobTitle.text startDate:_propFieldDateStart.text endDate:_propFieldDateEnd.text description:_propFieldDescription.text dateToday:[self.propAppDelegate.propDateFormatVelosi stringFromDate:[NSDate date]] userID:[[self.propAppDelegate.propGatewayOffline getUserID]intValue]];
+        
+        NSString *result = [self.propAppDelegate.propGatewayOnline saveEmploymentWithJSONContents:json];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [[[UIAlertView alloc] initWithTitle:@" " message:result delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
+            [[[UIAlertView alloc] initWithTitle:@" " message:(result)?result:self.propAppDelegate.messageSaveSuccessful delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
             [self.view endEditing:YES];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });

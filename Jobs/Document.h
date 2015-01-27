@@ -8,13 +8,14 @@
 
 @interface Document : NSObject
 
-@property (assign, nonatomic, readonly) int propType;
-@property (strong, nonatomic, readonly) NSString *propId,
-                                       *propName,
-                                       *propExtension,
-                                       *propFileSize,
-                                       *propDateExpire;
+- (id)initWithDictionary:(NSDictionary *)dictionary;
+- (NSString *)getDocumentID;
+- (NSString *)getName;
+- (NSString *)getExtension;
+- (NSString *)getFileSize;
+- (NSString *)getDateExpire;
 
-- initWithID: (NSString *)documentID name:(NSString *)name extension:(NSString *)extension fileSize:(NSString *)fileSize dateExpire:(NSString *)dateExpire type:(int)type;
+- (int)getType;
+- (NSString *)jsonFromName:(NSString *)name type:(int)type dateExpiry:(NSString *)dateExpiry;
 
 @end

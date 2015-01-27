@@ -16,6 +16,7 @@
     CGFloat _cellDetailHeight;
     UIWebView *_detailWebView;
     UITextView *_coverLetter;
+    IBOutlet UIBarButtonItem *propBarButtonApply;
 }
 @end
 
@@ -23,6 +24,8 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
+
+    self.navigationItem.rightBarButtonItem = (self.shouldShowApplyButton)?propBarButtonApply:nil;
     
     _coverLetter = [[UITextView alloc] init];
     _coverLetter.font = [UIFont systemFontOfSize:14];
@@ -32,11 +35,16 @@
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         _jobDetail = [self.propAppDelegate.propGatewayOnline getJobDetailById:self.propJob.propJobID];
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.propLv.delegate = self;
-            self.propLv.dataSource = self;
-            self.propLv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+            if([_jobDetail isKindOfClass:[NSString class]])
+                [[[UIAlertView alloc] initWithTitle:@" " message:self.propAppDelegate.messageErrorGeneral delegate:nil cancelButtonTitle:self.propAppDelegate.cancelButton otherButtonTitles:nil, nil] show];
+            else{
+                self.propLv.delegate = self;
+                self.propLv.dataSource = self;
+                self.propLv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+            }
         });
     });
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -149,14 +157,7 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    switch (buttonIndex) {
-        case 1:
-            NSLog(@"Submitting %@",_coverLetter.text);
-            break;
-            
-        default:
-            break;
-    }
+    [[[UIAlertView alloc] initWithTitle:@"" message:@"This module is still on development" delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
 }
 
 @end

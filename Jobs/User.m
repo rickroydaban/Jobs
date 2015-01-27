@@ -48,6 +48,11 @@
     return [self NSStringFromObject:[[_dictionary objectForKey:@"GenderSex"] objectForKey:@"GenderID"]];
 }
 
+- (NSString *)propGenderName{
+    return [self NSStringFromObject:[[_dictionary objectForKey:@"GenderSex"] objectForKey:@"GenderName"]];
+}
+
+
 - (NSString *)propPhone{
     return [self NSStringFromObject:[_dictionary objectForKey:@"Phone"]];
 }
@@ -252,6 +257,7 @@
     [_dictionary setValue:[NSDictionary dictionaryWithObjects:@[maritalStatusID,maritalStatusID,maritalStatus] forKeys:@[@"Status",@"StatusID",@"StatusName"]] forKey:@"MaritalStatus"];
     [_dictionary setValue:[NSDictionary dictionaryWithObjects:@[willingToRelocateID,willingToRelocateID,willingToRelocate] forKeys:@[@"Status",@"StatusID",@"StatusName"]] forKey:@"Relocate"];
     [_dictionary setValue:willingToRelocateID forKey:@"RelocateID"];
+    [_dictionary setValue:noticePeriodID forKey:@"AvailabilityID"];
     [_dictionary setValue:[NSDictionary dictionaryWithObjects:@[noticePeriodID,noticePeriodID,noticePeriod] forKeys:@[@"Availability",@"AvailabilityID",@"AvailabilityName"]] forKey:@"Availability"];
     [_dictionary setValue:[NSDictionary dictionaryWithObjects:@[currencyThree,salaryFrom,salaryTo,[NSDictionary dictionaryWithObjects:@[salaryTypeID,salaryTypeID] forKeys:@[@"SalaryType",@"SalaryTypeID"]]] forKeys:@[@"SalaryCurrency",@"SalaryFrom",@"SalaryTo",@"SalaryType"]] forKey:@"Salary"];
 

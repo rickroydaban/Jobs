@@ -19,6 +19,10 @@
     return self;
 }
 
+- (NSString *)getJobID{
+    return [_propEmploymentDictionary objectForKey:@"JobID"];
+}
+
 - (NSString *)getEmployer{
     return [_propEmploymentDictionary objectForKey:@"Employer"];
 }
@@ -40,16 +44,33 @@
 }
 
 - (NSString *)jsonFromEmployer:(NSString *)employer jobTitle:(NSString *)jobTitle startDate:(NSString *)dateStart endDate:(NSString *)dateEnd description:(NSString *)description{
-
+    
     //update data of the editable fields
     [_propEmploymentDictionary setValue:employer forKey:@"Employer"];
     [_propEmploymentDictionary setValue:jobTitle forKey:@"Title"];
     [_propEmploymentDictionary setValue:dateStart forKey:@"StartDate"];
     [_propEmploymentDictionary setValue:dateEnd forKey:@"EndDate"];
-    [_propEmploymentDictionary setValue:description forKey:@"Decription"];
+    [_propEmploymentDictionary setValue:description forKey:@"Description"];
     
     //convert dictionary to json
     return [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:_propEmploymentDictionary options:0 error:nil] encoding:NSUTF8StringEncoding];
+}
+
++ (NSString *)jsonFromNewEmployerName:(NSString *)employer jobTitle:(NSString *)jobTitle startDate:(NSString *)dateStart endDate:(NSString *)dateEnd description:(NSString *)description dateToday:(NSString *)dateToday userID:(int)userID{
+    
+    NSMutableDictionary *propEmploymentDictionary = [NSMutableDictionary dictionary];
+    [propEmploymentDictionary setValue:@0 forKey:@"JobID"];
+    [propEmploymentDictionary setValue:@(userID) forKey:@"CandidateID"];
+    [propEmploymentDictionary setValue:[NSString stringWithFormat:@"\/Date(%@-0100)\/",dateToday] forKey:@"DateCreated"];
+    [propEmploymentDictionary setValue:@1 forKey:@"OrderID"];
+    [propEmploymentDictionary setValue:employer forKey:@"Employer"];
+    [propEmploymentDictionary setValue:jobTitle forKey:@"Title"];
+    [propEmploymentDictionary setValue:dateStart forKey:@"StartDate"];
+    [propEmploymentDictionary setValue:dateEnd forKey:@"EndDate"];
+    [propEmploymentDictionary setValue:description forKey:@"Decription"];
+
+    //convert dictionary to json
+    return [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:propEmploymentDictionary options:0 error:nil] encoding:NSUTF8StringEncoding];
 }
 
 @end

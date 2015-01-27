@@ -56,21 +56,27 @@
 }
 
 - (IBAction)login {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        NSString *result = [self.propAppDelegate.propGatewayOnline authenticateUserName:self.fieldUsername.text password:self.fieldPassword.text];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            if([self.propAppDelegate.propGatewayOffline isLoggedIn]){
-                [self.propAppDelegate.propSlider reloadSidebarItems];
-                [self.propAppDelegate.propSlider changeToProfileSidebarItemsAfterLoginSuccess];
-            }
-            
-            if(result != nil)
-                [[[UIAlertView alloc] initWithTitle:@"Error" message:result delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
-        });
-    });
+    if(self.fieldUsername.text.length > 0){
+        if(self.fieldPassword.text.length > 0){
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                id result = [self.propAppDelegate.propGatewayOnline authenticateUserName:self.fieldUsername.text password:self.fieldPassword.text];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    if([result isKindOfClass:[NSDictionary class]]){
+                        [self.propAppDelegate.propGatewayOffline saveUserDataWithID:[result objectForKey:@"CandidateID"]];
+                        [self.propAppDelegate.propSlider reloadSidebarItems];
+                        [self.propAppDelegate.propSlider changeToProfileSidebarItemsAfterLoginSuccess];
+                    }else{
+                        [[[UIAlertView alloc] initWithTitle:@"Error" message:result delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
+                    }
+                });
+            });
+        }else
+            [[[UIAlertView alloc] initWithTitle:@"" message:@"Password cannot be empty" delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
+    }else
+        [[[UIAlertView alloc] initWithTitle:@"" message:@"Username cannot be empty" delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{

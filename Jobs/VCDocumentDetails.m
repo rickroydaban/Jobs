@@ -23,19 +23,37 @@
     [super viewDidLoad];
     
     if(_propDocument!=nil){
-        self.navigationItem.title = self.propDocument.propName;
-        self.propName.text = self.propDocument.propName;
-        self.propType.text = [self.propAppDelegate.propUserDetails.propDictDocumentTypes objectForKey:[NSString stringWithFormat:@"%d",self.propDocument.propType]];
-        self.propDateExpiry.text = self.propDocument.propDateExpire;
+        self.navigationItem.title = [self.propDocument getName];
+        self.propName.text = [self.propDocument getName];
+        self.propType.text = [self.propAppDelegate.propUserDetails.propDictDocumentTypes allKeysForObject:@([self.propDocument getType])][0];
+        self.propDateExpiry.text = [self.propDocument getDateExpire];
     }else
         self.navigationItem.title = @"New Document";
     
-    _typesPicker = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListDocumentTypes rowSelectionDelegate:self selectedItem:(_propDocument!=nil)?[self.propAppDelegate.propUserDetails.propDictDocumentTypes objectForKey:[NSString stringWithFormat:@"%d",self.propDocument.propType]]:nil];
-    _dateExpiryPicker = [[VelosDatePicker alloc] initWithDate:(_propDocument!=nil)?[self.propAppDelegate.propDateFormatVelosi dateFromString:self.propDocument.propDateExpire]:nil minimumDate:nil viewController:self action:@selector(updateDateExpiryField)];
+    _typesPicker = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propUserDetails.propListDocumentTypes rowSelectionDelegate:self selectedItem:(_propDocument!=nil)?[self.propAppDelegate.propUserDetails.propDictDocumentTypes objectForKey:[NSString stringWithFormat:@"%d",[self.propDocument getType]]]:nil];
+    _dateExpiryPicker = [[VelosDatePicker alloc] initWithDate:(_propDocument!=nil)?[self.propAppDelegate.propDateFormatVelosi dateFromString:[self.propDocument getDateExpire]]:nil minimumDate:nil viewController:self action:@selector(updateDateExpiryField)];
 
     self.propName.delegate = self;
     self.propType.delegate = self;
     self.propDateExpiry.delegate = self;
+}
+
+- (IBAction)done:(id)sender {
+    [[[UIAlertView alloc] initWithTitle:@"" message:@"This module is still on development" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
+//    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    NSString *name = self.propName.text;
+//    int type = [[self.propAppDelegate.propUserDetails.propDictDocumentTypes objectForKey:self.propType.text] intValue];
+//    NSString *expireDate = self.propDateExpiry.text;
+//    
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+//        NSString *result = [self.propAppDelegate.propGatewayOnline saveDocumentWithJSONContents:[_propDocument jsonFromName:name type:type dateExpiry:expireDate]];
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [[[UIAlertView alloc] initWithTitle:@" " message:(result)?result:self.propAppDelegate.messageSaveSuccessful delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
+//            [self.view endEditing:YES];
+//            [MBProgressHUD hideHUDForView:self.view animated:YES];
+//        });
+//    });
 }
 
 - (void)updateDateExpiryField{

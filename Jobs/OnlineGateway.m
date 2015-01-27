@@ -65,6 +65,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
 }
 
 - (id)httpsGetFrom:(NSString *)url{
+    NSLog(@"%@",url);
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setHTTPMethod:@"GET"];
     [request setURL:[NSURL URLWithString:url]];
@@ -73,14 +74,16 @@ static OnlineGateway *sharedOnlineGateway = nil;
     NSHTTPURLResponse *responseCode = nil;
     
     NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
-    if(responseCode.statusCode != 200){
+    if(responseCode.statusCode != 200)
         return [self responseErrorDescriptionFromStatusCode:(int)responseCode.statusCode];
-    }
 
     return responseData;
 }
 
+//returns nsdata if posted successfully otherwise returns a string message
 - (id)httpPostFrom:(NSString *)url withBody:(NSString *)jsonString{
+    NSLog(@"%@",url);
+    NSLog(@"%@",jsonString);
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     request.HTTPMethod = @"POST";
     [request setValue:[NSString stringWithFormat:@"%d",(int)jsonString.length] forHTTPHeaderField:@"Content-Length"];
@@ -101,6 +104,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
 
 - (NSString *)responseErrorDescriptionFromStatusCode:(int)statusCode{
     switch (statusCode) {
+        case 0: return @"Server Connection Failed";
         case 204: return @"No Response";
         case 400: return @"Bad Request";
         case 401: return @"Unauthorized";
@@ -136,23 +140,22 @@ static OnlineGateway *sharedOnlineGateway = nil;
 }
 
 - (NSString *)deserializeJsonDateString: (NSString *)jsonDateString{
-    NSInteger offset = [[NSTimeZone defaultTimeZone] secondsFromGMT]; //get number of seconds to add or subtract according to the client default time zone
-    NSInteger startPosition = [jsonDateString rangeOfString:@"("].location + 1; //start of the date value
-    NSTimeInterval unixTime = [[jsonDateString substringWithRange:NSMakeRange(startPosition, 13)] doubleValue] / 1000; //WCF will send 13 digit-long value for the time interval since 1970 (millisecond precision) whereas iOS works with 10 digit-long values (second precision), hence the divide by 1000
-    
-    return [_appDelegate.propDateFormatVelosi stringFromDate:[[NSDate dateWithTimeIntervalSince1970:unixTime] dateByAddingTimeInterval:offset]];
+    @try{
+        NSInteger offset = [[NSTimeZone defaultTimeZone] secondsFromGMT]; //get number of seconds to add or subtract according to the client default time zone
+        NSInteger startPosition = [jsonDateString rangeOfString:@"("].location + 1; //start of the date value
+        NSTimeInterval unixTime = [[jsonDateString substringWithRange:NSMakeRange(startPosition, 13)] doubleValue] / 1000; //WCF will send 13 digit-long value for the time interval since 1970 (millisecond precision) whereas iOS works with 10 digit-long values (second precision), hence the divide by 1000
+        
+        return [_appDelegate.propDateFormatVelosi stringFromDate:[[NSDate dateWithTimeIntervalSince1970:unixTime] dateByAddingTimeInterval:offset]];
+    }@catch(NSException *e){
+        return e.reason;
+    }
 }
 
 #pragma mark GET
 - (NSString *)resetPasswordWithEmail:(NSString *)email{
     NSError *error;
     id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@ResetPassword?e=%@",_rootCandidates,email]];
-    NSString *result = [[NSJSONSerialization JSONObjectWithData:data options:0 error:&error] objectForKey:@"ResetPasswordResult"];
-
-    if(error == nil)
-        return result;
-    
-    return error.localizedFailureReason;
+    return [[NSJSONSerialization JSONObjectWithData:data options:0 error:&error] objectForKey:@"ResetPasswordResult"];
 }
 
 - (id)getAdvanceSearchResults:(NSString *)searched in:(NSString *)searchIn location:(NSString *)location radius:(NSString *)radius jobType:(NSString *)jobType country:(NSString *)country postedWithin:(NSString *)postedWithin{
@@ -256,23 +259,30 @@ static OnlineGateway *sharedOnlineGateway = nil;
         return data;
     else{
         NSError *error = [[NSError alloc] init];
-
-        @try {
-            NSDictionary *result = [[NSJSONSerialization JSONObjectWithData:(NSData *)data options:0 error:&error] objectForKey:@"CheckAuthenticationResult"];
-            if(result){
-                _appDelegate.propUser = [[User alloc] initWithDictionary:result];
-                [_appDelegate.propGatewayOffline saveUserDataWithID:[_appDelegate.propUser propID]];
-                return nil;
-            }else
-                return error.localizedFailureReason;
-        }@catch (NSException *exception) {
-            return exception.reason;
-        }
+        id result = [[NSJSONSerialization JSONObjectWithData:data options:0 error:&error] objectForKey:@"CheckAuthenticationResult"];
+        if([result isKindOfClass:[NSNull class]])
+            return @"Invalid username or password";
+        else
+            return result;
     }
 }
 
-- (NSArray *)getReferrerList{
-    id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@%@",_rootReferences,[NSString stringWithFormat:@"ReferrerGetList"]]];
+- (id)getCandidateData{
+    id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@GetByID?id=%@",_rootCandidates,[_appDelegate.propGatewayOffline getUserID]]];
+    if([data isKindOfClass:[NSString class]])
+        return data;
+    else{
+        NSError *error = [[NSError alloc] init];
+        id result = [[NSJSONSerialization JSONObjectWithData:data options:0 error:&error] objectForKey:@"GetByIDResult"];
+        if([result isKindOfClass:[NSNull class]])
+            return @"Invalid Candidate ID";
+        else
+            return result;
+    }
+}
+
+- (id)getReferrerList{
+    id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@ReferrerGetList",_rootReferences]];
     
     if([data isKindOfClass:[NSString class]])
         return nil;
@@ -314,13 +324,24 @@ static OnlineGateway *sharedOnlineGateway = nil;
             
             if(jsonDocuments){
                 for(id jsonDocument in jsonDocuments)
-                    [documents addObject:[[Document alloc] initWithID:[jsonDocument objectForKey:@"DocID"] name:[jsonDocument objectForKey:@"DocName"] extension:[jsonDocument objectForKey:@"Ext"] fileSize:[jsonDocument objectForKey:@"FileSize"] dateExpire:[self deserializeJsonDateString:[jsonDocument objectForKey:@"DateExpiry"]] type:[[jsonDocument objectForKey:@"DocType"] intValue]]];
+                    [documents addObject:[[Document alloc] initWithDictionary:jsonDocument]];
                 return documents;
             }else
                 return error.localizedFailureReason;
         }@catch(NSException *exception){
             return exception.reason;
         }
+    }
+}
+
+- (NSString *)deleteDocumentsWithID:(NSString *)documentID{
+    id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@Delete=id?%@",_rootDocuments,documentID]];
+    NSError *error;
+    
+    @try{
+        return [[NSJSONSerialization JSONObjectWithData:data options:0 error:&error] objectForKey:@"DeleteResult"];
+    }@catch(NSException *e){
+        return e.reason;
     }
 }
 
@@ -372,7 +393,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
             
             if(jsonApplications){
                 for(id jsonApplication in jsonApplications)
-                    [applications addObject:[[Application alloc] initWithID:[[jsonApplication objectForKey:@"ApplicationID"] intValue] title:[jsonApplication objectForKey:@"VacancyTitle"] jobID:[jsonApplication objectForKey:@"VacancyID"] jobRef:[jsonApplication objectForKey:@"VacancyRef"] status:[[jsonApplication objectForKey:@"AppStatus"] objectForKey:@"StatusName"] dateAdded:[self deserializeJsonDateString:[jsonApplication objectForKey:@"DateCreated"]]]];
+                    [applications addObject:[[Application alloc] initWithDictionary:jsonApplication]];
             }
             
             return applications;
@@ -444,24 +465,52 @@ static OnlineGateway *sharedOnlineGateway = nil;
 
 - (id)saveCandidateDetailsWitJSONContents:(NSString *)jsonContents{
     NSString *body = [NSString stringWithFormat:@"{\"c\":%@}",jsonContents];
-    NSLog(@"%@",body);
+    @try{
+        id result = [self httpPostFrom:@"https://arctestapi.velosi.com/CandidateSvc.svc/json/Save" withBody:body];
+        return ([result isKindOfClass:[NSString class]])?result:nil;
+    }@catch(NSException *exception){
+        return _appDelegate.messageErrorGeneral;
+    }
+}
 
-    id result = [self httpPostFrom:@"https://arctestapi.velosi.com/CandidateSvc.svc/json/Save" withBody:body];
-    NSLog(@"result :%@",[NSJSONSerialization JSONObjectWithData:result options:NSJSONWritingPrettyPrinted error:nil]);
-    return ([result isKindOfClass:[NSString class]])?result:@"Saved Successfullly!";
+- (id)saveDocumentWithJSONContents:(NSString *)jsonContents{
+    NSString *body = [NSString stringWithFormat:@"{\"j\":%@}",jsonContents];
+    @try{
+        id result = [self httpPostFrom:@"https://arctestapi.velosi.com/DocumentSvc.svc/json/Save" withBody:body];
+        return ([result isKindOfClass:[NSString class]])?result:nil;
+    }@catch(NSException *exception){
+        return _appDelegate.messageErrorGeneral;
+    }
 }
 
 - (id)saveEmploymentWithJSONContents:(NSString *)jsonContents{
     NSString *body = [NSString stringWithFormat:@"{\"j\":%@}",jsonContents];
-    id result = [self httpPostFrom:@"https://arctestapi.velosi.com/CandidateJobSvc.svc/json/Save" withBody:body];
-    return ([result isKindOfClass:[NSString class]])?result:@"Saved Successfullly!";
+    @try{
+        id result = [self httpPostFrom:@"https://arctestapi.velosi.com/CandidateJobSvc.svc/json/Save" withBody:body];
+        return ([result isKindOfClass:[NSString class]])?result:nil;
+    }@catch(NSException *exception){
+        return _appDelegate.messageErrorGeneral;
+    }
 }
 
-- (NSString *)saveSavedSearchesWithJSONContents:(NSString *)jsonContents{
+- (id)saveSavedSearchesWithJSONContents:(NSString *)jsonContents{
     NSString *body = [NSString stringWithFormat:@"{\"j\":%@}",jsonContents];
-    id result = [self httpPostFrom:@"https://arctestapi.velosi.com/JobsByEmailSvc.svc/json/Save" withBody:body];
-    return ([result isKindOfClass:[NSString class]])?result:nil;
+    @try{
+        id result = [self httpPostFrom:@"https://arctestapi.velosi.com/JobsByEmailSvc.svc/json/Save" withBody:body];
+        return ([result isKindOfClass:[NSString class]])?result:nil;
+    }@catch(NSException *exception){
+        return _appDelegate.messageErrorGeneral;
+    }
 }
 
+- (id)applyJobWithJSONContents:(NSString *)jsonContents{
+    NSString *body = [NSString stringWithFormat:@"\"j\":%@",jsonContents];
+    @try{
+        id result = [self httpPostFrom:@"http://arctestapi.velosi.com/ApplicationSvc.svc/json/Save" withBody:body];
+        return ([result isKindOfClass:[NSString class]])?result:nil;
+    }@catch(NSException *exception) {
+        return _appDelegate.messageErrorGeneral;
+    }
+}
 
 @end

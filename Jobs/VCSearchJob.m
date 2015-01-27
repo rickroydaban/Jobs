@@ -33,9 +33,17 @@
     self.propFieldPostedWithin.delegate = self;
     
     self.propFieldSearchIn.text = [self.propAppDelegate.propListSearchIns objectAtIndex:0];
-    self.propFieldJobType.text = [self.propAppDelegate.propListJobTypes objectAtIndex:0];
+    self.propFieldJobType.text = @"Any";
     self.propFieldPostedWithin.text = [self.propAppDelegate.propListPostedWithins objectAtIndex:0];
     self.propFieldDistance.text =@"100";
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    self.propCellCountry.userInteractionEnabled = ([self.propCellLocation.detailTextLabel.text isEqualToString:@"Any"])?YES:NO;
+    self.propCellLocation.userInteractionEnabled = ([self.propCellCountry.detailTextLabel.text isEqualToString:@"Any"])?YES:NO;
+
 }
 
 - (void)pickerSelection:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
@@ -44,7 +52,7 @@
     else if(pickerView == _pickerJobTypes)
         self.propFieldJobType.text = [self.propAppDelegate.propListJobTypes objectAtIndex:row];
     else if(pickerView == _pickerPostedWithins)
-        self.propFieldPostedWithin = [self.propAppDelegate.propListPostedWithins objectAtIndex:row];
+        self.propFieldPostedWithin.text = [self.propAppDelegate.propListPostedWithins objectAtIndex:row];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
@@ -69,16 +77,17 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if(sender == self.navigationController.navigationBar.topItem.rightBarButtonItem){
-        NSString *searchCountry = ([_propCellCountry.detailTextLabel.text isEqualToString:@"Any"])?@"0":[self.propAppDelegate.propCountries.propDictCountryIds objectForKey:_propCellCountry.detailTextLabel.text];
+        NSString *searchCountryID = ([_propCellCountry.detailTextLabel.text isEqualToString:@"Any"])?@"0":[self.propAppDelegate.propCountries.propDictCountryIds allKeysForObject:_propCellCountry.detailTextLabel.text][0];
         NSString *searchLocation = ([_propCellLocation.detailTextLabel.text isEqualToString:@"Any"])?@"0":_propCellLocation.detailTextLabel.text;
         
         VCJobSummary *vcJobSummary = (VCJobSummary *)segue.destinationViewController;
         vcJobSummary.propSearchFor = self.propFieldSearchFor.text;
-        vcJobSummary.propSearchIn = [self.propAppDelegate.propDictSearchIns objectForKey:self.propFieldSearchIn.text];
-        vcJobSummary.propSearchLocation = searchLocation;
-        vcJobSummary.propSearchCountry = searchCountry;
+        vcJobSummary.propSearchIn = self.propFieldSearchIn.text;
+        vcJobSummary.propSearchLocationID = searchLocation;
+        vcJobSummary.propSearchLocation = _propCellLocation.detailTextLabel.text;
+        vcJobSummary.propSearchCountryID = searchCountryID;
         vcJobSummary.propSearchDistance = self.propFieldDistance.text;
-        vcJobSummary.propSearchJobType = [self.propAppDelegate.propDictJobTypes objectForKey:self.propFieldJobType.text];
+        vcJobSummary.propSearchJobType = self.propFieldJobType.text;
         vcJobSummary.propSearchPostedWithin = [self.propAppDelegate.propDictPostedWithins objectForKey:self.propFieldPostedWithin.text];
     }else{
         [(NSObject<CellSelector> *)segue.destinationViewController cellSelectorSelectedCell:sender withObject:nil];
@@ -88,4 +97,5 @@
 - (IBAction)showList:(id)sender {
     [self.propAppDelegate.propSlider toggleSidebar];
 }
+
 @end

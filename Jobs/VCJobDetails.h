@@ -13,5 +13,6 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *propLv;
 @property (strong, nonatomic) Job *propJob;
+@property (assign, nonatomic) BOOL shouldShowApplyButton;
 
 @end

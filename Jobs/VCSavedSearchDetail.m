@@ -56,13 +56,13 @@
     NSString *searchInID = [self.propAppDelegate.propDictSearchIns objectForKey:_propFieldSearchIn.text];
     NSString *countryID = [self.propAppDelegate.propCountries.propDictCountryIds objectForKey:_propCellCountry.detailTextLabel.text];
     NSString *jobTypeID = [self.propAppDelegate.propDictJobTypes objectForKey:_propFieldJobType.text];
-    NSString *postedWithin = [self.propAppDelegate.propDictPostedWithins objectForKey:_propFieldPostedWithin];
+    NSString *postedWithin = [self.propAppDelegate.propDictPostedWithins objectForKey:_propFieldPostedWithin.text];
     
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSString *result = [self.propAppDelegate.propGatewayOnline saveSavedSearchesWithJSONContents:[_propSavedSearch jsonFromName:_propFieldName.text searchFor:_propFieldSearchFor.text searchInID:searchInID searchIn:_propFieldSearchIn.text location:_propCellLocation.detailTextLabel.text lat:@"0" lng:@"0" countryID:countryID distance:_propFieldDistance.text jobTypeID:jobTypeID jobType:_propFieldJobType.text postedWithin:postedWithin]];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [[[UIAlertView alloc] initWithTitle:@" " message:(result!=nil)?result:@"Saved Successfully!" delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
+            [[[UIAlertView alloc] initWithTitle:@" " message:(result)?result:self.propAppDelegate.messageSaveSuccessful delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
             [self.view endEditing:YES];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
@@ -97,16 +97,17 @@
     else if([segue.identifier isEqualToString:@"segueSavedSearchDetailToCountry"])
         [(VCCountrySelection *)segue.destinationViewController cellSelectorSelectedCell:sender withObject:nil];
     else if([segue.identifier isEqualToString:@"savedSearchToJobSummary"]){
-        NSString *searchCountry = ([_propCellCountry.detailTextLabel.text isEqualToString:@"Any"])?@"0":[self.propAppDelegate.propCountries.propDictCountryIds objectForKey:_propCellCountry.detailTextLabel.text];
+        NSString *searchCountryID = ([_propCellCountry.detailTextLabel.text isEqualToString:@"Any"])?@"0":[self.propAppDelegate.propCountries.propDictCountryIds allKeysForObject:_propCellCountry.detailTextLabel.text][0];
         NSString *searchLocation = ([_propCellLocation.detailTextLabel.text isEqualToString:@"Any"])?@"0":_propCellLocation.detailTextLabel.text;
-
+        
         VCJobSummary *vcJobSummary = (VCJobSummary *)segue.destinationViewController;
         vcJobSummary.propSearchFor = self.propFieldSearchFor.text;
-        vcJobSummary.propSearchIn = [self.propAppDelegate.propDictSearchIns objectForKey:self.propFieldSearchIn.text];
-        vcJobSummary.propSearchLocation = searchLocation;
-        vcJobSummary.propSearchCountry = searchCountry;
+        vcJobSummary.propSearchIn = self.propFieldSearchIn.text;
+        vcJobSummary.propSearchLocationID = searchLocation;
+        vcJobSummary.propSearchLocation = _propCellLocation.detailTextLabel.text;
+        vcJobSummary.propSearchCountryID = searchCountryID;
         vcJobSummary.propSearchDistance = self.propFieldDistance.text;
-        vcJobSummary.propSearchJobType = [self.propAppDelegate.propDictJobTypes objectForKey:self.propFieldJobType.text];
+        vcJobSummary.propSearchJobType = self.propFieldJobType.text;
         vcJobSummary.propSearchPostedWithin = [self.propAppDelegate.propDictPostedWithins objectForKey:self.propFieldPostedWithin.text];
     }
 }

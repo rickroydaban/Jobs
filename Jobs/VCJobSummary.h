@@ -13,6 +13,6 @@
 @property (strong, nonatomic) IBOutlet UITableView *propLv;
 @property (strong, nonatomic) NSMutableArray *propListJobs;
 //fields that will be passed by the search job segue
-@property (strong, nonatomic) NSString *propSearchFor, *propSearchIn, *propSearchLocation, *propSearchCountry, *propSearchDistance, *propSearchJobType, *propSearchPostedWithin;
+@property (strong, nonatomic) NSString *propSearchFor, *propSearchIn, *propSearchLocationID, *propSearchLocation, *propSearchCountryID, *propSearchDistance, *propSearchJobType, *propSearchPostedWithin;
 
 @end

@@ -8,13 +8,14 @@
 
 @interface Application : NSObject
 
-@property (assign, nonatomic) int propID;
-@property (strong, nonatomic) NSString *propTitle;
-@property (strong, nonatomic) NSString *propJobID;
-@property (strong, nonatomic) NSString *propJobRef;
-@property (strong, nonatomic) NSString *propStatus;
-@property (strong, nonatomic) NSString *propDateAdded;
+- (id)initWithDictionary:(NSDictionary *)dictionary;
 
-- (Application *)initWithID:(int)applicationID title:(NSString *)title jobID:(NSString *)jobID jobRef:(NSString *)jobRef status:(NSString *)status dateAdded:(NSString *)dateAdded;
+- (NSString *)getJobApplicationID;
+- (NSString *)getVacancyTitle;
+- (NSString *)getVacancyID;
+- (NSString *)getVacancyRef;
+- (NSString *)getAppStatus;
+- (NSString *)getStatusName;
+- (NSString *)getDateCreated;
 
 @end

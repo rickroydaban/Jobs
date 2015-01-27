@@ -30,7 +30,7 @@
 - (void)resetTableContents{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        id result = [self.propAppDelegate.propGatewayOnline getAdvanceSearchResults:@"" in:@"0" location:@"0" radius:@"100" jobType:@"1" country:@"0" postedWithin:@"0"];
+        id result = [self.propAppDelegate.propGatewayOnline getAdvanceSearchResults:@"" in:@"0" location:@"0" radius:@"100" jobType:@"0" country:@"0" postedWithin:@"0"];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [_propListVacancies removeAllObjects];

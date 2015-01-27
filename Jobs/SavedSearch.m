@@ -8,80 +8,110 @@
 
 #import "SavedSearch.h"
 
+@interface SavedSearch(){
+    NSMutableDictionary *_dictionary;
+}
+@end
+
 @implementation SavedSearch
 
-- (SavedSearch *)initWithDictionary:(NSDictionary *)dictionary{
+- (SavedSearch *)initWithDictionary:(NSDictionary *)d{
     self = [super init];
     
     if(self){
-        _propSavedSearchDictionary = [dictionary mutableCopy];
+        _dictionary = [d mutableCopy];
     }
     
     return self;
 }
 
+- (NSString *)getJBEID{
+    return [_dictionary objectForKey:@"JBEID"];
+}
+
 - (NSString *)getName{
-    return [_propSavedSearchDictionary objectForKey:@"Name"];
+    return [_dictionary objectForKey:@"Name"];
 }
 
 - (NSString *)getDateAdded{
-    return [_propSavedSearchDictionary objectForKey:@"DateCreated"];
+    return [_dictionary objectForKey:@"DateCreated"];
 }
 
 - (NSString *)getSearchFor{
-    return [_propSavedSearchDictionary objectForKey:@"SearchText"];
+    return [_dictionary objectForKey:@"SearchText"];
 }
 
 - (NSString *)getSearchIn{
-    return [[_propSavedSearchDictionary objectForKey:@"VacancySearchIn"] objectForKey:@"VacancySearchInName"];
+    return [[_dictionary objectForKey:@"VacancySearchIn"] objectForKey:@"VacancySearchInName"];
 }
 
 - (NSString *)getLocation{
-    NSString *location = [[_propSavedSearchDictionary objectForKey:@"Location"] objectForKey:@"LocationFull"];
+    NSString *location = [[_dictionary objectForKey:@"Location"] objectForKey:@"LocationFull"];
     return ([location isEqualToString:@""])?@"Any":location;
 }
 
 - (NSString *)getCountryID{
-    return [NSString stringWithFormat:@"%@",[_propSavedSearchDictionary objectForKey:@"CountryID"]];
+    return [NSString stringWithFormat:@"%@",[_dictionary objectForKey:@"CountryID"]];
 }
 
 - (NSString *)getDistance{
-    return [NSString stringWithFormat:@"%@",[_propSavedSearchDictionary objectForKey:@"Radius"]];
+    return [NSString stringWithFormat:@"%@",[_dictionary objectForKey:@"Radius"]];
 }
 
 - (NSString *)getJobType{
-    return [[_propSavedSearchDictionary objectForKey:@"VacancyType"] objectForKey:@"Description"];
+    return [[_dictionary objectForKey:@"VacancyType"] objectForKey:@"Description"];
 }
 
 - (NSString *)getPostedWithin{
-    return [NSString stringWithFormat:@"%@",[_propSavedSearchDictionary objectForKey:@"LastXDays"]];
+    return [NSString stringWithFormat:@"%@",[_dictionary objectForKey:@"LastXDays"]];
 }
 
 - (BOOL)willAlert{
-    return [[_propSavedSearchDictionary objectForKey:@"EmailAlert"] boolValue];
+    return [[_dictionary objectForKey:@"EmailAlert"] boolValue];
 }
 
 - (void)changeSubscriptionWillAlert:(BOOL)willAlert{
-    [_propSavedSearchDictionary setValue:(willAlert)?@"true":@"false" forKey:@"EmailAlert"];
+    [_dictionary setValue:(willAlert)?@"true":@"false" forKey:@"EmailAlert"];
 }
 
 -(NSString *)jsonFromName:(NSString *)name searchFor:(NSString *)searchFor searchInID:(NSString *)searchInID searchIn:(NSString *)searchIn location:(NSString *)location lat:(NSString *)lattitude lng:(NSString *)longitude countryID:(NSString *)countryID distance:(NSString *)distance jobTypeID:(NSString *)jobTypeID jobType:(NSString *)jobType postedWithin:(NSString *)postedWithin{
 
-    [_propSavedSearchDictionary setValue:name forKey:@"Name"];
-    [_propSavedSearchDictionary setValue:searchFor forKey:@"SearchText"];
-    [_propSavedSearchDictionary setValue:[NSDictionary dictionaryWithObjects:@[searchInID,searchInID,searchIn] forKeys:@[@"VacancySearchIn",@"VacancySearchInID",@"VacancySearchInName"]] forKey:@"VacancySearchIn"];
-    [_propSavedSearchDictionary setValue:[NSDictionary dictionaryWithObjects:@[@"",@"",@"0",@"",@"",lattitude,location,longitude,@"0",@"",@""] forKeys:@[@"AccentCity",@"City",@"CodeInt",@"Country2",@"CountryName",@"Latitude",@"LocationFull",@"Longitude",@"Population",@"Region",@"Region2"]] forKey:@"Location"];
-    [_propSavedSearchDictionary setValue:countryID forKey:@"CountryID"];
-    [_propSavedSearchDictionary setValue:distance forKey:@"Radius"];
-    [_propSavedSearchDictionary setValue:[NSDictionary dictionaryWithObjects:@[jobType,jobTypeID,jobTypeID] forKeys:@[@"Description",@"Type",@"TypeID"]] forKey:@"VacancyType"];
-    [_propSavedSearchDictionary setValue:postedWithin forKey:@"LastXDays"];
+    [_dictionary setValue:name forKey:@"Name"];
+    [_dictionary setValue:searchFor forKey:@"SearchText"];
+    [_dictionary setValue:[NSDictionary dictionaryWithObjects:@[searchInID,searchInID,searchIn] forKeys:@[@"VacancySearchIn",@"VacancySearchInID",@"VacancySearchInName"]] forKey:@"VacancySearchIn"];
+    [_dictionary setValue:[NSDictionary dictionaryWithObjects:@[@"",@"",@"0",@"",@"",lattitude,location,longitude,@"0",@"",@""] forKeys:@[@"AccentCity",@"City",@"CodeInt",@"Country2",@"CountryName",@"Latitude",@"LocationFull",@"Longitude",@"Population",@"Region",@"Region2"]] forKey:@"Location"];
+    [_dictionary setValue:countryID forKey:@"CountryID"];
+    [_dictionary setValue:distance forKey:@"Radius"];
+    [_dictionary setValue:[NSDictionary dictionaryWithObjects:@[jobType,jobTypeID,jobTypeID] forKeys:@[@"Description",@"Type",@"TypeID"]] forKey:@"VacancyType"];
+    [_dictionary setValue:postedWithin forKey:@"LastXDays"];
 
-    return [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:_propSavedSearchDictionary options:0 error:nil] encoding:NSUTF8StringEncoding];
+    return [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:_dictionary options:0 error:nil] encoding:NSUTF8StringEncoding];
 }
 
++ (NSString *)jsonFromNewSaveSearchWithName:(NSString *)name candidateID:(int)candidatID dateToday:(NSString *)dateToday searchFor:(NSString *)searchFor searchInID:(NSString *)searchInID searchIn:(NSString *)searchIn location:(NSString *)location lat:(NSString *)lattitude lng:(NSString *)longitude countryID:(NSString *)countryID distance:(NSString *)distance jobTypeID:(NSString *)jobTypeID jobType:(NSString *)jobType postedWithin:(NSString *)postedWithin{
+    
+    NSMutableDictionary *propNewSaveSearchDictionary = [NSMutableDictionary dictionary];
+    [propNewSaveSearchDictionary setValue:name forKey:@"Name"];
+    [propNewSaveSearchDictionary setValue:distance forKey:@"Radius"];
+    [propNewSaveSearchDictionary setValue:[NSDictionary dictionaryWithObjects:@[searchInID,searchInID,searchIn] forKeys:@[@"VacancySearchIn",@"VacancySearchInID",@"VacancySearchInName"]] forKey:@"VacancySearchIn"];
+    [propNewSaveSearchDictionary setValue:@0 forKey:@"JBEID"];
+    [propNewSaveSearchDictionary setValue:[NSDictionary dictionaryWithObjects:@[@"Unknown",@0,@0] forKeys:@[@"IndustryName",@"Industry",@"IndustryID"]] forKey:@"Industry"];
+    [propNewSaveSearchDictionary setValue:@(candidatID) forKey:@"CandidateID"];
+    [propNewSaveSearchDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"EmailAlert"];
+    [propNewSaveSearchDictionary setValue:searchFor forKey:@"SearchText"];
+    [propNewSaveSearchDictionary setValue:[NSString stringWithFormat:@"\/Date(%@-0100)\/",dateToday] forKey:@"DateCreated"];
+    [propNewSaveSearchDictionary setValue:[NSDictionary dictionaryWithObjects:@[@"",@"",@"0",@"",@"",lattitude,location,longitude,@"0",@"",@""] forKeys:@[@"AccentCity",@"City",@"CodeInt",@"Country2",@"CountryName",@"Latitude",@"LocationFull",@"Longitude",@"Population",@"Region",@"Region2"]] forKey:@"Location"];
+    [propNewSaveSearchDictionary setValue:[NSDictionary dictionaryWithObjects:@[jobType,jobTypeID,jobTypeID] forKeys:@[@"Description",@"Type",@"TypeID"]] forKey:@"VacancyType"];
+    [propNewSaveSearchDictionary setValue:countryID forKey:@"CountryID"];
+    [propNewSaveSearchDictionary setValue:postedWithin forKey:@"LastXDays"];
+    
+    return [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:propNewSaveSearchDictionary options:0 error:nil] encoding:NSUTF8StringEncoding];
+}
+
+
 - (NSString *)jsonFromChangingStatus:(BOOL)willAlert{
-    [_propSavedSearchDictionary setValue:(willAlert)?@"true":@"false" forKey:@"EmailAlert"];
-    return [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:_propSavedSearchDictionary options:0 error:nil] encoding:NSUTF8StringEncoding];
+    [_dictionary setValue:(willAlert)?@"true":@"false" forKey:@"EmailAlert"];
+    return [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:_dictionary options:0 error:nil] encoding:NSUTF8StringEncoding];
 }
 
 @end

@@ -13,6 +13,7 @@
 - (Employment *)initWithDictionary:(NSDictionary *)dictionary;
 
 //fields in the edit detail view controller
+- (NSString *)getJobID;
 - (NSString *)getEmployer;
 - (NSString *)getJobTitle;
 - (NSString *)getDateStart;
@@ -20,5 +21,8 @@
 - (NSString *)getDescription;
 
 - (NSString *)jsonFromEmployer:(NSString *)employer jobTitle:(NSString *)jobTitle startDate:(NSString *)dateStart endDate:(NSString *)dateEnd description:(NSString *)description;
+
+
++ (NSString *)jsonFromNewEmployerName:(NSString *)employer jobTitle:(NSString *)jobTitle startDate:(NSString *)dateStart endDate:(NSString *)dateEnd description:(NSString *)description dateToday:(NSString *)dateToday userID:(int)userID;
 
 @end

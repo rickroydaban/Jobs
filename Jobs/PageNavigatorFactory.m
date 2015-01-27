@@ -12,12 +12,12 @@
 @interface PageNavigatorFactory(){
     UIStoryboard *_storyBoard;
     UINavigationController
-        *_navigatorHome,
+        *_navigatorHome, *_vcSearchJob,
+    
         *_navigatorLogin, *_navigatorUserDetail, *_navigatorUserSearches, *_navigatorUserDocuments, *_navigatorUserApplications, *_navigatorUserEmployment, *_navigatorUserPassword,
     
         *_navigatorAboutus, *_navigatorCVHelp, *_navigatorNews, *_navigatorTerms, *_navigatorPrivacy, *_navigatorCopyright, *_navigatorDisclaimer, *_navigatorSecurityPolicy;
     
-    UINavigationController *_vcSearchJob;
 }
 @end
 

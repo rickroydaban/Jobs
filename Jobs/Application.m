@@ -8,21 +8,50 @@
 
 #import "Application.h"
 
+@interface Application(){
+    NSMutableDictionary *_dictionary;
+}
+@end
+
 @implementation Application
 
-- (Application *)initWithID:(int)applicationID title:(NSString *)title jobID:(NSString *)jobID jobRef:(NSString *)jobRef status:(NSString *)status dateAdded:(NSString *)dateAdded{
+- (id)initWithDictionary:(NSDictionary *)d{
     self = [super init];
     
     if(self){
-        _propID = applicationID;
-        _propTitle = title;
-        _propJobID = jobID;
-        _propJobRef = jobRef;
-        _propStatus = status;
-        _propDateAdded = dateAdded;
+        _dictionary = [d mutableCopy];
     }
     
     return self;
 }
+
+- (NSString *)getJobApplicationID{
+    return [_dictionary objectForKey:@"ApplicationID"];
+}
+
+- (NSString *)getVacancyTitle{
+    return [_dictionary objectForKey:@"VacancyTitle"];
+}
+
+- (NSString *)getVacancyID{
+    return [_dictionary objectForKey:@"VacancyID"];
+}
+
+- (NSString *)getVacancyRef{
+    return [_dictionary objectForKey:@"VacancyRef"];
+}
+
+- (NSString *)getAppStatus{
+    return [_dictionary objectForKey:@"AppStatus"];
+}
+
+- (NSString *)getStatusName{
+    return [[_dictionary objectForKey:@"AppStatus"] objectForKey:@"StatusName"];
+}
+
+- (NSString *)getDateCreated{
+    return [((AppDelegate *)[[UIApplication sharedApplication] delegate]).propGatewayOnline deserializeJsonDateString:[_dictionary objectForKey:@"DateCreated"]];
+}
+
 
 @end

@@ -52,10 +52,10 @@
     CellApplication *cell = [self.propLv dequeueReusableCellWithIdentifier:@"cell"];
     Application *application = [_propListApplications objectAtIndex:indexPath.row];
     
-    cell.propLabelTitle.text = application.propTitle;
-    cell.propLabelStatus.text = application.propStatus;
-    cell.propLabelReference.text = [NSString stringWithFormat:@"Reference: /VAC/%@", application.propJobRef];
-    cell.propLabelDateAdded.text = [NSString stringWithFormat:@"Added on %@",application.propDateAdded];
+    cell.propLabelTitle.text = [application getVacancyTitle];
+    cell.propLabelStatus.text = [application getStatusName];
+    cell.propLabelReference.text = [NSString stringWithFormat:@"Reference: /VAC/%@", [application getVacancyRef]];
+    cell.propLabelDateAdded.text = [NSString stringWithFormat:@"Added on %@",[application getDateCreated]];
     cell.tag = indexPath.row;
     
     return cell;
@@ -101,7 +101,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     Application *application = [_propListApplications objectAtIndex:((CellApplication *)sender).tag];
-    ((VCJobDetails *)segue.destinationViewController).propJob = [[Job alloc] initWithId:[application.propJobID intValue] title:nil reference:application.propJobRef country:nil dateAdded:nil details:nil];
+    VCJobDetails *jobdetails = (VCJobDetails *)segue.destinationViewController;
+    jobdetails.propJob = [[Job alloc] initWithId:[[application getVacancyID] intValue] title:nil reference:[application getVacancyRef] country:nil dateAdded:nil details:nil];
+    jobdetails.shouldShowApplyButton = false;
 }
 
 @end

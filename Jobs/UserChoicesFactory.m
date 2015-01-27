@@ -5,14 +5,14 @@
 //  Created by Rick Royd Aban on 10/13/14.
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
-#define USER_SALARYTYPE_NOTSELECTED @"Not Selected"
+#define USER_SALARYTYPE_NOTSELECTED @""
 #define USER_SALARYTYPE_ANNUALLY @"Annually"
 #define USER_SALARYTYPE_MONTHLY @"Monthly"
 #define USER_SALARYTYPE_WEEKLY @"Weekly"
 #define USER_SALARYTYPE_DAILY @"Daily"
 #define USER_SALARYTYPE_HOURLY @"Hourly"
 
-#define USER_AVAIL_NOTSELECTED @"Not Selected"
+#define USER_AVAIL_NOTSELECTED @""
 #define USER_AVAIL_1W @"1 Week Notice"
 #define USER_AVAIL_2W @"2 Weeks Notice"
 #define USER_AVAIL_3W @"3 Weeks Notice"
@@ -243,10 +243,10 @@
                                 USER_EDUC_MBA : @17,
                                 USER_EDUC_DOCTORATE : @18 };
         
-        _propListGender = @[USER_GENDER_U, USER_GENDER_F, USER_GENDER_M];
+        _propListGender = @[USER_GENDER_U, USER_GENDER_M, USER_GENDER_F];
         _propDictGender = @{ USER_GENDER_U : @0,
-                             USER_GENDER_F : @1,
-                             USER_GENDER_M : @2 };
+                             USER_GENDER_M : @1,
+                             USER_GENDER_F : @2 };
         
         _propListMaritalStatus = @[USER_MS_UNKNOWN, USER_MS_SINGLE, USER_MS_MARRIED, USER_MS_DIVORCED, USER_MS_WIDOWED, USER_MS_COHABITING, USER_MS_CIVILUNION, USER_MS_PARTNERSHIP];
         _propDictMaritalStatus = @{ USER_MS_UNKNOWN : @0,
