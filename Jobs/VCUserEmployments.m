@@ -50,7 +50,7 @@
                 [_propListEmployments addObjectsFromArray:employmentList];
             
             [self.propLV reloadData];
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             
         });
     });
@@ -83,6 +83,10 @@
     cell.tag = indexPath.row;
     
     return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    return @"Please enter / update details of your last 5 jobs.";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

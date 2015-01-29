@@ -18,7 +18,7 @@
 - (NSString *)getLocation;
 - (NSString *)getCountryID; //the viewcontroller will handle to get the corresponding value of  this id impose simplicity of this class (avoid using for countrylist)
 - (NSString *)getDistance;
-- (NSString *)getJobType;
+- (NSString *)getJobTypeID;
 - (NSString *)getPostedWithin;
 - (BOOL) willAlert;
 - (void)changeSubscriptionWillAlert:(BOOL)willAlert;

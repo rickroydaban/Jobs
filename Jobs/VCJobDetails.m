@@ -17,6 +17,7 @@
     UIWebView *_detailWebView;
     UITextView *_coverLetter;
     IBOutlet UIBarButtonItem *propBarButtonApply;
+    UIAlertView *alert;
 }
 @end
 
@@ -42,9 +43,9 @@
                 self.propLv.dataSource = self;
                 self.propLv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
             }
+//            [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
     });
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -151,13 +152,18 @@
 }
 
 - (IBAction)apply:(id)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cover Letter" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Submit", nil];
-    [alert setValue:_coverLetter forKey:@"accessoryView"];
+    if(!alert){
+        alert = [[UIAlertView alloc] initWithTitle:@"Cover Letter" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Submit", nil];
+        [alert setValue:_coverLetter forKey:@"accessoryView"];
+    }
     [alert show];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    [[[UIAlertView alloc] initWithTitle:@"" message:@"This module is still on development" delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
+    if(buttonIndex == 1){
+        
+    }
+//        [[[UIAlertView alloc] initWithTitle:@"" message:@"This module is still on development" delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
 }
 
 @end

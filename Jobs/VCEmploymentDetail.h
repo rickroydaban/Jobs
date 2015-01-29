@@ -10,7 +10,7 @@
 #import "VCDetail.h"
 #import "Employment.h"
 
-@interface VCEmploymentDetail : VCDetail
+@interface VCEmploymentDetail : VCDetail <UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *propFieldEmployer;
 @property (strong, nonatomic) IBOutlet UITextField *propFieldJobTitle;

@@ -37,8 +37,9 @@
     self.fieldUsername.leftView = ivUsername;
         self.fieldPassword.leftViewMode = UITextFieldViewModeAlways;
     self.fieldPassword.leftView= ivPassword;
-    self.fieldUsername.text = @"admin@blandyuk.co.uk";
-    self.fieldPassword.text = @"redROSE1982";
+    self.fieldUsername.text = [self.propAppDelegate.propGatewayOffline getPrevUsername];
+//    self.fieldUsername.text = @"admin@blandyuk.co.uk";
+//    self.fieldPassword.text = @"redROSE1982";
 
     self.buttonLogin.layer.borderWidth = 2;
     self.buttonLogin.layer.borderColor = [VelosiColors orangeDark].CGColor;
@@ -58,6 +59,7 @@
 - (IBAction)login {
     if(self.fieldUsername.text.length > 0){
         if(self.fieldPassword.text.length > 0){
+            [self.propAppDelegate.propGatewayOffline updatePreviouslyUsedUsername:self.fieldUsername.text];
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
                 id result = [self.propAppDelegate.propGatewayOnline authenticateUserName:self.fieldUsername.text password:self.fieldPassword.text];

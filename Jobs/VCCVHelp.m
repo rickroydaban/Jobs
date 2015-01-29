@@ -25,7 +25,7 @@
 }
 
 - (void)loadLink{
-    [self.propWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.velosijobs.com/CV-Help"]]];
+    [self.propWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.velosijobs.com/app/cv-help"]]];
 }
 
 @end

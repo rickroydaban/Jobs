@@ -38,7 +38,7 @@
     _propCellLocation.detailTextLabel.text = [_propSavedSearch getLocation];
     _propCellCountry.detailTextLabel.text = [self.propAppDelegate.propCountries.propDictCountryIds objectForKey:[_propSavedSearch getCountryID]];
     _propFieldDistance.text = [_propSavedSearch getDistance];
-    _propFieldJobType.text = [_propSavedSearch getJobType];
+    _propFieldJobType.text = [self.propAppDelegate.propDictJobTypes allKeysForObject:[NSString stringWithFormat:@"%@",[_propSavedSearch getJobTypeID]]][0];
     [_pickerJobTypes selectRowWithText:_propFieldJobType.text];
     _propFieldPostedWithin.text = [self.propAppDelegate.propDictPostedWithins allKeysForObject:[_propSavedSearch getPostedWithin]][0];
     [_pickerPostedWithins selectRowWithText:_propFieldPostedWithin.text];

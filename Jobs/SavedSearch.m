@@ -58,8 +58,8 @@
     return [NSString stringWithFormat:@"%@",[_dictionary objectForKey:@"Radius"]];
 }
 
-- (NSString *)getJobType{
-    return [[_dictionary objectForKey:@"VacancyType"] objectForKey:@"Description"];
+- (NSString *)getJobTypeID{
+    return [[_dictionary objectForKey:@"VacancyType"] objectForKey:@"TypeID"];
 }
 
 - (NSString *)getPostedWithin{
@@ -99,7 +99,7 @@
     [propNewSaveSearchDictionary setValue:@(candidatID) forKey:@"CandidateID"];
     [propNewSaveSearchDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"EmailAlert"];
     [propNewSaveSearchDictionary setValue:searchFor forKey:@"SearchText"];
-    [propNewSaveSearchDictionary setValue:[NSString stringWithFormat:@"\/Date(%@-0100)\/",dateToday] forKey:@"DateCreated"];
+    [propNewSaveSearchDictionary setValue:dateToday forKey:@"DateCreated"];
     [propNewSaveSearchDictionary setValue:[NSDictionary dictionaryWithObjects:@[@"",@"",@"0",@"",@"",lattitude,location,longitude,@"0",@"",@""] forKeys:@[@"AccentCity",@"City",@"CodeInt",@"Country2",@"CountryName",@"Latitude",@"LocationFull",@"Longitude",@"Population",@"Region",@"Region2"]] forKey:@"Location"];
     [propNewSaveSearchDictionary setValue:[NSDictionary dictionaryWithObjects:@[jobType,jobTypeID,jobTypeID] forKeys:@[@"Description",@"Type",@"TypeID"]] forKey:@"VacancyType"];
     [propNewSaveSearchDictionary setValue:countryID forKey:@"CountryID"];

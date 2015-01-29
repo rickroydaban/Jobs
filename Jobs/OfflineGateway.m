@@ -8,6 +8,7 @@
 
 //Only the user id will be saved in the user defaults to save space since we need to refresh the data for every viewdidload in the user detail page using the saved id here
 
+#define PREVUSERNAME @"prevusername"
 #define SESSION @"sessionkey"
 
 #import "OfflineGateway.h"
@@ -43,16 +44,26 @@ static OfflineGateway *sharedOfflineGateway = nil;
     [_prefs setObject:userID forKey:SESSION];
 }
 
+- (void)updatePreviouslyUsedUsername:(NSString *)username{
+    [_prefs setObject:username forKey:PREVUSERNAME];
+}
+
 - (BOOL)isLoggedIn{
     return ([_prefs objectForKey:SESSION] != nil)?YES:NO;
 }
 
 - (void)logout{
-    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:[[NSBundle mainBundle] bundleIdentifier]];
+//    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:[[NSBundle mainBundle] bundleIdentifier]];
+    [_prefs removeObjectForKey:SESSION];
 }
 
 - (NSString *)getUserID{
     return [NSString stringWithFormat:@"%@",[_prefs objectForKey:SESSION]];
 }
+
+- (NSString *)getPrevUsername{
+    return ([_prefs objectForKey:PREVUSERNAME] != nil)?[_prefs objectForKey:PREVUSERNAME]:@"";
+}
+
 
 @end

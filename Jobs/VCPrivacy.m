@@ -25,7 +25,7 @@
 }
 
 - (void)loadLink{
-    [self.propWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.velosijobs.com/about-us/privacy"]]];
+    [self.propWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.velosijobs.com/app/privacy"]]];
 }
 
 @end

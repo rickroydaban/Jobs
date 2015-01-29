@@ -139,6 +139,15 @@
     return cell;
 }
 
+-(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(self.selectedFields != nil && self.selectedFields.count >= 16 && ![self.selectedFields containsObject:[tableView cellForRowAtIndexPath:indexPath].textLabel.text]){
+        [[[UIAlertView alloc] initWithTitle:@"Warning" message:@"Cannot select countries anymore" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
+        return nil;
+    }
+    
+    return indexPath;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if(self.selectedFields == nil){
         _selectedCell.detailTextLabel.text = [[_resultsDictionary objectForKey:[_resultsArray objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];

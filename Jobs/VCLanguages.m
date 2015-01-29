@@ -31,6 +31,15 @@
     return cell;
 }
 
+-(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(self.propListLanguages != nil && self.propListLanguages.count >= 8 && ![self.propListLanguages containsObject:[tableView cellForRowAtIndexPath:indexPath].textLabel.text]){
+        [[[UIAlertView alloc] initWithTitle:@"Warning" message:@"Cannot select languages anymore" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
+        return nil;
+    }
+    
+    return indexPath;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if([self.propListLanguages containsObject:[tableView cellForRowAtIndexPath:indexPath].textLabel.text])
         [self.propListLanguages removeObject:[tableView cellForRowAtIndexPath:indexPath].textLabel.text];

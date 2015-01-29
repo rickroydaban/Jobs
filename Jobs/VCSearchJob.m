@@ -41,9 +41,31 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    self.propCellCountry.userInteractionEnabled = ([self.propCellLocation.detailTextLabel.text isEqualToString:@"Any"])?YES:NO;
-    self.propCellLocation.userInteractionEnabled = ([self.propCellCountry.detailTextLabel.text isEqualToString:@"Any"])?YES:NO;
-
+    if(!([self.propCellLocation.detailTextLabel.text isEqualToString:@"Any"] && [self.propCellCountry.detailTextLabel.text isEqualToString:@"Any"])){
+     
+        if([self.propCellLocation.detailTextLabel.text isEqualToString:@"Any"]){
+            self.propCellCountry.textLabel.textColor = [UIColor blackColor];
+            self.propCellCountry.detailTextLabel.textColor = [UIColor blackColor];
+            self.propCellCountry.userInteractionEnabled = YES;
+            self.propCellLocation.textLabel.textColor = [UIColor lightGrayColor];
+            self.propCellLocation.detailTextLabel.textColor = [UIColor lightGrayColor];
+            self.propCellLocation.userInteractionEnabled = NO;
+        }else{
+            self.propCellLocation.textLabel.textColor = [UIColor blackColor];
+            self.propCellLocation.detailTextLabel.textColor = [UIColor blackColor];
+            self.propCellLocation.userInteractionEnabled = YES;
+            self.propCellCountry.textLabel.textColor = [UIColor lightGrayColor];
+            self.propCellCountry.detailTextLabel.textColor = [UIColor lightGrayColor];
+            self.propCellCountry.userInteractionEnabled = NO;
+        }
+    }else{
+        self.propCellLocation.textLabel.textColor = [UIColor blackColor];
+        self.propCellLocation.detailTextLabel.textColor = [UIColor blackColor];
+        self.propCellLocation.userInteractionEnabled = YES;
+        self.propCellCountry.textLabel.textColor = [UIColor blackColor];
+        self.propCellCountry.detailTextLabel.textColor = [UIColor blackColor];
+        self.propCellCountry.userInteractionEnabled = YES;
+    }
 }
 
 - (void)pickerSelection:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{

@@ -13,6 +13,7 @@
 
 @interface VCEmploymentDetail(){
     UIDatePicker *_datePicekrStart, *_datePickerEnd;
+    UIAlertView *_requestDoneAlert;
 }
 @end
 
@@ -71,11 +72,18 @@
         NSString *result = [self.propAppDelegate.propGatewayOnline saveEmploymentWithJSONContents:json];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [[[UIAlertView alloc] initWithTitle:@" " message:(result)?result:self.propAppDelegate.messageSaveSuccessful delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
+            if(!_requestDoneAlert)
+             _requestDoneAlert = [[UIAlertView alloc] initWithTitle:@" " message:(result)?result:self.propAppDelegate.messageSaveSuccessful delegate:self cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil];
+            
+            [_requestDoneAlert show];
             [self.view endEditing:YES];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
     });
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

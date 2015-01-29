@@ -15,7 +15,8 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        NSString *result = [self.propAppDelegate.propGatewayOnline saveSavedSearchesWithJSONContents:[SavedSearch jsonFromNewSaveSearchWithName:_propFieldTitle.text candidateID:[[self.propAppDelegate.propGatewayOffline getUserID] intValue] dateToday:[self.propAppDelegate.propDateFormatVelosi stringFromDate:[NSDate date]] searchFor:_propSearchFor searchInID:_propSearchInID searchIn:_propSearchIn location:_propLocation lat:_propLat lng:_propLng countryID:_propCountryID distance:_propDistance jobTypeID:_propJobTypeID jobType:_propJobType postedWithin:_propPostedWithin]];
+        NSString *dateToday = [NSString stringWithFormat:@"\/Date(%.0f)\/",[[NSDate date] timeIntervalSince1970]*1000];
+        NSString *result = [self.propAppDelegate.propGatewayOnline saveSavedSearchesWithJSONContents:[SavedSearch jsonFromNewSaveSearchWithName:_propFieldTitle.text candidateID:[[self.propAppDelegate.propGatewayOffline getUserID] intValue] dateToday:dateToday searchFor:_propSearchFor searchInID:_propSearchInID searchIn:_propSearchIn location:_propLocation lat:_propLat lng:_propLng countryID:_propCountryID distance:_propDistance jobTypeID:_propJobTypeID jobType:_propJobType postedWithin:_propPostedWithin]];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [[[UIAlertView alloc] initWithTitle:@" " message:(result)?result:self.propAppDelegate.messageSaveSuccessful delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];

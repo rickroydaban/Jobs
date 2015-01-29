@@ -29,7 +29,7 @@
     self.propLv.delegate = self;
     self.propLv.dataSource = self;
     self.propLv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    [self reloadData];
+    [self refresh];
 }
 
 - (void)addItem{
@@ -37,16 +37,16 @@
 }
 
 - (IBAction)refresh:(id)sender {
-    [self reloadData];
+    [self refresh];
 }
 
-- (void)reloadData{
+- (void)refresh{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         id result = [self.propAppDelegate.propGatewayOnline getDocuments];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             if([result isKindOfClass:[NSString class]])
                 [[[UIAlertView alloc] initWithTitle:@"Error" message:result delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
             else{
@@ -59,7 +59,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    [self reloadData];
+    [self refresh];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -68,11 +68,15 @@
 
     cell.propTitle.text = [document getName];
     cell.propDateExpire.text = [NSString stringWithFormat:@"Expire on %@",[document getDateExpire]];
-    cell.propExtAndType.text = [self.propAppDelegate.propUserDetails.propDictDocumentTypes objectForKey:[NSString stringWithFormat:@"%d",[document getType]]];
+    cell.propExtAndType.text = [self.propAppDelegate.propUserDetails.propDictDocumentTypes allKeysForObject:@([document getType])][0];
     cell.propFileSize.text = [NSString stringWithFormat:@"%@ kb",[document getFileSize]];
     cell.tag = indexPath.row;
 
     return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    return @"Below are the documents currently held on your account. Log in online to add or update documents";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

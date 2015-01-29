@@ -244,7 +244,7 @@
                                 USER_EDUC_DOCTORATE : @18 };
         
         _propListGender = @[USER_GENDER_U, USER_GENDER_M, USER_GENDER_F];
-        _propDictGender = @{ USER_GENDER_U : @0,
+        _propDictGender = @{ USER_GENDER_U : @9,
                              USER_GENDER_M : @1,
                              USER_GENDER_F : @2 };
         

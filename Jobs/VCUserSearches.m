@@ -24,7 +24,7 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-
+    
     _buttonRefresh = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)];
     _buttonUnsubscribe = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_unsubscribe"] style:UIBarButtonItemStylePlain target:self action:@selector(unsubscribeAll)];
     _buttonSubscribe = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_subscribe"] style:UIBarButtonItemStylePlain target:self action:@selector(subscribeAll)];
@@ -37,7 +37,7 @@
     _propLv.dataSource = self;
     [self refresh];
 }
-                                                
+
 - (void)subscribeAll{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
@@ -87,7 +87,7 @@
         });
     });
 }
-                                                
+
 - (void)refresh{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
@@ -109,7 +109,7 @@
                 [self.propLv reloadData];
             }
             
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             
         });
     });
@@ -176,12 +176,8 @@
     return _propListSavedSearches.count;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{
-    return @"The jobs-by-email facility enables you to set up a criteria, i..e, job title/skill, country and location + acceptable radius, job type (permanent, temporary).  When a vacancy is posted onto the website that matches your criteria you will be sent a link via email.";
-}
-
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    return @"Below are job searches that you have saved. You can re-run the job search by clicking on the envelope icon in the navigation bar.";
+    return @"Below are your saves job searches, you can enable them individually, or in bulk using the envelope above.";
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -223,7 +219,7 @@
                     [MBProgressHUD hideHUDForView:self.view animated:YES];
                 });
             });
-            }
+        }
             break;
             
         default:

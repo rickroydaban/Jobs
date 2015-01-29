@@ -95,9 +95,8 @@ static OnlineGateway *sharedOnlineGateway = nil;
     NSHTTPURLResponse *responseCode = nil;
     
     NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
-    if(responseCode.statusCode != 200){
+    if(responseCode.statusCode != 200)
         return [self responseErrorDescriptionFromStatusCode:(int)responseCode.statusCode];
-    }
     
     return responseData;
 }
@@ -467,6 +466,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
     NSString *body = [NSString stringWithFormat:@"{\"c\":%@}",jsonContents];
     @try{
         id result = [self httpPostFrom:@"https://arctestapi.velosi.com/CandidateSvc.svc/json/Save" withBody:body];
+        NSLog(@"savecandidateresult: %@",[NSJSONSerialization JSONObjectWithData:result options:0 error:nil]);
         return ([result isKindOfClass:[NSString class]])?result:nil;
     }@catch(NSException *exception){
         return _appDelegate.messageErrorGeneral;

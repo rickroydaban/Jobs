@@ -13,8 +13,10 @@
 + (OfflineGateway *)sharedOfflineGateway:(AppDelegate *)appDelegate;
 
 - (void)saveUserDataWithID:(NSString *)userID;
+- (void)updatePreviouslyUsedUsername:(NSString *)username;
 - (BOOL)isLoggedIn;
 - (void)logout;
 - (NSString *)getUserID;
+- (NSString *)getPrevUsername;
 
 @end

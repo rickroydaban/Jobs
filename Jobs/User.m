@@ -187,7 +187,8 @@
 }
 
 - (NSString *)propCurrency{
-    return [self NSStringFromObject:[[_dictionary objectForKey:@"Salary"] objectForKey:@"SalaryCurrency"]];
+    NSString *currency = [self NSStringFromObject:[[_dictionary objectForKey:@"Salary"] objectForKey:@"SalaryCurrency"]];
+    return ([currency isEqualToString:@"XXX"])?@"":currency;
 }
 
 - (NSString *)propSalaryFrom{
@@ -212,15 +213,17 @@
 }
 
 - (NSString *)jsonFromUserWithFirstName:(NSString *)firstName lastName:(NSString *)lastName email:(NSString *)email altEmail:(NSString *)altEmail genderID:(NSNumber *)genderID gender:(NSString *)gender phone:(NSString *)phone altPhone:(NSString *)altPhone mobile:(NSString *)mobile bday:(NSString *)bday address:(NSString *)address city:(NSString *)city countryState:(NSString *)countryState postcode:(NSString *)postcode countryID:(NSNumber *)countryID country:(NSString *)country linkedIn:(NSString *)linkedIn twitter:(NSString *)twitter skype:(NSString *)skype isEUAuthorized:(NSNumber *)isEUAuthorized university:(NSString *)university subject:(NSString *)subject yearGraduated:(NSNumber *)yearGraduated educationID:(NSNumber *)educationID education:(NSString *)education drivingLicenseID:(NSNumber *)drivingLicenseID drivingLicense:(NSString *)drivingLicense nationalityID:(NSNumber *)nationalityID nationality:(NSString *)nationality ethnicityID:(NSNumber *)ethnicityID ethnicity:(NSString *)etchnicity referrerID:(NSNumber *)referrerID referrer:(NSString *)referrer maritalStatusID:(NSNumber *)maritalStatusID maritalStatus:(NSString *)maritalStatus preferredLocations:(NSString *)preferredLocations willingToRelocateID:(NSNumber *)willingToRelocateID willingToRelocate:(NSString *)willingToRelocate noticePeriodID:(NSNumber *)noticePeriodID noticePeriod:(NSString *)noticePeriod availableFrom:(NSString *)availableFrom languages:(NSString *)languages isAlertsAllowed:(NSNumber *)isAlertsAllowed isPermanent:(NSNumber *)isPermanent isTemporary:(NSNumber *)isTemporary isContract:(NSNumber *)isContract isPartTime:(NSNumber *)isPartTime jobTitles:(NSString *)jobTitles currencyThree:(NSString *)currencyThree salaryFrom:(NSNumber *)salaryFrom salaryTo:(NSNumber *)salaryTo salaryTypeID:(NSNumber *)salaryTypeID salaryType:(NSString *)salaryType mainSkills:(NSString *)mainSkills{
-
+    
+    NSLog(@"%@",bday);
     [_dictionary setValue:firstName forKey:@"FirstName"];
     [_dictionary setValue:lastName forKey:@"LastName"];
+    [_dictionary setValue:[NSString stringWithFormat:@"%@ %@",firstName,lastName] forKey:@"FullName"];
     [_dictionary setValue:email forKey:@"Email"];
     [_dictionary setValue:altEmail forKey:@"Email2"];
     [_dictionary setValue:phone forKey:@"Phone"];
     [_dictionary setValue:altPhone forKey:@"Phone2"];
     [_dictionary setValue:mobile forKey:@"Mobile"];
-    [_dictionary setValue:@"\/Date(1413882540000+0100)\/" forKey:@"DOB"];
+    [_dictionary setValue:bday forKey:@"DOB"];
     [_dictionary setValue:address forKey:@"Address"];
     [_dictionary setValue:city forKey:@"TownCity"];
     [_dictionary setValue:countryState forKey:@"CountyState"];
@@ -232,7 +235,7 @@
     [_dictionary setValue:subject forKey:@"AcademicSubject"];
     [_dictionary setValue:yearGraduated forKey:@"GraduationYear"];
     [_dictionary setValue:preferredLocations forKey:@"PreferredLocation"];
-    [_dictionary setValue:@"\/Date(1413882540000+0100)\/" forKey:@"AvailableFrom"];
+    [_dictionary setValue:availableFrom forKey:@"AvailableFrom"];
     [_dictionary setValue:languages forKey:@"Languages"];
     [_dictionary setValue:jobTitles forKey:@"PreferredJobTitles"];
     [_dictionary setValue:mainSkills forKey:@"MainSkills"];
@@ -248,18 +251,26 @@
     [_dictionary setValue:[NSDictionary dictionaryWithObjects:@[genderID,genderID,gender] forKeys:@[@"Gender",@"GenderID",@"GenderName"]] forKey:@"GenderSex"];
     [_dictionary setValue:genderID forKey:@"GenderSexID"];
     [_dictionary setValue:[NSDictionary dictionaryWithObjects:@[@"XX",@"XXX",countryID,country,@"",[NSNumber numberWithInt:0],[NSNumber numberWithInt:0],@""] forKeys:@[@"Country2",@"Country3",@"CountryID",@"CountryName",@"DialCode",@"GMT",@"RegionID",@"RegionName"]] forKey:@"Country"];
+    [_dictionary setValue:countryID forKey:@"CountryID"];
     [_dictionary setValue:[NSDictionary dictionaryWithObjects:@[education,educationID] forKeys:@[@"Description",@"EducationID"]] forKey:@"Education"];
+    [_dictionary setValue:educationID forKey:@"EducationID"];
     [_dictionary setValue:[NSDictionary dictionaryWithObjects:@[drivingLicenseID,drivingLicenseID,drivingLicense] forKeys:@[@"Status",@"StatusID",@"StatusName"]] forKey:@"DrivingLicense"];
     [_dictionary setValue:drivingLicenseID forKey:@"DrivingLicenseID"];
     [_dictionary setValue:nationalityID forKey:@"NationalityID"];
     [_dictionary setValue:[NSDictionary dictionaryWithObjects:@[ethnicityID,etchnicity] forKeys:@[@"EthnicityID",@"EthnicityName"]] forKey:@"Ethnicity"];
+    [_dictionary setValue:ethnicityID forKey:@"EthnicityID"];
     [_dictionary setValue:referrerID forKey:@"ReferrerID"];
     [_dictionary setValue:[NSDictionary dictionaryWithObjects:@[maritalStatusID,maritalStatusID,maritalStatus] forKeys:@[@"Status",@"StatusID",@"StatusName"]] forKey:@"MaritalStatus"];
     [_dictionary setValue:[NSDictionary dictionaryWithObjects:@[willingToRelocateID,willingToRelocateID,willingToRelocate] forKeys:@[@"Status",@"StatusID",@"StatusName"]] forKey:@"Relocate"];
+    [_dictionary setValue:maritalStatusID forKey:@"MaritalStatusID"];
     [_dictionary setValue:willingToRelocateID forKey:@"RelocateID"];
     [_dictionary setValue:noticePeriodID forKey:@"AvailabilityID"];
     [_dictionary setValue:[NSDictionary dictionaryWithObjects:@[noticePeriodID,noticePeriodID,noticePeriod] forKeys:@[@"Availability",@"AvailabilityID",@"AvailabilityName"]] forKey:@"Availability"];
+    [_dictionary setValue:currencyThree forKey:@"SalaryCurrency"];
     [_dictionary setValue:[NSDictionary dictionaryWithObjects:@[currencyThree,salaryFrom,salaryTo,[NSDictionary dictionaryWithObjects:@[salaryTypeID,salaryTypeID] forKeys:@[@"SalaryType",@"SalaryTypeID"]]] forKeys:@[@"SalaryCurrency",@"SalaryFrom",@"SalaryTo",@"SalaryType"]] forKey:@"Salary"];
+    [_dictionary setValue:salaryFrom forKey:@"SalaryFrom"];
+    [_dictionary setValue:salaryTo forKey:@"SalaryTo"];
+    [_dictionary setValue:salaryTypeID forKey:@"SalaryTypeID"];
 
     return [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:_dictionary options:0 error:nil] encoding:NSUTF8StringEncoding];
 }

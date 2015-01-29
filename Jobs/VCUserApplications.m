@@ -42,7 +42,7 @@
                 [_propListApplications addObjectsFromArray:applicationList];
             
             [self.propLv reloadData];
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         });
     });
 }
@@ -59,6 +59,10 @@
     cell.tag = indexPath.row;
     
     return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    return @"Below are details of the applications you have made with the correct status. If the status is not up to date please contact your local office.";
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{

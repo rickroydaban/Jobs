@@ -67,7 +67,7 @@
     [propEmploymentDictionary setValue:jobTitle forKey:@"Title"];
     [propEmploymentDictionary setValue:dateStart forKey:@"StartDate"];
     [propEmploymentDictionary setValue:dateEnd forKey:@"EndDate"];
-    [propEmploymentDictionary setValue:description forKey:@"Decription"];
+    [propEmploymentDictionary setValue:description forKey:@"Description"];
 
     //convert dictionary to json
     return [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:propEmploymentDictionary options:0 error:nil] encoding:NSUTF8StringEncoding];
