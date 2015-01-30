@@ -76,7 +76,9 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    ((VCJobDetails *)segue.destinationViewController).propJob = [_propListVacancies objectAtIndex:((UITableViewCell *)sender).tag];
+    VCJobDetails *vcJobDetails = (VCJobDetails *)segue.destinationViewController;
+    vcJobDetails.propJob = [_propListVacancies objectAtIndex:((UITableViewCell *)sender).tag];
+    vcJobDetails.shouldShowApplyButton = YES;
 }
 
 @end

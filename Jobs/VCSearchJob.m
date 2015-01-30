@@ -45,14 +45,14 @@
      
         if([self.propCellLocation.detailTextLabel.text isEqualToString:@"Any"]){
             self.propCellCountry.textLabel.textColor = [UIColor blackColor];
-            self.propCellCountry.detailTextLabel.textColor = [UIColor blackColor];
+            self.propCellCountry.detailTextLabel.textColor = [UIColor grayColor];
             self.propCellCountry.userInteractionEnabled = YES;
             self.propCellLocation.textLabel.textColor = [UIColor lightGrayColor];
             self.propCellLocation.detailTextLabel.textColor = [UIColor lightGrayColor];
             self.propCellLocation.userInteractionEnabled = NO;
         }else{
             self.propCellLocation.textLabel.textColor = [UIColor blackColor];
-            self.propCellLocation.detailTextLabel.textColor = [UIColor blackColor];
+            self.propCellLocation.detailTextLabel.textColor = [UIColor grayColor];
             self.propCellLocation.userInteractionEnabled = YES;
             self.propCellCountry.textLabel.textColor = [UIColor lightGrayColor];
             self.propCellCountry.detailTextLabel.textColor = [UIColor lightGrayColor];
@@ -60,10 +60,10 @@
         }
     }else{
         self.propCellLocation.textLabel.textColor = [UIColor blackColor];
-        self.propCellLocation.detailTextLabel.textColor = [UIColor blackColor];
+        self.propCellLocation.detailTextLabel.textColor = [UIColor grayColor];
         self.propCellLocation.userInteractionEnabled = YES;
         self.propCellCountry.textLabel.textColor = [UIColor blackColor];
-        self.propCellCountry.detailTextLabel.textColor = [UIColor blackColor];
+        self.propCellCountry.detailTextLabel.textColor = [UIColor grayColor];
         self.propCellCountry.userInteractionEnabled = YES;
     }
 }
