@@ -33,7 +33,7 @@
 		8F77B3FC1A1DF96300D74FFC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F77B3FB1A1DF96300D74FFC /* LaunchScreen.xib */; };
 		8F7BD62519DA8FDB00E20A77 /* VCJobDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7BD62419DA8FDB00E20A77 /* VCJobDetails.m */; };
 		8F7FD44D1A01E2E6005DA69C /* VCDocumentDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7FD44C1A01E2E6005DA69C /* VCDocumentDetails.m */; };
-		8F822C7A19DAAED900DB597E /* JobDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F822C7919DAAED900DB597E /* JobDetail.m */; };
+		8F822C7A19DAAED900DB597E /* Job.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F822C7919DAAED900DB597E /* Job.m */; };
 		8F8486AC1A1069B7003F476B /* VCEmploymentDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8486AB1A1069B7003F476B /* VCEmploymentDetail.m */; };
 		8F8486AF1A106DDE003F476B /* VCDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8486AE1A106DDE003F476B /* VCDetail.m */; };
 		8F8486B21A1082EA003F476B /* CellApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8486B11A1082EA003F476B /* CellApplication.m */; };
@@ -47,7 +47,7 @@
 		8F877FA219D5687B00B0F820 /* VCLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F877FA119D5687B00B0F820 /* VCLogin.m */; };
 		8F9D86F51A007C85004878A4 /* VCLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F9D86F41A007C85004878A4 /* VCLink.m */; };
 		8FA1799D19F4B05F00F6AF24 /* VCLanguages.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA1799C19F4B05F00F6AF24 /* VCLanguages.m */; };
-		8FAB94A919D909A4008D23C8 /* Job.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAB94A819D909A4008D23C8 /* Job.m */; };
+		8FAB94A919D909A4008D23C8 /* JobSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAB94A819D909A4008D23C8 /* JobSummary.m */; };
 		8FAB94AC19D93B46008D23C8 /* CellJobSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAB94AB19D93B46008D23C8 /* CellJobSummary.m */; };
 		8FAB94AF19D93D49008D23C8 /* VCJobSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAB94AE19D93D49008D23C8 /* VCJobSummary.m */; };
 		8FAF21071A1EE24F0065579D /* CellLatestVacancy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAF21061A1EE24F0065579D /* CellLatestVacancy.m */; };
@@ -147,8 +147,8 @@
 		8F7BD62419DA8FDB00E20A77 /* VCJobDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCJobDetails.m; sourceTree = "<group>"; };
 		8F7FD44B1A01E2E6005DA69C /* VCDocumentDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCDocumentDetails.h; sourceTree = "<group>"; };
 		8F7FD44C1A01E2E6005DA69C /* VCDocumentDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCDocumentDetails.m; sourceTree = "<group>"; };
-		8F822C7819DAAED900DB597E /* JobDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobDetail.h; sourceTree = "<group>"; };
-		8F822C7919DAAED900DB597E /* JobDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobDetail.m; sourceTree = "<group>"; };
+		8F822C7819DAAED900DB597E /* Job.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Job.h; sourceTree = "<group>"; };
+		8F822C7919DAAED900DB597E /* Job.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Job.m; sourceTree = "<group>"; };
 		8F8486AA1A1069B7003F476B /* VCEmploymentDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCEmploymentDetail.h; sourceTree = "<group>"; };
 		8F8486AB1A1069B7003F476B /* VCEmploymentDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCEmploymentDetail.m; sourceTree = "<group>"; };
 		8F8486AD1A106DDE003F476B /* VCDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCDetail.h; sourceTree = "<group>"; };
@@ -175,8 +175,8 @@
 		8F9D86F41A007C85004878A4 /* VCLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCLink.m; sourceTree = "<group>"; };
 		8FA1799B19F4B05F00F6AF24 /* VCLanguages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCLanguages.h; sourceTree = "<group>"; };
 		8FA1799C19F4B05F00F6AF24 /* VCLanguages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCLanguages.m; sourceTree = "<group>"; };
-		8FAB94A719D909A4008D23C8 /* Job.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Job.h; sourceTree = "<group>"; };
-		8FAB94A819D909A4008D23C8 /* Job.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Job.m; sourceTree = "<group>"; };
+		8FAB94A719D909A4008D23C8 /* JobSummary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobSummary.h; sourceTree = "<group>"; };
+		8FAB94A819D909A4008D23C8 /* JobSummary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobSummary.m; sourceTree = "<group>"; };
 		8FAB94AA19D93B46008D23C8 /* CellJobSummary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellJobSummary.h; sourceTree = "<group>"; };
 		8FAB94AB19D93B46008D23C8 /* CellJobSummary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellJobSummary.m; sourceTree = "<group>"; };
 		8FAB94AD19D93D49008D23C8 /* VCJobSummary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCJobSummary.h; sourceTree = "<group>"; };
@@ -323,10 +323,10 @@
 				8F877F9C19D5123C00B0F820 /* CountryList.m */,
 				8F25E12D19DE7B840043C6F0 /* CurrencyList.h */,
 				8F25E12E19DE7B840043C6F0 /* CurrencyList.m */,
-				8FAB94A719D909A4008D23C8 /* Job.h */,
-				8FAB94A819D909A4008D23C8 /* Job.m */,
-				8F822C7819DAAED900DB597E /* JobDetail.h */,
-				8F822C7919DAAED900DB597E /* JobDetail.m */,
+				8FAB94A719D909A4008D23C8 /* JobSummary.h */,
+				8FAB94A819D909A4008D23C8 /* JobSummary.m */,
+				8F822C7819DAAED900DB597E /* Job.h */,
+				8F822C7919DAAED900DB597E /* Job.m */,
 				8F3F7D8C19DBF719001C9D78 /* User.h */,
 				8F3F7D8D19DBF719001C9D78 /* User.m */,
 				8F4928911A00B0EB0060697A /* Document.h */,
@@ -728,7 +728,7 @@
 				8FB50F871A11D88800FB4307 /* VCForgotPassword.m in Sources */,
 				8F49287E1A0084080060697A /* VCNews.m in Sources */,
 				8F3F7D8719DBAA4B001C9D78 /* CellDetail.m in Sources */,
-				8F822C7A19DAAED900DB597E /* JobDetail.m in Sources */,
+				8F822C7A19DAAED900DB597E /* Job.m in Sources */,
 				8F4928811A0084160060697A /* VCTerms.m in Sources */,
 				8F8486AF1A106DDE003F476B /* VCDetail.m in Sources */,
 				8F4928931A00B0EB0060697A /* Document.m in Sources */,
@@ -740,7 +740,7 @@
 				8FC0C92419D41A69006F3652 /* VCPage.m in Sources */,
 				8F6CDDB919DD5B4E002D7079 /* PageNavigatorFactory.m in Sources */,
 				8FB37EFE19D4198400B798BB /* main.m in Sources */,
-				8FAB94A919D909A4008D23C8 /* Job.m in Sources */,
+				8FAB94A919D909A4008D23C8 /* JobSummary.m in Sources */,
 				8F6CDDB619DD49BF002D7079 /* VCUserPassword.m in Sources */,
 				8F7FD44D1A01E2E6005DA69C /* VCDocumentDetails.m in Sources */,
 				8F6CDDAD19DD499E002D7079 /* VCUserSearches.m in Sources */,
