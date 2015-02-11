@@ -29,12 +29,11 @@
     self.propLv.delegate = self;
     self.propLv.dataSource = self;
     self.propLv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    [self refresh];
 }
 
-- (void)addItem{
-    [self performSegueWithIdentifier:@"segueDocumentsToDetails" sender:nil];
-}
+//- (void)addItem{
+//    [self performSegueWithIdentifier:@"segueDocumentsToDetails" sender:nil];
+//}
 
 - (IBAction)refresh:(id)sender {
     [self refresh];
@@ -79,18 +78,18 @@
     return @"Below are the documents currently held on your account. Log in online to add or update documents";
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self performSegueWithIdentifier:@"segueDocumentsToDetails" sender:[tableView.dataSource tableView:tableView cellForRowAtIndexPath:indexPath]];
-}
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    [self performSegueWithIdentifier:@"segueDocumentsToDetails" sender:[tableView.dataSource tableView:tableView cellForRowAtIndexPath:indexPath]];
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.propListDocuments.count;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if([sender isKindOfClass:[UITableViewCell class]])
-        ((VCDocumentDetails *)segue.destinationViewController).propDocument = [self.propListDocuments objectAtIndex:((CellDocument *)sender).tag];
-}
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+//    if([sender isKindOfClass:[UITableViewCell class]])
+//        ((VCDocumentDetails *)segue.destinationViewController).propDocument = [self.propListDocuments objectAtIndex:((CellDocument *)sender).tag];
+//}
 
 - (IBAction)showList:(id)sender {
     [self.propAppDelegate.propSlider toggleSidebar];

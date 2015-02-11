@@ -77,7 +77,7 @@
             
             [_requestDoneAlert show];
             [self.view endEditing:YES];
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         });
     });
 }

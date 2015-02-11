@@ -7,12 +7,12 @@
 //
 
 #import "VCPage.h"
-#import "Job.h"
+#import "JobSummary.h"
 
 @interface VCJobDetails : VCPage<UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *propLv;
-@property (strong, nonatomic) Job *propJob;
+@property (strong, nonatomic) JobSummary *propJob;
 @property (assign, nonatomic) BOOL shouldShowApplyButton;
 
 @end

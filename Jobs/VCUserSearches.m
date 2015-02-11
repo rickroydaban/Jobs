@@ -35,7 +35,6 @@
     _propListSavedSearches = [NSMutableArray array];
     _propLv.delegate = self;
     _propLv.dataSource = self;
-    [self refresh];
 }
 
 - (void)subscribeAll{

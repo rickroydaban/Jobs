@@ -11,7 +11,7 @@
 #import "CellApplication.h"
 #import "Application.h"
 #import "VCJobDetails.h"
-#import "JobDetail.h"
+#import "Job.h"
 
 @implementation VCUserApplications
 
@@ -22,11 +22,10 @@
     _propListApplications = [NSMutableArray array];
     _propLv.delegate = self;
     _propLv.dataSource = self;
-    [self refresh];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    [self.propLv reloadData];
+    [self refresh];
 }
 
 - (void)refresh{
@@ -35,13 +34,13 @@
         id applicationList = [self.propAppDelegate.propGatewayOnline getApplications];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [_propListApplications removeAllObjects];
             if([applicationList isKindOfClass:[NSString class]])
                 [[[UIAlertView alloc] initWithTitle:@"Error" message:applicationList delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
-            else
+            else{
+                [_propListApplications removeAllObjects];
                 [_propListApplications addObjectsFromArray:applicationList];
-            
-            [self.propLv reloadData];
+                [self.propLv reloadData];
+            }
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         });
     });
@@ -106,7 +105,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     Application *application = [_propListApplications objectAtIndex:((CellApplication *)sender).tag];
     VCJobDetails *jobdetails = (VCJobDetails *)segue.destinationViewController;
-    jobdetails.propJob = [[Job alloc] initWithId:[[application getVacancyID] intValue] title:nil reference:[application getVacancyRef] country:nil dateAdded:nil details:nil];
+    jobdetails.propJob = [[JobSummary alloc] initWithId:[[application getVacancyID] intValue] title:nil reference:[application getVacancyRef] country:nil dateAdded:nil details:nil];
     jobdetails.shouldShowApplyButton = false;
 }
 

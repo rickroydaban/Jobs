@@ -21,6 +21,7 @@
 - (NSString *)deleteEmploymentWithID:(NSString *)employmentID;
 - (NSString *)deleteSavedSearchesWithJBEID:(NSString *)jbeID;
 - (NSString *)changePassword:(NSString *)oldPassword to:(NSString *)newPassword;
+- (NSString *)closeAccount;
 
 //get methods with object result
 - (id)getJobDetailById:(int)jobId;

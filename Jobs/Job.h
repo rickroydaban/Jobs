@@ -1,20 +1,33 @@
 //
-//  Job.h
+//  JobDetail.h
 //  Jobs
 //
-//  Created by Rick Royd Aban on 9/29/14.
+//  Created by Rick Royd Aban on 9/30/14.
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
 @interface Job : NSObject
 
-@property (assign, nonatomic) int propJobID;
-@property (strong, nonatomic) NSString *propTitle;
-@property (strong, nonatomic) NSString *propReference;
-@property (strong, nonatomic) NSString *propCountry;
-@property (strong, nonatomic) NSString *propDateAdded;
-@property (strong, nonatomic) NSString *propDetails;
++ (NSArray *)getJobDetailLabels;
 
-- (Job *)initWithId: (int)jobId title:(NSString *)title reference:(NSString *)reference country:(NSString *)country dateAdded:(NSString *)dateAdded details:(NSString *)details;
+- (Job *)initWithDictionary:(NSDictionary *)dictionary;
+//fields shown in the details page
+- (NSString *)getTypeDescription;
+- (NSString *)getDuration;
+- (NSString *)getStartDate;
+- (NSString *)getLocation;
+- (NSString *)getSalary;
+- (NSString *)getContactName;
+- (NSString *)getDetails;
+//other fields needed for saving applications
+- (int)getJobID;
+- (int)getClientID;
+- (int)getCLientGroupID;
+- (int)getOfficeID;
+- (NSString *)getReference;
+- (NSString *)getTitle;
+- (NSString *)getClientName;
+- (NSString *)getDateFrom;
+- (NSString *)getDateTo;
 
 @end

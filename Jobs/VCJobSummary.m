@@ -8,14 +8,14 @@
 
 #import "VCJobSummary.h"
 #import "CellJobSummary.h"
-#import "Job.h"
+#import "JobSummary.h"
 #import "VelosiColors.h"
 #import "VCJobDetails.h"
 #import "VCSaveSearch.h"
 
 @interface VCJobSummary(){
     NSMutableArray *_heights;
-    Job *_selectedJob;
+    JobSummary *_selectedJob;
 }
 @end
 
@@ -46,7 +46,7 @@
 - (void)refresh{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        id result = [self.propAppDelegate.propGatewayOnline getAdvanceSearchResults:_propSearchFor in:[self.propAppDelegate.propDictSearchIns objectForKey:_propSearchIn] location:_propSearchLocationID radius:_propSearchDistance jobType:[self.propAppDelegate.propDictJobTypes objectForKey:_propSearchJobType] country:_propSearchCountryID postedWithin:_propSearchPostedWithin];
+        id result = [self.propAppDelegate.propGatewayOnline getAdvanceSearchResults:_propSearchFor in:[self.propAppDelegate.propDictSearchIns objectForKey:_propSearchIn] location:_propSearchLocationID radius:_propSearchDistance jobType:[self.propAppDelegate.propDictJobTypesForSearch objectForKey:_propSearchJobType] country:_propSearchCountryID postedWithin:_propSearchPostedWithin];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [_propListJobs removeAllObjects];
@@ -67,11 +67,11 @@
     CGFloat newHeight = [[_heights objectAtIndex:indexPath.row] floatValue];
     
     CellJobSummary *cell = (CellJobSummary *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
-    Job *job = [self.propListJobs objectAtIndex:indexPath.row];
-    cell.fieldTitle.text = job.propTitle;
-    cell.fieldReference.text = [NSString stringWithFormat:@"Reference: %@",job.propReference];
-    cell.fieldCountry.text = job.propCountry;
-    cell.fieldAddDate.text = [NSString stringWithFormat:@"Added on %@",job.propDateAdded];
+    JobSummary *job = [self.propListJobs objectAtIndex:indexPath.row];
+    cell.fieldTitle.text = [job getTitle];
+    cell.fieldReference.text = [NSString stringWithFormat:@"Reference: %@",[job getReference]];
+    cell.fieldCountry.text = [job getCountry];
+    cell.fieldAddDate.text = [NSString stringWithFormat:@"Added on %@",[job getDateAdded]];
     cell.fieldDescription.text = @"";
     
     if([cell.fieldDescription isDescendantOfView:cell.fieldTitle.superview]){
@@ -94,7 +94,7 @@
     
     CGRect frame = newDescTV.frame;
     newDescTV.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, newHeight);
-    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[job.propDetails dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[[job getDetails] dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
     newDescTV.attributedText = attributedString;
     newDescTV.font = [UIFont systemFontOfSize:13];
     newDescTV.textColor = [VelosiColors blackFont];
@@ -107,8 +107,8 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     CellJobSummary *cell = (CellJobSummary *)[self.propLv dequeueReusableCellWithIdentifier:@"cell"];
-    Job *job = (Job *)[self.propListJobs objectAtIndex:indexPath.row];
-    cell.fieldDescription.text = job.propDetails;
+    JobSummary *job = (JobSummary *)[self.propListJobs objectAtIndex:indexPath.row];
+    cell.fieldDescription.text = [job getDetails];
     CGSize estimatedSize = [cell.fieldDescription sizeThatFits:CGSizeMake(cell.fieldDescription.frame.size.width, 999)];
     CGFloat rowHeight = estimatedSize.height+100;
     [_heights addObject:[NSString stringWithFormat:@"%f",estimatedSize.height]];
@@ -139,7 +139,7 @@
         VCSaveSearch *vcSaveSearch = (VCSaveSearch *)segue.destinationViewController;
         vcSaveSearch.propSearchInID = [self.propAppDelegate.propDictSearchIns objectForKey:_propSearchIn];
         vcSaveSearch.propSearchIn = _propSearchIn;
-        vcSaveSearch.propJobTypeID = [self.propAppDelegate.propDictJobTypes objectForKey:_propSearchJobType];
+        vcSaveSearch.propJobTypeID = [self.propAppDelegate.propDictJobTypesForSave objectForKey:_propSearchJobType];
         vcSaveSearch.propJobType = _propSearchJobType;
         vcSaveSearch.propCountryID = _propSearchCountryID;
         vcSaveSearch.propPostedWithin = _propSearchPostedWithin;

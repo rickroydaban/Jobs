@@ -14,6 +14,7 @@
 #import "CellSidebar.h"
 #import "VelosiColors.h"
 #import "DAKeyboardControl.h"
+#import <MessageUI/MFMailComposeViewController.h>
 
 @interface VCSlider(){
     CGFloat _mainPageX;
@@ -240,8 +241,15 @@
                 
                 break;
                 
-            case 3:
-                [[[UIAlertView alloc] initWithTitle:@"" message:@"This module is still under development" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
+            case 3:{
+//                [[[UIAlertView alloc] initWithTitle:@"" message:@"This module is still under development" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
+                MFMailComposeViewController* controller = [[MFMailComposeViewController alloc] init];
+                controller.mailComposeDelegate = self;
+                [controller setSubject:@"ARC iOS Issue"];
+                [controller setToRecipients:@[@"martin.coles@applusvelosi.com"]];
+                [controller setMessageBody:@"" isHTML:NO];
+                if (controller) [self presentModalViewController:controller animated:YES];
+                }
                 break;
                 
             default:
@@ -250,6 +258,13 @@
     }
     
     _currIndexPath = temp;
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error{
+    if (result == MFMailComposeResultSent) {
+        NSLog(@"It's away!");
+    }
+//    [self dismissViewControllerAnimated:<#(BOOL)#> completion:<#^(void)completion#>];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -262,7 +277,21 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
-        NSLog(@"deleted successfully");
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            NSString *result = [_appDelegate.propGatewayOnline closeAccount];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                if([result isEqualToString:@"OK"]){
+                    [_appDelegate.propGatewayOffline logout];
+                    [_appDelegate.propPageNavigator logout];
+                    [self changePage:[_appDelegate.propPageNavigator getLoginNavigator]];
+                    [self reloadSidebarItems];
+                }else
+                    [[[UIAlertView alloc] initWithTitle:@"" message:result delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
+            });
+        });
     }else{
         NSLog(@"deletion cancelled");
         [_propLvSidebar.delegate tableView:_propLvSidebar didSelectRowAtIndexPath:_currIndexPath];

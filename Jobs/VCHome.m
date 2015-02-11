@@ -7,7 +7,7 @@
 //
 
 #import "VCHome.h"
-#import "Job.h"
+#import "JobSummary.h"
 #import "CellLatestVacancy.h"
 #import "VCJobDetails.h"
 
@@ -56,10 +56,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CellLatestVacancy *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    Job *job = (Job *)[_propListVacancies objectAtIndex:indexPath.row];
+    JobSummary *job = (JobSummary *)[_propListVacancies objectAtIndex:indexPath.row];
     
-    cell.propLabelTitle.text = job.propTitle;
-    cell.propLabelLocation.text = job.propCountry;
+    cell.propLabelTitle.text = [job getTitle];
+    cell.propLabelLocation.text = [job getCountry];
     cell.propLabelType.text = @"Permanent";
     cell.propLabelSalary.text = @"Negotiable";
     cell.tag = indexPath.row;

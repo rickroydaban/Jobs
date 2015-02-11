@@ -7,12 +7,13 @@
 //
 
 #import "VCJobDetails.h"
-#import "JobDetail.h"
+#import "Job.h"
 #import "VelosiColors.h"
 #import "CellDetail.h"
+#import "Application.h"
 
 @interface VCJobDetails(){
-    JobDetail *_jobDetail;
+    Job *_jobDetail;
     CGFloat _cellDetailHeight;
     UIWebView *_detailWebView;
     UITextView *_coverLetter;
@@ -34,16 +35,16 @@
     _detailWebView = 0;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        _jobDetail = [self.propAppDelegate.propGatewayOnline getJobDetailById:self.propJob.propJobID];
+        _jobDetail = [self.propAppDelegate.propGatewayOnline getJobDetailById:[_propJob getJobID]];
         dispatch_async(dispatch_get_main_queue(), ^{
-            if([_jobDetail isKindOfClass:[NSString class]])
+            if([_jobDetail isKindOfClass:[NSString class]]){
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
                 [[[UIAlertView alloc] initWithTitle:@" " message:self.propAppDelegate.messageErrorGeneral delegate:nil cancelButtonTitle:self.propAppDelegate.cancelButton otherButtonTitles:nil, nil] show];
-            else{
+            }else{
                 self.propLv.delegate = self;
                 self.propLv.dataSource = self;
                 self.propLv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
             }
-//            [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
     });
 }
@@ -52,30 +53,16 @@
     switch (indexPath.section) {
         case 0:{
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-            cell.textLabel.text = [[_jobDetail getJobDetailList] objectAtIndex:indexPath.row];
+            cell.textLabel.text = [[Job getJobDetailLabels] objectAtIndex:indexPath.row];
             
             switch (indexPath.row) {
-                case 0:
-                    cell.detailTextLabel.text = _jobDetail.propJobType; break;
-                    
-                case 1:
-                    cell.detailTextLabel.text = _jobDetail.propDuration; break;
-                    
-                case 2:
-                    cell.detailTextLabel.text = _jobDetail.propRotation; break;
-                    
-                case 3:
-                    cell.detailTextLabel.text = _jobDetail.propLocation; break;
-                    
-                case 4:
-                    cell.detailTextLabel.text = _jobDetail.propSalary; break;
-                    
-                case 5:
-                    cell.detailTextLabel.text = _jobDetail.propContact; break;
-                    
-                    
-                default:
-                    cell.detailTextLabel.text = @"FIX ME";
+                case 0: cell.detailTextLabel.text = [_jobDetail getTypeDescription]; break;
+                case 1: cell.detailTextLabel.text = [_jobDetail getDuration]; break;
+                case 2: cell.detailTextLabel.text = [_jobDetail getStartDate]; break;
+                case 3: cell.detailTextLabel.text = [_jobDetail getLocation]; break;
+                case 4: cell.detailTextLabel.text = ([[_jobDetail getSalary] isEqualToString:@""])?@"N/A":[_jobDetail getSalary]; break;
+                case 5: cell.detailTextLabel.text = [_jobDetail getContactName]; break;
+                default: cell.detailTextLabel.text = @"FIX ME";
             }
                     
             return cell;
@@ -88,7 +75,7 @@
             
             UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, _cellDetailHeight)];
             webView.userInteractionEnabled = NO;
-            [webView loadHTMLString:_jobDetail.propDetails baseURL:nil];
+            [webView loadHTMLString:[_jobDetail getDetails] baseURL:nil];
             [cellDetail.contentView addSubview:webView];
             return cellDetail;
         }
@@ -105,7 +92,7 @@
             if(_cellDetailHeight < 1){
                 _detailWebView = ((CellDetail *)[self.propLv dequeueReusableCellWithIdentifier:@"cellDetail"]).webView;
                 _detailWebView.delegate = self;
-                [_detailWebView loadHTMLString:_jobDetail.propDetails baseURL:nil];
+                [_detailWebView loadHTMLString:[_jobDetail getDetails] baseURL:nil];
             }
             return _cellDetailHeight;
     }
@@ -114,7 +101,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     switch (section) {
         case 0:
-            return [_jobDetail getJobDetailList].count;
+            return [Job getJobDetailLabels].count;
             
         default:
             return 1;
@@ -124,7 +111,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     switch (section) {
         case 0:
-            return [NSString stringWithFormat:@"Ref: %@",self.propJob.propReference];
+            return [NSString stringWithFormat:@"Ref: %@",[_propJob getReference]];
             
         case 1:
             return @"Description";
@@ -161,9 +148,19 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if(buttonIndex == 1){
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            if(self.propAppDelegate.propUser == nil)
+                self.propAppDelegate.propUser = [[User alloc] initWithDictionary:[self.propAppDelegate.propGatewayOnline getCandidateData]];
+            NSString *result = [self.propAppDelegate.propGatewayOnline applyJobWithJSONContents:[Application jsonFromNewApplicationForJob:_jobDetail fromThisUser:self.propAppDelegate.propUser coverLetter:_coverLetter.text dateFormatter:self.propAppDelegate.propDateFormatVelosi]];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[[UIAlertView alloc] initWithTitle:@"" message:([result isEqualToString:@"OK"])?@"Thank you for your application, it has been recieved and will be reviewed by one of our consultants":result delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
+                [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            });
         
+        });
     }
-//        [[[UIAlertView alloc] initWithTitle:@"" message:@"This module is still on development" delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
 }
 
 @end

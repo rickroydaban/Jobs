@@ -31,15 +31,23 @@
     _pickerJobTypes = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propListJobTypes rowSelectionDelegate:self selectedItem:nil];
     _pickerPostedWithins = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propListPostedWithins rowSelectionDelegate:self selectedItem:nil];
     
+    NSLog(@"name %@",[_propSavedSearch getName]);
     _propFieldName.text = [_propSavedSearch getName];
+    NSLog(@"search for %@",[_propSavedSearch getSearchFor]);
     _propFieldSearchFor.text = [_propSavedSearch getSearchFor];
+    NSLog(@"search in %@",[_propSavedSearch getSearchIn]);
     _propFieldSearchIn.text = [_propSavedSearch getSearchIn];
     [_pickerSearchIns selectRowWithText:_propFieldSearchIn.text];
+    NSLog(@"location %@",[_propSavedSearch getLocation]);
     _propCellLocation.detailTextLabel.text = [_propSavedSearch getLocation];
+    NSLog(@"country %@",[_propSavedSearch getCountryID]);
     _propCellCountry.detailTextLabel.text = [self.propAppDelegate.propCountries.propDictCountryIds objectForKey:[_propSavedSearch getCountryID]];
+    NSLog(@"distance %@",[_propSavedSearch getDistance]);
     _propFieldDistance.text = [_propSavedSearch getDistance];
-    _propFieldJobType.text = [self.propAppDelegate.propDictJobTypes allKeysForObject:[NSString stringWithFormat:@"%@",[_propSavedSearch getJobTypeID]]][0];
+    NSLog(@"jobtypeID %@",[_propSavedSearch getJobTypeID]);
+    _propFieldJobType.text = [self.propAppDelegate.propDictJobTypesForSave allKeysForObject:[NSString stringWithFormat:@"%@",[_propSavedSearch getJobTypeID]]][0];
     [_pickerJobTypes selectRowWithText:_propFieldJobType.text];
+    NSLog(@"posted %@",[_propSavedSearch getPostedWithin]);
     _propFieldPostedWithin.text = [self.propAppDelegate.propDictPostedWithins allKeysForObject:[_propSavedSearch getPostedWithin]][0];
     [_pickerPostedWithins selectRowWithText:_propFieldPostedWithin.text];
     
@@ -55,7 +63,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *searchInID = [self.propAppDelegate.propDictSearchIns objectForKey:_propFieldSearchIn.text];
     NSString *countryID = [self.propAppDelegate.propCountries.propDictCountryIds objectForKey:_propCellCountry.detailTextLabel.text];
-    NSString *jobTypeID = [self.propAppDelegate.propDictJobTypes objectForKey:_propFieldJobType.text];
+    NSString *jobTypeID = [self.propAppDelegate.propDictJobTypesForSave objectForKey:_propFieldJobType.text];
     NSString *postedWithin = [self.propAppDelegate.propDictPostedWithins objectForKey:_propFieldPostedWithin.text];
     
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{

@@ -5,6 +5,8 @@
 //  Created by Rick Royd Aban on 11/10/14.
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
+@class Job;
+@class User;
 
 @interface Application : NSObject
 
@@ -18,4 +20,5 @@
 - (NSString *)getStatusName;
 - (NSString *)getDateCreated;
 
++ (NSString *)jsonFromNewApplicationForJob:(Job *)job fromThisUser:(User *)user coverLetter:(NSString *)coverLetter dateFormatter:(NSDateFormatter *)dateFormatter;
 @end

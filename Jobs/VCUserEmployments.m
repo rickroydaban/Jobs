@@ -30,7 +30,6 @@
     _propListEmployments = [NSMutableArray array];
     _propLV.delegate = self;
     _propLV.dataSource = self;
-    [self refresh];
 }
 
 - (void)addItem{
@@ -43,13 +42,14 @@
         id employmentList = [self.propAppDelegate.propGatewayOnline getEmployments];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [_propListEmployments removeAllObjects];
             if([employmentList isKindOfClass:[NSString class]])
                 [[[UIAlertView alloc] initWithTitle:@"Error" message:employmentList delegate:nil cancelButtonTitle:@"Dimiss" otherButtonTitles:nil, nil] show];
-            else
+            else{
+                [_propListEmployments removeAllObjects];
                 [_propListEmployments addObjectsFromArray:employmentList];
+                [self.propLV reloadData];
+            }
             
-            [self.propLV reloadData];
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             
         });

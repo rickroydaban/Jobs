@@ -7,8 +7,8 @@
 //
 
 #import "OnlineGateway.h"
+#import "JobSummary.h"
 #import "Job.h"
-#import "JobDetail.h"
 #import "User.h"
 #import "Document.h"
 #import "Employment.h"
@@ -138,6 +138,10 @@ static OnlineGateway *sharedOnlineGateway = nil;
     return key;
 }
 
+- (NSString *)fixQueryParam:(NSString *)param{
+    return [param stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+}
+
 - (NSString *)deserializeJsonDateString: (NSString *)jsonDateString{
     @try{
         NSInteger offset = [[NSTimeZone defaultTimeZone] secondsFromGMT]; //get number of seconds to add or subtract according to the client default time zone
@@ -158,7 +162,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
 }
 
 - (id)getAdvanceSearchResults:(NSString *)searched in:(NSString *)searchIn location:(NSString *)location radius:(NSString *)radius jobType:(NSString *)jobType country:(NSString *)country postedWithin:(NSString *)postedWithin{
-    id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@%@",_rootVacancy,[NSString stringWithFormat:@"Search?search=%@&loc=%@&searchIn=%@&radius=%@&vacType=%@&countryID=%@&days=%@&top=50",searched,location,searchIn,radius,jobType,country,postedWithin]]];
+    id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@%@",_rootVacancy,[NSString stringWithFormat:@"Search?search=%@&loc=%@&searchIn=%@&radius=%@&vacType=%@&countryID=%@&days=%@&top=0",[self fixQueryParam:searched],location,searchIn,radius,jobType,country,postedWithin]]];
     
     if([data isKindOfClass:[NSString class]])
         return data;
@@ -173,21 +177,21 @@ static OnlineGateway *sharedOnlineGateway = nil;
                 NSMutableArray *resultsArray = [jsonResults objectForKey:@"SearchJSONResult"];
                 
                 for(id jsonResult in resultsArray){
-                    int id = [[jsonResult objectForKey:@"VacancyID"] intValue];
+                    int jobID = [[jsonResult objectForKey:@"VacancyID"] intValue];
                     NSString *title = [jsonResult objectForKey:@"Title"];
                     NSString *ref = [jsonResult objectForKey:@"VacancyRef"];
                     NSDictionary *country = [jsonResult objectForKey:@"Country"];
                     NSString *countryName = [country objectForKey:@"CountryName"];
                     NSString *dateAdded = [self deserializeJsonDateString:[jsonResult objectForKey:@"DateCreated"]];
                     NSString *details = [jsonResult objectForKey:@"Description"];
-                    [results addObject:[[Job alloc] initWithId:id title:title reference:ref country:countryName dateAdded:dateAdded details:details]];
+                    [results addObject:[[JobSummary alloc] initWithId:jobID title:title reference:ref country:countryName dateAdded:dateAdded details:details]];
                 }
                 
                 return results;
             }else
                 return error.localizedFailureReason;
         }@catch(NSException *exception){
-            return exception.reason;
+            return @"Server Connection Failed";
         }
     }    
 }
@@ -203,21 +207,11 @@ static OnlineGateway *sharedOnlineGateway = nil;
         @try {
             NSDictionary *jsonResults = [NSJSONSerialization JSONObjectWithData:(NSData *)data options:0 error:&error];
             if(jsonResults){
-                NSMutableDictionary *results = [jsonResults objectForKey:@"GetByID_JSONResult"];
-                NSMutableDictionary *jobTypes = [results objectForKey:@"VacancyType"];
-                NSString *jobType = [jobTypes objectForKey:@"Description"];
-                NSString *duration = [results objectForKey:@"Duration"];
-                NSString *rotation = [results objectForKey:@"StartDate"];
-                NSString *location = [results objectForKey:@"Location"];
-                NSString *salary = [results objectForKey:@"SalaryOther"];
-                NSString *contact = [results objectForKey:@"ContactName"];
-                NSString *details = [results objectForKey:@"Description"];
-                
-                return [[JobDetail alloc] initWithType:jobType duration:duration rotation:rotation location:location salary:salary contacts:contact details:details];
+                return [[Job alloc] initWithDictionary:[jsonResults objectForKey:@"GetByID_JSONResult"]];
             }else
                 return error.localizedFailureReason;
         }@catch (NSException *exception) {
-            return exception.reason;
+            return @"Server Connection Failed";
         }
     }
 }
@@ -328,7 +322,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
             }else
                 return error.localizedFailureReason;
         }@catch(NSException *exception){
-            return exception.reason;
+            return @"Server Connection Failed";
         }
     }
 }
@@ -362,7 +356,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
             
             return employments;
         }@catch (NSException *exception) {
-            return exception.reason;
+            return @"Server Connection Failed";
         }
     }
 }
@@ -374,7 +368,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
     @try{
         return [[NSJSONSerialization JSONObjectWithData:data options:0 error:&error] objectForKey:@"DeleteResult"];
     }@catch(NSException *exception){
-        return exception.reason;
+        return @"Server Connection Failed";
     }
 }
 
@@ -397,13 +391,14 @@ static OnlineGateway *sharedOnlineGateway = nil;
             
             return applications;
         }@catch(NSException *exception){
-            return exception.reason;
+            return @"Server Connection Failed";
         }
     }
 }
 
 - (id)getSavedSearches{
     id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@GetByCandidateID?id=%@",_rootSavedSearches,[_appDelegate.propGatewayOffline getUserID]]];
+//    id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@GetByCandidateID?id=71549",_rootSavedSearches]];
     
     if([data isKindOfClass:[NSString class]])
         return data;
@@ -421,7 +416,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
             
             return savedSearches;
         }@catch(NSException *exception){
-            return exception.reason;
+            return @"Server Connection Failed";
         }
     }
 }
@@ -433,7 +428,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
     @try{
         return [[NSJSONSerialization JSONObjectWithData:data options:0 error:&error] objectForKey:@"ChangeStatusByCandidateIDResult"];
     }@catch(NSException *exception){
-        return exception.reason;
+        return @"Server Connection Failed";
     }
 }
 
@@ -445,7 +440,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
     @try{
         return [[NSJSONSerialization JSONObjectWithData:data options:0 error:&error] objectForKey:@"DeleteResult"];
     }@catch(NSException *exception){
-        return exception.reason;
+        return @"Server Connection Failed";
     }
 }
 
@@ -454,7 +449,18 @@ static OnlineGateway *sharedOnlineGateway = nil;
     @try{
         return [[NSJSONSerialization JSONObjectWithData:[self httpsGetFrom:[NSString stringWithFormat:@"%@ChangePassword?id=%@&o=%@&p=%@",_rootCandidates ,[_appDelegate.propGatewayOffline getUserID],oldPassword,newPassword]] options:0 error:&error] objectForKey:@"ChangePasswordResult"];
     }@catch(NSException *exception){
-        return exception.reason;
+        return @"Server Connection Failed";
+    }
+    
+    return error.localizedFailureReason;
+}
+
+- (NSString *)closeAccount{
+    NSError *error = [[NSError alloc] init];
+    @try{
+        return [[NSJSONSerialization JSONObjectWithData:[self httpsGetFrom:[NSString stringWithFormat:@"%@CloseByID?id=%@",_rootCandidates ,[_appDelegate.propGatewayOffline getUserID]]] options:0 error:&error] objectForKey:@"CloseByIDResult"];
+    }@catch(NSException *exception){
+        return @"Server Connection Failed";
     }
     
     return error.localizedFailureReason;
@@ -504,13 +510,14 @@ static OnlineGateway *sharedOnlineGateway = nil;
 }
 
 - (id)applyJobWithJSONContents:(NSString *)jsonContents{
-    NSString *body = [NSString stringWithFormat:@"\"j\":%@",jsonContents];
+    NSString *body = [NSString stringWithFormat:@"{\"d\":%@}",jsonContents];
     @try{
-        id result = [self httpPostFrom:@"http://arctestapi.velosi.com/ApplicationSvc.svc/json/Save" withBody:body];
-        return ([result isKindOfClass:[NSString class]])?result:nil;
+        return [[NSJSONSerialization JSONObjectWithData:[self httpPostFrom:@"https://arctestapi.velosi.com/ApplicationSvc.svc/json/Save" withBody:body] options:0 error:nil] objectForKey:@"SaveResult"];
     }@catch(NSException *exception) {
         return _appDelegate.messageErrorGeneral;
     }
+    
+
 }
 
 @end

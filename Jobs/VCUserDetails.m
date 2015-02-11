@@ -240,6 +240,7 @@
                 [_pickerStatus selectRowWithText:self.fieldMaritalStatus.text];
                 [_pickerWillRelocate selectRowWithText:self.fieldWillRelocate.text];
                 [_pickerAvailability selectRowWithText:self.fieldAvailableFrom.text];
+                self.propAppDelegate.propUser = _user;
             }else{
                 [[[UIAlertView alloc] initWithTitle:@"Error" message:result delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
             }

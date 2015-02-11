@@ -2161,7 +2161,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="9aW-BC-rdy" customClass="CellDocument">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="9aW-BC-rdy" customClass="CellDocument">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9aW-BC-rdy" id="LXI-Rz-gP3">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -2222,7 +2222,6 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="propLv" destination="4PK-nI-HBl" id="m3B-3P-T7b"/>
-                        <segue destination="Fon-I5-Yjc" kind="show" identifier="segueDocumentsToDetails" id="J59-Kj-4SY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8bB-it-WrQ" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -37,11 +37,11 @@
 //detail classes
 @property (strong, nonatomic) NSDateFormatter *propDateFormatVelosi;
 @property (strong, nonatomic, readonly) UserChoicesFactory *propUserDetails;
-//@property (strong, nonatomic) User *propUser;
+@property (strong, nonatomic) User *propUser;
 @property (strong, nonatomic, readonly) CurrencyList *propCurrency;
 @property (strong, nonatomic, readonly) CountryList *propCountries;
 @property (strong, nonatomic, readonly) NSArray *propListReferrers, *propListSearchIns, *propListJobTypes, *propListPostedWithins;
-@property (strong, nonatomic, readonly) NSDictionary *propDictReferrers, *propDictSearchIns, *propDictJobTypes, *propDictPostedWithins;
+@property (strong, nonatomic, readonly) NSDictionary *propDictReferrers, *propDictSearchIns, *propDictJobTypesForSearch, *propDictJobTypesForSave, *propDictPostedWithins;
 
 //required by IOS
 @property (strong, nonatomic) UIWindow *window;
