@@ -22,6 +22,7 @@
     BOOL _isSidebarShowing;
     AppDelegate *_appDelegate;
     NSIndexPath *_currIndexPath;
+    UIAlertView *_alertViewDeactivateAccout, *_alertViewSendEmail;
     
     NSArray *_profileItemTitles, *_profileItemImages, *_profileItemHiglightedImages, *_linkItemTitles, *_linkItemHighlightedImages, *_linkItemImages;
 }
@@ -207,7 +208,10 @@
                         case 4: [self changePage:[_appDelegate.propPageNavigator getUserSearchesNavigator]]; break;
                         case 5: [self changePage:[_appDelegate.propPageNavigator getUSerPasswordNavigator]]; break;
                             
-                        case 6: [[[UIAlertView alloc] initWithTitle:@"Delete Account" message:@"Are you sure you want to delete this account?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil] show];
+                        case 6:
+                            if(!_alertViewDeactivateAccout)
+                                _alertViewDeactivateAccout = [[UIAlertView alloc] initWithTitle:@"Delete Account" message:@"Are you sure you want to delete this account?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil];
+                            [_alertViewDeactivateAccout show];
                             temp = _currIndexPath;
                             break;
                         case 7:
@@ -242,14 +246,15 @@
                 break;
                 
             case 3:{
-//                [[[UIAlertView alloc] initWithTitle:@"" message:@"This module is still under development" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
+                temp = _currIndexPath;
                 MFMailComposeViewController* controller = [[MFMailComposeViewController alloc] init];
                 controller.mailComposeDelegate = self;
                 [controller setSubject:@"ARC iOS Issue"];
                 [controller setToRecipients:@[@"martin.coles@applusvelosi.com"]];
                 [controller setMessageBody:@"" isHTML:NO];
-                if (controller) [self presentModalViewController:controller animated:YES];
-                }
+                if (controller)
+                    [self presentViewController:controller animated:YES completion:nil];
+            }
                 break;
                 
             default:
@@ -261,10 +266,12 @@
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error{
-    if (result == MFMailComposeResultSent) {
-        NSLog(@"It's away!");
-    }
-//    [self dismissViewControllerAnimated:<#(BOOL)#> completion:<#^(void)completion#>];
+    if(result == MFMailComposeResultSent)
+        [[[UIAlertView alloc] initWithTitle:@"" message:@"The issue has been submitted. Thank you for helping us improve our system" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
+    else if(result == MFMailComposeResultFailed)
+        [[[UIAlertView alloc] initWithTitle:@"" message:error.localizedFailureReason delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -276,7 +283,7 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 1) {
+    if (alertView==_alertViewDeactivateAccout && buttonIndex == 1) {
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             NSString *result = [_appDelegate.propGatewayOnline closeAccount];
