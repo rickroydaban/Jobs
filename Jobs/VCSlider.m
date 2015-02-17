@@ -313,4 +313,9 @@
         [self changePage:[_appDelegate.propPageNavigator getUserDetailNavigator]];
 }
 
+- (void)showJobApplicationListOnPushNotificationReceived{
+    [self changePage:[_appDelegate.propPageNavigator getUSerApplicationsNavigator]];
+}
+
+
 @end

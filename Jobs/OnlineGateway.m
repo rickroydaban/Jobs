@@ -36,14 +36,14 @@ static OnlineGateway *sharedOnlineGateway = nil;
 - (OnlineGateway *)initWithAppDelegate: (AppDelegate *)appDelegate{
     self = [super init];
     if(self){
-        _jsonLocation = @"https://arctestapi.velosi.com/Geolocation.svc/json/";
-        _rootVacancy = @"https://arctestapi.velosi.com/VacancySvc.svc/json/";
-        _rootCandidates = @"https://arctestapi.velosi.com/CandidateSvc.svc/json/";
-        _rootReferences = @"https://arctestapi.velosi.com/Reference.svc/json/";
-        _rootDocuments = @"https://arctestapi.velosi.com/DocumentSvc.svc/json/";
-        _rootEmployments = @"https://arctestapi.velosi.com/CandidateJobSvc.svc/json/";
-        _rootApplications = @"https://arctestapi.velosi.com/ApplicationSvc.svc/json/";
-        _rootSavedSearches = @"https://arctestapi.velosi.com/JobsByEmailSvc.svc/json/";
+        _jsonLocation = @"https://arcapi.velosi.com/Geolocation.svc/json/";
+        _rootVacancy = @"https://arcapi.velosi.com/VacancySvc.svc/json/";
+        _rootCandidates = @"https://arcapi.velosi.com/CandidateSvc.svc/json/";
+        _rootReferences = @"https://arcapi.velosi.com/Reference.svc/json/";
+        _rootDocuments = @"https://arcapi.velosi.com/DocumentSvc.svc/json/";
+        _rootEmployments = @"https://arcapi.velosi.com/CandidateJobSvc.svc/json/";
+        _rootApplications = @"https://arcapi.velosi.com/ApplicationSvc.svc/json/";
+        _rootSavedSearches = @"https://arcapi.velosi.com/JobsByEmailSvc.svc/json/";
         _appDelegate = appDelegate;
 //
 //        NSLog(@"init");
@@ -69,6 +69,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setHTTPMethod:@"GET"];
     [request setURL:[NSURL URLWithString:url]];
+    [request setValue:@"3/iQGvD5]cmTu85H(syvsg" forHTTPHeaderField:@"AuthKey"];
     
     NSError *error = [[NSError alloc] init];
     NSHTTPURLResponse *responseCode = nil;
@@ -89,6 +90,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
     [request setValue:[NSString stringWithFormat:@"%d",(int)jsonString.length] forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"3/iQGvD5]cmTu85H(syvsg" forHTTPHeaderField:@"AuthKey"];
     request.HTTPBody = [NSData dataWithBytes:[jsonString UTF8String] length:[jsonString length]];
     
     NSError *error = [[NSError alloc] init];
@@ -471,7 +473,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
 - (id)saveCandidateDetailsWitJSONContents:(NSString *)jsonContents{
     NSString *body = [NSString stringWithFormat:@"{\"c\":%@}",jsonContents];
     @try{
-        id result = [self httpPostFrom:@"https://arctestapi.velosi.com/CandidateSvc.svc/json/Save" withBody:body];
+        id result = [self httpPostFrom:@"https://arcapi.velosi.com/CandidateSvc.svc/json/Save" withBody:body];
         NSLog(@"savecandidateresult: %@",[NSJSONSerialization JSONObjectWithData:result options:0 error:nil]);
         return ([result isKindOfClass:[NSString class]])?result:nil;
     }@catch(NSException *exception){
@@ -482,7 +484,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
 - (id)saveDocumentWithJSONContents:(NSString *)jsonContents{
     NSString *body = [NSString stringWithFormat:@"{\"j\":%@}",jsonContents];
     @try{
-        id result = [self httpPostFrom:@"https://arctestapi.velosi.com/DocumentSvc.svc/json/Save" withBody:body];
+        id result = [self httpPostFrom:@"https://arcapi.velosi.com/DocumentSvc.svc/json/Save" withBody:body];
         return ([result isKindOfClass:[NSString class]])?result:nil;
     }@catch(NSException *exception){
         return _appDelegate.messageErrorGeneral;
@@ -492,7 +494,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
 - (id)saveEmploymentWithJSONContents:(NSString *)jsonContents{
     NSString *body = [NSString stringWithFormat:@"{\"j\":%@}",jsonContents];
     @try{
-        id result = [self httpPostFrom:@"https://arctestapi.velosi.com/CandidateJobSvc.svc/json/Save" withBody:body];
+        id result = [self httpPostFrom:@"https://arcapi.velosi.com/CandidateJobSvc.svc/json/Save" withBody:body];
         return ([result isKindOfClass:[NSString class]])?result:nil;
     }@catch(NSException *exception){
         return _appDelegate.messageErrorGeneral;
@@ -502,7 +504,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
 - (id)saveSavedSearchesWithJSONContents:(NSString *)jsonContents{
     NSString *body = [NSString stringWithFormat:@"{\"j\":%@}",jsonContents];
     @try{
-        id result = [self httpPostFrom:@"https://arctestapi.velosi.com/JobsByEmailSvc.svc/json/Save" withBody:body];
+        id result = [self httpPostFrom:@"https://arcapi.velosi.com/JobsByEmailSvc.svc/json/Save" withBody:body];
         return ([result isKindOfClass:[NSString class]])?result:nil;
     }@catch(NSException *exception){
         return _appDelegate.messageErrorGeneral;
@@ -512,7 +514,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
 - (id)applyJobWithJSONContents:(NSString *)jsonContents{
     NSString *body = [NSString stringWithFormat:@"{\"d\":%@}",jsonContents];
     @try{
-        return [[NSJSONSerialization JSONObjectWithData:[self httpPostFrom:@"https://arctestapi.velosi.com/ApplicationSvc.svc/json/Save" withBody:body] options:0 error:nil] objectForKey:@"SaveResult"];
+        return [[NSJSONSerialization JSONObjectWithData:[self httpPostFrom:@"https://arcapi.velosi.com/ApplicationSvc.svc/json/Save" withBody:body] options:0 error:nil] objectForKey:@"SaveResult"];
     }@catch(NSException *exception) {
         return _appDelegate.messageErrorGeneral;
     }

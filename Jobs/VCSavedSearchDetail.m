@@ -45,7 +45,7 @@
     NSLog(@"distance %@",[_propSavedSearch getDistance]);
     _propFieldDistance.text = [_propSavedSearch getDistance];
     NSLog(@"jobtypeID %@",[_propSavedSearch getJobTypeID]);
-    _propFieldJobType.text = [self.propAppDelegate.propDictJobTypesForSave allKeysForObject:[NSString stringWithFormat:@"%@",[_propSavedSearch getJobTypeID]]][0];
+    _propFieldJobType.text = [self.propAppDelegate.propDictJobTypesForSearch allKeysForObject:[NSString stringWithFormat:@"%@",[_propSavedSearch getJobTypeID]]][0];
     [_pickerJobTypes selectRowWithText:_propFieldJobType.text];
     NSLog(@"posted %@",[_propSavedSearch getPostedWithin]);
     _propFieldPostedWithin.text = [self.propAppDelegate.propDictPostedWithins allKeysForObject:[_propSavedSearch getPostedWithin]][0];
@@ -63,7 +63,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *searchInID = [self.propAppDelegate.propDictSearchIns objectForKey:_propFieldSearchIn.text];
     NSString *countryID = [self.propAppDelegate.propCountries.propDictCountryIds objectForKey:_propCellCountry.detailTextLabel.text];
-    NSString *jobTypeID = [self.propAppDelegate.propDictJobTypesForSave objectForKey:_propFieldJobType.text];
+    NSString *jobTypeID = [self.propAppDelegate.propDictJobTypesForSearch objectForKey:_propFieldJobType.text];
     NSString *postedWithin = [self.propAppDelegate.propDictPostedWithins objectForKey:_propFieldPostedWithin.text];
     
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{

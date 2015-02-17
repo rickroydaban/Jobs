@@ -18,5 +18,6 @@
 
 //custom methods
 - (void)changeToProfileSidebarItemsAfterLoginSuccess;
+- (void)showJobApplicationListOnPushNotificationReceived;
 
 @end

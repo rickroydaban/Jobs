@@ -139,7 +139,7 @@
         VCSaveSearch *vcSaveSearch = (VCSaveSearch *)segue.destinationViewController;
         vcSaveSearch.propSearchInID = [self.propAppDelegate.propDictSearchIns objectForKey:_propSearchIn];
         vcSaveSearch.propSearchIn = _propSearchIn;
-        vcSaveSearch.propJobTypeID = [self.propAppDelegate.propDictJobTypesForSave objectForKey:_propSearchJobType];
+        vcSaveSearch.propJobTypeID = [self.propAppDelegate.propDictJobTypesForSearch objectForKey:_propSearchJobType];
         vcSaveSearch.propJobType = _propSearchJobType;
         vcSaveSearch.propCountryID = _propSearchCountryID;
         vcSaveSearch.propPostedWithin = _propSearchPostedWithin;
