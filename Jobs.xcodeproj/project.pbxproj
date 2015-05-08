@@ -74,8 +74,16 @@
 		8FC0C92A19D41A83006F3652 /* VelosiColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC0C92919D41A83006F3652 /* VelosiColors.m */; };
 		8FC0C92E19D41AAD006F3652 /* VelosiCustomPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC0C92D19D41AAD006F3652 /* VelosiCustomPicker.m */; };
 		8FC0C93119D41AB8006F3652 /* VelosiDesigner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC0C93019D41AB8006F3652 /* VelosiDesigner.m */; };
-		8FC0C93519D41B2A006F3652 /* iphone5.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FC0C93419D41B2A006F3652 /* iphone5.storyboard */; };
+		8FC0C93519D41B2A006F3652 /* SBMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FC0C93419D41B2A006F3652 /* SBMain.storyboard */; };
 		8FC8F44A19EE7D1C00BA9084 /* VCUserApplications.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC8F44919EE7D1C00BA9084 /* VCUserApplications.m */; };
+		8FCEF9D01AFC863B007A79D7 /* SBSeach.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FCEF9CF1AFC863A007A79D7 /* SBSeach.storyboard */; };
+		8FCEF9D21AFC8683007A79D7 /* SBLogin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FCEF9D11AFC8683007A79D7 /* SBLogin.storyboard */; };
+		8FCEF9D41AFC8695007A79D7 /* SBProfileDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FCEF9D31AFC8695007A79D7 /* SBProfileDetail.storyboard */; };
+		8FCEF9D61AFC86A5007A79D7 /* SBProfileDocs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FCEF9D51AFC86A5007A79D7 /* SBProfileDocs.storyboard */; };
+		8FCEF9D81AFC86B0007A79D7 /* SBProfileApps.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FCEF9D71AFC86B0007A79D7 /* SBProfileApps.storyboard */; };
+		8FCEF9DA1AFC8700007A79D7 /* SBProfileSS.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FCEF9D91AFC8700007A79D7 /* SBProfileSS.storyboard */; };
+		8FCEF9DC1AFC8B54007A79D7 /* SBProfileEmps.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FCEF9DB1AFC8B54007A79D7 /* SBProfileEmps.storyboard */; };
+		8FCEF9DE1AFC8D51007A79D7 /* SBChangePass.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FCEF9DD1AFC8D51007A79D7 /* SBChangePass.storyboard */; };
 		8FDF96911A2843E3008E9D0A /* LanguageEnglish.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FDF96901A2843E3008E9D0A /* LanguageEnglish.m */; };
 		B436E801FFB6533A9E07F629 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 446948109AA87B391C57B7F9 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -229,9 +237,17 @@
 		8FC0C92F19D41AB8006F3652 /* VelosiDesigner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VelosiDesigner.h; sourceTree = "<group>"; };
 		8FC0C93019D41AB8006F3652 /* VelosiDesigner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VelosiDesigner.m; sourceTree = "<group>"; };
 		8FC0C93319D41AC8006F3652 /* VelosiPickerRowSelectionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VelosiPickerRowSelectionDelegate.h; sourceTree = "<group>"; };
-		8FC0C93419D41B2A006F3652 /* iphone5.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iphone5.storyboard; sourceTree = "<group>"; };
+		8FC0C93419D41B2A006F3652 /* SBMain.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SBMain.storyboard; sourceTree = "<group>"; };
 		8FC8F44819EE7D1C00BA9084 /* VCUserApplications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCUserApplications.h; sourceTree = "<group>"; };
 		8FC8F44919EE7D1C00BA9084 /* VCUserApplications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCUserApplications.m; sourceTree = "<group>"; };
+		8FCEF9CF1AFC863A007A79D7 /* SBSeach.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SBSeach.storyboard; sourceTree = "<group>"; };
+		8FCEF9D11AFC8683007A79D7 /* SBLogin.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SBLogin.storyboard; sourceTree = "<group>"; };
+		8FCEF9D31AFC8695007A79D7 /* SBProfileDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SBProfileDetail.storyboard; sourceTree = "<group>"; };
+		8FCEF9D51AFC86A5007A79D7 /* SBProfileDocs.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SBProfileDocs.storyboard; sourceTree = "<group>"; };
+		8FCEF9D71AFC86B0007A79D7 /* SBProfileApps.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SBProfileApps.storyboard; sourceTree = "<group>"; };
+		8FCEF9D91AFC8700007A79D7 /* SBProfileSS.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SBProfileSS.storyboard; sourceTree = "<group>"; };
+		8FCEF9DB1AFC8B54007A79D7 /* SBProfileEmps.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SBProfileEmps.storyboard; sourceTree = "<group>"; };
+		8FCEF9DD1AFC8D51007A79D7 /* SBChangePass.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SBChangePass.storyboard; sourceTree = "<group>"; };
 		8FDF968F1A2843E3008E9D0A /* LanguageEnglish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageEnglish.h; sourceTree = "<group>"; };
 		8FDF96901A2843E3008E9D0A /* LanguageEnglish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageEnglish.m; sourceTree = "<group>"; };
 		8FDF96941A284C98008E9D0A /* Jobs-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Jobs-Prefix.pch"; sourceTree = "<group>"; };
@@ -381,7 +397,15 @@
 				8FC0C92B19D41A8F006F3652 /* customviews */,
 				8F877F9A19D5121A00B0F820 /* models */,
 				8FC0C91719D41A2D006F3652 /* utils */,
-				8FC0C93419D41B2A006F3652 /* iphone5.storyboard */,
+				8FC0C93419D41B2A006F3652 /* SBMain.storyboard */,
+				8FCEF9CF1AFC863A007A79D7 /* SBSeach.storyboard */,
+				8FCEF9D11AFC8683007A79D7 /* SBLogin.storyboard */,
+				8FCEF9D31AFC8695007A79D7 /* SBProfileDetail.storyboard */,
+				8FCEF9D51AFC86A5007A79D7 /* SBProfileDocs.storyboard */,
+				8FCEF9DB1AFC8B54007A79D7 /* SBProfileEmps.storyboard */,
+				8FCEF9D71AFC86B0007A79D7 /* SBProfileApps.storyboard */,
+				8FCEF9D91AFC8700007A79D7 /* SBProfileSS.storyboard */,
+				8FCEF9DD1AFC8D51007A79D7 /* SBChangePass.storyboard */,
 				8F77B3FB1A1DF96300D74FFC /* LaunchScreen.xib */,
 				8FB37F0819D4198400B798BB /* Images.xcassets */,
 				8FB37EFB19D4198400B798BB /* Supporting Files */,
@@ -627,10 +651,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FCEF9D21AFC8683007A79D7 /* SBLogin.storyboard in Resources */,
 				8FB1784B1A1E27BE00DD15AD /* Default@2x.png in Resources */,
-				8FC0C93519D41B2A006F3652 /* iphone5.storyboard in Resources */,
+				8FCEF9D41AFC8695007A79D7 /* SBProfileDetail.storyboard in Resources */,
+				8FC0C93519D41B2A006F3652 /* SBMain.storyboard in Resources */,
+				8FCEF9DE1AFC8D51007A79D7 /* SBChangePass.storyboard in Resources */,
+				8FCEF9D81AFC86B0007A79D7 /* SBProfileApps.storyboard in Resources */,
+				8FCEF9DC1AFC8B54007A79D7 /* SBProfileEmps.storyboard in Resources */,
+				8FCEF9D01AFC863B007A79D7 /* SBSeach.storyboard in Resources */,
 				8FB178491A1E27BE00DD15AD /* Default-568h@2x.png in Resources */,
+				8FCEF9D61AFC86A5007A79D7 /* SBProfileDocs.storyboard in Resources */,
 				8F77B3FC1A1DF96300D74FFC /* LaunchScreen.xib in Resources */,
+				8FCEF9DA1AFC8700007A79D7 /* SBProfileSS.storyboard in Resources */,
 				8FB37F0919D4198400B798BB /* Images.xcassets in Resources */,
 				8FB1784A1A1E27BE00DD15AD /* Default.png in Resources */,
 			);
@@ -857,11 +889,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Jobs/Jobs-Prefix.pch";
 				INFOPLIST_FILE = Jobs/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -876,11 +908,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Jobs/Jobs-Prefix.pch";
 				INFOPLIST_FILE = Jobs/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
