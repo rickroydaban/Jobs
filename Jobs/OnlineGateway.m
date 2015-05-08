@@ -307,6 +307,7 @@ static OnlineGateway *sharedOnlineGateway = nil;
 
 - (id)getDocuments{
     id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@GetByCandidateID?id=%@",_rootDocuments,[_appDelegate.propGatewayOffline getUserID]]];
+//    id data = [self httpsGetFrom:[NSString stringWithFormat:@"%@GetByCandidateID?id=71549",_rootDocuments]];
     
     if([data isKindOfClass:[NSString class]])
         return data;

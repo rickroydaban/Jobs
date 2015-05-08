@@ -33,8 +33,7 @@
     _propListSearchIns = @[@"Job Title and Description", @"Job Title", @"Job Description"];
     _propDictSearchIns = [NSDictionary dictionaryWithObjects:@[@"0", @"1", @"2"] forKeys:_propListSearchIns];
     _propListJobTypes = @[@"Permanent", @"Contract", @"Temporary", @"Part time", @"Ad hoc", @"Any"];
-    _propDictJobTypesForSearch = [NSDictionary dictionaryWithObjects:@[@"1", @"2", @"3", @"4", @"5", @"0"] forKeys:_propListJobTypes];
-//    _propDictJobTypesForSave = [NSDictionary dictionaryWithObjects:@[@"1", @"2", @"3", @"4", @"5", @"9"] forKeys:_propListJobTypes];
+    _propDictJobTypesz = @{@"1":@"Permanent", @"2":@"Contract", @"3":@"Temporary", @"4":@"Part time", @"5":@"Ad hoc", @"9":@"Any", @"0":@"Any"};
     _propListPostedWithins = @[@"Any", @"42 Days", @"35 Days", @"28 Days", @"21 Days", @"14 Days", @"7 Days",@"1 Day"];
     _propDictPostedWithins = [NSDictionary dictionaryWithObjects:@[@"0", @"42", @"35", @"28", @"21", @"14", @"7", @"1"] forKeys:_propListPostedWithins];
     
@@ -55,11 +54,11 @@
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
     [currentInstallation saveInBackground];
-    NSLog(@"did register for remote notification ");
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [PFPush handlePush:userInfo];
+    //do checking here if the push notification is intended to be received by this user or not
     [_propSlider showJobApplicationListOnPushNotificationReceived];
 }
 

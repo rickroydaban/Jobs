@@ -46,7 +46,7 @@
 - (void)refresh{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        id result = [self.propAppDelegate.propGatewayOnline getAdvanceSearchResults:_propSearchFor in:[self.propAppDelegate.propDictSearchIns objectForKey:_propSearchIn] location:_propSearchLocationID radius:_propSearchDistance jobType:[self.propAppDelegate.propDictJobTypesForSearch objectForKey:_propSearchJobType] country:_propSearchCountryID postedWithin:_propSearchPostedWithin];
+        id result = [self.propAppDelegate.propGatewayOnline getAdvanceSearchResults:_propSearchFor in:[self.propAppDelegate.propDictSearchIns objectForKey:_propSearchIn] location:_propSearchLocationID radius:_propSearchDistance jobType:[self.propAppDelegate.propDictJobTypesz allKeysForObject:_propSearchJobType][0] country:_propSearchCountryID postedWithin:_propSearchPostedWithin];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [_propListJobs removeAllObjects];
@@ -139,7 +139,7 @@
         VCSaveSearch *vcSaveSearch = (VCSaveSearch *)segue.destinationViewController;
         vcSaveSearch.propSearchInID = [self.propAppDelegate.propDictSearchIns objectForKey:_propSearchIn];
         vcSaveSearch.propSearchIn = _propSearchIn;
-        vcSaveSearch.propJobTypeID = [self.propAppDelegate.propDictJobTypesForSearch objectForKey:_propSearchJobType];
+        vcSaveSearch.propJobTypeID = [self.propAppDelegate.propDictJobTypesz allKeysForObject:_propSearchJobType][0];
         vcSaveSearch.propJobType = _propSearchJobType;
         vcSaveSearch.propCountryID = _propSearchCountryID;
         vcSaveSearch.propPostedWithin = _propSearchPostedWithin;

@@ -361,28 +361,34 @@
         
         _propListLanguages = @[USER_LANG_AFRIKAANS, USER_LANG_ALGERIAN, USER_LANG_ARABIC, USER_LANG_AWADHI, USER_LANG_AZERBAIJANI, USER_LANG_BENGALI, USER_LANG_BHOJPURI, USER_LANG_BOSNIAN, USER_LANG_BURMESE, USER_LANG_CHILEAN, USER_LANG_CHINESE, USER_LANG_CROATIAN, USER_LANG_DANISH, USER_LANG_DUTCH, USER_LANG_ENGLISH, USER_LANG_FILIPINO, USER_LANG_FRENCH, USER_LANG_GERMAN, USER_LANG_GREEK, USER_LANG_GUJARATI, USER_LANG_HAUSA, USER_LANG_HINDI, USER_LANG_INDONESIANBAHASA, USER_LANG_ITALIAN, USER_LANG_JAPANESE, USER_LANG_JAVANESE, USER_LANG_KANNADA, USER_LANG_KAZAKH, USER_LANG_KOREAN, USER_LANG_MAITHILI, USER_LANG_MALAYALAM, USER_LANG_MALAYSIANBAHASA, USER_LANG_MARATHI, USER_LANG_MONGOLIAN, USER_LANG_ORIYA, USER_LANG_PANJABI, USER_LANG_PAPUANLANGUAGES, USER_LANG_PERSIAN, USER_LANG_POLISH, USER_LANG_PORTUGUESE, USER_LANG_ROMANIAN, USER_LANG_RUSSIAN, USER_LANG_SERBIAN, USER_LANG_SINDHI, USER_LANG_SPANISH, USER_LANG_SUNDA, USER_LANG_TAMIL, USER_LANG_TELUGU, USER_LANG_THAI, USER_LANG_TOKPISIN, USER_LANG_TURKISH, USER_LANG_UKRAINIAN, USER_LANG_URDU, USER_LANG_VIETNAMESE, USER_LANG_YORUBA];
         
-        _propListDocumentTypes = @[@"Unknown", @"Photo", @"References", @"General", @"Form", @"Contract", @"CV", @"Certificate", @"Work Permit", @"Medicals", @"Identification", @"Empoloyment Auth", @"Security Clearance", @"Passport", @"Visa", @"Qoualification", @"Driving License", @"Criminal Convictions", @"Disability Information", @"CV Others"];
+        _propListDocumentTypes = @[@"Unknown", @"CV", @"Certificate", @"Criminal Record Check", @"Candidate Assessment", @"Approvals", @"Work Permit", @"Medicals",
+                                   @"Identification", @"Employment Auth", @"Security Clearance", @"Interview Notes", @"Passport", @"Visa", @"Offer", @"Qualification",
+                                   @"Driving License", @"CV Prepped", @"On Boarding", @"Candidate Permission", @"Criminal Convictions", @"Disability Information",
+                                   @"CV Other"];
         
         _propDictDocumentTypes = @{@"Unknown" : @0,
-                                   @"Photo" : @1,
-                                   @"References" : @2,
-                                   @"General" : @3,
-                                   @"Form" : @4,
-                                   @"Contract" : @5,
                                    @"CV" : @20,
                                    @"Certificate" : @21,
+                                   @"Criminal Record Check" : @23,
+                                   @"Candidate Assessment" : @24,
+                                   @"Approvals" : @25,
                                    @"Work Permit" : @26,
                                    @"Medicals" : @27,
                                    @"Identification" : @28,
-                                   @"Empoloyment Auth" : @29,
+                                   @"Employment Auth" : @29,
                                    @"Security Clearance" : @30,
+                                   @"Interview Notes" : @31,
                                    @"Passport" : @32,
                                    @"Visa" : @33,
-                                   @"Qoualification" : @35,
+                                   @"Offer" : @34,
+                                   @"Qualification" : @35,
                                    @"Driving License" : @36,
+                                   @"CV Prepped" : @37,
+                                   @"On Boarding" : @38,
+                                   @"Candidate Permission" : @39,
                                    @"Criminal Convictions" : @40,
                                    @"Disability Information" : @41,
-                                   @"CV Others" : @42 };
+                                   @"CV Other" : @42 };
     }
     
     return self;

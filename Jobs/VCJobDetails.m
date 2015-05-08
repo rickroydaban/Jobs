@@ -41,6 +41,7 @@
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
                 [[[UIAlertView alloc] initWithTitle:@" " message:self.propAppDelegate.messageErrorGeneral delegate:nil cancelButtonTitle:self.propAppDelegate.cancelButton otherButtonTitles:nil, nil] show];
             }else{
+                self.navigationItem.title = [_jobDetail getTitle];
                 self.propLv.delegate = self;
                 self.propLv.dataSource = self;
                 self.propLv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
