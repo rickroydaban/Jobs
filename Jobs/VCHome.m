@@ -11,6 +11,7 @@
 #import "CellLatestVacancy.h"
 #import "VCJobDetails.h"
 
+
 @implementation VCHome
 
 - (void)viewDidLoad{
@@ -20,6 +21,9 @@
     self.propLV.delegate = self;
     self.propLV.dataSource = self;
     self.propLV.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    self.propLV.rowHeight = UITableViewAutomaticDimension;
+    self.propLV.estimatedRowHeight = 999.0; // set to whatever your "average" cell height is
     [self resetTableContents];
 }
 
@@ -62,7 +66,6 @@
     cell.propLabelLocation.text = [job getCountry];
     cell.propLabelType.text = @"Permanent";
     cell.propLabelSalary.text = @"Negotiable";
-    cell.tag = indexPath.row;
     
     return cell;
 }
@@ -75,10 +78,19 @@
     
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    VCJobDetails *vcJobDetails = (VCJobDetails *)segue.destinationViewController;
-    vcJobDetails.propJob = [_propListVacancies objectAtIndex:((UITableViewCell *)sender).tag];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    VCJobDetails *vcJobDetails = [[self.propAppDelegate.propPageNavigator getSearchDetailPage].viewControllers objectAtIndex:0];
+    vcJobDetails.propJob = [_propListVacancies objectAtIndex:indexPath.row];
     vcJobDetails.shouldShowApplyButton = YES;
+    
+    [self.navigationController pushViewController:vcJobDetails animated:YES];
 }
+
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+//    NSLog(@"prepare to segue at %d",_selIndex);
+//    VCJobDetails *vcJobDetails = (VCJobDetails *)segue.destinationViewController;
+//    vcJobDetails.propJob = [_propListVacancies objectAtIndex:_selIndex];
+//    vcJobDetails.shouldShowApplyButton = YES;
+//}
 
 @end

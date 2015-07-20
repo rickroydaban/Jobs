@@ -31,6 +31,7 @@
     _pickerJobTypes = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propListJobTypes rowSelectionDelegate:self selectedItem:nil];
     _pickerPostedWithins = [[VelosiCustomPicker alloc] initWithArray:self.propAppDelegate.propListPostedWithins rowSelectionDelegate:self selectedItem:nil];
     
+    self.navigationItem.title = [_propSavedSearch getName];
     NSLog(@"name %@",[_propSavedSearch getName]);
     _propFieldName.text = [_propSavedSearch getName];
     NSLog(@"search for %@",[_propSavedSearch getSearchFor]);

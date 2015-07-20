@@ -16,6 +16,7 @@
 - (void)logout;
 - (UINavigationController *)getVCHome;
 - (UINavigationController *)getVCSearchPage;
+- (UINavigationController *)getSearchDetailPage;
 - (UINavigationController *)getLoginNavigator;
 - (UINavigationController *)getUserDetailNavigator;
 - (UINavigationController *)getUserSearchesNavigator;

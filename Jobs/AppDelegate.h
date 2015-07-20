@@ -3,7 +3,7 @@
 //  ApplusJobs
 //
 //  Created by Rick Royd Aban on 9/23/14.
-//  Copyright (c) 2014 applusvelosi. All rights reserved.
+//  Copyright (c) 2014 applusvelosi. All rights reserved.   
 //
 // AppDelegate is theoritically accessible everywhere  in the controller classes so CLASSES THAT NEEDS TO BE GLOBALLY ACCESSIBLE MUST BE DECLARED HERE
 // to get this instance from a view controller, JUST CALL [self sharedApplication].delegate

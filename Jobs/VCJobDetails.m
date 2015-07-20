@@ -11,14 +11,22 @@
 #import "VelosiColors.h"
 #import "CellDetail.h"
 #import "Application.h"
+#import "User.h"
 
 @interface VCJobDetails(){
     Job *_jobDetail;
-    CGFloat _cellDetailHeight;
-    UIWebView *_detailWebView;
     UITextView *_coverLetter;
-    IBOutlet UIBarButtonItem *propBarButtonApply;
     UIAlertView *alert;
+    IBOutlet UIBarButtonItem *propBarButtonApply;
+    IBOutlet UILabel *propLabelJobType;
+    IBOutlet UILabel *propLabelDuration;
+    IBOutlet UILabel *propLabelStartDate;
+    IBOutlet UILabel *propLabelLocation;
+    IBOutlet UILabel *propLabelSalary;
+    IBOutlet UILabel *propLabelContact;
+    IBOutlet UIWebView *propWebviewDesc;
+    
+    float descHeight;
 }
 @end
 
@@ -26,13 +34,14 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-
+    
+    descHeight = 49.0;
+    
     self.navigationItem.rightBarButtonItem = (self.shouldShowApplyButton)?propBarButtonApply:nil;
     
     _coverLetter = [[UITextView alloc] init];
     _coverLetter.font = [UIFont systemFontOfSize:14];
     
-    _detailWebView = 0;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         _jobDetail = [self.propAppDelegate.propGatewayOnline getJobDetailById:[_propJob getJobID]];
@@ -42,71 +51,24 @@
                 [[[UIAlertView alloc] initWithTitle:@" " message:self.propAppDelegate.messageErrorGeneral delegate:nil cancelButtonTitle:self.propAppDelegate.cancelButton otherButtonTitles:nil, nil] show];
             }else{
                 self.navigationItem.title = [_jobDetail getTitle];
-                self.propLv.delegate = self;
-                self.propLv.dataSource = self;
-                self.propLv.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+                propLabelJobType.text = [_jobDetail getTypeDescription];
+                propLabelDuration.text = [_jobDetail getDuration];
+                propLabelStartDate.text = [_jobDetail getStartDate];
+                propLabelLocation.text = [_jobDetail getLocation];
+                propLabelSalary.text = [_jobDetail getSalary];
+                propLabelContact.text = [_jobDetail getContactName];
+                propWebviewDesc.delegate = self;
+                [propWebviewDesc loadHTMLString:[_jobDetail getDetails] baseURL:nil];
             }
         });
     });
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    switch (indexPath.section) {
-        case 0:{
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-            cell.textLabel.text = [[Job getJobDetailLabels] objectAtIndex:indexPath.row];
-            
-            switch (indexPath.row) {
-                case 0: cell.detailTextLabel.text = [_jobDetail getTypeDescription]; break;
-                case 1: cell.detailTextLabel.text = [_jobDetail getDuration]; break;
-                case 2: cell.detailTextLabel.text = [_jobDetail getStartDate]; break;
-                case 3: cell.detailTextLabel.text = [_jobDetail getLocation]; break;
-                case 4: cell.detailTextLabel.text = ([[_jobDetail getSalary] isEqualToString:@""])?@"N/A":[_jobDetail getSalary]; break;
-                case 5: cell.detailTextLabel.text = [_jobDetail getContactName]; break;
-                default: cell.detailTextLabel.text = @"FIX ME";
-            }
-                    
-            return cell;
-        }
-           
-        default:{
-            CellDetail *cellDetail = [tableView dequeueReusableCellWithIdentifier:@"cellDetail"];
-            CGRect frame = cellDetail.webView.frame;
-            [cellDetail.webView removeFromSuperview];
-            
-            UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, _cellDetailHeight)];
-            webView.userInteractionEnabled = NO;
-            [webView loadHTMLString:[_jobDetail getDetails] baseURL:nil];
-            [cellDetail.contentView addSubview:webView];
-            return cellDetail;
-        }
-            
-    }    
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    switch (indexPath.section) {
-        case 0:
-            return 49;
-
-        default:;
-            if(_cellDetailHeight < 1){
-                _detailWebView = ((CellDetail *)[self.propLv dequeueReusableCellWithIdentifier:@"cellDetail"]).webView;
-                _detailWebView.delegate = self;
-                [_detailWebView loadHTMLString:[_jobDetail getDetails] baseURL:nil];
-            }
-            return _cellDetailHeight;
-    }
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    switch (section) {
-        case 0:
-            return [Job getJobDetailLabels].count;
-            
-        default:
-            return 1;
-    }
+    if(indexPath.section == 1)
+        return descHeight;
+    
+    return 49.0;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -126,11 +88,12 @@
     return 2;
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView{
-    BOOL shouldReload = (_cellDetailHeight<1)?YES:NO;
-    _cellDetailHeight = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight;"] floatValue]+10;
-    if(shouldReload)
-        [self.propLv reloadData];
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [propWebviewDesc sizeToFit];
+    float webHeight = propWebviewDesc.frame.size.height;
+    descHeight = webHeight;
+    [self.tableView reloadData];
+    
     [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 

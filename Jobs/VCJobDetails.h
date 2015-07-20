@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import "VCPage.h"
+#import "VCDetail.h"
 #import "JobSummary.h"
 
-@interface VCJobDetails : VCPage<UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate, UIAlertViewDelegate>
+//@interface VCJobDetails : VCPage<UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate, UIAlertViewDelegate>
+@interface VCJobDetails :VCDetail<UIAlertViewDelegate, UIWebViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UITableView *propLv;
 @property (strong, nonatomic) JobSummary *propJob;
 @property (assign, nonatomic) BOOL shouldShowApplyButton;
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <objects>
@@ -13,20 +12,28 @@
             <subviews>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright (c) 2014 applusvelosi. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8ie-xW-0ye">
                     <rect key="frame" x="20" y="527" width="281" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="281" id="bnA-g4-Xh4"/>
+                        <constraint firstAttribute="height" constant="21" id="iym-Q5-goy"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wDS-S8-Lhp">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wDS-S8-Lhp">
                     <rect key="frame" x="0.0" y="195" width="320" height="178"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Velosi Jobs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GkV-JR-P6C">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Velosi Jobs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GkV-JR-P6C">
                             <rect key="frame" x="88" y="105" width="144" height="33"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="144" id="6Xy-62-Ip7"/>
+                                <constraint firstAttribute="height" constant="33" id="aCh-2b-6wu"/>
+                            </constraints>
                             <fontDescription key="fontDescription" name="TrebuchetMS-Bold" family="Trebuchet MS" pointSize="20"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="logo_applusvelosi" translatesAutoresizingMaskIntoConstraints="NO" id="vTu-fK-fVG">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_applusvelosi" translatesAutoresizingMaskIntoConstraints="NO" id="vTu-fK-fVG">
                             <rect key="frame" x="87" y="30" width="147" height="67"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="147" id="M0b-fi-4An"/>
@@ -36,21 +43,22 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="vTu-fK-fVG" firstAttribute="top" secondItem="wDS-S8-Lhp" secondAttribute="top" constant="30" id="0Es-Wl-3qR"/>
-                        <constraint firstAttribute="centerX" secondItem="vTu-fK-fVG" secondAttribute="centerX" constant="19.5" id="NZ4-C2-Vm3"/>
-                        <constraint firstItem="GkV-JR-P6C" firstAttribute="top" secondItem="vTu-fK-fVG" secondAttribute="bottom" constant="8" id="zO7-yd-hVQ"/>
+                        <constraint firstAttribute="centerX" secondItem="vTu-fK-fVG" secondAttribute="centerX" constant="-0.5" id="BDq-MH-yvb"/>
+                        <constraint firstItem="vTu-fK-fVG" firstAttribute="top" secondItem="wDS-S8-Lhp" secondAttribute="top" constant="30" id="Xnr-MJ-Y62"/>
+                        <constraint firstAttribute="centerX" secondItem="GkV-JR-P6C" secondAttribute="centerX" id="b7m-xe-Am3"/>
+                        <constraint firstAttribute="bottom" secondItem="GkV-JR-P6C" secondAttribute="bottom" constant="40" id="wFS-I3-mk2"/>
+                        <constraint firstItem="GkV-JR-P6C" firstAttribute="top" secondItem="vTu-fK-fVG" secondAttribute="bottom" constant="8" id="yCL-NY-cQY"/>
                     </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" red="1" green="0.50196078431372548" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="centerY" secondItem="wDS-S8-Lhp" secondAttribute="centerY" id="AVX-a6-dm2"/>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="8ie-xW-0ye" secondAttribute="bottom" constant="20" id="BZM-B1-IXo"/>
-                <constraint firstAttribute="bottom" secondItem="8ie-xW-0ye" secondAttribute="bottom" constant="20" id="Kzo-t9-V3l"/>
-                <constraint firstAttribute="centerX" secondItem="wDS-S8-Lhp" secondAttribute="centerX" id="MXb-Kf-eJG"/>
-                <constraint firstItem="8ie-xW-0ye" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="MfP-vx-nX0"/>
-                <constraint firstAttribute="centerX" secondItem="8ie-xW-0ye" secondAttribute="centerX" id="ZEH-qu-HZ9"/>
-                <constraint firstAttribute="centerX" secondItem="8ie-xW-0ye" secondAttribute="centerX" constant="-0.5" id="axv-v4-rio"/>
+                <constraint firstAttribute="centerX" secondItem="8ie-xW-0ye" secondAttribute="centerX" constant="-0.5" id="2xF-7M-Abe"/>
+                <constraint firstAttribute="trailing" secondItem="wDS-S8-Lhp" secondAttribute="trailing" id="7Qd-0R-dfQ"/>
+                <constraint firstItem="wDS-S8-Lhp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="MwT-Eq-FmO"/>
+                <constraint firstAttribute="centerX" secondItem="wDS-S8-Lhp" secondAttribute="centerX" id="aQa-3e-Q0c"/>
+                <constraint firstAttribute="centerY" secondItem="wDS-S8-Lhp" secondAttribute="centerY" id="gvF-2d-yxK"/>
+                <constraint firstAttribute="bottom" secondItem="8ie-xW-0ye" secondAttribute="bottom" constant="20" id="nq1-wh-slr"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

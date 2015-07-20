@@ -60,7 +60,6 @@
     self.propDateExpiry.text = [self.propAppDelegate.propDateFormatVelosi stringFromDate:_dateExpiryPicker.date];
 }
 
-
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
     [super textFieldDidBeginEditing:textField];
     

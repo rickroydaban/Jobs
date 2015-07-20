@@ -102,11 +102,20 @@
     [self refresh];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    Application *application = [_propListApplications objectAtIndex:((CellApplication *)sender).tag];
-    VCJobDetails *jobdetails = (VCJobDetails *)segue.destinationViewController;
-    jobdetails.propJob = [[JobSummary alloc] initWithId:[[application getVacancyID] intValue] title:nil reference:[application getVacancyRef] country:nil dateAdded:nil details:nil];
-    jobdetails.shouldShowApplyButton = false;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    Application *application = [_propListApplications objectAtIndex:indexPath.row];
+    VCJobDetails *vcJobDetails = [[self.propAppDelegate.propPageNavigator getSearchDetailPage].viewControllers objectAtIndex:0];
+    vcJobDetails.propJob = [[JobSummary alloc] initWithId:[[application getVacancyID] intValue] title:nil reference:[application getVacancyRef] country:nil dateAdded:nil details:nil];
+    vcJobDetails.shouldShowApplyButton = NO;
+    
+    [self.navigationController pushViewController:vcJobDetails animated:YES];
 }
+
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+//    Application *application = [_propListApplications objectAtIndex:((CellApplication *)sender).tag];
+//    VCJobDetails *jobdetails = (VCJobDetails *)segue.destinationViewController;
+//    jobdetails.propJob = [[JobSummary alloc] initWithId:[[application getVacancyID] intValue] title:nil reference:[application getVacancyRef] country:nil dateAdded:nil details:nil];
+//    jobdetails.shouldShowApplyButton = false;
+//}
 
 @end

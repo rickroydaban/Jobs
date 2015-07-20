@@ -14,7 +14,6 @@
 #import "VCSaveSearch.h"
 
 @interface VCJobSummary(){
-    NSMutableArray *_heights;
     JobSummary *_selectedJob;
 }
 @end
@@ -24,7 +23,6 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     _propListJobs = [NSMutableArray array];
-    _heights = [NSMutableArray array];
     
     self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveSearch)]];
     
@@ -32,6 +30,9 @@
     self.propLv.dataSource = self;
     self.propLv.delegate = self;
     self.propLv.separatorColor = [VelosiColors listSeparator];
+    self.propLv.rowHeight = UITableViewAutomaticDimension;
+    self.propLv.estimatedRowHeight = 44.0;
+    
     [self refresh];
 }
 
@@ -63,56 +64,16 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITextView *newDescTV;
-    CGFloat newHeight = [[_heights objectAtIndex:indexPath.row] floatValue];
-    
     CellJobSummary *cell = (CellJobSummary *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
     JobSummary *job = [self.propListJobs objectAtIndex:indexPath.row];
     cell.fieldTitle.text = [job getTitle];
     cell.fieldReference.text = [NSString stringWithFormat:@"Reference: %@",[job getReference]];
     cell.fieldCountry.text = [job getCountry];
     cell.fieldAddDate.text = [NSString stringWithFormat:@"Added on %@",[job getDateAdded]];
-    cell.fieldDescription.text = @"";
-    
-    if([cell.fieldDescription isDescendantOfView:cell.fieldTitle.superview]){
-        CGRect oldFrame = cell.fieldDescription.frame;
-        UIView *superView = (UIView *)cell.fieldTitle.superview;
-        newDescTV = [[UITextView alloc] initWithFrame:CGRectMake(oldFrame.origin.x, oldFrame.origin.y, oldFrame.size.width, newHeight)];
-        newDescTV.tag = 4;
-        newDescTV.editable = NO;
-        [cell.fieldDescription removeFromSuperview];
-        [superView addSubview:newDescTV];
-        cell.tag = indexPath.row;
-    }else{
-        for(UIView *temp in [cell.fieldTitle.superview subviews]){
-            if(temp.tag == 4){
-                newDescTV = (UITextView *)temp;
-                break;
-            }
-        }
-    }
-    
-    CGRect frame = newDescTV.frame;
-    newDescTV.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, newHeight);
-    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[[job getDetails] dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
-    newDescTV.attributedText = attributedString;
-    newDescTV.font = [UIFont systemFontOfSize:13];
-    newDescTV.textColor = [VelosiColors blackFont];
-    newDescTV.userInteractionEnabled = NO;
-    newDescTV.textContainer.size = CGSizeMake(frame.size.width, newHeight);
-    newDescTV.backgroundColor = [UIColor clearColor];
+    cell.fieldDescription.attributedText = [[NSAttributedString alloc] initWithData:[[job getDetails] dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+    [cell.fieldDescription setUserInteractionEnabled:NO];
     
     return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    CellJobSummary *cell = (CellJobSummary *)[self.propLv dequeueReusableCellWithIdentifier:@"cell"];
-    JobSummary *job = (JobSummary *)[self.propListJobs objectAtIndex:indexPath.row];
-    cell.fieldDescription.text = [job getDetails];
-    CGSize estimatedSize = [cell.fieldDescription sizeThatFits:CGSizeMake(cell.fieldDescription.frame.size.width, 999)];
-    CGFloat rowHeight = estimatedSize.height+100;
-    [_heights addObject:[NSString stringWithFormat:@"%f",estimatedSize.height]];
-    return rowHeight;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -134,6 +95,14 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    VCJobDetails *vcJobDetails = [[self.propAppDelegate.propPageNavigator getSearchDetailPage].viewControllers objectAtIndex:0];
+    vcJobDetails.propJob = [self.propListJobs objectAtIndex:indexPath.row];
+    vcJobDetails.shouldShowApplyButton = YES;
+    
+    [self.navigationController pushViewController:vcJobDetails animated:YES];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if([segue.identifier isEqualToString:@"segueJobSummaryToSave"]){
         VCSaveSearch *vcSaveSearch = (VCSaveSearch *)segue.destinationViewController;
@@ -150,10 +119,6 @@
         vcSaveSearch.propLng = @"0";
         vcSaveSearch.propDistance = _propSearchDistance;
         
-    }else{
-        VCJobDetails *vcJobDetails = (VCJobDetails *)segue.destinationViewController;
-        vcJobDetails.propJob = [self.propListJobs objectAtIndex:((CellJobSummary *)sender).tag];
-        vcJobDetails.shouldShowApplyButton = true;
     }
 }
 

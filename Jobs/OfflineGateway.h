@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 applusvelosi. All rights reserved.
 //
 
-#import "User.h"
+@class User;
 
 @interface OfflineGateway : NSObject
 

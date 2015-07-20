@@ -23,6 +23,7 @@
     [super viewDidLoad];
     
     if(_propEmployment != nil){
+        self.navigationItem.title = [_propEmployment getJobTitle];
         self.propFieldJobTitle.text = [_propEmployment getJobTitle];
         self.propFieldDateStart.text = [_propEmployment getDateStart];
         self.propFieldDateEnd.text = [_propEmployment getDateEnd];
